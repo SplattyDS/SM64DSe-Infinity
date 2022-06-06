@@ -38,7 +38,7 @@ namespace SM64DSe
                 return;
             }
 
-            if (Program.m_ROMPath != "" || Program.m_IsROMFolder)
+            if (Program.m_ROMPath != "")
             {
                 while (Program.m_LevelEditors.Count > 0)
                     Program.m_LevelEditors[0].Close();
@@ -47,27 +47,9 @@ namespace SM64DSe
                 Program.m_ROM.EndRW();
             }
 
-            Program.m_IsROMFolder = false;
             Program.m_ROMPath = filename;
-            try { Program.m_ROM = new NitroROM(Program.m_ROMPath); }
-            catch (Exception ex)
-            {
-                string msg;
-
-                if (ex is IOException)
-                    msg = "The ROM couldn't be opened. Close any program that may be using it and try again.";
-                else
-                    msg = "The following error occured while loading the ROM:\n" + ex.Message;
-
-                MessageBox.Show(msg, Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                if (Program.m_ROM != null)
-                {
-                    Program.m_ROM.EndRW();
-                }
-                Program.m_ROMPath = "";
-                return;
-            }
+            Console.WriteLine($"m_ROMPath: {Program.m_ROMPath}");
+            Program.m_ROM = new NitroROM(Program.m_ROMPath);
 
             Program.m_ROM.BeginRW();
             if (Program.m_ROM.NeedsPatch())
@@ -136,65 +118,10 @@ namespace SM64DSe
             btnASMHacking.Enabled = true;
             btnTools.Enabled = true;
             btnMore.Enabled = true;
-            extractROMButton.Visible = true;
-            btnBuildROM.Visible = false;
-            btnRunROM.Visible = false;
             btnLZCompressWithHeader.Enabled = true;
             btnLZDecompressWithHeader.Enabled = true;
             btnLZForceCompression.Enabled = true;
             btnLZForceDecompression.Enabled = true;
-        }
-
-        private void LoadROMExtracted(string basePath, string patchPath, string conversionPath, string buildPath) {
-            Program.m_IsROMFolder = true;
-            Program.m_ROMBasePath = basePath;
-            Program.m_ROMPatchPath = patchPath;
-            Program.m_ROMConversionPath = conversionPath;
-            Program.m_ROMBuildPath = buildPath;
-            Program.m_ROM = new NitroROM(basePath, patchPath);
-            Program.m_ROM.LoadTables();
-            btnRefresh.Enabled = true;
-            cbLevelListDisplay.Enabled = true;
-
-            if (cbLevelListDisplay.SelectedIndex == -1)
-                cbLevelListDisplay.SelectedIndex = 0;
-            else
-                btnRefresh.PerformClick();
-
-            this.tvFileList.Nodes.Clear();
-            ROMFileSelect.LoadFileList(this.tvFileList);
-            this.tvARM9Overlays.Nodes.Clear();
-            ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
-
-            btnASMHacking.Enabled = true;
-            btnTools.Enabled = true;
-            btnMore.Enabled = true;
-            btnBuildROM.Visible = true;
-            btnRunROM.Visible = true;
-            extractROMButton.Visible = false;
-            btnLZCompressWithHeader.Enabled = false;
-            btnLZDecompressWithHeader.Enabled = false;
-            btnLZForceCompression.Enabled = false;
-            btnLZForceDecompression.Enabled = false;
-        }
-
-        private void EnableOrDisableASMHackingCompilationAndGenerationFeatures()
-        {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
-            {
-                btnASMHacking.DropDownItems.Remove(mnitASMHackingCompilation);
-                btnASMHacking.DropDownItems.Remove(mnitASMHackingGeneration);
-                btnASMHacking.DropDownItems.Remove(tssASMHacking001);
-            }
-            else
-            {
-                if (btnASMHacking.DropDownItems.IndexOf(mnitASMHackingCompilation) < 0)
-                {
-                    btnASMHacking.DropDownItems.Insert(0, mnitASMHackingCompilation);
-                    btnASMHacking.DropDownItems.Insert(1, mnitASMHackingGeneration);
-                    btnASMHacking.DropDownItems.Insert(2, tssASMHacking001);
-                }
-            }
         }
 
         public MainForm(string[] args)
@@ -276,50 +203,6 @@ namespace SM64DSe
         {
             if (ofdOpenFile.ShowDialog(this) == DialogResult.OK)
                 LoadROM(ofdOpenFile.FileName);
-        }
-
-        private void btnOpenFilesystem_Click(object sender, EventArgs e) {
-            OpenFileDialog f = new OpenFileDialog();
-            f.Title = "Select Settings File (If Exists)";
-            f.Filter = "ROM Settings|*.romsettings";
-            if (f.ShowDialog() == DialogResult.OK) {
-                string[] inSettings = File.ReadAllLines(f.FileName);
-                Program.m_ROMPath = f.FileName;
-                LoadROMExtracted(inSettings[0], inSettings[1], inSettings[2], inSettings[3]);
-                return;
-            }
-            FolderBrowserDialog fd = new FolderBrowserDialog();
-            fd.Description = "ROM Base Folder";
-            if (fd.ShowDialog(this) == DialogResult.OK) {
-                string basePath = fd.SelectedPath;
-                fd.Description = "ROM Patch Folder";
-                if (fd.ShowDialog(this) == DialogResult.OK) {
-                    string patchPath = fd.SelectedPath;
-                    fd.Description = "ROM Conversion Folder";
-                    if (fd.ShowDialog(this) == DialogResult.OK) {
-                        SaveFileDialog sfd = new SaveFileDialog();
-                        sfd.Filter = "DS ROM|*.nds";
-                        sfd.Title = "Output ROM";
-                        if (sfd.ShowDialog(this) == DialogResult.OK) {
-                            string buildPath = sfd.FileName;
-                            sfd.Title = "Save Settings File";
-                            sfd.Filter = "ROM Settings|*.romsettings";
-                            sfd.FileName = "";
-                            if (sfd.ShowDialog(this) == DialogResult.OK) {
-                                string[] outSettings = new string[] {
-                                    basePath,
-                                    patchPath,
-                                    fd.SelectedPath,
-                                    buildPath
-                                };
-                                File.WriteAllLines(sfd.FileName, outSettings);
-                                Program.m_ROMPath = sfd.FileName;
-                                LoadROMExtracted(basePath, patchPath, fd.SelectedPath, buildPath);
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         private void OpenLevel(int levelid)
@@ -736,59 +619,66 @@ namespace SM64DSe
             List<string> ids = new List<string>();
             List<string> internalNames = new List<string>();
             List<string> names = new List<string>();
-            foreach (String lvlName in Strings.LevelNames) {
+
+            foreach (string lvlName in Strings.LevelNames)
+            {
                 ids.Add("[" + i + "]");
                 internalNames.Add(Program.m_ROM.GetInternalLevelNameFromID(i));
                 names.Add(lvlName);
                 i++;
             }
             i = 0;
-            if (cbLevelListDisplay.SelectedIndex == 0) {
+            if (cbLevelListDisplay.SelectedIndex == 0)
+            {
                 int maxIdLen = ids.Select(x => x.Length).Max();
-                int maxInternalLen = internalNames.Select(x => x.Length).Max();
-                foreach (String lvlName in Strings.LevelNames) {
+                int maxInternalLen = internalNames.Select(x => x.Length).Max() + 16;
+                foreach (string lvlName in Strings.LevelNames)
+                {
                     string id = ids[i];
-                    while (id.Length < maxIdLen + 1) {
+                    while (id.Length < maxIdLen + 1)
                         id += " ";
-                    }
+
                     string internalN = internalNames[i];
-                    int numTabs = (maxInternalLen - internalN.Length) / 11;
-                    while (internalN.Length < maxInternalLen + 1) {
-                        internalN += " ";
-                    }
-                    for (int j = 0; j < numTabs; j++) {
+                    int numTabs = ((maxInternalLen + (maxInternalLen % 8)) - (internalN.Length + (8 - internalN.Length % 8))) / 8;
+
+                    for (int j = 0; j < numTabs; j++)
                         internalN += "\t";
-                    }
-                    lbxLevels.Items.Add(id + "\t" + internalN + "\t\t" + names[i]);
+
+                    lbxLevels.Items.Add(id + "\t" + internalN + names[i]);
                     i++;
                 }
-            } else if (cbLevelListDisplay.SelectedIndex == 1)
+            }
+            else if (cbLevelListDisplay.SelectedIndex == 1)
             {
-                foreach (String lvlName in Strings.LevelNames)
+                foreach (string lvlName in Strings.LevelNames)
                 {
                     lbxLevels.Items.Add(lvlName);
                     i++;
                 }
-            } else if (cbLevelListDisplay.SelectedIndex == 2)
+            }
+            else if (cbLevelListDisplay.SelectedIndex == 2)
             {
-                foreach (String lvlName in Strings.ShortLvlNames)
+                foreach (string lvlName in Strings.ShortLvlNames)
                 {
                     lbxLevels.Items.Add(i + "\t[" + internalNames[i] + "]");
                     i++;
                 }
-            } else if (cbLevelListDisplay.SelectedIndex == 3)
+            }
+            else if (cbLevelListDisplay.SelectedIndex == 3)
             {
-                foreach (String lvlName in Strings.ShortLvlNames)
+                foreach (string lvlName in Strings.ShortLvlNames)
                 {
                     lbxLevels.Items.Add(lvlName + " [" + internalNames[i] + "]");
                     i++;
                 }
-            } else {
+            }
+            else
+            {
                 int hubCounter = 1;
-                foreach (String lvlName in Strings.ShortLvlNames)
+                foreach (string lvlName in Strings.ShortLvlNames)
                 {
                     ushort selectorId = Program.m_ROM.GetActSelectorIdByLevelID(i);
-                    String lvlString = "";
+                    string lvlString = "";
                     if (selectorId < 29)
                     {
                         lvlString = Program.m_ROM.GetInternalLevelNameFromID(i);
@@ -804,7 +694,7 @@ namespace SM64DSe
                             lvlString = lvlString.Remove(0, 1);
 
 
-                        String optimizedLvlString = "";
+                        string optimizedLvlString = "";
                         char lastChar = ' ';
                         foreach(char c in lvlString)
                         {
@@ -1073,47 +963,9 @@ namespace SM64DSe
 
         }
 
-        private void fixMultiplayerChecksToolStripMenuItem_Click(object sender, EventArgs e) {
-            //DOES NOT WORK!!!
-            /*if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
-                MessageBox.Show("This is for EUR ROMs only!");
-                return;
-            }
-            Program.m_ROM.StartFilesystemEdit();
-            for (int i = 0; i < Program.m_ROM.m_OverlayEntries.Length; i++) {
-                Program.m_ROM.m_OverlayEntries[i].Flags &= 0xFFFFFFFD;
-            }
-            Program.m_ROM.SaveFilesystem();*/
-        }
-
         private void tsToolBar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
-        }
-
-        private void extractROMButton_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog fd = new FolderBrowserDialog();
-            fd.Description = "Destination ROM Folder";
-            if (fd.ShowDialog() == DialogResult.OK) {
-                string romPath = fd.SelectedPath;
-                fd.Description = "Destination Conversion Folder";
-                if (fd.ShowDialog() == DialogResult.OK) {
-                    string conversionPath = fd.SelectedPath;
-                    var rom = new Ndst.ROM(Program.m_ROMPath, conversionPath);
-                    rom.Extract(romPath);
-                }
-            }
-        }
-
-        private void btnBuildROM_Click(object sender, EventArgs e)
-        {
-            NitroROM.BuildROM();
-        }
-
-        private void btnRunROM_Click(object sender, EventArgs e)
-        {
-            NitroROM.RunROM();
         }
 
         private void particleTextureSPTEditorToolStripMenuItem_Click(object sender, EventArgs e)

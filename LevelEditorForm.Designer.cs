@@ -153,8 +153,6 @@ namespace SM64DSe
             this.btnStar6 = new System.Windows.Forms.ToolStripButton();
             this.btnStar7 = new System.Windows.Forms.ToolStripButton();
             this.btnStarAll = new System.Windows.Forms.ToolStripButton();
-            this.romBuildButton = new System.Windows.Forms.ToolStripButton();
-            this.romRunButton = new System.Windows.Forms.ToolStripButton();
             this.ssStatusBar = new System.Windows.Forms.StatusStrip();
             this.slStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.spcMainContainer)).BeginInit();
@@ -1385,9 +1383,7 @@ namespace SM64DSe
             this.btnStar5,
             this.btnStar6,
             this.btnStar7,
-            this.btnStarAll,
-            this.romBuildButton,
-            this.romRunButton});
+            this.btnStarAll});
             this.tsToolBar.Location = new System.Drawing.Point(0, 0);
             this.tsToolBar.Name = "tsToolBar";
             this.tsToolBar.Size = new System.Drawing.Size(957, 25);
@@ -1636,29 +1632,6 @@ namespace SM64DSe
             this.btnStarAll.Click += new System.EventHandler(this.btnStarAll_Click);
             this.btnStarAll.DoubleClick += new System.EventHandler(this.btnStarAll_DoubleClick);
             // 
-            // romBuildButton
-            // 
-            this.romBuildButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.romBuildButton.Image = global::SM64DSe.Properties.Resources.build;
-            this.romBuildButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.romBuildButton.Name = "romBuildButton";
-            this.romBuildButton.Size = new System.Drawing.Size(23, 22);
-            this.romBuildButton.Text = "toolStripButton1";
-            this.romBuildButton.ToolTipText = "Build the ROM NDS file.";
-            this.romBuildButton.Visible = false;
-            this.romBuildButton.Click += new System.EventHandler(this.romBuildButton_Click);
-            // 
-            // romRunButton
-            // 
-            this.romRunButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.romRunButton.Image = global::SM64DSe.Properties.Resources.Play;
-            this.romRunButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.romRunButton.Name = "romRunButton";
-            this.romRunButton.Size = new System.Drawing.Size(23, 20);
-            this.romRunButton.ToolTipText = "Build and run the ROM.";
-            this.romRunButton.Visible = false;
-            this.romRunButton.Click += new System.EventHandler(this.romRunButton_Click);
-            // 
             // ssStatusBar
             // 
             this.ssStatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1875,7 +1848,5 @@ namespace SM64DSe
         private System.Windows.Forms.Button btnDuplicate;
         private System.Windows.Forms.ToolStripButton btnOrthView;
         private System.Windows.Forms.ToolStripButton btnTextureAnims;
-        private System.Windows.Forms.ToolStripButton romBuildButton;
-        private System.Windows.Forms.ToolStripButton romRunButton;
     }
 }

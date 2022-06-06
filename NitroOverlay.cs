@@ -31,18 +31,6 @@ namespace SM64DSe
             m_ROM = rom;
             m_ID = id;
 
-            if (Program.m_IsROMFolder) {
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
-                Ndst.Overlay o = overlays.Where(x => x.Id == id).ElementAt(0);
-                m_FileID = o.FileId;
-                m_RAMAddr = o.RAMAddress;
-                m_Data = NitroROM.GetExtractedBytes("__ROM__/Arm9/" + id + ".bin");
-                if ((o.Flags & 0x01000000) > 0) {
-                    Jap77.Decompress(ref m_Data);
-                }
-                return;
-            }
-
             bool autorw = !m_ROM.CanRW();
             if (autorw) m_ROM.BeginRW();
 
@@ -50,7 +38,7 @@ namespace SM64DSe
             m_FileID = m_ROM.GetFileIDFromOverlayID(m_ID);
 
             m_RAMAddr = m_ROM.Read32(m_OVTEntryAddr + 0x04);
-            Byte flags = m_ROM.Read8(m_OVTEntryAddr + 0x1F);
+            byte flags = m_ROM.Read8(m_OVTEntryAddr + 0x1F);
 
             m_Data = m_ROM.ExtractFile(m_FileID);
             if ((flags & 0x01) == 0x01)
@@ -75,23 +63,8 @@ namespace SM64DSe
             Write32(addr, ptr);
         }
 
-        public void SaveChangesOld() {
-
-            if (Program.m_IsROMFolder) {
-                // first, ensure that the size is aligned to 4 byte boundary
-                if (m_Data.Length % 4 != 0) {
-                    SetSize((uint)((m_Data.Length + 3) & ~3));
-                }
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
-                Ndst.Overlay o = overlays.Where(x => x.Id == m_ID).ElementAt(0);
-                o.RAMSize = (uint)m_Data.Length;
-                o.Flags &= 0xFFFFFFFE;
-                NitroROM.WriteExtractedBytes("__ROM__/Arm9/" + m_ID + ".bin", m_Data);
-                string toWrite = JsonConvert.SerializeObject(overlays, Formatting.Indented);
-                NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
-                return;
-            }
-
+        public void SaveChangesOld()
+        {
             bool autorw = !m_ROM.CanRW();
             if (autorw) m_ROM.BeginRW();
 
@@ -123,17 +96,6 @@ namespace SM64DSe
             if (this.m_Data.Length % 4 != 0)
                 this.SetSize((uint)(this.m_Data.Length + 3 & -4));
 
-            if (Program.m_IsROMFolder) {
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
-                Ndst.Overlay o = overlays.Where(x => x.Id == m_ID).ElementAt(0);
-                o.RAMSize = (uint)m_Data.Length;
-                o.Flags &= 0xFFFFFFFE;
-                NitroROM.WriteExtractedBytes("__ROM__/Arm9/" + m_ID + ".bin", m_Data);
-                string toWrite = JsonConvert.SerializeObject(overlays, Formatting.Indented);
-                NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
-                return;
-            }
-
             NitroROM.OverlayEntry[] overlayEntries = this.m_ROM.GetOverlayEntries();
             NitroROM.OverlayEntry overlayEntry = overlayEntries[(int)this.m_ID];
             overlayEntry.RAMSize = (uint)this.m_Data.Length;
@@ -162,17 +124,6 @@ namespace SM64DSe
 
         public void SetInitializer(uint address, uint size)
         {
-
-            if (Program.m_IsROMFolder) {
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
-                Ndst.Overlay o = overlays.Where(x => x.Id == m_ID).ElementAt(0);
-                o.StaticInitStart = address;
-                o.StaticInitEnd = address + size;
-                string toWrite = JsonConvert.SerializeObject(overlays, Formatting.Indented);
-                NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
-                return;
-            }
-
             bool autorw = !m_ROM.CanRW();
             if (autorw) m_ROM.BeginRW();
 

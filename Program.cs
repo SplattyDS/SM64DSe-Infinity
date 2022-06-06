@@ -35,11 +35,6 @@ namespace SM64DSe
 
         public static string m_ROMPath;
         public static NitroROM m_ROM;
-        public static bool m_IsROMFolder;
-        public static string m_ROMBasePath;
-        public static string m_ROMPatchPath;
-        public static string m_ROMConversionPath;
-        public static string m_ROMBuildPath;
 
         public static List<LevelEditorForm> m_LevelEditors;
 

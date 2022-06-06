@@ -41,7 +41,6 @@
             this.mnitDecompressOverlaysWithinGame = new System.Windows.Forms.ToolStripMenuItem();
             this.mnitHexDumpToBinaryFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnitEditSDATINFOBlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fixMultiplayerChecksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnASMHacking = new System.Windows.Forms.ToolStripDropDownButton();
             this.mnitASMHackingCompilation = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,10 +62,6 @@
             this.kuppaScriptEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editFileSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnOpenFilesystem = new System.Windows.Forms.ToolStripButton();
-            this.btnRunROM = new System.Windows.Forms.ToolStripButton();
-            this.btnBuildROM = new System.Windows.Forms.ToolStripButton();
-            this.extractROMButton = new System.Windows.Forms.ToolStripButton();
             this.mnitToolsImageEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.ofdOpenFile = new System.Windows.Forms.OpenFileDialog();
             this.sfdSaveFile = new System.Windows.Forms.SaveFileDialog();
@@ -132,11 +127,7 @@
             this.btnOptions,
             this.btnMore,
             this.btnASMHacking,
-            this.btnTools,
-            this.btnOpenFilesystem,
-            this.btnRunROM,
-            this.btnBuildROM,
-            this.extractROMButton});
+            this.btnTools});
             this.tsToolBar.Location = new System.Drawing.Point(0, 0);
             this.tsToolBar.Name = "tsToolBar";
             this.tsToolBar.Size = new System.Drawing.Size(591, 25);
@@ -204,7 +195,6 @@
             this.mnitDecompressOverlaysWithinGame,
             this.mnitHexDumpToBinaryFile,
             this.mnitEditSDATINFOBlockToolStripMenuItem,
-            this.fixMultiplayerChecksToolStripMenuItem,
             this.importPatchToolStripMenuItem});
             this.btnMore.Enabled = false;
             this.btnMore.Image = ((System.Drawing.Image)(resources.GetObject("btnMore.Image")));
@@ -247,14 +237,6 @@
             this.mnitEditSDATINFOBlockToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.mnitEditSDATINFOBlockToolStripMenuItem.Text = "Edit SDAT INFO Block";
             this.mnitEditSDATINFOBlockToolStripMenuItem.Click += new System.EventHandler(this.mnitEditSDATINFOBlockToolStripMenuItem_Click);
-            // 
-            // fixMultiplayerChecksToolStripMenuItem
-            // 
-            this.fixMultiplayerChecksToolStripMenuItem.Name = "fixMultiplayerChecksToolStripMenuItem";
-            this.fixMultiplayerChecksToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
-            this.fixMultiplayerChecksToolStripMenuItem.Text = "Fix Multiplayer Checks";
-            this.fixMultiplayerChecksToolStripMenuItem.Visible = false;
-            this.fixMultiplayerChecksToolStripMenuItem.Click += new System.EventHandler(this.fixMultiplayerChecksToolStripMenuItem_Click);
             // 
             // importPatchToolStripMenuItem
             // 
@@ -431,55 +413,6 @@
             this.editOverlaysToolStripMenuItem.Text = "Edit Overlays";
             this.editOverlaysToolStripMenuItem.Click += new System.EventHandler(this.editOverlaysToolStripMenuItem_Click);
             // 
-            // btnOpenFilesystem
-            // 
-            this.btnOpenFilesystem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnOpenFilesystem.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenFilesystem.Image")));
-            this.btnOpenFilesystem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnOpenFilesystem.Name = "btnOpenFilesystem";
-            this.btnOpenFilesystem.Size = new System.Drawing.Size(122, 22);
-            this.btnOpenFilesystem.Text = "Open Extracted ROM";
-            this.btnOpenFilesystem.ToolTipText = "Open An Extracted ROM";
-            this.btnOpenFilesystem.Click += new System.EventHandler(this.btnOpenFilesystem_Click);
-            // 
-            // btnRunROM
-            // 
-            this.btnRunROM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnRunROM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRunROM.Image = global::SM64DSe.Properties.Resources.Play;
-            this.btnRunROM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRunROM.Name = "btnRunROM";
-            this.btnRunROM.Size = new System.Drawing.Size(23, 22);
-            this.btnRunROM.Text = "toolStripButton2";
-            this.btnRunROM.ToolTipText = "Build and run the ROM.";
-            this.btnRunROM.Visible = false;
-            this.btnRunROM.Click += new System.EventHandler(this.btnRunROM_Click);
-            // 
-            // btnBuildROM
-            // 
-            this.btnBuildROM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnBuildROM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBuildROM.Image = global::SM64DSe.Properties.Resources.build;
-            this.btnBuildROM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBuildROM.Name = "btnBuildROM";
-            this.btnBuildROM.Size = new System.Drawing.Size(23, 22);
-            this.btnBuildROM.Text = "toolStripButton1";
-            this.btnBuildROM.ToolTipText = "Build the ROM.";
-            this.btnBuildROM.Visible = false;
-            this.btnBuildROM.Click += new System.EventHandler(this.btnBuildROM_Click);
-            // 
-            // extractROMButton
-            // 
-            this.extractROMButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.extractROMButton.Image = ((System.Drawing.Image)(resources.GetObject("extractROMButton.Image")));
-            this.extractROMButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.extractROMButton.Name = "extractROMButton";
-            this.extractROMButton.Size = new System.Drawing.Size(77, 19);
-            this.extractROMButton.Text = "Extract ROM";
-            this.extractROMButton.ToolTipText = "Extract ROM.";
-            this.extractROMButton.Visible = false;
-            this.extractROMButton.Click += new System.EventHandler(this.extractROMButton_Click);
-            // 
             // mnitToolsImageEditor
             // 
             this.mnitToolsImageEditor.Name = "mnitToolsImageEditor";
@@ -615,6 +548,7 @@
             this.lbxLevels.TabIndex = 2;
             this.lbxLevels.SelectedIndexChanged += new System.EventHandler(this.lbxLevels_SelectedIndexChanged);
             this.lbxLevels.DoubleClick += new System.EventHandler(this.lbxLevels_DoubleClick);
+            this.lbxLevels.Font = new System.Drawing.Font("Consolas", 8);
             // 
             // btnEditCollisionMap
             // 
@@ -980,11 +914,6 @@
         private System.Windows.Forms.ToolStripMenuItem editFileSystemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editOverlaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importPatchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fixMultiplayerChecksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton btnOpenFilesystem;
-        private System.Windows.Forms.ToolStripButton btnBuildROM;
-        private System.Windows.Forms.ToolStripButton btnRunROM;
-        private System.Windows.Forms.ToolStripButton extractROMButton;
         private System.Windows.Forms.ToolStripMenuItem particleTextureSPTEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem particleArchiveSPAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materialAnimationBMAEditorToolStripMenuItem;
