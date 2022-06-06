@@ -118,7 +118,7 @@ namespace SM64DSe
 
             // patch the loader code so that it doesn't try to decompress
             // the already decompressed binary
-            UInt32 nop = 0xE1A00000;
+            uint nop = 0xE1A00000;
             m_FileStream.Position = 0x484C;
             m_BinWriter.Write(nop);
             m_BinWriter.Write(nop);
@@ -577,48 +577,13 @@ namespace SM64DSe
             // Locations at which offsets into the music table are calculated
             uint music_byte_1_offset = 0, music_byte_2_offset = 0, music_byte_3_offset = 0;
 
-            switch (m_Version)
-            {
-                case Version.EUR:
-                    music_tbl_addr = 0x75768;
-                    music_byte_1_offset = 0x2de28;
-                    music_byte_2_offset = 0x2d184;
-                    music_byte_3_offset = 0x2d360;
-                    music_tbl_byte_1_addr = 0x2de60;
-                    music_tbl_byte_2_addr = 0x2d608;
-                    music_tbl_byte_3_addr = 0x2d644;
-                    break;
-
-                case Version.JAP:
-                    music_tbl_addr = 0x739d8;
-                    music_byte_1_offset = 0x2cd80;
-                    music_byte_2_offset = 0x2c32c;
-                    music_byte_3_offset = 0x2c508;
-                    music_tbl_byte_1_addr = 0x2cdb8;
-                    music_tbl_byte_2_addr = 0x2c7b0;
-                    music_tbl_byte_3_addr = 0x2c7ec;
-                    break;
-
-                case Version.USA_v1:
-                    music_tbl_addr = 0x73434;
-                    music_byte_1_offset = 0x2caa8;
-                    music_byte_2_offset = 0x2c058;
-                    music_byte_3_offset = 0x2c234;
-                    music_tbl_byte_1_addr = 0x2cae0;
-                    music_tbl_byte_2_addr = 0x2c4d8;
-                    music_tbl_byte_3_addr = 0x2c514;
-                    break;
-
-                case Version.USA_v2:
-                    music_tbl_addr = 0x74154;
-                    music_byte_1_offset = 0x2cdbc;
-                    music_byte_2_offset = 0x2c368;
-                    music_byte_3_offset = 0x2c544;
-                    music_tbl_byte_1_addr = 0x2cdf4;
-                    music_tbl_byte_2_addr = 0x2c7ec;
-                    music_tbl_byte_3_addr = 0x2c828;
-                    break;
-            }
+            music_tbl_addr = 0x75768;
+            music_byte_1_offset = 0x2de28;
+            music_byte_2_offset = 0x2d184;
+            music_byte_3_offset = 0x2d360;
+            music_tbl_byte_1_addr = 0x2de60;
+            music_tbl_byte_2_addr = 0x2d608;
+            music_tbl_byte_3_addr = 0x2d644;
 
             // Copy level music data
             for (int i = 0; i < NUM_LEVELS; i++)
@@ -741,6 +706,7 @@ namespace SM64DSe
             if (oldversion < 3) Patch_v3(lazyman); // patch v3: fix for R4/acekard flashcarts
             if (oldversion < 4) Patch_v4(lazyman); // patch v4: level music data stored in and loaded from level overlays
             if (oldversion < 5) Patch_v5(lazyman); // patch v5: fix missing texture animation y translation values
+            if (oldversion < 6) Patch_v6(lazyman); // patch v6: particle related patches including external SPA file
         }
     }
 }

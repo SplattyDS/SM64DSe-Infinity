@@ -160,7 +160,7 @@ namespace SM64DSe
             this.m_CLPS = CLPS;
 
             for (int i = 0; i < 52; i++)
-                cbxLevels.Items.Add(i + " - " + Strings.LevelNames[i]);
+                cbxLevels.Items.Add(i + " - " + Strings.LevelNames()[i]);
 
             LoadCLPSData();
         }

@@ -48,8 +48,13 @@ namespace SM64DSe
             }
 
             Program.m_ROMPath = filename;
-            Console.WriteLine($"m_ROMPath: {Program.m_ROMPath}");
             Program.m_ROM = new NitroROM(Program.m_ROMPath);
+
+            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
+            {
+                MessageBox.Show("Please use a European ROM of SM64DS with this version of the editor.", "Invalid ROM version");
+                Close();
+            }    
 
             Program.m_ROM.BeginRW();
             if (Program.m_ROM.NeedsPatch())
@@ -122,6 +127,7 @@ namespace SM64DSe
             btnLZDecompressWithHeader.Enabled = true;
             btnLZForceCompression.Enabled = true;
             btnLZForceDecompression.Enabled = true;
+            btnEditLevelNamesOverlays.Enabled = true;
         }
 
         public MainForm(string[] args)
@@ -599,11 +605,7 @@ namespace SM64DSe
         {
             ROMFileSelect rfs = new ROMFileSelect("Select a BMD or KLC file",new string[] { ".bmd", ".klc" });
             if (rfs.ShowDialog(this) == DialogResult.OK)
-            {
                 new BMD_KLC_Editor(rfs.m_SelectedFile).Show();
-            }
-
-
         }
 
         private void cbLevelListDisplay_SelectedIndexChanged(object sender, EventArgs e)
@@ -620,7 +622,7 @@ namespace SM64DSe
             List<string> internalNames = new List<string>();
             List<string> names = new List<string>();
 
-            foreach (string lvlName in Strings.LevelNames)
+            foreach (string lvlName in Strings.LevelNames())
             {
                 ids.Add("[" + i + "]");
                 internalNames.Add(Program.m_ROM.GetInternalLevelNameFromID(i));
@@ -632,7 +634,7 @@ namespace SM64DSe
             {
                 int maxIdLen = ids.Select(x => x.Length).Max();
                 int maxInternalLen = internalNames.Select(x => x.Length).Max() + 16;
-                foreach (string lvlName in Strings.LevelNames)
+                foreach (string lvlName in Strings.LevelNames())
                 {
                     string id = ids[i];
                     while (id.Length < maxIdLen + 1)
@@ -650,7 +652,7 @@ namespace SM64DSe
             }
             else if (cbLevelListDisplay.SelectedIndex == 1)
             {
-                foreach (string lvlName in Strings.LevelNames)
+                foreach (string lvlName in Strings.LevelNames())
                 {
                     lbxLevels.Items.Add(lvlName);
                     i++;
@@ -658,7 +660,7 @@ namespace SM64DSe
             }
             else if (cbLevelListDisplay.SelectedIndex == 2)
             {
-                foreach (string lvlName in Strings.ShortLvlNames)
+                foreach (string lvlName in Strings.ShortLvlNames())
                 {
                     lbxLevels.Items.Add(i + "\t[" + internalNames[i] + "]");
                     i++;
@@ -666,16 +668,24 @@ namespace SM64DSe
             }
             else if (cbLevelListDisplay.SelectedIndex == 3)
             {
-                foreach (string lvlName in Strings.ShortLvlNames)
+                int maxInternalLen = internalNames.Select(x => x.Length).Max() + 8;
+
+                foreach (string lvlName in Strings.ShortLvlNames())
                 {
-                    lbxLevels.Items.Add(lvlName + " [" + internalNames[i] + "]");
+                    string trimmedName = lvlName.Trim();
+                    int numTabs = ((maxInternalLen + (maxInternalLen % 8)) - (trimmedName.Length + (8 - trimmedName.Length % 8))) / 8;
+
+                    for (int j = 0; j < numTabs; j++)
+                        trimmedName += "\t";
+
+                    lbxLevels.Items.Add(trimmedName + " [" + internalNames[i] + "]");
                     i++;
                 }
             }
             else
             {
                 int hubCounter = 1;
-                foreach (string lvlName in Strings.ShortLvlNames)
+                foreach (string lvlName in Strings.ShortLvlNames())
                 {
                     ushort selectorId = Program.m_ROM.GetActSelectorIdByLevelID(i);
                     string lvlString = "";
@@ -986,6 +996,11 @@ namespace SM64DSe
         private void textureAnimationBTAEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ParticleViewerForm().Show();
+        }
+
+        private void btnEditLevelNamesOverlays_Click(object sender, EventArgs e)
+        {
+            new LevelNameOverlayEditorForm().ShowDialog();
         }
     }
 

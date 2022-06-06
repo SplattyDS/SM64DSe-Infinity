@@ -76,6 +76,7 @@
             this.lbxLevels = new System.Windows.Forms.ListBox();
             this.btnEditCollisionMap = new System.Windows.Forms.Button();
             this.btnEditLevel = new System.Windows.Forms.Button();
+            this.btnEditLevelNamesOverlays = new System.Windows.Forms.Button();
             this.tbpFileSystem = new System.Windows.Forms.TabPage();
             this.spcFileSystemTab = new System.Windows.Forms.SplitContainer();
             this.tvFileList = new System.Windows.Forms.TreeView();
@@ -499,6 +500,7 @@
             // 
             this.splitContainerLevels.Panel2.Controls.Add(this.btnEditCollisionMap);
             this.splitContainerLevels.Panel2.Controls.Add(this.btnEditLevel);
+            this.splitContainerLevels.Panel2.Controls.Add(this.btnEditLevelNamesOverlays);
             this.splitContainerLevels.Size = new System.Drawing.Size(577, 399);
             this.splitContainerLevels.SplitterDistance = 370;
             this.splitContainerLevels.TabIndex = 0;
@@ -571,6 +573,17 @@
             this.btnEditLevel.Text = "Edit Level";
             this.btnEditLevel.UseVisualStyleBackColor = true;
             this.btnEditLevel.Click += new System.EventHandler(this.btnEditLevel_Click);
+            // 
+            // btnEditLevelNamesOverlays
+            // 
+            this.btnEditLevelNamesOverlays.Enabled = false;
+            this.btnEditLevelNamesOverlays.Location = new System.Drawing.Point(192, 3);
+            this.btnEditLevelNamesOverlays.Name = "btnEditLevelNamesOverlays";
+            this.btnEditLevelNamesOverlays.Size = new System.Drawing.Size(100, 23);
+            this.btnEditLevelNamesOverlays.TabIndex = 0;
+            this.btnEditLevelNamesOverlays.Text = "Edit Level Names / Overlays";
+            this.btnEditLevelNamesOverlays.UseVisualStyleBackColor = true;
+            this.btnEditLevelNamesOverlays.Click += new System.EventHandler(this.btnEditLevelNamesOverlays_Click);
             // 
             // tbpFileSystem
             // 
@@ -890,6 +903,7 @@
         private System.Windows.Forms.SplitContainer splitContainerLevels;
         private System.Windows.Forms.Button btnEditCollisionMap;
         private System.Windows.Forms.Button btnEditLevel;
+        private System.Windows.Forms.Button btnEditLevelNamesOverlays;
         private System.Windows.Forms.ToolStripDropDownButton btnTools;
         private System.Windows.Forms.ToolStripMenuItem mnitToolsModelAndCollisionMapImporter;
         private System.Windows.Forms.ToolStripMenuItem mnitToolsModelAnimationEditor;
