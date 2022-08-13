@@ -288,6 +288,7 @@
     <Compile Include="Patcher\Arm9BinSection.cs" />
     <Compile Include="Patcher\PatchCompiler.cs" />
     <Compile Include="Patcher\PatchMaker.cs" />
+    <Compile Include="Patcher\PatchProcessor.cs" />
     <Compile Include="SM64DSFormats\BetterTextureAnimationEditor.cs">
       <SubType>Form</SubType>
     </Compile>

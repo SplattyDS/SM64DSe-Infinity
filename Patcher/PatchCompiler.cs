@@ -18,6 +18,11 @@ namespace SM64DSe.Patcher
             return runProcess("make CODEADDR=0x" + destAddr.ToString("X8"), romDir.FullName);
         }
 
+        /*public static int compilePatch(uint destAddr, DirectoryInfo romDir, string sources)
+        {
+            return runProcess("make CODEADDR=0x" + destAddr.ToString("X8") + " SOURCES=" + sources + " libfat_source", romDir.FullName);
+        }*/
+
         public static int cleanPatch(DirectoryInfo romDir)
         {
             int exitCode = runProcess("make clean", romDir.FullName);

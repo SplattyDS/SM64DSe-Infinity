@@ -818,159 +818,328 @@ namespace SM64DSe
             new OverlayEditor().ShowDialog();
         }
 
-        private void importPatchToolStripMenuItem_Click(object sender, EventArgs e) {
+        private static readonly string[] fileHeaderStart =
+        {
+            "#pragma once",
+            "",
+            "#include \"SharedFilePtr.h\"",
+            "",
+            "consteval u16 SharedFilePtr::GetIdFromName(const char* name, bool ov0 = true)",
+            "{",
+            "\tstruct FileInfo",
+            "\t{",
+            "\t\tu16 fileID;",
+            "\t\tu16 ov0ID;",
+            "\t\tconst char* name;",
+            "\t};",
+            "\t",
+            "\tconstexpr FileInfo files[] =",
+            "\t{",
+        };
 
+        private static readonly string[] fileHeaderEnd =
+        {
+            "\t};",
+            "\t",
+            "\tconst FileInfo* begin = std::begin(files);",
+            "\tconst FileInfo* end = std::end(files);",
+            "\tconst FileInfo* prevMid = nullptr;",
+            "\t",
+            "\twhile (true)",
+            "\t{",
+            "\t\tconst FileInfo* mid = begin + (end - begin >> 1);",
+            "\t\tif (void FileNotFound(); mid == prevMid) FileNotFound();",
+            "\t\tprevMid = mid;",
+            "\t\t",
+            "\t\tconst char* c0 = name;",
+            "\t\tconst char* c1 = mid->name;",
+            "\t\t",
+            "\t\tfor(; *c0 == *c1; ++c0, ++c1)",
+            "\t\t\tif (*c0 == '\\0') return ov0 ? mid->ov0ID : mid-> fileID;",
+            "\t\t",
+            "\t\tif (*c0 < *c1) end = mid; else begin = mid;",
+            "\t}",
+            "}",
+        };
+
+        private static readonly string[] soundHeaderStart =
+        {
+            "#pragma once",
+            "",
+            "#include \"Sound.h\"",
+            "",
+            "namespace Sound",
+            "{",
+            "",
+            "[[gnu::always_inline]]",
+            "inline void Play(const char* name, Vector3 camSpacePos);",
+            "",
+            "struct SoundInfo",
+            "{",
+            "\tu16 seqArcID;",
+            "\tu16 seqID;",
+            "\tconst char* name;",
+            "\t",
+            "\tstatic consteval SoundInfo* SoundInfo::GetInfoFromName(const char* name);",
+            "};",
+            "",
+            "inline void Play(const char* name, Vector3 camSpacePos)",
+            "{",
+            "\tSoundInfo* info = SoundInfo::GetInfoFromName(name);",
+            "\tPlay(info->seqArcID, info->seqID, camSpacePos);",
+            "}",
+            "",
+            "consteval SoundInfo* SoundInfo::GetInfoFromName(const char* name)",
+            "{",
+            "\tconstexpr SoundInfo files[] =",
+            "\t{",
+        };
+
+        private static readonly string[] soundHeaderEnd =
+        {
+            "\t};",
+            "\t",
+            "\tconst SoundInfo* begin = std::begin(files);",
+            "\tconst SoundInfo* end = std::end(files);",
+            "\tconst SoundInfo* prevMid = nullptr;",
+            "\t",
+            "\twhile (true)",
+            "\t{",
+            "\t\tconst SoundInfo* mid = begin + (end - begin >> 1);",
+            "\t\tif (void SoundNotFound(); mid == prevMid) SoundNotFound();",
+            "\t\tprevMid = mid;",
+            "\t\t",
+            "\t\tconst char* c0 = name;",
+            "\t\tconst char* c1 = mid->name;",
+            "\t\t",
+            "\t\tfor(; *c0 == *c1; ++c0, ++c1)",
+            "\t\t\tif (*c0 == '\\0') return mid;",
+            "\t\t",
+            "\t\tif (*c0 < *c1) end = mid; else begin = mid;",
+            "\t}",
+            "}",
+            "}",
+        };
+
+        private string ToHex(ushort num)
+        {
+            return "0x" + Convert.ToString(num, 16).PadLeft(4, '0').ToLower();
+        }
+
+        class SeqArcListItem
+        {
+            public string Name;
+            public ushort ID;
+            public ushort SeqArcID;
+        }
+
+        private void importPatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             OpenFileDialog o = new OpenFileDialog();
-            o.Filter = "SM64DSe Patch|*.sp";
+            o.Filter = "SM64DSe Patches(*.fss;*.ccs)|*.fss;*ccs";
             o.RestoreDirectory = true;
-            if (o.ShowDialog() == DialogResult.OK) {
-
+            if (o.ShowDialog() == DialogResult.OK)
+            {
                 //Each line.
                 var s = File.ReadAllLines(o.FileName);
-                string basePath = Path.GetDirectoryName(o.FileName) + "/";
-                foreach (var l in s) {
-
+                string basePath = Path.GetDirectoryName(o.FileName) + "\\";
+                foreach (var l in s)
+                {
                     //Get parameters.
                     string t = l;
                     if (t.Contains("#")) { t = t.Substring(0, t.IndexOf('#')); }
-                    var p = t.Split(' ');
-                    if (p.Length == 0) { continue; }
+                    var p = t.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (p.Length == 0)
+                        continue;
 
                     //Switch command.
-                    switch (p[0].ToLower()) {
-
-                        //Replace file.
-                        case "replace":
-                            if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _)) {
-                                Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture)), File.ReadAllBytes(basePath + p[2]));
-                            } else {
-                                Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1]), File.ReadAllBytes(basePath + p[2]));
-                            }
+                    switch (p[0].ToLower())
+                    {
+                        // restore the symbols from the backup
+                        case "load_backup_sym":
+                            File.WriteAllBytes(basePath + "symbols.x", File.ReadAllBytes(basePath + "symbols.bak.x"));
                             break;
 
-                        //Replace ARM9.
-                        case "replace_arm9":
-                            var r = Program.m_ROM;
-                            r.BeginRW(true);
-                            uint arm9addr = r.Read32(0x20);
-                            uint arm9size = r.Read32(0x2C);
-                            byte[] newArm9 = File.ReadAllBytes(basePath + p[1]);
-                            if (newArm9.Length > arm9size) {
-                                r.MakeRoom(arm9addr + arm9size, (uint)(newArm9.Length - arm9size));
-                                r.AutoFix(0xFFFF, arm9addr + arm9size, (int)(newArm9.Length - arm9size));
-                            }
-                            r.Write32(0x2C, (uint)newArm9.Length);
-                            r.WriteBlock(arm9addr, newArm9);
-                            r.EndRW(true);
-                            r.LoadROM(r.m_Path);
-                            break;
-
-                        //Replace overlay.
-                        case "replace_overlay":
-                            NitroOverlay n2 = new NitroOverlay(Program.m_ROM, uint.Parse(p[1]));
-                            n2.m_Data = File.ReadAllBytes(basePath + p[2]);
-                            n2.SaveChanges();
-                            break;
-
-                        //Rename file.
-                        case "rename":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
-                                MessageBox.Show("This is for EUR ROMs only!");
+                        case "generate_file_list":
+                            if (p.Length < 2)
                                 continue;
-                            }
-                            Program.m_ROM.StartFilesystemEdit();
-                            ushort fileIdFromName;
-                            if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _)) {
-                                fileIdFromName = Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture));
-                            } else {
-                                fileIdFromName = Program.m_ROM.GetFileIDFromName(p[1]);
-                            }
-                            string filename = Program.m_ROM.m_FileEntries[fileIdFromName].FullName;
-                            string newName = p[2];
-                            int length = filename.LastIndexOf('/') + 1;
-                            string str1 = filename.Substring(0, length) + newName;
-                            Program.m_ROM.m_FileEntries[fileIdFromName].Name = newName;
-                            Program.m_ROM.m_FileEntries[fileIdFromName].FullName = str1;
-                            Program.m_ROM.SaveFilesystem();
-                            this.tvFileList.Nodes.Clear();
-                            ROMFileSelect.LoadFileList(this.tvFileList);
-                            this.tvARM9Overlays.Nodes.Clear();
-                            ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
+
+                            List<NitroROM.FileEntry> sortedFiles = Program.m_ROM.m_FileEntries.ToList();
+                            sortedFiles.Sort((a, b) => string.CompareOrdinal(a.FullName, b.FullName));
+
+                            List<string> lines = new List<string>();
+                            lines.Capacity = fileHeaderStart.Length + fileHeaderEnd.Length + Program.m_ROM.m_FileEntries.Length;
+                            lines.AddRange(fileHeaderStart);
+
+                            foreach (NitroROM.FileEntry file in sortedFiles) if (file.InternalID != 0xffff)
+                                lines.Add("\t\t{ " + ToHex(file.InternalID) + ", " + ToHex(file.ID) + ", " + '"' + file.FullName + '"' + " },");
+
+                            lines.AddRange(fileHeaderEnd);
+                            File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), lines);
                             break;
 
-                        //Import level XML.
-                        case "import_xml":
-                            Level lv = new Level(int.Parse(p[1]));
-                            try { LevelDataXML_Importer.ImportLevel(lv, basePath + p[2], true); }
-                            catch (InvalidDataException ex) { MessageBox.Show(ex.Message); }
-                            catch (Exception ex) { new ExceptionMessageBox("Error parsing level, changes have not been saved", ex).ShowDialog();}
-                            Program.m_ROM.LoadROM(Program.m_ROM.m_Path);
-                            break;
-
-                        //Add overlay.
-                        case "add_overlay":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
-                                MessageBox.Show("This is for EUR ROMs only!");
+                        case "generate_sound_list":
+                            if (p.Length < 2)
                                 continue;
+
+                            SM64DSFormats.SDAT soundData = new SM64DSFormats.SDAT(Program.m_ROM.GetFileFromName("data/sound_data.sdat"));
+                            List<SeqArcListItem> sequences = new List<SeqArcListItem>();
+                            ushort seqArcID = 0;
+                            ushort seqID = 0;
+
+                            foreach (SM64DSFormats.SDAT.SequenceArchive seqArc in soundData.m_SeqArcs)
+                            {
+                                foreach (SM64DSFormats.SDAT.SequenceArchive.Sequence seq in seqArc.m_Sequences)
+                                {
+                                    sequences.Add(new SeqArcListItem { Name = seq.m_Filename, ID = seqID, SeqArcID = seqArcID });
+                                    seqID++;
+                                }
+
+                                seqID = 0;
+                                seqArcID++;
                             }
-                            OverlayEditor oe = new OverlayEditor();
-                            oe.AddOverlay(oe.Overlays.Count);
-                            var ov = oe.Overlays[oe.Overlays.Count - 1];
-                            var overlayFile = File.ReadAllBytes(basePath + p[6]);
-                            ov.ID = (uint)(oe.Overlays.Count - 1);
-                            ov.RAMAddress = uint.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov.RAMSize = (uint)overlayFile.Length;
-                            ov.BSSSize = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov.StaticInitStart = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov.StaticInitEnd = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov.Flags = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            oe.Overlays[oe.Overlays.Count - 1] = ov;
-                            oe.saveChangesButton_Click(null, new EventArgs());
-                            oe.closeButton_Click(null, new EventArgs());
-                            NitroOverlay n = new NitroOverlay(Program.m_ROM, (uint)(oe.Overlays.Count - 1));
-                            n.m_Data = overlayFile;
-                            n.SaveChanges();
-                            this.tvFileList.Nodes.Clear();
-                            ROMFileSelect.LoadFileList(this.tvFileList);
-                            this.tvARM9Overlays.Nodes.Clear();
-                            ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
+
+                            sequences.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
+
+                            lines = new List<string>();
+                            lines.Capacity = soundHeaderStart.Length + soundHeaderEnd.Length + sequences.Count;
+                            lines.AddRange(soundHeaderStart);
+
+                            foreach (SeqArcListItem sequence in sequences) if (sequence.Name != "SYMB²")
+                                lines.Add("\t\t{ " + ToHex(sequence.SeqArcID) + ", " + ToHex(sequence.ID) + ", " + '"' + sequence.Name + '"' + " },");
+                            
+
+                            lines.AddRange(soundHeaderEnd);
+                            File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), lines);
+
                             break;
 
-                        //Edit overlay.
-                        case "edit_overlay":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
-                                MessageBox.Show("This is for EUR ROMs only!");
-                                continue;
-                            }
-                            Program.m_ROM.StartFilesystemEdit();
-                            var ov2 = Program.m_ROM.m_OverlayEntries[int.Parse(p[1])];
-                            ov2.RAMAddress = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov2.BSSSize = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov2.StaticInitStart = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov2.StaticInitEnd = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            ov2.Flags = uint.Parse(p[6], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                            Program.m_ROM.m_OverlayEntries[int.Parse(p[1])] = ov2;
-                            Program.m_ROM.SaveFilesystem();
+                        case "compile":
+                            Patcher.PatchProcessor.Process(new DirectoryInfo(basePath), p);
                             break;
 
-                        //Delete overlay.
-                        case "delete_overlay":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
-                                MessageBox.Show("This is for EUR ROMs only!");
-                                continue;
-                            }
-                            OverlayEditor oe2 = new OverlayEditor();
-                            oe2.DeleteOverlay(int.Parse(p[1]));
-                            oe2.saveChangesButton_Click(null, new EventArgs());
-                            oe2.closeButton_Click(null, new EventArgs());
-                            break;
 
+
+
+
+                            //Replace file.
+                            /*case "replace":
+                                if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _))
+                                    Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture)), File.ReadAllBytes(basePath + p[2]));
+                                else
+                                    Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1]), File.ReadAllBytes(basePath + p[2]));
+
+                                break;
+
+                            //Replace ARM9.
+                            case "replace_arm9":
+                                var r = Program.m_ROM;
+                                r.BeginRW(true);
+                                uint arm9addr = r.Read32(0x20);
+                                uint arm9size = r.Read32(0x2C);
+                                byte[] newArm9 = File.ReadAllBytes(basePath + p[1]);
+                                if (newArm9.Length > arm9size) {
+                                    r.MakeRoom(arm9addr + arm9size, (uint)(newArm9.Length - arm9size));
+                                    r.AutoFix(0xFFFF, arm9addr + arm9size, (int)(newArm9.Length - arm9size));
+                                }
+                                r.Write32(0x2C, (uint)newArm9.Length);
+                                r.WriteBlock(arm9addr, newArm9);
+                                r.EndRW(true);
+                                r.LoadROM(r.m_Path);
+                                break;
+
+                            //Replace overlay.
+                            case "replace_overlay":
+                                NitroOverlay n2 = new NitroOverlay(Program.m_ROM, uint.Parse(p[1]));
+                                n2.m_Data = File.ReadAllBytes(basePath + p[2]);
+                                n2.SaveChanges();
+                                break;
+
+                            //Rename file.
+                            case "rename":
+                                Program.m_ROM.StartFilesystemEdit();
+                                ushort fileIdFromName;
+                                if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _)) {
+                                    fileIdFromName = Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture));
+                                } else {
+                                    fileIdFromName = Program.m_ROM.GetFileIDFromName(p[1]);
+                                }
+                                string filename = Program.m_ROM.m_FileEntries[fileIdFromName].FullName;
+                                string newName = p[2];
+                                int length = filename.LastIndexOf('/') + 1;
+                                string str1 = filename.Substring(0, length) + newName;
+                                Program.m_ROM.m_FileEntries[fileIdFromName].Name = newName;
+                                Program.m_ROM.m_FileEntries[fileIdFromName].FullName = str1;
+                                Program.m_ROM.SaveFilesystem();
+                                this.tvFileList.Nodes.Clear();
+                                ROMFileSelect.LoadFileList(this.tvFileList);
+                                this.tvARM9Overlays.Nodes.Clear();
+                                ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
+                                break;
+
+                            //Import level XML.
+                            case "import_xml":
+                                Level lv = new Level(int.Parse(p[1]));
+                                try { LevelDataXML_Importer.ImportLevel(lv, basePath + p[2], true); }
+                                catch (InvalidDataException ex) { MessageBox.Show(ex.Message); }
+                                catch (Exception ex) { new ExceptionMessageBox("Error parsing level, changes have not been saved", ex).ShowDialog();}
+                                Program.m_ROM.LoadROM(Program.m_ROM.m_Path);
+                                break;
+
+                            //Add overlay.
+                            case "add_overlay":
+                                OverlayEditor oe = new OverlayEditor();
+                                oe.AddOverlay(oe.Overlays.Count);
+                                var ov = oe.Overlays[oe.Overlays.Count - 1];
+                                var overlayFile = File.ReadAllBytes(basePath + p[6]);
+                                ov.ID = (uint)(oe.Overlays.Count - 1);
+                                ov.RAMAddress = uint.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov.RAMSize = (uint)overlayFile.Length;
+                                ov.BSSSize = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov.StaticInitStart = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov.StaticInitEnd = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov.Flags = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                oe.Overlays[oe.Overlays.Count - 1] = ov;
+                                oe.saveChangesButton_Click(null, new EventArgs());
+                                oe.closeButton_Click(null, new EventArgs());
+                                NitroOverlay n = new NitroOverlay(Program.m_ROM, (uint)(oe.Overlays.Count - 1));
+                                n.m_Data = overlayFile;
+                                n.SaveChanges();
+                                this.tvFileList.Nodes.Clear();
+                                ROMFileSelect.LoadFileList(this.tvFileList);
+                                this.tvARM9Overlays.Nodes.Clear();
+                                ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
+                                break;
+
+                            //Edit overlay.
+                            case "edit_overlay":
+                                Program.m_ROM.StartFilesystemEdit();
+                                var ov2 = Program.m_ROM.m_OverlayEntries[int.Parse(p[1])];
+                                ov2.RAMAddress = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov2.BSSSize = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov2.StaticInitStart = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov2.StaticInitEnd = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                ov2.Flags = uint.Parse(p[6], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                                Program.m_ROM.m_OverlayEntries[int.Parse(p[1])] = ov2;
+                                Program.m_ROM.SaveFilesystem();
+                                break;
+
+                            //Delete overlay.
+                            case "delete_overlay":
+                                OverlayEditor oe2 = new OverlayEditor();
+                                oe2.DeleteOverlay(int.Parse(p[1]));
+                                oe2.saveChangesButton_Click(null, new EventArgs());
+                                oe2.closeButton_Click(null, new EventArgs());
+                                break;*/
                     }
-                
                 }
 
+                tvFileList.Nodes.Clear();
+                ROMFileSelect.LoadFileList(tvFileList);
+                tvARM9Overlays.Nodes.Clear();
+                ROMFileSelect.LoadOverlayList(tvARM9Overlays);
             }
-
         }
 
         private void tsToolBar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
