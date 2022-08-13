@@ -938,208 +938,324 @@ namespace SM64DSe
             OpenFileDialog o = new OpenFileDialog();
             o.Filter = "SM64DSe Patches(*.fss;*.ccs)|*.fss;*ccs";
             o.RestoreDirectory = true;
-            if (o.ShowDialog() == DialogResult.OK)
+            if (o.ShowDialog() != DialogResult.OK)
+                return;
+
+            //Each line.
+            var s = File.ReadAllLines(o.FileName);
+            string basePath = Path.GetDirectoryName(o.FileName) + "\\";
+            bool filesystemEditStarted = false;
+
+            TreeView dummyTree = new TreeView();
+            ROMFileSelect.LoadFileList(dummyTree);
+            TreeNode dummyNode = dummyTree.Nodes[0];
+
+            foreach (var l in s)
             {
-                //Each line.
-                var s = File.ReadAllLines(o.FileName);
-                string basePath = Path.GetDirectoryName(o.FileName) + "\\";
-                foreach (var l in s)
+                //Get parameters.
+                string t = l;
+                if (t.Contains("#")) { t = t.Substring(0, t.IndexOf('#')); }
+                var p = t.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (p.Length == 0)
+                    continue;
+
+                //Switch command.
+                switch (p[0].ToLower())
                 {
-                    //Get parameters.
-                    string t = l;
-                    if (t.Contains("#")) { t = t.Substring(0, t.IndexOf('#')); }
-                    var p = t.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    // restore the symbols from the backup
+                    case "load_backup_sym":
+                        if (filesystemEditStarted)
+                            Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
 
-                    if (p.Length == 0)
-                        continue;
+                        File.WriteAllBytes(basePath + "symbols.x", File.ReadAllBytes(basePath + "symbols.bak.x"));
+                        break;
 
-                    //Switch command.
-                    switch (p[0].ToLower())
-                    {
-                        // restore the symbols from the backup
-                        case "load_backup_sym":
-                            File.WriteAllBytes(basePath + "symbols.x", File.ReadAllBytes(basePath + "symbols.bak.x"));
-                            break;
+                    case "generate_file_list":
+                        if (filesystemEditStarted)
+                            Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
 
-                        case "generate_file_list":
-                            if (p.Length < 2)
-                                continue;
+                        if (p.Length < 2)
+                            continue;
 
-                            List<NitroROM.FileEntry> sortedFiles = Program.m_ROM.m_FileEntries.ToList();
-                            sortedFiles.Sort((a, b) => string.CompareOrdinal(a.FullName, b.FullName));
+                        List<NitroROM.FileEntry> sortedFiles = Program.m_ROM.m_FileEntries.ToList();
+                        sortedFiles.Sort((a, b) => string.CompareOrdinal(a.FullName, b.FullName));
 
-                            List<string> lines = new List<string>();
-                            lines.Capacity = fileHeaderStart.Length + fileHeaderEnd.Length + Program.m_ROM.m_FileEntries.Length;
-                            lines.AddRange(fileHeaderStart);
+                        List<string> lines = new List<string>();
+                        lines.Capacity = fileHeaderStart.Length + fileHeaderEnd.Length + Program.m_ROM.m_FileEntries.Length;
+                        lines.AddRange(fileHeaderStart);
 
-                            foreach (NitroROM.FileEntry file in sortedFiles) if (file.InternalID != 0xffff)
-                                lines.Add("\t\t{ " + ToHex(file.InternalID) + ", " + ToHex(file.ID) + ", " + '"' + file.FullName + '"' + " },");
+                        foreach (NitroROM.FileEntry file in sortedFiles) if (file.InternalID != 0xffff)
+                            lines.Add("\t\t{ " + ToHex(file.InternalID) + ", " + ToHex(file.ID) + ", " + '"' + file.FullName + '"' + " },");
 
-                            lines.AddRange(fileHeaderEnd);
-                            File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), lines);
-                            break;
+                        lines.AddRange(fileHeaderEnd);
+                        File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), lines);
+                        break;
 
-                        case "generate_sound_list":
-                            if (p.Length < 2)
-                                continue;
+                    case "generate_sound_list":
+                        if (filesystemEditStarted)
+                            Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
 
-                            SM64DSFormats.SDAT soundData = new SM64DSFormats.SDAT(Program.m_ROM.GetFileFromName("data/sound_data.sdat"));
-                            List<SeqArcListItem> sequences = new List<SeqArcListItem>();
-                            ushort seqArcID = 0;
-                            ushort seqID = 0;
+                        if (p.Length < 2)
+                            continue;
 
-                            foreach (SM64DSFormats.SDAT.SequenceArchive seqArc in soundData.m_SeqArcs)
+                        SM64DSFormats.SDAT soundData = new SM64DSFormats.SDAT(Program.m_ROM.GetFileFromName("data/sound_data.sdat"));
+                        List<SeqArcListItem> sequences = new List<SeqArcListItem>();
+                        ushort seqArcID = 0;
+                        ushort seqID = 0;
+
+                        foreach (SM64DSFormats.SDAT.SequenceArchive seqArc in soundData.m_SeqArcs)
+                        {
+                            foreach (SM64DSFormats.SDAT.SequenceArchive.Sequence seq in seqArc.m_Sequences)
                             {
-                                foreach (SM64DSFormats.SDAT.SequenceArchive.Sequence seq in seqArc.m_Sequences)
-                                {
-                                    sequences.Add(new SeqArcListItem { Name = seq.m_Filename, ID = seqID, SeqArcID = seqArcID });
-                                    seqID++;
-                                }
-
-                                seqID = 0;
-                                seqArcID++;
+                                sequences.Add(new SeqArcListItem { Name = seq.m_Filename, ID = seqID, SeqArcID = seqArcID });
+                                seqID++;
                             }
 
-                            sequences.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
+                            seqID = 0;
+                            seqArcID++;
+                        }
 
-                            lines = new List<string>();
-                            lines.Capacity = soundHeaderStart.Length + soundHeaderEnd.Length + sequences.Count;
-                            lines.AddRange(soundHeaderStart);
+                        sequences.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
 
-                            foreach (SeqArcListItem sequence in sequences) if (sequence.Name != "SYMB²")
-                                lines.Add("\t\t{ " + ToHex(sequence.SeqArcID) + ", " + ToHex(sequence.ID) + ", " + '"' + sequence.Name + '"' + " },");
+                        lines = new List<string>();
+                        lines.Capacity = soundHeaderStart.Length + soundHeaderEnd.Length + sequences.Count;
+                        lines.AddRange(soundHeaderStart);
+
+                        foreach (SeqArcListItem sequence in sequences) if (sequence.Name != "SYMB²")
+                            lines.Add("\t\t{ " + ToHex(sequence.SeqArcID) + ", " + ToHex(sequence.ID) + ", " + '"' + sequence.Name + '"' + " },");
                             
 
-                            lines.AddRange(soundHeaderEnd);
-                            File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), lines);
+                        lines.AddRange(soundHeaderEnd);
+                        File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), lines);
 
-                            break;
+                        break;
 
-                        case "compile":
-                            Patcher.PatchProcessor.Process(new DirectoryInfo(basePath), p);
-                            break;
+                    case "compile":
+                        if (filesystemEditStarted)
+                            Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+
+                        Patcher.PatchProcessor.Process(new DirectoryInfo(basePath), p);
+                        break;
+
+                    case "add_or_replace":
+                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                        p[3] = p[3].Remove(0, 1).Remove(p[3].Length - 2, 1);
+
+                        byte[] data = File.ReadAllBytes(basePath + p[3]);
+
+                        if (Program.m_ROM.FileExists(p[1] + p[2]))
+                        {
+                            if (filesystemEditStarted)
+                                Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+
+                            Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1] + p[2]), data);
+                        }
+                        else
+                        {
+                            if (!filesystemEditStarted)
+                                Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+
+                            Program.m_ROM.AddFile(p[1], p[2], data, dummyNode);
+                        }
+
+                        break;
+
+                    case "replace":
+                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                        p[3] = p[3].Remove(0, 1).Remove(p[3].Length - 2, 1);
+
+                        data = File.ReadAllBytes(basePath + p[3]);
+
+                        if (Program.m_ROM.FileExists(p[1] + p[2]))
+                        {
+                            if (filesystemEditStarted)
+                                Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+
+                            Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1] + p[2]), data);
+                        }
+                        else
+                            throw new Exception("File not found: " + p[1] + p[2]);
+
+                        break;
+
+                    case "rename":
+                        if (!filesystemEditStarted)
+                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+
+                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+
+                        Program.m_ROM.RenameFile(p[1], p[2], dummyNode);
+
+                        break;
+
+                    case "remove":
+                        if (!filesystemEditStarted)
+                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+
+                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+
+                        Program.m_ROM.RemoveFile(p[1], dummyNode);
+
+                        break;
+
+                    case "add_dir":
+                        if (!filesystemEditStarted)
+                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+
+                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                        Console.WriteLine("Add dir: " + p[1] + " " + p[2]);
+                        Program.m_ROM.AddDir(p[1], p[2], dummyNode);
+
+                        break;
+
+                    case "rename_dir":
+                        if (!filesystemEditStarted)
+                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+
+                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+
+                        Program.m_ROM.RenameDir(p[1], p[2], dummyNode);
+
+                        break;
+
+                    case "remove_dir":
+                        if (!filesystemEditStarted)
+                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+
+                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+
+                        Program.m_ROM.RemoveDir(p[1], dummyNode);
+
+                        break;
 
 
+                    // old .sp patch code:
+                    /*
+                    //Replace file.
+                    case "replace":
+                        if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _))
+                            Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture)), File.ReadAllBytes(basePath + p[2]));
+                        else
+                            Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1]), File.ReadAllBytes(basePath + p[2]));
 
+                        break;
 
+                    //Replace ARM9.
+                    case "replace_arm9":
+                        var r = Program.m_ROM;
+                        r.BeginRW(true);
+                        uint arm9addr = r.Read32(0x20);
+                        uint arm9size = r.Read32(0x2C);
+                        byte[] newArm9 = File.ReadAllBytes(basePath + p[1]);
+                        if (newArm9.Length > arm9size) {
+                            r.MakeRoom(arm9addr + arm9size, (uint)(newArm9.Length - arm9size));
+                            r.AutoFix(0xFFFF, arm9addr + arm9size, (int)(newArm9.Length - arm9size));
+                        }
+                        r.Write32(0x2C, (uint)newArm9.Length);
+                        r.WriteBlock(arm9addr, newArm9);
+                        r.EndRW(true);
+                        r.LoadROM(r.m_Path);
+                        break;
 
-                            //Replace file.
-                            /*case "replace":
-                                if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _))
-                                    Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture)), File.ReadAllBytes(basePath + p[2]));
-                                else
-                                    Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1]), File.ReadAllBytes(basePath + p[2]));
+                    //Replace overlay.
+                    case "replace_overlay":
+                        NitroOverlay n2 = new NitroOverlay(Program.m_ROM, uint.Parse(p[1]));
+                        n2.m_Data = File.ReadAllBytes(basePath + p[2]);
+                        n2.SaveChanges();
+                        break;
 
-                                break;
+                    //Rename file.
+                    case "rename":
+                        Program.m_ROM.StartFilesystemEdit();
+                        ushort fileIdFromName;
+                        if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _)) {
+                            fileIdFromName = Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture));
+                        } else {
+                            fileIdFromName = Program.m_ROM.GetFileIDFromName(p[1]);
+                        }
+                        string filename = Program.m_ROM.m_FileEntries[fileIdFromName].FullName;
+                        string newName = p[2];
+                        int length = filename.LastIndexOf('/') + 1;
+                        string str1 = filename.Substring(0, length) + newName;
+                        Program.m_ROM.m_FileEntries[fileIdFromName].Name = newName;
+                        Program.m_ROM.m_FileEntries[fileIdFromName].FullName = str1;
+                        Program.m_ROM.SaveFilesystem();
+                        this.tvFileList.Nodes.Clear();
+                        ROMFileSelect.LoadFileList(this.tvFileList);
+                        this.tvARM9Overlays.Nodes.Clear();
+                        ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
+                        break;
 
-                            //Replace ARM9.
-                            case "replace_arm9":
-                                var r = Program.m_ROM;
-                                r.BeginRW(true);
-                                uint arm9addr = r.Read32(0x20);
-                                uint arm9size = r.Read32(0x2C);
-                                byte[] newArm9 = File.ReadAllBytes(basePath + p[1]);
-                                if (newArm9.Length > arm9size) {
-                                    r.MakeRoom(arm9addr + arm9size, (uint)(newArm9.Length - arm9size));
-                                    r.AutoFix(0xFFFF, arm9addr + arm9size, (int)(newArm9.Length - arm9size));
-                                }
-                                r.Write32(0x2C, (uint)newArm9.Length);
-                                r.WriteBlock(arm9addr, newArm9);
-                                r.EndRW(true);
-                                r.LoadROM(r.m_Path);
-                                break;
+                    //Import level XML.
+                    case "import_xml":
+                        Level lv = new Level(int.Parse(p[1]));
+                        try { LevelDataXML_Importer.ImportLevel(lv, basePath + p[2], true); }
+                        catch (InvalidDataException ex) { MessageBox.Show(ex.Message); }
+                        catch (Exception ex) { new ExceptionMessageBox("Error parsing level, changes have not been saved", ex).ShowDialog();}
+                        Program.m_ROM.LoadROM(Program.m_ROM.m_Path);
+                        break;
 
-                            //Replace overlay.
-                            case "replace_overlay":
-                                NitroOverlay n2 = new NitroOverlay(Program.m_ROM, uint.Parse(p[1]));
-                                n2.m_Data = File.ReadAllBytes(basePath + p[2]);
-                                n2.SaveChanges();
-                                break;
+                    //Add overlay.
+                    case "add_overlay":
+                        OverlayEditor oe = new OverlayEditor();
+                        oe.AddOverlay(oe.Overlays.Count);
+                        var ov = oe.Overlays[oe.Overlays.Count - 1];
+                        var overlayFile = File.ReadAllBytes(basePath + p[6]);
+                        ov.ID = (uint)(oe.Overlays.Count - 1);
+                        ov.RAMAddress = uint.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov.RAMSize = (uint)overlayFile.Length;
+                        ov.BSSSize = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov.StaticInitStart = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov.StaticInitEnd = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov.Flags = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        oe.Overlays[oe.Overlays.Count - 1] = ov;
+                        oe.saveChangesButton_Click(null, new EventArgs());
+                        oe.closeButton_Click(null, new EventArgs());
+                        NitroOverlay n = new NitroOverlay(Program.m_ROM, (uint)(oe.Overlays.Count - 1));
+                        n.m_Data = overlayFile;
+                        n.SaveChanges();
+                        this.tvFileList.Nodes.Clear();
+                        ROMFileSelect.LoadFileList(this.tvFileList);
+                        this.tvARM9Overlays.Nodes.Clear();
+                        ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
+                        break;
 
-                            //Rename file.
-                            case "rename":
-                                Program.m_ROM.StartFilesystemEdit();
-                                ushort fileIdFromName;
-                                if (ushort.TryParse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture, out _)) {
-                                    fileIdFromName = Program.m_ROM.GetFileIDFromInternalID(ushort.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture));
-                                } else {
-                                    fileIdFromName = Program.m_ROM.GetFileIDFromName(p[1]);
-                                }
-                                string filename = Program.m_ROM.m_FileEntries[fileIdFromName].FullName;
-                                string newName = p[2];
-                                int length = filename.LastIndexOf('/') + 1;
-                                string str1 = filename.Substring(0, length) + newName;
-                                Program.m_ROM.m_FileEntries[fileIdFromName].Name = newName;
-                                Program.m_ROM.m_FileEntries[fileIdFromName].FullName = str1;
-                                Program.m_ROM.SaveFilesystem();
-                                this.tvFileList.Nodes.Clear();
-                                ROMFileSelect.LoadFileList(this.tvFileList);
-                                this.tvARM9Overlays.Nodes.Clear();
-                                ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
-                                break;
+                    //Edit overlay.
+                    case "edit_overlay":
+                        Program.m_ROM.StartFilesystemEdit();
+                        var ov2 = Program.m_ROM.m_OverlayEntries[int.Parse(p[1])];
+                        ov2.RAMAddress = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov2.BSSSize = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov2.StaticInitStart = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov2.StaticInitEnd = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        ov2.Flags = uint.Parse(p[6], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
+                        Program.m_ROM.m_OverlayEntries[int.Parse(p[1])] = ov2;
+                        Program.m_ROM.SaveFilesystem();
+                        break;
 
-                            //Import level XML.
-                            case "import_xml":
-                                Level lv = new Level(int.Parse(p[1]));
-                                try { LevelDataXML_Importer.ImportLevel(lv, basePath + p[2], true); }
-                                catch (InvalidDataException ex) { MessageBox.Show(ex.Message); }
-                                catch (Exception ex) { new ExceptionMessageBox("Error parsing level, changes have not been saved", ex).ShowDialog();}
-                                Program.m_ROM.LoadROM(Program.m_ROM.m_Path);
-                                break;
-
-                            //Add overlay.
-                            case "add_overlay":
-                                OverlayEditor oe = new OverlayEditor();
-                                oe.AddOverlay(oe.Overlays.Count);
-                                var ov = oe.Overlays[oe.Overlays.Count - 1];
-                                var overlayFile = File.ReadAllBytes(basePath + p[6]);
-                                ov.ID = (uint)(oe.Overlays.Count - 1);
-                                ov.RAMAddress = uint.Parse(p[1], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov.RAMSize = (uint)overlayFile.Length;
-                                ov.BSSSize = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov.StaticInitStart = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov.StaticInitEnd = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov.Flags = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                oe.Overlays[oe.Overlays.Count - 1] = ov;
-                                oe.saveChangesButton_Click(null, new EventArgs());
-                                oe.closeButton_Click(null, new EventArgs());
-                                NitroOverlay n = new NitroOverlay(Program.m_ROM, (uint)(oe.Overlays.Count - 1));
-                                n.m_Data = overlayFile;
-                                n.SaveChanges();
-                                this.tvFileList.Nodes.Clear();
-                                ROMFileSelect.LoadFileList(this.tvFileList);
-                                this.tvARM9Overlays.Nodes.Clear();
-                                ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
-                                break;
-
-                            //Edit overlay.
-                            case "edit_overlay":
-                                Program.m_ROM.StartFilesystemEdit();
-                                var ov2 = Program.m_ROM.m_OverlayEntries[int.Parse(p[1])];
-                                ov2.RAMAddress = uint.Parse(p[2], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov2.BSSSize = uint.Parse(p[5], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov2.StaticInitStart = uint.Parse(p[3], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov2.StaticInitEnd = uint.Parse(p[4], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                ov2.Flags = uint.Parse(p[6], NumberStyles.HexNumber, CultureInfo.CurrentCulture);
-                                Program.m_ROM.m_OverlayEntries[int.Parse(p[1])] = ov2;
-                                Program.m_ROM.SaveFilesystem();
-                                break;
-
-                            //Delete overlay.
-                            case "delete_overlay":
-                                OverlayEditor oe2 = new OverlayEditor();
-                                oe2.DeleteOverlay(int.Parse(p[1]));
-                                oe2.saveChangesButton_Click(null, new EventArgs());
-                                oe2.closeButton_Click(null, new EventArgs());
-                                break;*/
-                    }
+                    //Delete overlay.
+                    case "delete_overlay":
+                        OverlayEditor oe2 = new OverlayEditor();
+                        oe2.DeleteOverlay(int.Parse(p[1]));
+                        oe2.saveChangesButton_Click(null, new EventArgs());
+                        oe2.closeButton_Click(null, new EventArgs());
+                        break;*/
                 }
-
-                tvFileList.Nodes.Clear();
-                ROMFileSelect.LoadFileList(tvFileList);
-                tvARM9Overlays.Nodes.Clear();
-                ROMFileSelect.LoadOverlayList(tvARM9Overlays);
             }
+
+            if (filesystemEditStarted)
+                Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+
+            tvFileList.Nodes.Clear();
+            ROMFileSelect.LoadFileList(tvFileList);
+            tvARM9Overlays.Nodes.Clear();
+            ROMFileSelect.LoadOverlayList(tvARM9Overlays);
         }
 
         private void tsToolBar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
