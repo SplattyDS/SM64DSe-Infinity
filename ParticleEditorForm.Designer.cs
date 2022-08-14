@@ -250,7 +250,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ParticleEditorForm";
-            this.Text = "SPT Editor";
+            this.Text = "Particle Texture (SPT) Editor";
             this.Load += new System.EventHandler(this.TextureEditorForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

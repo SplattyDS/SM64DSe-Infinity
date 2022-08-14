@@ -56,11 +56,12 @@ namespace SM64DSe
         private SortedDictionary<string, byte[]> m_WorkingPalettesCopy;
 
         private string m_Name;
+        private string m_BmaName;
         private bool m_ModelSourceLoaded;
 
         private BMD m_LoadedModel;
-        private BMA m_LoadedMatAnim;
-        private BMA.MaterialProperties m_SelectedMatProp;
+        private MaterialAnim m_LoadedMatAnim;
+        private MaterialAnim.MaterialProperties m_SelectedMatProp;
 
         private ModelImportationSettings m_ModelImportationSettings;
 
@@ -80,6 +81,9 @@ namespace SM64DSe
         private static readonly byte[] DUMMY_BMD_DATA;
         private static readonly NitroFile DUMMY_BMD_NITRO_FILE;
         private static readonly BMD DUMMY_BMD;
+
+        private bool m_UpdatingWindow = false;
+
         static MaterialAnimationEditor()
         {
             DUMMY_BMD_DATA = new byte[0x30];
@@ -90,9 +94,7 @@ namespace SM64DSe
             DUMMY_BMD = new BMD(DUMMY_BMD_NITRO_FILE);
         }
 
-        public MaterialAnimationEditor(
-            float gameScale = 1f
-            )
+        public MaterialAnimationEditor(float gameScale = 1f)
         {
             m_BMDDisplayLists = new int[3]; // Standard, Geometry Highlighting, Skeleton
 
@@ -124,7 +126,7 @@ namespace SM64DSe
 
         private void MaterialAnimationEditor_Load(object sender, System.EventArgs e)
         {
-            
+            UpdateWindow();
         }
 
         private void MaterialAnimationEditor_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
@@ -201,6 +203,9 @@ namespace SM64DSe
             UpdateEnabledStateMenuControls();
 
             lblMainStatus.Text = "Source: " + m_Name;
+
+            foreach (var mat in m_ModelBase.m_Materials)
+                lstMaterialProperties.Items.Add(mat.Key);
         }
 
         private void DeleteDisplayLists()
@@ -390,10 +395,10 @@ namespace SM64DSe
                 StopTimer();
 
                 if (m_LoopAnimation)
-                {
                     StartTimer();
-                }
             }
+
+            UpdateWindow();
         }
 
         private void IncrementFrame()
@@ -413,64 +418,137 @@ namespace SM64DSe
             txtCurrentFrameNum.Text = "" + m_AnimationFrameNumber;
         }
 
-        private void UpdateCheckBoxes()
+        private string ToHexString(uint num)
         {
-            if (m_SelectedMatProp == null)
-                return;
-
-            chkDifRed.Checked    = m_SelectedMatProp.difRedAdv;
-            chkDifGreen.Checked  = m_SelectedMatProp.difGreenAdv;
-            chkDifBlue.Checked   = m_SelectedMatProp.difBlueAdv;
-            chkAmbRed.Checked    = m_SelectedMatProp.ambRedAdv;
-            chkAmbGreen.Checked  = m_SelectedMatProp.ambGreenAdv;
-            chkAmbBlue.Checked   = m_SelectedMatProp.ambBlueAdv;
-            chkSpecRed.Checked   = m_SelectedMatProp.specRedAdv;
-            chkSpecGreen.Checked = m_SelectedMatProp.specGreenAdv;
-            chkSpecBlue.Checked  = m_SelectedMatProp.specBlueAdv;
-            chkEmiRed.Checked    = m_SelectedMatProp.emiRedAdv;
-            chkEmiGreen.Checked  = m_SelectedMatProp.emiGreenAdv;
-            chkEmiBlue.Checked   = m_SelectedMatProp.emiBlueAdv;
-            chkAlpha.Checked     = m_SelectedMatProp.alphaAdv;
+            return Convert.ToString(num, 16);
         }
 
-        private void UpdateTextBoxes()
+        private void SetColourButtonValue(Button button, Color colour)
         {
-            if (m_SelectedMatProp == null)
-                return;
-
-            txtDifRed.Text    = m_SelectedMatProp.difRedAdv    ? Convert.ToString(m_SelectedMatProp.difRedValues[m_AnimationFrameNumber], 16)    : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Diffuse.R, 16);
-            txtDifGreen.Text  = m_SelectedMatProp.difGreenAdv  ? Convert.ToString(m_SelectedMatProp.difGreenValues[m_AnimationFrameNumber], 16)  : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Diffuse.G, 16);
-            txtDifBlue.Text   = m_SelectedMatProp.difBlueAdv   ? Convert.ToString(m_SelectedMatProp.difBlueValues[m_AnimationFrameNumber], 16)   : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Diffuse.B, 16);
-            txtAmbRed.Text    = m_SelectedMatProp.ambRedAdv    ? Convert.ToString(m_SelectedMatProp.ambRedValues[m_AnimationFrameNumber], 16)    : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Ambient.R, 16);
-            txtAmbGreen.Text  = m_SelectedMatProp.ambGreenAdv  ? Convert.ToString(m_SelectedMatProp.ambGreenValues[m_AnimationFrameNumber], 16)  : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Ambient.G, 16);
-            txtAmbBlue.Text   = m_SelectedMatProp.ambBlueAdv   ? Convert.ToString(m_SelectedMatProp.ambBlueValues[m_AnimationFrameNumber], 16)   : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Ambient.B, 16);
-            txtSpecRed.Text   = m_SelectedMatProp.specRedAdv   ? Convert.ToString(m_SelectedMatProp.specRedValues[m_AnimationFrameNumber], 16)   : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Specular.R, 16);
-            txtSpecGreen.Text = m_SelectedMatProp.specGreenAdv ? Convert.ToString(m_SelectedMatProp.specGreenValues[m_AnimationFrameNumber], 16) : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Specular.G, 16);
-            txtSpecBlue.Text  = m_SelectedMatProp.specBlueAdv  ? Convert.ToString(m_SelectedMatProp.specBlueValues[m_AnimationFrameNumber], 16)  : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Specular.B, 16);
-            txtEmiRed.Text    = m_SelectedMatProp.emiRedAdv    ? Convert.ToString(m_SelectedMatProp.emiRedValues[m_AnimationFrameNumber], 16)    : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Emission.R, 16);
-            txtEmiGreen.Text  = m_SelectedMatProp.emiGreenAdv  ? Convert.ToString(m_SelectedMatProp.emiGreenValues[m_AnimationFrameNumber], 16)  : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Emission.G, 16);
-            txtEmiBlue.Text   = m_SelectedMatProp.emiBlueAdv   ? Convert.ToString(m_SelectedMatProp.emiBlueValues[m_AnimationFrameNumber], 16)   : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Emission.B, 16);
-            txtAlpha.Text     = m_SelectedMatProp.alphaAdv     ? Convert.ToString(m_SelectedMatProp.alphaValues[m_AnimationFrameNumber], 16)     : Convert.ToString(m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Alpha, 16);
+            string hexColourString = Helper.GetHexColourString(colour);
+            button.Text = hexColourString;
+            button.BackColor = colour;
+            float luma = 0.2126f * colour.R + 0.7152f * colour.G + 0.0722f * colour.B;
+            if (luma < 50)
+                button.ForeColor = Color.White;
+            else
+                button.ForeColor = Color.Black;
         }
 
-        private void UpdateColorButtons()
+        private void UpdateWindow()
         {
-            btnDif.BackColor = Color.FromArgb(
-                m_SelectedMatProp.difRedAdv    ? m_SelectedMatProp.difRedValues[m_AnimationFrameNumber]    : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Diffuse.R,
-                m_SelectedMatProp.difGreenAdv  ? m_SelectedMatProp.difGreenValues[m_AnimationFrameNumber]  : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Diffuse.G,
-                m_SelectedMatProp.difBlueAdv   ? m_SelectedMatProp.difBlueValues[m_AnimationFrameNumber]   : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Diffuse.B);
-            btnAmb.BackColor = Color.FromArgb(
-                m_SelectedMatProp.ambRedAdv    ? m_SelectedMatProp.ambRedValues[m_AnimationFrameNumber]    : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Ambient.R,
-                m_SelectedMatProp.ambGreenAdv  ? m_SelectedMatProp.ambGreenValues[m_AnimationFrameNumber]  : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Ambient.G,
-                m_SelectedMatProp.ambBlueAdv   ? m_SelectedMatProp.ambBlueValues[m_AnimationFrameNumber]   : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Ambient.B);
-            btnSpec.BackColor = Color.FromArgb(
-                m_SelectedMatProp.specRedAdv   ? m_SelectedMatProp.specRedValues[m_AnimationFrameNumber]   : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Specular.R,
-                m_SelectedMatProp.specGreenAdv ? m_SelectedMatProp.specGreenValues[m_AnimationFrameNumber] : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Specular.G,
-                m_SelectedMatProp.specBlueAdv  ? m_SelectedMatProp.specBlueValues[m_AnimationFrameNumber]  : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Specular.B);
-            btnEmi.BackColor = Color.FromArgb(
-                m_SelectedMatProp.emiRedAdv    ? m_SelectedMatProp.emiRedValues[m_AnimationFrameNumber]    : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Emission.R,
-                m_SelectedMatProp.emiGreenAdv  ? m_SelectedMatProp.emiGreenValues[m_AnimationFrameNumber]  : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Emission.G,
-                m_SelectedMatProp.emiBlueAdv   ? m_SelectedMatProp.emiBlueValues[m_AnimationFrameNumber]   : m_ModelBase.m_Materials[lstMaterialProperties.Text].m_Emission.B);
+            m_UpdatingWindow = true;
+
+            chkDifRed.Enabled = chkDifGreen.Enabled = chkDifBlue.Enabled = 
+                chkAmbRed.Enabled = chkAmbGreen.Enabled = chkAmbBlue.Enabled = 
+                chkSpecRed.Enabled = chkSpecGreen.Enabled = chkSpecBlue.Enabled = 
+                chkEmiRed.Enabled = chkEmiGreen.Enabled = chkEmiBlue.Enabled = 
+                chkAlpha.Enabled = 
+                txtDifRed.Enabled = txtDifGreen.Enabled = txtDifBlue.Enabled =
+                txtAmbRed.Enabled = txtAmbGreen.Enabled = txtAmbBlue.Enabled =
+                txtSpecRed.Enabled = txtSpecGreen.Enabled = txtSpecBlue.Enabled =
+                txtEmiRed.Enabled = txtEmiGreen.Enabled = txtEmiBlue.Enabled =
+                txtAlpha.Enabled = m_SelectedMatProp != null && m_LoadedMatAnim != null;
+            chkHasAnim.Enabled = lstMaterialProperties.SelectedIndex >= 0;
+            btnAddFrame.Enabled = btnRemoveFrame.Enabled = btnPlay.Enabled = btnStop.Enabled =
+                btnPreviousFrame.Enabled = btnNextFrame.Enabled = btnFirstFrame.Enabled = btnLastFrame.Enabled =
+                m_LoadedMatAnim != null;
+
+            if (m_LoadedMatAnim == null)
+            {
+                m_UpdatingWindow = false;
+                return;
+            }
+
+            txtCurrentFrameNum.Text = (m_AnimationFrameNumber + 1) + "";
+            txtNumFrames.Text = m_AnimationNumFrames + "";
+
+            chkHasAnim.Checked = m_SelectedMatProp != null;
+
+            if (m_SelectedMatProp == null)
+            {
+                var mat = GetModelMat();
+
+                label1.Text = "";
+                chkDifRed.Checked = chkDifGreen.Checked = chkDifBlue.Checked =
+                chkAmbRed.Checked = chkAmbGreen.Checked = chkAmbBlue.Checked =
+                chkSpecRed.Checked = chkSpecGreen.Checked = chkSpecBlue.Checked =
+                chkEmiRed.Checked = chkEmiGreen.Checked = chkEmiBlue.Checked =
+                chkAlpha.Checked = false;
+
+                if (mat != null)
+                {
+                    ushort dif = Helper.ColorToBGR15(mat.m_Diffuse);
+                    ushort amb = Helper.ColorToBGR15(mat.m_Ambient);
+                    ushort spec = Helper.ColorToBGR15(mat.m_Specular);
+                    ushort emit = Helper.ColorToBGR15(mat.m_Emission);
+                    byte alpha = mat.m_Alpha;
+
+                    SetColourButtonValue(btnDif, mat.m_Diffuse);
+                    SetColourButtonValue(btnAmb, mat.m_Ambient);
+                    SetColourButtonValue(btnSpec, mat.m_Specular);
+                    SetColourButtonValue(btnEmi, mat.m_Emission);
+
+                    txtDifRed.Text = ToHexString((byte)((dif >> 0) & 0x1f));
+                    txtDifGreen.Text = ToHexString((byte)((dif >> 5) & 0x1f));
+                    txtDifBlue.Text = ToHexString((byte)((dif >> 10) & 0x1f));
+                    txtAmbRed.Text = ToHexString((byte)((amb >> 0) & 0x1f));
+                    txtAmbGreen.Text = ToHexString((byte)((amb >> 5) & 0x1f));
+                    txtAmbBlue.Text = ToHexString((byte)((amb >> 10) & 0x1f));
+                    txtSpecRed.Text = ToHexString((byte)((spec >> 0) & 0x1f));
+                    txtSpecGreen.Text = ToHexString((byte)((spec >> 5) & 0x1f));
+                    txtSpecBlue.Text = ToHexString((byte)((spec >> 10) & 0x1f));
+                    txtEmiRed.Text = ToHexString((byte)((emit >> 0) & 0x1f));
+                    txtEmiGreen.Text = ToHexString((byte)((emit >> 5) & 0x1f));
+                    txtEmiBlue.Text = ToHexString((byte)((emit >> 10) & 0x1f));
+                    txtAlpha.Text = ToHexString(alpha);
+
+                    label1.Text = "Default material values for " + lstMaterialProperties.SelectedItem.ToString();
+                }
+
+                m_UpdatingWindow = false;
+                return;
+            }
+
+            label1.Text = "Material values for frame " + (m_AnimationFrameNumber + 1) + ":";
+
+            // checkboxes
+            chkDifRed.Checked    = m_SelectedMatProp.Adv(PropTypes.difRed);
+            chkDifGreen.Checked  = m_SelectedMatProp.Adv(PropTypes.difGreen);
+            chkDifBlue.Checked   = m_SelectedMatProp.Adv(PropTypes.difBlue);
+            chkAmbRed.Checked    = m_SelectedMatProp.Adv(PropTypes.ambRed);
+            chkAmbGreen.Checked  = m_SelectedMatProp.Adv(PropTypes.ambGreen);
+            chkAmbBlue.Checked   = m_SelectedMatProp.Adv(PropTypes.ambBlue);
+            chkSpecRed.Checked   = m_SelectedMatProp.Adv(PropTypes.specRed);
+            chkSpecGreen.Checked = m_SelectedMatProp.Adv(PropTypes.specGreen);
+            chkSpecBlue.Checked  = m_SelectedMatProp.Adv(PropTypes.specBlue);
+            chkEmiRed.Checked    = m_SelectedMatProp.Adv(PropTypes.emitRed);
+            chkEmiGreen.Checked  = m_SelectedMatProp.Adv(PropTypes.emitGreen);
+            chkEmiBlue.Checked   = m_SelectedMatProp.Adv(PropTypes.emitBlue);
+            chkAlpha.Checked     = m_SelectedMatProp.Adv(PropTypes.alpha);
+
+            // text boxes
+            txtDifRed.Text    = ToHexString(m_SelectedMatProp.Value(PropTypes.difRed, m_AnimationFrameNumber));
+            txtDifGreen.Text  = ToHexString(m_SelectedMatProp.Value(PropTypes.difGreen, m_AnimationFrameNumber));
+            txtDifBlue.Text   = ToHexString(m_SelectedMatProp.Value(PropTypes.difBlue, m_AnimationFrameNumber));
+            txtAmbRed.Text    = ToHexString(m_SelectedMatProp.Value(PropTypes.ambRed, m_AnimationFrameNumber));
+            txtAmbGreen.Text  = ToHexString(m_SelectedMatProp.Value(PropTypes.ambGreen, m_AnimationFrameNumber));
+            txtAmbBlue.Text   = ToHexString(m_SelectedMatProp.Value(PropTypes.ambBlue, m_AnimationFrameNumber));
+            txtSpecRed.Text   = ToHexString(m_SelectedMatProp.Value(PropTypes.specRed, m_AnimationFrameNumber));
+            txtSpecGreen.Text = ToHexString(m_SelectedMatProp.Value(PropTypes.specGreen, m_AnimationFrameNumber));
+            txtSpecBlue.Text  = ToHexString(m_SelectedMatProp.Value(PropTypes.specBlue, m_AnimationFrameNumber));
+            txtEmiRed.Text    = ToHexString(m_SelectedMatProp.Value(PropTypes.emitRed, m_AnimationFrameNumber));
+            txtEmiGreen.Text  = ToHexString(m_SelectedMatProp.Value(PropTypes.emitGreen, m_AnimationFrameNumber));
+            txtEmiBlue.Text   = ToHexString(m_SelectedMatProp.Value(PropTypes.emitBlue, m_AnimationFrameNumber));
+            txtAlpha.Text     = ToHexString(m_SelectedMatProp.Value(PropTypes.alpha, m_AnimationFrameNumber));
+
+            // color buttons
+            SetColourButtonValue(btnDif, m_SelectedMatProp.GetDif(m_AnimationFrameNumber));
+            SetColourButtonValue(btnAmb, m_SelectedMatProp.GetAmb(m_AnimationFrameNumber));
+            SetColourButtonValue(btnSpec, m_SelectedMatProp.GetSpec(m_AnimationFrameNumber));
+            SetColourButtonValue(btnEmi, m_SelectedMatProp.GetEmit(m_AnimationFrameNumber));
+
+            m_UpdatingWindow = false;
         }
 
         private void mnitLoad_Click(object sender, EventArgs e)
@@ -480,40 +558,546 @@ namespace SM64DSe
             if (result != DialogResult.OK)
                 return;
 
+            m_LoadedMatAnim = null;
+            m_SelectedMatProp = null;
+            lstMaterialProperties.SelectedIndex = -1;
+
             m_Name = m_ROMFileSelect.m_SelectedFile;
+            //m_Name = "data/enemy/kuribo/kuribo_model.bmd";
             LoadModel();
+
+            foreach (var x in m_ModelBase.m_Materials) if (!lstMaterialProperties.Items.Contains(x.Key))
+                lstMaterialProperties.Items.Add(x.Key);
         }
 
         private void mnitImport_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Select a particle";
-            DialogResult result = ofd.ShowDialog();
-            if (result == DialogResult.Cancel) return;
-            m_LoadedMatAnim = new BMA(System.IO.File.ReadAllBytes(ofd.FileName));
-            m_SelectedMatProp = m_LoadedMatAnim.matProps.FirstOrDefault();
-
-            m_AnimationNumFrames = m_LoadedMatAnim.frames;
-            txtNumFrames.Text = $"{m_LoadedMatAnim.frames}";
-            txtCurrentFrameNum.Text = "0";
-
-            UpdateCheckBoxes();
-            UpdateTextBoxes();
-        }
-
-        private void mnitExport_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog export = new SaveFileDialog();
-            export.FileName = $"mat_anim.bma";
-            export.Filter = "Binary Material Animation (*.bma) | *.bma";
-            if (export.ShowDialog() == DialogResult.Cancel)
+            m_ROMFileSelect.ReInitialize("Select a BMA file to load", new string[] { ".bma" });
+            DialogResult result = m_ROMFileSelect.ShowDialog();
+            if (result != DialogResult.OK)
                 return;
-            System.IO.File.WriteAllBytes(export.FileName, m_LoadedMatAnim.GetBMA().m_Data);
+
+            m_BmaName = m_ROMFileSelect.m_SelectedFile;
+            //m_BmaName = "data/enemy/kuribo/goomba_regurg.bma";
+            ReloadBMA();
         }
 
-        private void btnModelBonesRenameBone_Click(object sender, EventArgs e)
+        private void ReloadBMA()
         {
+            lstMaterialProperties.SelectedIndex = -1;
 
+            m_SelectedMatProp = null;
+            m_LoadedMatAnim = new MaterialAnim(Program.m_ROM.GetFileFromName(m_BmaName));
+
+            m_AnimationFrameNumber = 0;
+            m_AnimationTimer.Stop();
+
+            m_AnimationNumFrames = m_LoadedMatAnim.GetNumFrames();
+            
+            UpdateWindow();
+        }
+
+        private void mnitSave_Click(object sender, EventArgs e)
+        {
+            m_LoadedMatAnim.SaveFile();
+        }
+
+        private void lstMaterialProperties_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstMaterialProperties.SelectedIndex < 0 || m_LoadedMatAnim == null)
+            {
+                m_SelectedMatProp = null;
+                return;
+            }
+
+            m_SelectedMatProp = m_LoadedMatAnim.GetMatPropFromName(lstMaterialProperties.SelectedItem.ToString());
+            UpdateWindow();
+        }
+
+        private void btnLastFrame_Click(object sender, EventArgs e)
+        {
+            m_AnimationFrameNumber = m_LoadedMatAnim.GetNumFrames() - 1;
+            UpdateWindow();
+        }
+
+        private void btnFirstFrame_Click(object sender, EventArgs e)
+        {
+            m_AnimationFrameNumber = 0;
+            UpdateWindow();
+        }
+
+        private void btnNextFrame_Click(object sender, EventArgs e)
+        {
+            if (m_AnimationFrameNumber == m_LoadedMatAnim.GetNumFrames() - 1)
+                return;
+
+            m_AnimationFrameNumber++;
+            UpdateWindow();
+        }
+
+        private void btnPreviousFrame_Click(object sender, EventArgs e)
+        {
+            if (m_AnimationFrameNumber == 0)
+                return;
+
+            m_AnimationFrameNumber--;
+            UpdateWindow();
+        }
+
+        private void btnAddFrame_Click(object sender, EventArgs e)
+        {
+            m_AnimationNumFrames++;
+            m_LoadedMatAnim.SetNumFrames((ushort)(m_LoadedMatAnim.GetNumFrames() + 1));
+            UpdateWindow();
+        }
+
+        private void btnRemoveFrame_Click(object sender, EventArgs e)
+        {
+            m_AnimationNumFrames--;
+            if (m_AnimationFrameNumber == m_LoadedMatAnim.GetNumFrames() - 1)
+                m_AnimationFrameNumber--;
+
+            m_LoadedMatAnim.SetNumFrames((ushort)(m_LoadedMatAnim.GetNumFrames() - 1));
+            UpdateWindow();
+        }
+
+        private ModelBase.MaterialDef GetModelMat()
+        {
+            if (lstMaterialProperties.SelectedIndex < 0)
+                return null;
+
+            return m_ModelBase.m_Materials[lstMaterialProperties.SelectedItem.ToString()];
+        }
+
+        private void chkHasAnim_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_LoadedMatAnim == null)
+                return;
+
+            if (chkHasAnim.Checked)
+            {
+                string name = lstMaterialProperties.SelectedItem.ToString();
+                var matProp = new MaterialAnim.MaterialProperties(name);
+
+                var mat = GetModelMat();
+
+                ushort dif = Helper.ColorToBGR15(mat.m_Diffuse);
+                ushort amb = Helper.ColorToBGR15(mat.m_Ambient);
+                ushort spec = Helper.ColorToBGR15(mat.m_Specular);
+                ushort emit = Helper.ColorToBGR15(mat.m_Emission);
+                byte alpha = mat.m_Alpha;
+
+                matProp.InitValue(PropTypes.difRed, (byte)((dif >> 0) & 0x1f));
+                matProp.InitValue(PropTypes.difGreen, (byte)((dif >> 5) & 0x1f));
+                matProp.InitValue(PropTypes.difBlue, (byte)((dif >> 10) & 0x1f));
+                matProp.InitValue(PropTypes.ambRed, (byte)((amb >> 0) & 0x1f));
+                matProp.InitValue(PropTypes.ambGreen, (byte)((amb >> 5) & 0x1f));
+                matProp.InitValue(PropTypes.ambBlue, (byte)((amb >> 10) & 0x1f));
+                matProp.InitValue(PropTypes.specRed, (byte)((spec >> 0) & 0x1f));
+                matProp.InitValue(PropTypes.specGreen, (byte)((spec >> 5) & 0x1f));
+                matProp.InitValue(PropTypes.specBlue, (byte)((spec >> 10) & 0x1f));
+                matProp.InitValue(PropTypes.emitRed, (byte)((emit >> 0) & 0x1f));
+                matProp.InitValue(PropTypes.emitGreen, (byte)((emit >> 5) & 0x1f));
+                matProp.InitValue(PropTypes.emitBlue, (byte)((emit >> 10) & 0x1f));
+                matProp.InitValue(PropTypes.alpha, alpha);
+
+                m_LoadedMatAnim.AddMatProp(matProp);
+                m_SelectedMatProp = matProp;
+            }
+            else
+            {
+                m_LoadedMatAnim.RemoveMatProp(m_SelectedMatProp);
+                m_SelectedMatProp = null;
+            }
+
+            UpdateWindow();
+        }
+
+        private void chkDifRed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkDifRed.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.difRed);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.difRed, Convert.ToByte(txtDifRed.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkDifGreen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkDifGreen.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.difGreen);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.difGreen, Convert.ToByte(txtDifGreen.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkDifBlue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkDifBlue.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.difBlue);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.difBlue, Convert.ToByte(txtDifBlue.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkAmbRed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkAmbRed.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.ambRed);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.ambRed, Convert.ToByte(txtAmbRed.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkAmbGreen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkAmbGreen.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.ambGreen);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.ambGreen, Convert.ToByte(txtAmbGreen.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkAmbBlue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkAmbBlue.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.ambBlue);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.ambBlue, Convert.ToByte(txtAmbBlue.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkSpecRed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkSpecRed.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.specRed);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.specRed, Convert.ToByte(txtSpecRed.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkSpecGreen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkSpecGreen.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.specGreen);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.specGreen, Convert.ToByte(txtSpecGreen.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkSpecBlue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkSpecBlue.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.specBlue);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.specBlue, Convert.ToByte(txtSpecBlue.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkEmiRed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkEmiRed.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.emitRed);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.emitRed, Convert.ToByte(txtEmiRed.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkEmiGreen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkEmiGreen.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.emitGreen);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.emitGreen, Convert.ToByte(txtEmiGreen.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkEmiBlue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkEmiBlue.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.emitBlue);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.emitBlue, Convert.ToByte(txtEmiBlue.Text, 16));
+            UpdateWindow();
+        }
+
+        private void chkAlpha_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow)
+                return;
+
+            if (chkAlpha.Checked)
+                m_LoadedMatAnim.EnableProp(m_SelectedMatProp, PropTypes.alpha);
+            else
+                m_LoadedMatAnim.DisableProp(m_SelectedMatProp, PropTypes.alpha, Convert.ToByte(txtAlpha.Text, 16));
+            UpdateWindow();
+        }
+
+        private void txtDifRed_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtDifRed.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.difRed, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtDifGreen_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtDifGreen.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.difGreen, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtDifBlue_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtDifBlue.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.difBlue, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtAmbRed_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtAmbRed.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.ambRed, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtAmbGreen_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtAmbGreen.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.ambGreen, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtAmbBlue_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtAmbBlue.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.ambBlue, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtSpecRed_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtSpecRed.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.specRed, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtSpecGreen_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtSpecGreen.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.specGreen, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtSpecBlue_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtSpecBlue.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.specBlue, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtEmiRed_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtEmiRed.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.emitRed, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtEmiGreen_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtEmiGreen.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.emitGreen, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtEmiBlue_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtEmiBlue.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.emitBlue, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtAlpha_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingWindow || m_Running)
+                return;
+
+            try
+            {
+                byte val = Convert.ToByte(txtAlpha.Text, 16);
+                m_SelectedMatProp.SetValue(PropTypes.alpha, m_AnimationFrameNumber, val);
+                UpdateWindow();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            StartTimer();
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            StopTimer();
         }
     }
 }

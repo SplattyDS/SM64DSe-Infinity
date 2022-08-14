@@ -34,14 +34,47 @@
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpgModel = new System.Windows.Forms.TabPage();
             this.splModel = new System.Windows.Forms.SplitContainer();
-            this.txtModelPreviewScale = new System.Windows.Forms.TextBox();
-            this.tsModelPreview = new System.Windows.Forms.ToolStrip();
-            this.lblModelPreviewScale = new System.Windows.Forms.ToolStripLabel();
-            this.glModelView = new SM64DSe.FormControls.ModelGLControlWithMarioSizeReference();
-            this.mstrMain = new System.Windows.Forms.MenuStrip();
-            this.mnitLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnitImport = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnitExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.chkHasAnim = new System.Windows.Forms.CheckBox();
+            this.btnRemoveFrame = new System.Windows.Forms.Button();
+            this.btnAddFrame = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtAlpha = new System.Windows.Forms.TextBox();
+            this.chkAlpha = new System.Windows.Forms.CheckBox();
+            this.btnEmi = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtEmiRed = new System.Windows.Forms.TextBox();
+            this.chkEmiBlue = new System.Windows.Forms.CheckBox();
+            this.txtEmiBlue = new System.Windows.Forms.TextBox();
+            this.chkEmiRed = new System.Windows.Forms.CheckBox();
+            this.txtEmiGreen = new System.Windows.Forms.TextBox();
+            this.chkEmiGreen = new System.Windows.Forms.CheckBox();
+            this.btnSpec = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSpecRed = new System.Windows.Forms.TextBox();
+            this.chkSpecBlue = new System.Windows.Forms.CheckBox();
+            this.txtSpecBlue = new System.Windows.Forms.TextBox();
+            this.chkSpecRed = new System.Windows.Forms.CheckBox();
+            this.txtSpecGreen = new System.Windows.Forms.TextBox();
+            this.chkSpecGreen = new System.Windows.Forms.CheckBox();
+            this.btnAmb = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtAmbRed = new System.Windows.Forms.TextBox();
+            this.chkAmbBlue = new System.Windows.Forms.CheckBox();
+            this.txtAmbBlue = new System.Windows.Forms.TextBox();
+            this.chkAmbRed = new System.Windows.Forms.CheckBox();
+            this.txtAmbGreen = new System.Windows.Forms.TextBox();
+            this.chkAmbGreen = new System.Windows.Forms.CheckBox();
+            this.btnDif = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtDifRed = new System.Windows.Forms.TextBox();
+            this.chkDifBlue = new System.Windows.Forms.CheckBox();
+            this.txtDifBlue = new System.Windows.Forms.TextBox();
+            this.chkDifRed = new System.Windows.Forms.CheckBox();
+            this.txtDifGreen = new System.Windows.Forms.TextBox();
+            this.chkDifGreen = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lstMaterialProperties = new System.Windows.Forms.ListBox();
             this.txtNumFrames = new System.Windows.Forms.TextBox();
             this.lblFrameNum = new System.Windows.Forms.Label();
             this.txtCurrentFrameNum = new System.Windows.Forms.TextBox();
@@ -52,50 +85,14 @@
             this.btnFirstFrame = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
-            this.chkOnlyViewSelected = new System.Windows.Forms.CheckBox();
-            this.lstMaterialProperties = new System.Windows.Forms.ListBox();
-            this.btnAddMatProp = new System.Windows.Forms.Button();
-            this.btnRemoveMatProp = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbMaterial = new System.Windows.Forms.ComboBox();
-            this.chkDifGreen = new System.Windows.Forms.CheckBox();
-            this.txtDifGreen = new System.Windows.Forms.TextBox();
-            this.txtDifBlue = new System.Windows.Forms.TextBox();
-            this.chkDifRed = new System.Windows.Forms.CheckBox();
-            this.txtDifRed = new System.Windows.Forms.TextBox();
-            this.chkDifBlue = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnDif = new System.Windows.Forms.Button();
-            this.btnAmb = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtAmbRed = new System.Windows.Forms.TextBox();
-            this.chkAmbBlue = new System.Windows.Forms.CheckBox();
-            this.txtAmbBlue = new System.Windows.Forms.TextBox();
-            this.chkAmbRed = new System.Windows.Forms.CheckBox();
-            this.txtAmbGreen = new System.Windows.Forms.TextBox();
-            this.chkAmbGreen = new System.Windows.Forms.CheckBox();
-            this.btnSpec = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtSpecRed = new System.Windows.Forms.TextBox();
-            this.chkSpecBlue = new System.Windows.Forms.CheckBox();
-            this.txtSpecBlue = new System.Windows.Forms.TextBox();
-            this.chkSpecRed = new System.Windows.Forms.CheckBox();
-            this.txtSpecGreen = new System.Windows.Forms.TextBox();
-            this.chkSpecGreen = new System.Windows.Forms.CheckBox();
-            this.btnEmi = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtEmiRed = new System.Windows.Forms.TextBox();
-            this.chkEmiBlue = new System.Windows.Forms.CheckBox();
-            this.txtEmiBlue = new System.Windows.Forms.TextBox();
-            this.chkEmiRed = new System.Windows.Forms.CheckBox();
-            this.txtEmiGreen = new System.Windows.Forms.TextBox();
-            this.chkEmiGreen = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtAlpha = new System.Windows.Forms.TextBox();
-            this.chkAlpha = new System.Windows.Forms.CheckBox();
-            this.btnAddFrame = new System.Windows.Forms.Button();
-            this.btnRemoveFrame = new System.Windows.Forms.Button();
+            this.txtModelPreviewScale = new System.Windows.Forms.TextBox();
+            this.tsModelPreview = new System.Windows.Forms.ToolStrip();
+            this.lblModelPreviewScale = new System.Windows.Forms.ToolStripLabel();
+            this.mstrMain = new System.Windows.Forms.MenuStrip();
+            this.mnitLoad = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnitImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnitExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.glModelView = new SM64DSe.FormControls.ModelGLControlWithMarioSizeReference();
             this.ssMain.SuspendLayout();
             this.tcMain.SuspendLayout();
             this.tpgModel.SuspendLayout();
@@ -159,6 +156,8 @@
             // 
             // splModel.Panel1
             // 
+            this.splModel.Panel1.Controls.Add(this.label2);
+            this.splModel.Panel1.Controls.Add(this.chkHasAnim);
             this.splModel.Panel1.Controls.Add(this.btnRemoveFrame);
             this.splModel.Panel1.Controls.Add(this.btnAddFrame);
             this.splModel.Panel1.Controls.Add(this.label7);
@@ -196,13 +195,8 @@
             this.splModel.Panel1.Controls.Add(this.chkDifRed);
             this.splModel.Panel1.Controls.Add(this.txtDifGreen);
             this.splModel.Panel1.Controls.Add(this.chkDifGreen);
-            this.splModel.Panel1.Controls.Add(this.cmbMaterial);
-            this.splModel.Panel1.Controls.Add(this.label2);
             this.splModel.Panel1.Controls.Add(this.label1);
-            this.splModel.Panel1.Controls.Add(this.btnRemoveMatProp);
-            this.splModel.Panel1.Controls.Add(this.btnAddMatProp);
             this.splModel.Panel1.Controls.Add(this.lstMaterialProperties);
-            this.splModel.Panel1.Controls.Add(this.chkOnlyViewSelected);
             this.splModel.Panel1.Controls.Add(this.txtNumFrames);
             this.splModel.Panel1.Controls.Add(this.lblFrameNum);
             this.splModel.Panel1.Controls.Add(this.txtCurrentFrameNum);
@@ -224,77 +218,426 @@
             this.splModel.SplitterWidth = 5;
             this.splModel.TabIndex = 0;
             // 
-            // txtModelPreviewScale
+            // label2
             // 
-            this.txtModelPreviewScale.Location = new System.Drawing.Point(121, 1);
-            this.txtModelPreviewScale.Margin = new System.Windows.Forms.Padding(4);
-            this.txtModelPreviewScale.Name = "txtModelPreviewScale";
-            this.txtModelPreviewScale.Size = new System.Drawing.Size(140, 22);
-            this.txtModelPreviewScale.TabIndex = 15;
-            this.txtModelPreviewScale.TextChanged += new System.EventHandler(this.txtModelPreviewScale_TextChanged);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(63, 263);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(158, 17);
+            this.label2.TabIndex = 79;
+            this.label2.Text = "Material has animation?";
             // 
-            // tsModelPreview
+            // chkHasAnim
             // 
-            this.tsModelPreview.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.tsModelPreview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblModelPreviewScale});
-            this.tsModelPreview.Location = new System.Drawing.Point(0, 0);
-            this.tsModelPreview.Name = "tsModelPreview";
-            this.tsModelPreview.Size = new System.Drawing.Size(855, 25);
-            this.tsModelPreview.TabIndex = 1;
-            this.tsModelPreview.Text = "toolStrip1";
+            this.chkHasAnim.AutoSize = true;
+            this.chkHasAnim.Location = new System.Drawing.Point(229, 264);
+            this.chkHasAnim.Margin = new System.Windows.Forms.Padding(4);
+            this.chkHasAnim.Name = "chkHasAnim";
+            this.chkHasAnim.Size = new System.Drawing.Size(18, 17);
+            this.chkHasAnim.TabIndex = 78;
+            this.chkHasAnim.UseVisualStyleBackColor = true;
+            this.chkHasAnim.CheckedChanged += new System.EventHandler(this.chkHasAnim_CheckedChanged);
             // 
-            // lblModelPreviewScale
+            // btnRemoveFrame
             // 
-            this.lblModelPreviewScale.Name = "lblModelPreviewScale";
-            this.lblModelPreviewScale.Size = new System.Drawing.Size(102, 22);
-            this.lblModelPreviewScale.Text = "Preview Scale:";
+            this.btnRemoveFrame.Location = new System.Drawing.Point(271, 74);
+            this.btnRemoveFrame.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRemoveFrame.Name = "btnRemoveFrame";
+            this.btnRemoveFrame.Size = new System.Drawing.Size(28, 28);
+            this.btnRemoveFrame.TabIndex = 77;
+            this.btnRemoveFrame.Text = "-";
+            this.btnRemoveFrame.UseVisualStyleBackColor = true;
+            this.btnRemoveFrame.Click += new System.EventHandler(this.btnRemoveFrame_Click);
             // 
-            // glModelView
+            // btnAddFrame
             // 
-            this.glModelView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.glModelView.BackColor = System.Drawing.Color.Black;
-            this.glModelView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.glModelView.Location = new System.Drawing.Point(0, 0);
-            this.glModelView.Margin = new System.Windows.Forms.Padding(0);
-            this.glModelView.Name = "glModelView";
-            this.glModelView.Size = new System.Drawing.Size(855, 645);
-            this.glModelView.TabIndex = 0;
-            this.glModelView.VSync = false;
+            this.btnAddFrame.Location = new System.Drawing.Point(235, 74);
+            this.btnAddFrame.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAddFrame.Name = "btnAddFrame";
+            this.btnAddFrame.Size = new System.Drawing.Size(28, 28);
+            this.btnAddFrame.TabIndex = 76;
+            this.btnAddFrame.Text = "+";
+            this.btnAddFrame.UseVisualStyleBackColor = true;
+            this.btnAddFrame.Click += new System.EventHandler(this.btnAddFrame_Click);
             // 
-            // mstrMain
+            // label7
             // 
-            this.mstrMain.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.mstrMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnitLoad,
-            this.mnitImport,
-            this.mnitExport});
-            this.mstrMain.Location = new System.Drawing.Point(0, 0);
-            this.mstrMain.Name = "mstrMain";
-            this.mstrMain.Size = new System.Drawing.Size(1184, 28);
-            this.mstrMain.TabIndex = 3;
-            this.mstrMain.Text = "menuStrip1";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(203, 566);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 17);
+            this.label7.TabIndex = 75;
+            this.label7.Text = "Alpha";
             // 
-            // mnitLoad
+            // txtAlpha
             // 
-            this.mnitLoad.Name = "mnitLoad";
-            this.mnitLoad.Size = new System.Drawing.Size(93, 24);
-            this.mnitLoad.Text = "Load BMD";
-            this.mnitLoad.Click += new System.EventHandler(this.mnitLoad_Click);
+            this.txtAlpha.Location = new System.Drawing.Point(57, 591);
+            this.txtAlpha.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAlpha.Name = "txtAlpha";
+            this.txtAlpha.Size = new System.Drawing.Size(44, 22);
+            this.txtAlpha.TabIndex = 74;
+            this.txtAlpha.TextChanged += new System.EventHandler(this.txtAlpha_TextChanged);
             // 
-            // mnitImport
+            // chkAlpha
             // 
-            this.mnitImport.Name = "mnitImport";
-            this.mnitImport.Size = new System.Drawing.Size(104, 24);
-            this.mnitImport.Text = "Import BMA";
-            this.mnitImport.Click += new System.EventHandler(this.mnitImport_Click);
+            this.chkAlpha.AutoSize = true;
+            this.chkAlpha.Location = new System.Drawing.Point(71, 566);
+            this.chkAlpha.Margin = new System.Windows.Forms.Padding(4);
+            this.chkAlpha.Name = "chkAlpha";
+            this.chkAlpha.Size = new System.Drawing.Size(18, 17);
+            this.chkAlpha.TabIndex = 71;
+            this.chkAlpha.UseVisualStyleBackColor = true;
+            this.chkAlpha.CheckedChanged += new System.EventHandler(this.chkAlpha_CheckedChanged);
             // 
-            // mnitExport
+            // btnEmi
             // 
-            this.mnitExport.Name = "mnitExport";
-            this.mnitExport.Size = new System.Drawing.Size(102, 24);
-            this.mnitExport.Text = "Export BMA";
-            this.mnitExport.Click += new System.EventHandler(this.mnitExport_Click);
+            this.btnEmi.BackColor = System.Drawing.Color.Black;
+            this.btnEmi.ForeColor = System.Drawing.Color.White;
+            this.btnEmi.Location = new System.Drawing.Point(179, 533);
+            this.btnEmi.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEmi.Name = "btnEmi";
+            this.btnEmi.Size = new System.Drawing.Size(93, 28);
+            this.btnEmi.TabIndex = 68;
+            this.btnEmi.Text = "#000000";
+            this.btnEmi.UseVisualStyleBackColor = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(194, 511);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(64, 17);
+            this.label6.TabIndex = 67;
+            this.label6.Text = "Emission";
+            // 
+            // txtEmiRed
+            // 
+            this.txtEmiRed.Location = new System.Drawing.Point(5, 536);
+            this.txtEmiRed.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmiRed.Name = "txtEmiRed";
+            this.txtEmiRed.Size = new System.Drawing.Size(44, 22);
+            this.txtEmiRed.TabIndex = 66;
+            this.txtEmiRed.TextChanged += new System.EventHandler(this.txtEmiRed_TextChanged);
+            // 
+            // chkEmiBlue
+            // 
+            this.chkEmiBlue.AutoSize = true;
+            this.chkEmiBlue.Location = new System.Drawing.Point(122, 511);
+            this.chkEmiBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.chkEmiBlue.Name = "chkEmiBlue";
+            this.chkEmiBlue.Size = new System.Drawing.Size(18, 17);
+            this.chkEmiBlue.TabIndex = 65;
+            this.chkEmiBlue.UseVisualStyleBackColor = true;
+            this.chkEmiBlue.CheckedChanged += new System.EventHandler(this.chkEmiBlue_CheckedChanged);
+            // 
+            // txtEmiBlue
+            // 
+            this.txtEmiBlue.Location = new System.Drawing.Point(109, 536);
+            this.txtEmiBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmiBlue.Name = "txtEmiBlue";
+            this.txtEmiBlue.Size = new System.Drawing.Size(44, 22);
+            this.txtEmiBlue.TabIndex = 64;
+            this.txtEmiBlue.TextChanged += new System.EventHandler(this.txtEmiBlue_TextChanged);
+            // 
+            // chkEmiRed
+            // 
+            this.chkEmiRed.AutoSize = true;
+            this.chkEmiRed.Location = new System.Drawing.Point(19, 511);
+            this.chkEmiRed.Margin = new System.Windows.Forms.Padding(4);
+            this.chkEmiRed.Name = "chkEmiRed";
+            this.chkEmiRed.Size = new System.Drawing.Size(18, 17);
+            this.chkEmiRed.TabIndex = 63;
+            this.chkEmiRed.UseVisualStyleBackColor = true;
+            this.chkEmiRed.CheckedChanged += new System.EventHandler(this.chkEmiRed_CheckedChanged);
+            // 
+            // txtEmiGreen
+            // 
+            this.txtEmiGreen.Location = new System.Drawing.Point(57, 536);
+            this.txtEmiGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmiGreen.Name = "txtEmiGreen";
+            this.txtEmiGreen.Size = new System.Drawing.Size(44, 22);
+            this.txtEmiGreen.TabIndex = 62;
+            this.txtEmiGreen.TextChanged += new System.EventHandler(this.txtEmiGreen_TextChanged);
+            // 
+            // chkEmiGreen
+            // 
+            this.chkEmiGreen.AutoSize = true;
+            this.chkEmiGreen.Location = new System.Drawing.Point(71, 511);
+            this.chkEmiGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.chkEmiGreen.Name = "chkEmiGreen";
+            this.chkEmiGreen.Size = new System.Drawing.Size(18, 17);
+            this.chkEmiGreen.TabIndex = 61;
+            this.chkEmiGreen.UseVisualStyleBackColor = true;
+            this.chkEmiGreen.CheckedChanged += new System.EventHandler(this.chkEmiGreen_CheckedChanged);
+            // 
+            // btnSpec
+            // 
+            this.btnSpec.BackColor = System.Drawing.Color.Black;
+            this.btnSpec.ForeColor = System.Drawing.Color.White;
+            this.btnSpec.Location = new System.Drawing.Point(179, 478);
+            this.btnSpec.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSpec.Name = "btnSpec";
+            this.btnSpec.Size = new System.Drawing.Size(93, 28);
+            this.btnSpec.TabIndex = 60;
+            this.btnSpec.Text = "#000000";
+            this.btnSpec.UseVisualStyleBackColor = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(193, 456);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(64, 17);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "Specular";
+            // 
+            // txtSpecRed
+            // 
+            this.txtSpecRed.Location = new System.Drawing.Point(5, 481);
+            this.txtSpecRed.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSpecRed.Name = "txtSpecRed";
+            this.txtSpecRed.Size = new System.Drawing.Size(44, 22);
+            this.txtSpecRed.TabIndex = 58;
+            this.txtSpecRed.TextChanged += new System.EventHandler(this.txtSpecRed_TextChanged);
+            // 
+            // chkSpecBlue
+            // 
+            this.chkSpecBlue.AutoSize = true;
+            this.chkSpecBlue.Location = new System.Drawing.Point(122, 456);
+            this.chkSpecBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.chkSpecBlue.Name = "chkSpecBlue";
+            this.chkSpecBlue.Size = new System.Drawing.Size(18, 17);
+            this.chkSpecBlue.TabIndex = 57;
+            this.chkSpecBlue.UseVisualStyleBackColor = true;
+            this.chkSpecBlue.CheckedChanged += new System.EventHandler(this.chkSpecBlue_CheckedChanged);
+            // 
+            // txtSpecBlue
+            // 
+            this.txtSpecBlue.Location = new System.Drawing.Point(109, 481);
+            this.txtSpecBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSpecBlue.Name = "txtSpecBlue";
+            this.txtSpecBlue.Size = new System.Drawing.Size(44, 22);
+            this.txtSpecBlue.TabIndex = 56;
+            this.txtSpecBlue.TextChanged += new System.EventHandler(this.txtSpecBlue_TextChanged);
+            // 
+            // chkSpecRed
+            // 
+            this.chkSpecRed.AutoSize = true;
+            this.chkSpecRed.Location = new System.Drawing.Point(19, 456);
+            this.chkSpecRed.Margin = new System.Windows.Forms.Padding(4);
+            this.chkSpecRed.Name = "chkSpecRed";
+            this.chkSpecRed.Size = new System.Drawing.Size(18, 17);
+            this.chkSpecRed.TabIndex = 55;
+            this.chkSpecRed.UseVisualStyleBackColor = true;
+            this.chkSpecRed.CheckedChanged += new System.EventHandler(this.chkSpecRed_CheckedChanged);
+            // 
+            // txtSpecGreen
+            // 
+            this.txtSpecGreen.Location = new System.Drawing.Point(57, 481);
+            this.txtSpecGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSpecGreen.Name = "txtSpecGreen";
+            this.txtSpecGreen.Size = new System.Drawing.Size(44, 22);
+            this.txtSpecGreen.TabIndex = 54;
+            this.txtSpecGreen.TextChanged += new System.EventHandler(this.txtSpecGreen_TextChanged);
+            // 
+            // chkSpecGreen
+            // 
+            this.chkSpecGreen.AutoSize = true;
+            this.chkSpecGreen.Location = new System.Drawing.Point(71, 456);
+            this.chkSpecGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.chkSpecGreen.Name = "chkSpecGreen";
+            this.chkSpecGreen.Size = new System.Drawing.Size(18, 17);
+            this.chkSpecGreen.TabIndex = 53;
+            this.chkSpecGreen.UseVisualStyleBackColor = true;
+            this.chkSpecGreen.CheckedChanged += new System.EventHandler(this.chkSpecGreen_CheckedChanged);
+            // 
+            // btnAmb
+            // 
+            this.btnAmb.BackColor = System.Drawing.Color.Black;
+            this.btnAmb.ForeColor = System.Drawing.Color.White;
+            this.btnAmb.Location = new System.Drawing.Point(179, 423);
+            this.btnAmb.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAmb.Name = "btnAmb";
+            this.btnAmb.Size = new System.Drawing.Size(93, 28);
+            this.btnAmb.TabIndex = 52;
+            this.btnAmb.Text = "#000000";
+            this.btnAmb.UseVisualStyleBackColor = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(196, 401);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 17);
+            this.label4.TabIndex = 51;
+            this.label4.Text = "Ambient";
+            // 
+            // txtAmbRed
+            // 
+            this.txtAmbRed.Location = new System.Drawing.Point(5, 426);
+            this.txtAmbRed.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAmbRed.Name = "txtAmbRed";
+            this.txtAmbRed.Size = new System.Drawing.Size(44, 22);
+            this.txtAmbRed.TabIndex = 50;
+            this.txtAmbRed.TextChanged += new System.EventHandler(this.txtAmbRed_TextChanged);
+            // 
+            // chkAmbBlue
+            // 
+            this.chkAmbBlue.AutoSize = true;
+            this.chkAmbBlue.Location = new System.Drawing.Point(122, 401);
+            this.chkAmbBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.chkAmbBlue.Name = "chkAmbBlue";
+            this.chkAmbBlue.Size = new System.Drawing.Size(18, 17);
+            this.chkAmbBlue.TabIndex = 49;
+            this.chkAmbBlue.UseVisualStyleBackColor = true;
+            this.chkAmbBlue.CheckedChanged += new System.EventHandler(this.chkAmbBlue_CheckedChanged);
+            // 
+            // txtAmbBlue
+            // 
+            this.txtAmbBlue.Location = new System.Drawing.Point(109, 426);
+            this.txtAmbBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAmbBlue.Name = "txtAmbBlue";
+            this.txtAmbBlue.Size = new System.Drawing.Size(44, 22);
+            this.txtAmbBlue.TabIndex = 48;
+            this.txtAmbBlue.TextChanged += new System.EventHandler(this.txtAmbBlue_TextChanged);
+            // 
+            // chkAmbRed
+            // 
+            this.chkAmbRed.AutoSize = true;
+            this.chkAmbRed.Location = new System.Drawing.Point(19, 401);
+            this.chkAmbRed.Margin = new System.Windows.Forms.Padding(4);
+            this.chkAmbRed.Name = "chkAmbRed";
+            this.chkAmbRed.Size = new System.Drawing.Size(18, 17);
+            this.chkAmbRed.TabIndex = 47;
+            this.chkAmbRed.UseVisualStyleBackColor = true;
+            this.chkAmbRed.CheckedChanged += new System.EventHandler(this.chkAmbRed_CheckedChanged);
+            // 
+            // txtAmbGreen
+            // 
+            this.txtAmbGreen.Location = new System.Drawing.Point(57, 426);
+            this.txtAmbGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAmbGreen.Name = "txtAmbGreen";
+            this.txtAmbGreen.Size = new System.Drawing.Size(44, 22);
+            this.txtAmbGreen.TabIndex = 46;
+            this.txtAmbGreen.TextChanged += new System.EventHandler(this.txtAmbGreen_TextChanged);
+            // 
+            // chkAmbGreen
+            // 
+            this.chkAmbGreen.AutoSize = true;
+            this.chkAmbGreen.Location = new System.Drawing.Point(71, 401);
+            this.chkAmbGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.chkAmbGreen.Name = "chkAmbGreen";
+            this.chkAmbGreen.Size = new System.Drawing.Size(18, 17);
+            this.chkAmbGreen.TabIndex = 45;
+            this.chkAmbGreen.UseVisualStyleBackColor = true;
+            this.chkAmbGreen.CheckedChanged += new System.EventHandler(this.chkAmbGreen_CheckedChanged);
+            // 
+            // btnDif
+            // 
+            this.btnDif.BackColor = System.Drawing.Color.Black;
+            this.btnDif.ForeColor = System.Drawing.Color.White;
+            this.btnDif.Location = new System.Drawing.Point(179, 368);
+            this.btnDif.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDif.Name = "btnDif";
+            this.btnDif.Size = new System.Drawing.Size(93, 28);
+            this.btnDif.TabIndex = 44;
+            this.btnDif.Text = "#000000";
+            this.btnDif.UseVisualStyleBackColor = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(199, 346);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 17);
+            this.label3.TabIndex = 43;
+            this.label3.Text = "Diffuse";
+            // 
+            // txtDifRed
+            // 
+            this.txtDifRed.Location = new System.Drawing.Point(5, 371);
+            this.txtDifRed.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDifRed.Name = "txtDifRed";
+            this.txtDifRed.Size = new System.Drawing.Size(44, 22);
+            this.txtDifRed.TabIndex = 42;
+            this.txtDifRed.TextChanged += new System.EventHandler(this.txtDifRed_TextChanged);
+            // 
+            // chkDifBlue
+            // 
+            this.chkDifBlue.AutoSize = true;
+            this.chkDifBlue.Location = new System.Drawing.Point(122, 346);
+            this.chkDifBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.chkDifBlue.Name = "chkDifBlue";
+            this.chkDifBlue.Size = new System.Drawing.Size(18, 17);
+            this.chkDifBlue.TabIndex = 41;
+            this.chkDifBlue.UseVisualStyleBackColor = true;
+            this.chkDifBlue.CheckedChanged += new System.EventHandler(this.chkDifBlue_CheckedChanged);
+            // 
+            // txtDifBlue
+            // 
+            this.txtDifBlue.Location = new System.Drawing.Point(109, 371);
+            this.txtDifBlue.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDifBlue.Name = "txtDifBlue";
+            this.txtDifBlue.Size = new System.Drawing.Size(44, 22);
+            this.txtDifBlue.TabIndex = 40;
+            this.txtDifBlue.TextChanged += new System.EventHandler(this.txtDifBlue_TextChanged);
+            // 
+            // chkDifRed
+            // 
+            this.chkDifRed.AutoSize = true;
+            this.chkDifRed.Location = new System.Drawing.Point(19, 346);
+            this.chkDifRed.Margin = new System.Windows.Forms.Padding(4);
+            this.chkDifRed.Name = "chkDifRed";
+            this.chkDifRed.Size = new System.Drawing.Size(18, 17);
+            this.chkDifRed.TabIndex = 39;
+            this.chkDifRed.UseVisualStyleBackColor = true;
+            this.chkDifRed.CheckedChanged += new System.EventHandler(this.chkDifRed_CheckedChanged);
+            // 
+            // txtDifGreen
+            // 
+            this.txtDifGreen.Location = new System.Drawing.Point(57, 371);
+            this.txtDifGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDifGreen.Name = "txtDifGreen";
+            this.txtDifGreen.Size = new System.Drawing.Size(44, 22);
+            this.txtDifGreen.TabIndex = 38;
+            this.txtDifGreen.TextChanged += new System.EventHandler(this.txtDifGreen_TextChanged);
+            // 
+            // chkDifGreen
+            // 
+            this.chkDifGreen.AutoSize = true;
+            this.chkDifGreen.Location = new System.Drawing.Point(71, 346);
+            this.chkDifGreen.Margin = new System.Windows.Forms.Padding(4);
+            this.chkDifGreen.Name = "chkDifGreen";
+            this.chkDifGreen.Size = new System.Drawing.Size(18, 17);
+            this.chkDifGreen.TabIndex = 37;
+            this.chkDifGreen.UseVisualStyleBackColor = true;
+            this.chkDifGreen.CheckedChanged += new System.EventHandler(this.chkDifGreen_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 311);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(267, 17);
+            this.label1.TabIndex = 34;
+            this.label1.Text = "Material values for frame {currentFrame}:";
+            // 
+            // lstMaterialProperties
+            // 
+            this.lstMaterialProperties.FormattingEnabled = true;
+            this.lstMaterialProperties.ItemHeight = 16;
+            this.lstMaterialProperties.Location = new System.Drawing.Point(5, 133);
+            this.lstMaterialProperties.Name = "lstMaterialProperties";
+            this.lstMaterialProperties.Size = new System.Drawing.Size(300, 116);
+            this.lstMaterialProperties.TabIndex = 31;
+            this.lstMaterialProperties.SelectedIndexChanged += new System.EventHandler(this.lstMaterialProperties_SelectedIndexChanged);
             // 
             // txtNumFrames
             // 
@@ -342,6 +685,7 @@
             this.btnLastFrame.TabIndex = 24;
             this.btnLastFrame.Text = "| >";
             this.btnLastFrame.UseVisualStyleBackColor = true;
+            this.btnLastFrame.Click += new System.EventHandler(this.btnLastFrame_Click);
             // 
             // btnNextFrame
             // 
@@ -352,6 +696,7 @@
             this.btnNextFrame.TabIndex = 23;
             this.btnNextFrame.Text = ">";
             this.btnNextFrame.UseVisualStyleBackColor = true;
+            this.btnNextFrame.Click += new System.EventHandler(this.btnNextFrame_Click);
             // 
             // btnPreviousFrame
             // 
@@ -362,6 +707,7 @@
             this.btnPreviousFrame.TabIndex = 22;
             this.btnPreviousFrame.Text = "<";
             this.btnPreviousFrame.UseVisualStyleBackColor = true;
+            this.btnPreviousFrame.Click += new System.EventHandler(this.btnPreviousFrame_Click);
             // 
             // btnFirstFrame
             // 
@@ -372,6 +718,7 @@
             this.btnFirstFrame.TabIndex = 21;
             this.btnFirstFrame.Text = "< |";
             this.btnFirstFrame.UseVisualStyleBackColor = true;
+            this.btnFirstFrame.Click += new System.EventHandler(this.btnFirstFrame_Click);
             // 
             // btnStop
             // 
@@ -382,6 +729,7 @@
             this.btnStop.TabIndex = 20;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnPlay
             // 
@@ -392,430 +740,79 @@
             this.btnPlay.TabIndex = 19;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
-            // 
-            // chkOnlyViewSelected
-            // 
-            this.chkOnlyViewSelected.AutoSize = true;
-            this.chkOnlyViewSelected.Location = new System.Drawing.Point(5, 105);
-            this.chkOnlyViewSelected.Margin = new System.Windows.Forms.Padding(4);
-            this.chkOnlyViewSelected.Name = "chkOnlyViewSelected";
-            this.chkOnlyViewSelected.Size = new System.Drawing.Size(147, 21);
-            this.chkOnlyViewSelected.TabIndex = 30;
-            this.chkOnlyViewSelected.Text = "Only view selected";
-            this.chkOnlyViewSelected.UseVisualStyleBackColor = true;
-            // 
-            // lstMaterialProperties
-            // 
-            this.lstMaterialProperties.FormattingEnabled = true;
-            this.lstMaterialProperties.ItemHeight = 16;
-            this.lstMaterialProperties.Location = new System.Drawing.Point(5, 133);
-            this.lstMaterialProperties.Name = "lstMaterialProperties";
-            this.lstMaterialProperties.Size = new System.Drawing.Size(300, 116);
-            this.lstMaterialProperties.TabIndex = 31;
-            // 
-            // btnAddMatProp
-            // 
-            this.btnAddMatProp.Location = new System.Drawing.Point(5, 256);
-            this.btnAddMatProp.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAddMatProp.Name = "btnAddMatProp";
-            this.btnAddMatProp.Size = new System.Drawing.Size(48, 28);
-            this.btnAddMatProp.TabIndex = 32;
-            this.btnAddMatProp.Text = "Add";
-            this.btnAddMatProp.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveMatProp
-            // 
-            this.btnRemoveMatProp.Location = new System.Drawing.Point(61, 256);
-            this.btnRemoveMatProp.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRemoveMatProp.Name = "btnRemoveMatProp";
-            this.btnRemoveMatProp.Size = new System.Drawing.Size(70, 28);
-            this.btnRemoveMatProp.TabIndex = 33;
-            this.btnRemoveMatProp.Text = "Remove";
-            this.btnRemoveMatProp.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 332);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(267, 17);
-            this.label1.TabIndex = 34;
-            this.label1.Text = "Material values for frame {currentFrame}:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 299);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 17);
-            this.label2.TabIndex = 35;
-            this.label2.Text = "Material:";
-            // 
-            // cmbMaterial
-            // 
-            this.cmbMaterial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMaterial.FormattingEnabled = true;
-            this.cmbMaterial.Location = new System.Drawing.Point(75, 296);
-            this.cmbMaterial.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbMaterial.Name = "cmbMaterial";
-            this.cmbMaterial.Size = new System.Drawing.Size(97, 24);
-            this.cmbMaterial.TabIndex = 36;
-            // 
-            // chkDifGreen
-            // 
-            this.chkDifGreen.AutoSize = true;
-            this.chkDifGreen.Location = new System.Drawing.Point(71, 367);
-            this.chkDifGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.chkDifGreen.Name = "chkDifGreen";
-            this.chkDifGreen.Size = new System.Drawing.Size(18, 17);
-            this.chkDifGreen.TabIndex = 37;
-            this.chkDifGreen.UseVisualStyleBackColor = true;
-            // 
-            // txtDifGreen
-            // 
-            this.txtDifGreen.Location = new System.Drawing.Point(57, 392);
-            this.txtDifGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDifGreen.Name = "txtDifGreen";
-            this.txtDifGreen.Size = new System.Drawing.Size(44, 22);
-            this.txtDifGreen.TabIndex = 38;
-            // 
-            // txtDifBlue
-            // 
-            this.txtDifBlue.Location = new System.Drawing.Point(109, 392);
-            this.txtDifBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDifBlue.Name = "txtDifBlue";
-            this.txtDifBlue.Size = new System.Drawing.Size(44, 22);
-            this.txtDifBlue.TabIndex = 40;
-            // 
-            // chkDifRed
-            // 
-            this.chkDifRed.AutoSize = true;
-            this.chkDifRed.Location = new System.Drawing.Point(19, 367);
-            this.chkDifRed.Margin = new System.Windows.Forms.Padding(4);
-            this.chkDifRed.Name = "chkDifRed";
-            this.chkDifRed.Size = new System.Drawing.Size(18, 17);
-            this.chkDifRed.TabIndex = 39;
-            this.chkDifRed.UseVisualStyleBackColor = true;
-            // 
-            // txtDifRed
-            // 
-            this.txtDifRed.Location = new System.Drawing.Point(5, 392);
-            this.txtDifRed.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDifRed.Name = "txtDifRed";
-            this.txtDifRed.Size = new System.Drawing.Size(44, 22);
-            this.txtDifRed.TabIndex = 42;
-            // 
-            // chkDifBlue
-            // 
-            this.chkDifBlue.AutoSize = true;
-            this.chkDifBlue.Location = new System.Drawing.Point(122, 367);
-            this.chkDifBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.chkDifBlue.Name = "chkDifBlue";
-            this.chkDifBlue.Size = new System.Drawing.Size(18, 17);
-            this.chkDifBlue.TabIndex = 41;
-            this.chkDifBlue.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(199, 367);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 17);
-            this.label3.TabIndex = 43;
-            this.label3.Text = "Diffuse";
-            // 
-            // btnDif
-            // 
-            this.btnDif.BackColor = System.Drawing.Color.Black;
-            this.btnDif.ForeColor = System.Drawing.Color.White;
-            this.btnDif.Location = new System.Drawing.Point(179, 389);
-            this.btnDif.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDif.Name = "btnDif";
-            this.btnDif.Size = new System.Drawing.Size(93, 28);
-            this.btnDif.TabIndex = 44;
-            this.btnDif.Text = "#000000";
-            this.btnDif.UseVisualStyleBackColor = false;
-            // 
-            // btnAmb
-            // 
-            this.btnAmb.BackColor = System.Drawing.Color.Black;
-            this.btnAmb.ForeColor = System.Drawing.Color.White;
-            this.btnAmb.Location = new System.Drawing.Point(179, 444);
-            this.btnAmb.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAmb.Name = "btnAmb";
-            this.btnAmb.Size = new System.Drawing.Size(93, 28);
-            this.btnAmb.TabIndex = 52;
-            this.btnAmb.Text = "#000000";
-            this.btnAmb.UseVisualStyleBackColor = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(196, 422);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 17);
-            this.label4.TabIndex = 51;
-            this.label4.Text = "Ambient";
-            // 
-            // txtAmbRed
-            // 
-            this.txtAmbRed.Location = new System.Drawing.Point(5, 447);
-            this.txtAmbRed.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAmbRed.Name = "txtAmbRed";
-            this.txtAmbRed.Size = new System.Drawing.Size(44, 22);
-            this.txtAmbRed.TabIndex = 50;
-            // 
-            // chkAmbBlue
-            // 
-            this.chkAmbBlue.AutoSize = true;
-            this.chkAmbBlue.Location = new System.Drawing.Point(122, 422);
-            this.chkAmbBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.chkAmbBlue.Name = "chkAmbBlue";
-            this.chkAmbBlue.Size = new System.Drawing.Size(18, 17);
-            this.chkAmbBlue.TabIndex = 49;
-            this.chkAmbBlue.UseVisualStyleBackColor = true;
-            // 
-            // txtAmbBlue
-            // 
-            this.txtAmbBlue.Location = new System.Drawing.Point(109, 447);
-            this.txtAmbBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAmbBlue.Name = "txtAmbBlue";
-            this.txtAmbBlue.Size = new System.Drawing.Size(44, 22);
-            this.txtAmbBlue.TabIndex = 48;
-            // 
-            // chkAmbRed
-            // 
-            this.chkAmbRed.AutoSize = true;
-            this.chkAmbRed.Location = new System.Drawing.Point(19, 422);
-            this.chkAmbRed.Margin = new System.Windows.Forms.Padding(4);
-            this.chkAmbRed.Name = "chkAmbRed";
-            this.chkAmbRed.Size = new System.Drawing.Size(18, 17);
-            this.chkAmbRed.TabIndex = 47;
-            this.chkAmbRed.UseVisualStyleBackColor = true;
-            // 
-            // txtAmbGreen
-            // 
-            this.txtAmbGreen.Location = new System.Drawing.Point(57, 447);
-            this.txtAmbGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAmbGreen.Name = "txtAmbGreen";
-            this.txtAmbGreen.Size = new System.Drawing.Size(44, 22);
-            this.txtAmbGreen.TabIndex = 46;
-            // 
-            // chkAmbGreen
-            // 
-            this.chkAmbGreen.AutoSize = true;
-            this.chkAmbGreen.Location = new System.Drawing.Point(71, 422);
-            this.chkAmbGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.chkAmbGreen.Name = "chkAmbGreen";
-            this.chkAmbGreen.Size = new System.Drawing.Size(18, 17);
-            this.chkAmbGreen.TabIndex = 45;
-            this.chkAmbGreen.UseVisualStyleBackColor = true;
-            // 
-            // btnSpec
-            // 
-            this.btnSpec.BackColor = System.Drawing.Color.Black;
-            this.btnSpec.ForeColor = System.Drawing.Color.White;
-            this.btnSpec.Location = new System.Drawing.Point(179, 499);
-            this.btnSpec.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSpec.Name = "btnSpec";
-            this.btnSpec.Size = new System.Drawing.Size(93, 28);
-            this.btnSpec.TabIndex = 60;
-            this.btnSpec.Text = "#000000";
-            this.btnSpec.UseVisualStyleBackColor = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(193, 477);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 17);
-            this.label5.TabIndex = 59;
-            this.label5.Text = "Specular";
-            // 
-            // txtSpecRed
-            // 
-            this.txtSpecRed.Location = new System.Drawing.Point(5, 502);
-            this.txtSpecRed.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSpecRed.Name = "txtSpecRed";
-            this.txtSpecRed.Size = new System.Drawing.Size(44, 22);
-            this.txtSpecRed.TabIndex = 58;
-            // 
-            // chkSpecBlue
-            // 
-            this.chkSpecBlue.AutoSize = true;
-            this.chkSpecBlue.Location = new System.Drawing.Point(122, 477);
-            this.chkSpecBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.chkSpecBlue.Name = "chkSpecBlue";
-            this.chkSpecBlue.Size = new System.Drawing.Size(18, 17);
-            this.chkSpecBlue.TabIndex = 57;
-            this.chkSpecBlue.UseVisualStyleBackColor = true;
-            // 
-            // txtSpecBlue
-            // 
-            this.txtSpecBlue.Location = new System.Drawing.Point(109, 502);
-            this.txtSpecBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSpecBlue.Name = "txtSpecBlue";
-            this.txtSpecBlue.Size = new System.Drawing.Size(44, 22);
-            this.txtSpecBlue.TabIndex = 56;
-            // 
-            // chkSpecRed
-            // 
-            this.chkSpecRed.AutoSize = true;
-            this.chkSpecRed.Location = new System.Drawing.Point(19, 477);
-            this.chkSpecRed.Margin = new System.Windows.Forms.Padding(4);
-            this.chkSpecRed.Name = "chkSpecRed";
-            this.chkSpecRed.Size = new System.Drawing.Size(18, 17);
-            this.chkSpecRed.TabIndex = 55;
-            this.chkSpecRed.UseVisualStyleBackColor = true;
-            // 
-            // txtSpecGreen
-            // 
-            this.txtSpecGreen.Location = new System.Drawing.Point(57, 502);
-            this.txtSpecGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSpecGreen.Name = "txtSpecGreen";
-            this.txtSpecGreen.Size = new System.Drawing.Size(44, 22);
-            this.txtSpecGreen.TabIndex = 54;
-            // 
-            // chkSpecGreen
-            // 
-            this.chkSpecGreen.AutoSize = true;
-            this.chkSpecGreen.Location = new System.Drawing.Point(71, 477);
-            this.chkSpecGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.chkSpecGreen.Name = "chkSpecGreen";
-            this.chkSpecGreen.Size = new System.Drawing.Size(18, 17);
-            this.chkSpecGreen.TabIndex = 53;
-            this.chkSpecGreen.UseVisualStyleBackColor = true;
-            // 
-            // btnEmi
-            // 
-            this.btnEmi.BackColor = System.Drawing.Color.Black;
-            this.btnEmi.ForeColor = System.Drawing.Color.White;
-            this.btnEmi.Location = new System.Drawing.Point(179, 554);
-            this.btnEmi.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEmi.Name = "btnEmi";
-            this.btnEmi.Size = new System.Drawing.Size(93, 28);
-            this.btnEmi.TabIndex = 68;
-            this.btnEmi.Text = "#000000";
-            this.btnEmi.UseVisualStyleBackColor = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(194, 532);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 17);
-            this.label6.TabIndex = 67;
-            this.label6.Text = "Emission";
-            // 
-            // txtEmiRed
-            // 
-            this.txtEmiRed.Location = new System.Drawing.Point(5, 557);
-            this.txtEmiRed.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEmiRed.Name = "txtEmiRed";
-            this.txtEmiRed.Size = new System.Drawing.Size(44, 22);
-            this.txtEmiRed.TabIndex = 66;
-            // 
-            // chkEmiBlue
-            // 
-            this.chkEmiBlue.AutoSize = true;
-            this.chkEmiBlue.Location = new System.Drawing.Point(122, 532);
-            this.chkEmiBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.chkEmiBlue.Name = "chkEmiBlue";
-            this.chkEmiBlue.Size = new System.Drawing.Size(18, 17);
-            this.chkEmiBlue.TabIndex = 65;
-            this.chkEmiBlue.UseVisualStyleBackColor = true;
-            // 
-            // txtEmiBlue
-            // 
-            this.txtEmiBlue.Location = new System.Drawing.Point(109, 557);
-            this.txtEmiBlue.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEmiBlue.Name = "txtEmiBlue";
-            this.txtEmiBlue.Size = new System.Drawing.Size(44, 22);
-            this.txtEmiBlue.TabIndex = 64;
-            // 
-            // chkEmiRed
-            // 
-            this.chkEmiRed.AutoSize = true;
-            this.chkEmiRed.Location = new System.Drawing.Point(19, 532);
-            this.chkEmiRed.Margin = new System.Windows.Forms.Padding(4);
-            this.chkEmiRed.Name = "chkEmiRed";
-            this.chkEmiRed.Size = new System.Drawing.Size(18, 17);
-            this.chkEmiRed.TabIndex = 63;
-            this.chkEmiRed.UseVisualStyleBackColor = true;
-            // 
-            // txtEmiGreen
-            // 
-            this.txtEmiGreen.Location = new System.Drawing.Point(57, 557);
-            this.txtEmiGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEmiGreen.Name = "txtEmiGreen";
-            this.txtEmiGreen.Size = new System.Drawing.Size(44, 22);
-            this.txtEmiGreen.TabIndex = 62;
-            // 
-            // chkEmiGreen
-            // 
-            this.chkEmiGreen.AutoSize = true;
-            this.chkEmiGreen.Location = new System.Drawing.Point(71, 532);
-            this.chkEmiGreen.Margin = new System.Windows.Forms.Padding(4);
-            this.chkEmiGreen.Name = "chkEmiGreen";
-            this.chkEmiGreen.Size = new System.Drawing.Size(18, 17);
-            this.chkEmiGreen.TabIndex = 61;
-            this.chkEmiGreen.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(203, 587);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 17);
-            this.label7.TabIndex = 75;
-            this.label7.Text = "Alpha";
-            // 
-            // txtAlpha
-            // 
-            this.txtAlpha.Location = new System.Drawing.Point(57, 612);
-            this.txtAlpha.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAlpha.Name = "txtAlpha";
-            this.txtAlpha.Size = new System.Drawing.Size(44, 22);
-            this.txtAlpha.TabIndex = 74;
-            // 
-            // chkAlpha
-            // 
-            this.chkAlpha.AutoSize = true;
-            this.chkAlpha.Location = new System.Drawing.Point(71, 587);
-            this.chkAlpha.Margin = new System.Windows.Forms.Padding(4);
-            this.chkAlpha.Name = "chkAlpha";
-            this.chkAlpha.Size = new System.Drawing.Size(18, 17);
-            this.chkAlpha.TabIndex = 71;
-            this.chkAlpha.UseVisualStyleBackColor = true;
-            // 
-            // btnAddFrame
-            // 
-            this.btnAddFrame.Location = new System.Drawing.Point(235, 74);
-            this.btnAddFrame.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAddFrame.Name = "btnAddFrame";
-            this.btnAddFrame.Size = new System.Drawing.Size(28, 28);
-            this.btnAddFrame.TabIndex = 76;
-            this.btnAddFrame.Text = "+";
-            this.btnAddFrame.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveFrame
-            // 
-            this.btnRemoveFrame.Location = new System.Drawing.Point(271, 74);
-            this.btnRemoveFrame.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRemoveFrame.Name = "btnRemoveFrame";
-            this.btnRemoveFrame.Size = new System.Drawing.Size(28, 28);
-            this.btnRemoveFrame.TabIndex = 77;
-            this.btnRemoveFrame.Text = "-";
-            this.btnRemoveFrame.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            // 
+            // txtModelPreviewScale
+            // 
+            this.txtModelPreviewScale.Location = new System.Drawing.Point(121, 1);
+            this.txtModelPreviewScale.Margin = new System.Windows.Forms.Padding(4);
+            this.txtModelPreviewScale.Name = "txtModelPreviewScale";
+            this.txtModelPreviewScale.Size = new System.Drawing.Size(140, 22);
+            this.txtModelPreviewScale.TabIndex = 15;
+            this.txtModelPreviewScale.TextChanged += new System.EventHandler(this.txtModelPreviewScale_TextChanged);
+            // 
+            // tsModelPreview
+            // 
+            this.tsModelPreview.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tsModelPreview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblModelPreviewScale});
+            this.tsModelPreview.Location = new System.Drawing.Point(0, 0);
+            this.tsModelPreview.Name = "tsModelPreview";
+            this.tsModelPreview.Size = new System.Drawing.Size(855, 25);
+            this.tsModelPreview.TabIndex = 1;
+            this.tsModelPreview.Text = "toolStrip1";
+            // 
+            // lblModelPreviewScale
+            // 
+            this.lblModelPreviewScale.Name = "lblModelPreviewScale";
+            this.lblModelPreviewScale.Size = new System.Drawing.Size(102, 22);
+            this.lblModelPreviewScale.Text = "Preview Scale:";
+            // 
+            // mstrMain
+            // 
+            this.mstrMain.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mstrMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnitLoad,
+            this.mnitImport,
+            this.mnitExport});
+            this.mstrMain.Location = new System.Drawing.Point(0, 0);
+            this.mstrMain.Name = "mstrMain";
+            this.mstrMain.Size = new System.Drawing.Size(1184, 28);
+            this.mstrMain.TabIndex = 3;
+            this.mstrMain.Text = "menuStrip1";
+            // 
+            // mnitLoad
+            // 
+            this.mnitLoad.Name = "mnitLoad";
+            this.mnitLoad.Size = new System.Drawing.Size(93, 24);
+            this.mnitLoad.Text = "Load BMD";
+            this.mnitLoad.Click += new System.EventHandler(this.mnitLoad_Click);
+            // 
+            // mnitImport
+            // 
+            this.mnitImport.Name = "mnitImport";
+            this.mnitImport.Size = new System.Drawing.Size(104, 24);
+            this.mnitImport.Text = "Import BMA";
+            this.mnitImport.Click += new System.EventHandler(this.mnitImport_Click);
+            // 
+            // mnitExport
+            // 
+            this.mnitExport.Name = "mnitExport";
+            this.mnitExport.Size = new System.Drawing.Size(90, 24);
+            this.mnitExport.Text = "Save BMA";
+            this.mnitExport.Click += new System.EventHandler(this.mnitSave_Click);
+            // 
+            // glModelView
+            // 
+            this.glModelView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.glModelView.BackColor = System.Drawing.Color.Black;
+            this.glModelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.glModelView.Location = new System.Drawing.Point(0, 0);
+            this.glModelView.Margin = new System.Windows.Forms.Padding(0);
+            this.glModelView.Name = "glModelView";
+            this.glModelView.Size = new System.Drawing.Size(855, 645);
+            this.glModelView.TabIndex = 0;
+            this.glModelView.VSync = false;
             // 
             // MaterialAnimationEditor
             // 
@@ -829,7 +826,7 @@
             this.MainMenuStrip = this.mstrMain;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MaterialAnimationEditor";
-            this.Text = "MaterialAnimationEditor";
+            this.Text = "Material Animation (BMA) Editor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MaterialAnimationEditor_FormClosed);
             this.Load += new System.EventHandler(this.MaterialAnimationEditor_Load);
             this.ssMain.ResumeLayout(false);
@@ -877,11 +874,7 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnRemoveMatProp;
-        private System.Windows.Forms.Button btnAddMatProp;
         private System.Windows.Forms.ListBox lstMaterialProperties;
-        private System.Windows.Forms.CheckBox chkOnlyViewSelected;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnRemoveFrame;
         private System.Windows.Forms.Button btnAddFrame;
         private System.Windows.Forms.Label label7;
@@ -919,6 +912,7 @@
         private System.Windows.Forms.CheckBox chkDifRed;
         private System.Windows.Forms.TextBox txtDifGreen;
         private System.Windows.Forms.CheckBox chkDifGreen;
-        private System.Windows.Forms.ComboBox cmbMaterial;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkHasAnim;
     }
 }

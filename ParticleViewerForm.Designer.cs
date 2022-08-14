@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParticleViewerForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loadSPAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,21 +86,21 @@
             // loadSPAToolStripMenuItem
             // 
             this.loadSPAToolStripMenuItem.Name = "loadSPAToolStripMenuItem";
-            this.loadSPAToolStripMenuItem.Size = new System.Drawing.Size(85, 26);
+            this.loadSPAToolStripMenuItem.Size = new System.Drawing.Size(85, 24);
             this.loadSPAToolStripMenuItem.Text = "Load SPA";
             this.loadSPAToolStripMenuItem.Click += new System.EventHandler(this.loadSPAToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(54, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // replaceSPDToolStripMenuItem
             // 
             this.replaceSPDToolStripMenuItem.Name = "replaceSPDToolStripMenuItem";
-            this.replaceSPDToolStripMenuItem.Size = new System.Drawing.Size(107, 26);
+            this.replaceSPDToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
             this.replaceSPDToolStripMenuItem.Text = "Replace SPD";
             this.replaceSPDToolStripMenuItem.Click += new System.EventHandler(this.replaceSPDToolStripMenuItem_Click);
             // 
@@ -110,7 +111,7 @@
             this.exportAllSPDToolStripMenuItem,
             this.exportCppToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(66, 26);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // exportSPDToolStripMenuItem
@@ -140,7 +141,7 @@
             this.copySelectedToolStripMenuItem,
             this.importSPDToolStripMenuItem});
             this.addParticleToolStripMenuItem.Name = "addParticleToolStripMenuItem";
-            this.addParticleToolStripMenuItem.Size = new System.Drawing.Size(103, 26);
+            this.addParticleToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
             this.addParticleToolStripMenuItem.Text = "Add Particle";
             // 
             // copySelectedToolStripMenuItem
@@ -160,14 +161,14 @@
             // removeSelectedToolStripMenuItem
             // 
             this.removeSelectedToolStripMenuItem.Name = "removeSelectedToolStripMenuItem";
-            this.removeSelectedToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
+            this.removeSelectedToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
             this.removeSelectedToolStripMenuItem.Text = "Remove Selected";
             this.removeSelectedToolStripMenuItem.Click += new System.EventHandler(this.removeSelectedToolStripMenuItem_Click);
             // 
             // editTexturesToolStripMenuItem
             // 
             this.editTexturesToolStripMenuItem.Name = "editTexturesToolStripMenuItem";
-            this.editTexturesToolStripMenuItem.Size = new System.Drawing.Size(107, 26);
+            this.editTexturesToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
             this.editTexturesToolStripMenuItem.Text = "Edit Textures";
             this.editTexturesToolStripMenuItem.Click += new System.EventHandler(this.editTexturesToolStripMenuItem_Click);
             // 
@@ -304,10 +305,11 @@
             this.ClientSize = new System.Drawing.Size(1846, 641);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ParticleViewerForm";
-            this.Text = "Particle Viewer";
+            this.Text = "Particle Archive (SPA) Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ParticleViewerForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParticleViewerForm_FormClosed);
             this.Load += new System.EventHandler(this.ParticleViewerForm_Load);

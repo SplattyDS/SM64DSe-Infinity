@@ -282,7 +282,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ParticleTextureForm";
-            this.Text = "Particle Texture Editor (SPA Edition)";
+            this.Text = "Particle Texture (SPT) Editor (SPA Edition)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParticleTextureForm_FormClosed);
             this.Load += new System.EventHandler(this.ParticleTextureForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbxTexture)).EndInit();

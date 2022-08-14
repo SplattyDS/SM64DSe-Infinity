@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -389,4 +390,313 @@ namespace SM64DSe
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public enum PropTypes
+    {
+        difRed,
+        difGreen,
+        difBlue,
+        ambRed,
+        ambGreen,
+        ambBlue,
+        specRed,
+        specGreen,
+        specBlue,
+        emitRed,
+        emitGreen,
+        emitBlue,
+        alpha,
+
+        num
+    };
+
+    public class MaterialAnim
+    {
+        public class MaterialProperty
+        {
+            public bool advance = false;
+            public List<byte> values = null;
+
+            // used when saving only
+            public ushort offset;
+        };
+
+        public class MaterialProperties
+        {
+            public ushort matID;
+            public string matName;
+            public MaterialProperty[] props;
+
+            public MaterialProperties()
+            {
+                props = new MaterialProperty[(int)PropTypes.num];
+                for (PropTypes i = 0; i < PropTypes.num; i++)
+                    props[(int)i] = new MaterialProperty();
+            }
+
+            public MaterialProperties(string matName)
+            {
+                this.matName = matName;
+                props = new MaterialProperty[(int)PropTypes.num];
+                for (PropTypes i = 0; i < PropTypes.num; i++)
+                    props[(int)i] = new MaterialProperty();
+            }
+
+            public List<byte> Values(PropTypes type)
+            {
+                return props[(int)type].values;
+            }
+
+            public byte Value(PropTypes type, int index)
+            {
+                if (Adv(type))
+                    return props[(int)type].values[index];
+                else
+                    return props[(int)type].values[0];
+            }
+
+            public bool Adv(PropTypes type)
+            {
+                return props[(int)type].advance;
+            }
+
+            public void SetValue(PropTypes type, int index, byte val)
+            {
+                props[(int)type].values[index] = val;
+            }
+
+            public void InitValue(PropTypes type, byte val)
+            {
+                props[(int)type].values = new List<byte>(1);
+                props[(int)type].values.Add(val);
+            }
+
+            public Color GetDif(int frame)
+            {
+                return Helper.BGR15ToColor(
+                Value(PropTypes.difRed, frame),
+                Value(PropTypes.difGreen, frame),
+                Value(PropTypes.difBlue, frame));
+            }
+
+            public Color GetAmb(int frame)
+            {
+                return Helper.BGR15ToColor(
+                Value(PropTypes.ambRed, frame),
+                Value(PropTypes.ambGreen, frame),
+                Value(PropTypes.ambBlue, frame));
+            }
+
+            public Color GetSpec(int frame)
+            {
+                return Helper.BGR15ToColor(
+                Value(PropTypes.specRed, frame),
+                Value(PropTypes.specGreen, frame),
+                Value(PropTypes.specBlue, frame));
+            }
+
+            public Color GetEmit(int frame)
+            {
+                return Helper.BGR15ToColor(
+                Value(PropTypes.emitRed, frame),
+                Value(PropTypes.emitGreen, frame),
+                Value(PropTypes.emitBlue, frame));
+            }
+        };
+
+        private ushort numFrames;
+        private List<MaterialProperties> matProps;
+        public NitroFile file;
+
+        public MaterialAnim(NitroFile file)
+        {
+            this.file = file;
+            numFrames = file.Read16(0x0);
+            uint valueOffset = file.Read32(0x4);
+            uint numMatProps = file.Read32(0x8);
+            uint matPropOffset = file.Read32(0xc);
+
+            matProps = new List<MaterialProperties>();
+
+            for (uint i = 0; i < numMatProps; i++)
+            {
+                uint curOffset = matPropOffset + i * 0x3c;
+
+                MaterialProperties matProp = new MaterialProperties();
+                matProp.matID = file.Read16(curOffset);
+                matProp.matName = file.ReadString(file.Read16(curOffset + 0x4), 0);
+
+                for (PropTypes j = 0; j < PropTypes.num; j++)
+                {
+                    bool adv = file.Read8(curOffset + 0x9 + (uint)j * 0x4) == 1;
+                    matProp.props[(int)j] = new MaterialProperty
+                    {
+                        advance = adv,
+                        values = matProp.props[(int)j].values = file.ReadBlock(valueOffset + file.Read16(curOffset + 0xa + (uint)j * 0x4), adv ? numFrames : 1u).ToList()
+                    }; 
+                }
+
+                matProps.Add(matProp);
+            }
+        }
+
+        public ushort GetNumFrames()
+        {
+            return numFrames;
+        }
+
+        public void SetNumFrames(ushort newNumFrames)
+        {
+            if (numFrames == newNumFrames)
+                return;
+
+            foreach (MaterialProperties matProp in matProps)
+            {
+                if (numFrames < newNumFrames)
+                {
+                    for (PropTypes i = 0; i < PropTypes.num; i++) if (matProp.props[(int)i].advance)
+                        matProp.props[(int)i].values.Add(matProp.props[(int)i].values.Last());
+                }
+                else
+                {
+                    for (PropTypes i = 0; i < PropTypes.num; i++) if (matProp.props[(int)i].advance)
+                        matProp.props[(int)i].values.RemoveAt(matProp.props[(int)i].values.Count() - 1);
+                }
+            }
+
+            numFrames = newNumFrames;
+        }
+
+        public void SaveFile()
+        {
+            file.Write16(0x0, numFrames);
+            file.Write16(0x2, 0x0);
+            file.Write32(0x4, 0x10);
+            file.Write32(0x8, (uint)matProps.Count());
+
+            List<byte> values = new List<byte>();
+            
+            foreach (MaterialProperties matProp in matProps)
+            {
+                for (PropTypes i = 0; i < PropTypes.num; i++)
+                {
+                    var x = CheckIfListIsInList(matProp.props[(int)i].values, values);
+                    if (!x.Item1)
+                    {
+                        matProp.props[(int)i].offset = (ushort)values.Count();
+                        values.AddRange(matProp.props[(int)i].values);
+                    }
+                    else
+                        matProp.props[(int)i].offset = (ushort)x.Item2;
+                }
+            }
+
+            int count = values.Count();
+            values.Capacity = count + (count % 4);
+            for (int i = 0; i < count % 4; i++)
+                values.Add(0);
+
+            uint matPropOffset = 0x10 + (uint)values.Count();
+            uint stringOffset = matPropOffset + 0x3c * (uint)matProps.Count();
+            uint curOffset = matPropOffset;
+
+            file.Write32(0xc, matPropOffset);
+            file.WriteBlock(0x10, values.ToArray());
+
+            foreach (MaterialProperties matProp in matProps)
+            {
+                int len = matProp.matName.Length;
+                int paddedLen = len + (len % 4 != 0 ? len % 4 : 4);
+
+                file.Write16(curOffset, matProp.matID);
+                file.Write16(curOffset + 0x2, 0);
+                file.Write32(curOffset + 0x4, stringOffset);
+                curOffset += 8;
+
+                for (PropTypes i = 0; i < PropTypes.num; i++)
+                {
+                    file.Write8(curOffset, 0x01);
+                    file.Write8(curOffset + 0x1, (byte)(matProp.props[(int)i].advance ? 1 : 0));
+                    file.Write16(curOffset + 0x2, matProp.props[(int)i].offset);
+                    curOffset += 4;
+                }
+
+                file.WriteString(stringOffset, matProp.matName, paddedLen);
+
+                stringOffset += (uint)paddedLen;
+            }
+
+            file.RemoveSpace(stringOffset, (uint)file.m_Data.Length - stringOffset);
+            file.SaveChanges();
+        }
+
+        // bool: whether arr1 was in arr2
+        // uint: first index of arr1 in arr2
+        private (bool, uint) CheckIfListIsInList(List<byte> arr1, List<byte> arr2)
+        {
+            int c1 = arr1.Count();
+            int c2 = arr2.Count();
+
+            for (int ind2 = 0; ind2 < c2; ind2++)
+            {
+                for (int ind1 = 0; ind1 < c1; ind1++)
+                {
+                    if (arr1[ind1] != arr2[ind2])
+                        break;
+
+                    if (ind1 == c1 - 1)
+                        return (true, ((uint)ind2 - (uint)c1) + 1);
+                }
+            }
+
+            return (false, 0);
+        }
+
+        public MaterialProperties GetMatPropFromName(string matName)
+        {
+            foreach (MaterialProperties matProp in matProps) if (matProp.matName == matName)
+                return matProp;
+
+            return null;
+        }
+
+        public void AddMatProp(MaterialProperties matProp)
+        {
+            matProps.Add(matProp);
+        }
+
+        public void RemoveMatProp(MaterialProperties matProp)
+        {
+            matProps.Remove(matProp);
+        }
+
+        public void EnableProp(MaterialProperties matProp, PropTypes type)
+        {
+            matProp.props[(int)type].advance = true;
+            byte def = matProp.props[(int)type].values[0];
+            for (int i = 1; i < numFrames; i++)
+                matProp.props[(int)type].values.Add(def);
+        }
+
+        public void DisableProp(MaterialProperties matProp, PropTypes type, byte onlyVal)
+        {
+            matProp.props[(int)type].advance = false;
+            matProp.props[(int)type].values = new List<byte>();
+            matProp.props[(int)type].values.Add(onlyVal);
+        }
+    };
 }

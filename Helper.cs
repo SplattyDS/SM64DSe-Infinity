@@ -97,6 +97,13 @@ namespace SM64DSe
             return Color.FromArgb(red, green, blue);
         }
 
+        public static Color BGR15ToColor(byte red, byte green, byte blue)
+        {
+            // compensate the lower 3 bits (so that for example 7FFF -> (FF,FF,FF) instead of (F8,F8,F8))
+            ushort color15 = (ushort)((red << 0) | (green << 5) | (blue << 10));
+            return BGR15ToColor(color15);
+        }
+
         public static uint BytesToUInt32(byte[] values, int index)
         {
             return (uint)(values[index] | (values[index + 1] << 8) | (values[index + 2] << 16) | (values[index + 3] << 24));
