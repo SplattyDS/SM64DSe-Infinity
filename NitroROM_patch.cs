@@ -295,16 +295,16 @@ namespace SM64DSe
 
 			        uint curoffset = dataoffset + 0x40;
 
-			        // CLPS (collision behaviors) chunk
+			        // SPLC (collision behaviors) chunk
 			        {
-				        uint clps_addr = oldovl.ReadPointer(header_offset);
-				        ushort clps_num = oldovl.Read16(clps_addr + 0x06);
-				        uint clps_size = (uint)(8 + (clps_num * 8));
-				        byte[] clps = oldovl.ReadBlock(clps_addr, clps_size);
-				        ovl.WriteBlock(curoffset, clps);
+				        uint splc_addr = oldovl.ReadPointer(header_offset);
+				        ushort splc_num = oldovl.Read16(splc_addr + 0x06);
+				        uint splc_size = (uint)(8 + (splc_num * 8));
+				        byte[] splc = oldovl.ReadBlock(splc_addr, splc_size);
+				        ovl.WriteBlock(curoffset, splc);
 
 				        ovl.WritePointer(dataoffset + 0x0C, curoffset);
-				        curoffset += clps_size;
+				        curoffset += splc_size;
 			        }
 
 			        // misc objects table list

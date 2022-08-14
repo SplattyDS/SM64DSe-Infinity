@@ -12,7 +12,7 @@ using SM64DSe.SM64DSFormats;
 
 namespace SM64DSe
 {
-    public partial class CLPS_Form : Form
+    public partial class SPLC_Form : Form
     {
         enum Columns
         {
@@ -151,92 +151,92 @@ namespace SM64DSe
             new ColStruct ("Pad << 40"   , 40, 0xffffffuL, new string[]{}),
         };
 
-        CLPS m_CLPS;
+        SPLC m_SPLC;
 
-        public CLPS_Form(CLPS CLPS)
+        public SPLC_Form(SPLC SPLC)
         {
             InitializeComponent();
 
-            this.m_CLPS = CLPS;
+            this.m_SPLC = SPLC;
 
             for (int i = 0; i < 52; i++)
                 cbxLevels.Items.Add(i + " - " + Strings.LevelNames()[i]);
 
-            LoadCLPSData();
+            LoadSPLCData();
         }
         
-        private void LoadCLPSData()
+        private void LoadSPLCData()
         {
-            txtNumEntries.Text = "" + m_CLPS.Count;
+            txtNumEntries.Text = "" + m_SPLC.Count;
 
-            gridCLPSData.RowCount = m_CLPS.Count;
+            gridSPLCData.RowCount = m_SPLC.Count;
 
-            if (gridCLPSData.ColumnCount != columns.Length + 1)
+            if (gridSPLCData.ColumnCount != columns.Length + 1)
             {
-                gridCLPSData.ColumnCount = columns.Length;
+                gridSPLCData.ColumnCount = columns.Length;
                 
                 // Set column widths
-                gridCLPSData.RowHeadersWidth = 54;
+                gridSPLCData.RowHeadersWidth = 54;
                 for (int i = 0; i < columns.Length; i++)
                 {
-                    gridCLPSData.Columns[i].Width = 54;
-                    gridCLPSData.Columns[i].HeaderText = columns[i].m_Name;
+                    gridSPLCData.Columns[i].Width = 54;
+                    gridSPLCData.Columns[i].HeaderText = columns[i].m_Name;
                 }
 
                 DataGridViewTextBoxColumn cmb = new DataGridViewTextBoxColumn();
                 cmb.HeaderText = "Type/Description";
                 cmb.ReadOnly = true;
                 cmb.Width = 500;
-                gridCLPSData.Columns.Add(cmb);
+                gridSPLCData.Columns.Add(cmb);
             }
 
-            for (int i = 0; i < m_CLPS.Count; i++)
+            for (int i = 0; i < m_SPLC.Count; i++)
             {
-                gridCLPSData.Rows[i].HeaderCell.Value = "" + i;
+                gridSPLCData.Rows[i].HeaderCell.Value = "" + i;
                 for (int j = 0; j < columns.Length; j++)
                 {
-                    gridCLPSData.Rows[i].Cells[j].Value = columns[j].GetFlag(m_CLPS[i].flags);
+                    gridSPLCData.Rows[i].Cells[j].Value = columns[j].GetFlag(m_SPLC[i].flags);
                 }
 
                 // Fill in Type/Description column
-                gridCLPSData.Rows[i].Cells[columns.Length].Value =
-                    columns[(int)Columns.WATER].m_TypeNames[m_CLPS[i].m_Water] +
-                    columns[(int)Columns.TOXIC].m_TypeNames[m_CLPS[i].m_Toxic] +
-                    (m_CLPS[i].m_WindID != 0xff ? "Windy " : "") +
-                    columns[(int)Columns.TEXTURE].m_TypeNames[m_CLPS[i].m_Texture] +
-                    columns[(int)Columns.BEHAV_1].m_TypeNames[m_CLPS[i].m_Traction] +
-                    columns[(int)Columns.BEHAV_2].m_TypeNames[m_CLPS[i].m_Behav] +
+                gridSPLCData.Rows[i].Cells[columns.Length].Value =
+                    columns[(int)Columns.WATER].m_TypeNames[m_SPLC[i].m_Water] +
+                    columns[(int)Columns.TOXIC].m_TypeNames[m_SPLC[i].m_Toxic] +
+                    (m_SPLC[i].m_WindID != 0xff ? "Windy " : "") +
+                    columns[(int)Columns.TEXTURE].m_TypeNames[m_SPLC[i].m_Texture] +
+                    columns[(int)Columns.BEHAV_1].m_TypeNames[m_SPLC[i].m_Traction] +
+                    columns[(int)Columns.BEHAV_2].m_TypeNames[m_SPLC[i].m_Behav] +
                     "w/ " +
-                    columns[(int)Columns.CAM_THROUGH].m_TypeNames[m_CLPS[i].m_CamThrough] +
-                    columns[(int)Columns.CAM_BEHAV].m_TypeNames[m_CLPS[i].m_CamBehav] +
+                    columns[(int)Columns.CAM_THROUGH].m_TypeNames[m_SPLC[i].m_CamThrough] +
+                    columns[(int)Columns.CAM_BEHAV].m_TypeNames[m_SPLC[i].m_CamBehav] +
                     "Camera" +
-                    (m_CLPS[i].m_ViewID != 0x3f ? ", View ID " + m_CLPS[i].m_ViewID.ToString() : "") +
-                    (m_CLPS[i].m_WindID != 0xff ? ", Wind Path ID " + m_CLPS[i].m_WindID.ToString() : "");
+                    (m_SPLC[i].m_ViewID != 0x3f ? ", View ID " + m_SPLC[i].m_ViewID.ToString() : "") +
+                    (m_SPLC[i].m_WindID != 0xff ? ", Wind Path ID " + m_SPLC[i].m_WindID.ToString() : "");
             }
 
         }
 
-        void gridCLPSData_CellEndEdit(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
+        void gridSPLCData_CellEndEdit(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
         {
             try
             {
                 if (e.ColumnIndex != columns.Length)
                 {
-                    ulong clps = m_CLPS[e.RowIndex].flags;
+                    ulong splc = m_SPLC[e.RowIndex].flags;
 
-                    columns[e.ColumnIndex].SetFlag(ref clps,
-                        ulong.Parse(gridCLPSData.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
+                    columns[e.ColumnIndex].SetFlag(ref splc,
+                        ulong.Parse(gridSPLCData.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
 
-                    CLPS.Entry temp = new CLPS.Entry();
-                    temp.flags = clps;
-                    m_CLPS[e.RowIndex] = temp;
+                    SPLC.Entry temp = new SPLC.Entry();
+                    temp.flags = splc;
+                    m_SPLC[e.RowIndex] = temp;
                 }
                 else
                 {
                     return;
                 }
 
-                LoadCLPSData();
+                LoadSPLCData();
             }
             catch (Exception ex)
             {
@@ -245,83 +245,83 @@ namespace SM64DSe
             }
         }
 
-        private void CopyCLPS(int sourceLevel)
+        private void CopySPLC(int sourceLevel)
         {
             NitroOverlay otherOVL = new NitroOverlay(Program.m_ROM, Program.m_ROM.GetLevelOverlayID(sourceLevel));
 
-            uint other_clps_addr = otherOVL.ReadPointer(0x60);
-            ushort other_clps_num = otherOVL.Read16(other_clps_addr + 0x06);
-            uint other_clps_size = (uint)(8 + (other_clps_num * 8));
+            uint other_splc_addr = otherOVL.ReadPointer(0x60);
+            ushort other_splc_num = otherOVL.Read16(other_splc_addr + 0x06);
+            uint other_splc_size = (uint)(8 + (other_splc_num * 8));
 
-            m_CLPS = new CLPS();
-            for(int i = 0; i < other_clps_num; ++i)
+            m_SPLC = new SPLC();
+            for(int i = 0; i < other_splc_num; ++i)
             {
-                ulong flags   = otherOVL.Read32((uint)(other_clps_addr + 8 + 8 * i + 0));
-                flags |= (ulong)otherOVL.Read32((uint)(other_clps_addr + 8 + 8 * i + 4)) << 32;
-                CLPS.Entry clps = new CLPS.Entry();
-                clps.flags = flags;
-                m_CLPS.Add(clps);
+                ulong flags   = otherOVL.Read32((uint)(other_splc_addr + 8 + 8 * i + 0));
+                flags |= (ulong)otherOVL.Read32((uint)(other_splc_addr + 8 + 8 * i + 4)) << 32;
+                SPLC.Entry splc = new SPLC.Entry();
+                splc.flags = flags;
+                m_SPLC.Add(splc);
             }
 
-            LoadCLPSData();
+            LoadSPLCData();
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
             if (cbxLevels.SelectedIndex != -1)
-                CopyCLPS(cbxLevels.SelectedIndex);
+                CopySPLC(cbxLevels.SelectedIndex);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            CLPS.Entry clps = new CLPS.Entry();
-            clps.flags = 0x000000ff00000fc0;
+            SPLC.Entry splc = new SPLC.Entry();
+            splc.flags = 0x000000ff00000fc0;
 
-            if (gridCLPSData.SelectedRows.Count == 0)
-                m_CLPS.Add(clps);
+            if (gridSPLCData.SelectedRows.Count == 0)
+                m_SPLC.Add(splc);
             else
-                m_CLPS.m_Entries.Insert(gridCLPSData.SelectedRows[0].Index, clps);
+                m_SPLC.m_Entries.Insert(gridSPLCData.SelectedRows[0].Index, splc);
             
             // Reload data
-            LoadCLPSData();
+            LoadSPLCData();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (gridCLPSData.SelectedRows.Count == 0)
+            if (gridSPLCData.SelectedRows.Count == 0)
                 MessageBox.Show("Please select a row to delete.");
             else
             {
-                m_CLPS.m_Entries.RemoveAt(gridCLPSData.SelectedRows[0].Index);
+                m_SPLC.m_Entries.RemoveAt(gridSPLCData.SelectedRows[0].Index);
                 // Reload data
-                LoadCLPSData();
+                LoadSPLCData();
             }
         }
 
         private void btnShiftUp_Click(object sender, EventArgs e)
         {
-            if (gridCLPSData.SelectedRows.Count == 0)
+            if (gridSPLCData.SelectedRows.Count == 0)
                 MessageBox.Show("Please select a row to move.");
-            else if (gridCLPSData.SelectedRows[0].Index != 0)
+            else if (gridSPLCData.SelectedRows[0].Index != 0)
             {
-                CLPS.Entry temp = m_CLPS[gridCLPSData.SelectedRows[0].Index];
-                m_CLPS[gridCLPSData.SelectedRows[0].Index] = m_CLPS[gridCLPSData.SelectedRows[0].Index - 1];
-                m_CLPS[gridCLPSData.SelectedRows[0].Index - 1] = temp;
+                SPLC.Entry temp = m_SPLC[gridSPLCData.SelectedRows[0].Index];
+                m_SPLC[gridSPLCData.SelectedRows[0].Index] = m_SPLC[gridSPLCData.SelectedRows[0].Index - 1];
+                m_SPLC[gridSPLCData.SelectedRows[0].Index - 1] = temp;
             }
-            LoadCLPSData();
+            LoadSPLCData();
         }
 
         private void btnShiftDown_Click(object sender, EventArgs e)
         {
-            if (gridCLPSData.SelectedRows.Count == 0)
+            if (gridSPLCData.SelectedRows.Count == 0)
                 MessageBox.Show("Please select a row to move.");
-            else if (gridCLPSData.SelectedRows[0].Index != gridCLPSData.Rows.Count - 1)
+            else if (gridSPLCData.SelectedRows[0].Index != gridSPLCData.Rows.Count - 1)
             {
-                CLPS.Entry temp = m_CLPS[gridCLPSData.SelectedRows[0].Index];
-                m_CLPS[gridCLPSData.SelectedRows[0].Index] = m_CLPS[gridCLPSData.SelectedRows[0].Index + 1];
-                m_CLPS[gridCLPSData.SelectedRows[0].Index + 1] = temp;
+                SPLC.Entry temp = m_SPLC[gridSPLCData.SelectedRows[0].Index];
+                m_SPLC[gridSPLCData.SelectedRows[0].Index] = m_SPLC[gridSPLCData.SelectedRows[0].Index + 1];
+                m_SPLC[gridSPLCData.SelectedRows[0].Index + 1] = temp;
             }
-            LoadCLPSData();
+            LoadSPLCData();
         }
     }
 }

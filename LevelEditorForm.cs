@@ -2367,9 +2367,9 @@ namespace SM64DSe
             //new TextureAnimationForm(m_Level).Show(this);
         }
 
-        private void btnCLPS_Click(object sender, EventArgs e)
+        private void btnSPLC_Click(object sender, EventArgs e)
         {
-            new CLPS_Form(m_Level.m_CLPS).Show(this);
+            new SPLC_Form(m_Level.m_SPLC).Show(this);
         }
 
         private void btnAddPath_Click(object sender, EventArgs e)

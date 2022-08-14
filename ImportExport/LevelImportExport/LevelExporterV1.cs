@@ -32,7 +32,7 @@ namespace SM64DSe.ImportExport.LevelImportExport
 
                 WriteLevelSettingsToXML(writer, exportPath, level);
 
-                WriteCLPSToXML(writer, level);
+                WriteSPLCToXML(writer, level);
 
                 WriteLevelDataToXML(writer, exportPath, level);
 
@@ -115,12 +115,12 @@ namespace SM64DSe.ImportExport.LevelImportExport
                 file.m_Data);
         }
 
-        protected virtual void WriteCLPSToXML(XmlWriter writer, Level level)
+        protected virtual void WriteSPLCToXML(XmlWriter writer, Level level)
         {
-            writer.WriteStartElement("CLPS");
+            writer.WriteStartElement("SPLC");
 
             byte[] entryBytes;
-            foreach (CLPS.Entry entry in level.m_CLPS)
+            foreach (SPLC.Entry entry in level.m_SPLC)
             {
                 writer.WriteStartElement("Entry");
                 writer.WriteStartElement("Value");

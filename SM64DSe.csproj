@@ -296,11 +296,11 @@
       <DependentUpon>BetterTextureAnimationEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="SM64DSFormats\BMD.cs" />
-    <Compile Include="CLPS_Form.cs">
+    <Compile Include="SPLC_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CLPS_Form.Designer.cs">
-      <DependentUpon>CLPS_Form.cs</DependentUpon>
+    <Compile Include="SPLC_Form.Designer.cs">
+      <DependentUpon>SPLC_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Compression.cs" />
     <Compile Include="SM64DSFormats\BCA.cs" />
@@ -458,8 +458,8 @@
     <EmbeddedResource Include="BMD KLC Editor.resx">
       <DependentUpon>BMD KLC Editor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CLPS_Form.resx">
-      <DependentUpon>CLPS_Form.cs</DependentUpon>
+    <EmbeddedResource Include="SPLC_Form.resx">
+      <DependentUpon>SPLC_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CodeCompilerForm.resx">
       <DependentUpon>CodeCompilerForm.cs</DependentUpon>

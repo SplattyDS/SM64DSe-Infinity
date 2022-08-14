@@ -139,7 +139,7 @@
             this.btnClps.Name = "btnClps";
             this.btnClps.Size = new System.Drawing.Size(100, 23);
             this.btnClps.TabIndex = 30;
-            this.btnClps.Text = "Edit CLPS";
+            this.btnClps.Text = "Edit SPLC";
             this.btnClps.UseVisualStyleBackColor = true;
             this.btnClps.Click += new System.EventHandler(this.btnClps_Click);
             // 

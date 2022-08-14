@@ -134,7 +134,7 @@ namespace SM64DSe
             this.btnLevelSettings = new System.Windows.Forms.ToolStripButton();
             this.btnEditMinimap = new System.Windows.Forms.ToolStripButton();
             this.btnEditTexAnim = new System.Windows.Forms.ToolStripButton();
-            this.btnCLPS = new System.Windows.Forms.ToolStripButton();
+            this.btnSPLC = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.btnEdit3DModel = new System.Windows.Forms.ToolStripButton();
@@ -1365,7 +1365,7 @@ namespace SM64DSe
             this.btnLevelSettings,
             this.btnEditMinimap,
             this.btnEditTexAnim,
-            this.btnCLPS,
+            this.btnSPLC,
             this.toolStripSeparator2,
             this.toolStripLabel4,
             this.btnEdit3DModel,
@@ -1438,14 +1438,14 @@ namespace SM64DSe
             this.btnEditTexAnim.Text = "Texture animation";
             this.btnEditTexAnim.Click += new System.EventHandler(this.btnEditTexAnim_Click);
             // 
-            // btnCLPS
+            // btnSPLC
             // 
-            this.btnCLPS.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnCLPS.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCLPS.Name = "btnCLPS";
-            this.btnCLPS.Size = new System.Drawing.Size(38, 22);
-            this.btnCLPS.Text = "CLPS";
-            this.btnCLPS.Click += new System.EventHandler(this.btnCLPS_Click);
+            this.btnSPLC.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSPLC.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSPLC.Name = "btnSPLC";
+            this.btnSPLC.Size = new System.Drawing.Size(38, 22);
+            this.btnSPLC.Text = "SPLC";
+            this.btnSPLC.Click += new System.EventHandler(this.btnSPLC_Click);
             // 
             // toolStripSeparator2
             // 
@@ -1767,7 +1767,7 @@ namespace SM64DSe
         private System.Windows.Forms.ToolStripButton btnReplaceObjModel;
         private System.Windows.Forms.ToolStripButton btnExportObjectModel;
         private System.Windows.Forms.ToolStripButton btnEditTexAnim;
-        private System.Windows.Forms.ToolStripButton btnCLPS;
+        private System.Windows.Forms.ToolStripButton btnSPLC;
         private System.Windows.Forms.ToolStripButton btnAddPath;
         private System.Windows.Forms.ToolStripDropDownButton btnAddMisc;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;

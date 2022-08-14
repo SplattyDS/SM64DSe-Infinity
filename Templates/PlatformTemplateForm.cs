@@ -15,7 +15,7 @@ namespace SM64DSe.Templates
 {
     public partial class PlatformTemplateForm : Form
     {
-        private CLPS m_CLPS;
+        private SPLC m_SPLC;
         private ROMFileSelect m_ROMFileSelect;
 
         public PlatformTemplateForm()
@@ -23,31 +23,31 @@ namespace SM64DSe.Templates
             InitializeComponent();
             txtFlags.Tag = (uint)2;
 
-            m_CLPS = new CLPS(new List<CLPS.Entry>()
+            m_SPLC = new SPLC(new List<SPLC.Entry>()
             {
-                new CLPS.Entry(0x00, 0, 0x3f, 0x0, 0x0, 0x00, 0, 0, 0, 0xff)
+                new SPLC.Entry(0x00, 0, 0x3f, 0x0, 0x0, 0x00, 0, 0, 0, 0xff)
             });
 
             m_ROMFileSelect = new ROMFileSelect();
         }
 
-        private string FormatCLPS()
+        private string FormatSPLC()
         {
             string res = "{";
-            foreach (CLPS.Entry clps in m_CLPS)
+            foreach (SPLC.Entry splc in m_SPLC)
             {
-                res += string.Format(Environment.NewLine + "\tCLPS(0x{0:x2}, {1:x1}, 0x{2:x2}, 0x{3:x1}, 0x{4:x1}, " +
+                res += string.Format(Environment.NewLine + "\tSPLC(0x{0:x2}, {1:x1}, 0x{2:x2}, 0x{3:x1}, 0x{4:x1}, " +
                     "0x{5:x2}, {6:x1}, {7:x1}, {8:x1}, 0x{9:x2}),",
-                    clps.m_Texture,
-                    clps.m_Water,
-                    clps.m_ViewID,
-                    clps.m_Traction,
-                    clps.m_CamBehav,
-                    clps.m_Behav,
-                    clps.m_CamThrough,
-                    clps.m_Toxic,
-                    clps.m_Unk26,
-                    clps.m_WindID);
+                    splc.m_Texture,
+                    splc.m_Water,
+                    splc.m_ViewID,
+                    splc.m_Traction,
+                    splc.m_CamBehav,
+                    splc.m_Behav,
+                    splc.m_CamThrough,
+                    splc.m_Toxic,
+                    splc.m_Unk26,
+                    splc.m_WindID);
             }
             return res.Remove(res.Length - 1) + Environment.NewLine + "}";
         }
@@ -109,8 +109,8 @@ namespace SM64DSe.Templates
                     { "_ActorID", txtActorID.Text },
                     { "_BehaviorPriority", txtBehavPrior.Text },
                     { "_RenderPriority", txtRenderPrior.Text },
-                    { "_NumCLPSes", m_CLPS.Count.ToString() },
-                    { "_CLPS", FormatCLPS() },
+                    { "_NumSPLCes", m_SPLC.Count.ToString() },
+                    { "_SPLC", FormatSPLC() },
                     { "_ModelOv0ID", string.Format("0x{0,4:x4}", Program.m_ROM.GetFileEntries()[Program.m_ROM.GetFileIDFromName(txtModelFile.Text)].InternalID) },
                     { "_ClsnOv0ID", string.Format("0x{0,4:x4}", Program.m_ROM.GetFileEntries()[Program.m_ROM.GetFileIDFromName(txtClsnFile.Text)].InternalID) },
                     { "_Flags", string.Format("0x{0,8:x8}", (uint)txtFlags.Tag) },
@@ -280,7 +280,7 @@ namespace SM64DSe.Templates
 
         private void btnClps_Click(object sender, EventArgs e)
         {
-            new CLPS_Form(m_CLPS).ShowDialog();
+            new SPLC_Form(m_SPLC).ShowDialog();
         }
 
         private void chkLevelSpecific_CheckedChanged(object sender, EventArgs e)

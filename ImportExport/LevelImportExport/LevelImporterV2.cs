@@ -11,9 +11,9 @@ namespace SM64DSe.ImportExport.LevelImportExport
         public LevelImporterV2() 
             : base() { }
 
-        protected override void ReadCLPSDataFromXML(XmlReader reader, Level level)
+        protected override void ReadSPLCDataFromXML(XmlReader reader, Level level)
         {
-            CLPS.Entry entry = new CLPS.Entry();
+            SPLC.Entry entry = new SPLC.Entry();
 
             while (reader.Read())
             {
@@ -24,7 +24,7 @@ namespace SM64DSe.ImportExport.LevelImportExport
                     switch (reader.LocalName)
                     {
                         case "Entry":
-                            entry = new CLPS.Entry();
+                            entry = new SPLC.Entry();
                             break;
                         case "TerrainType":
                             entry.m_Texture = (ulong)reader.ReadElementContentAsLong();
@@ -68,9 +68,9 @@ namespace SM64DSe.ImportExport.LevelImportExport
                 {
                     if (reader.LocalName.Equals("Entry"))
                     {
-                        level.m_CLPS.Add(entry);
+                        level.m_SPLC.Add(entry);
                     }
-                    else if (reader.LocalName.Equals("CLPS"))
+                    else if (reader.LocalName.Equals("SPLC"))
                     {
                         return;
                     }

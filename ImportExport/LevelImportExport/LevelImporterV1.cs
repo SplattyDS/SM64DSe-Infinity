@@ -20,7 +20,7 @@ namespace SM64DSe.ImportExport.LevelImportExport
 
         public virtual void ImportLevel(Level level, string fileName, bool saveChanges = true)
         {
-            level.m_CLPS.m_Entries.Clear();
+            level.m_SPLC.m_Entries.Clear();
             level.RemoveAllObjects();
             level.m_TexAnims.Clear();
             level.m_DynLibIDs.Clear();
@@ -61,8 +61,8 @@ namespace SM64DSe.ImportExport.LevelImportExport
                             case "LevelSettings":
                                 ReadLevelSettingsFromXML(reader, level);
                                 break;
-                            case "CLPS":
-                                ReadCLPSDataFromXML(reader, level);
+                            case "SPLC":
+                                ReadSPLCDataFromXML(reader, level);
                                 break;
                             case "LevelData":
                                 ReadLevelDataFromXML(reader, level);
@@ -265,9 +265,9 @@ namespace SM64DSe.ImportExport.LevelImportExport
             return;
         }
 
-        protected virtual void ReadCLPSDataFromXML(XmlReader reader, Level level)
+        protected virtual void ReadSPLCDataFromXML(XmlReader reader, Level level)
         {
-            byte[] clpsEntry = new byte[8];
+            byte[] splcEntry = new byte[8];
             int valueCount = 0;
 
             while (reader.Read())
@@ -279,13 +279,13 @@ namespace SM64DSe.ImportExport.LevelImportExport
                     switch (reader.LocalName)
                     {
                         case "Value":
-                            clpsEntry = new byte[8];
+                            splcEntry = new byte[8];
                             valueCount = 0;
                             break;
                         case "Byte":
                             if (valueCount >= 8)
                                 break;
-                            clpsEntry[valueCount++] = Byte.Parse(reader.ReadElementContentAsString());
+                            splcEntry[valueCount++] = Byte.Parse(reader.ReadElementContentAsString());
                             break;
                     }
                 }
@@ -293,12 +293,12 @@ namespace SM64DSe.ImportExport.LevelImportExport
                 {
                     if (reader.LocalName.Equals("Entry"))
                     {
-                        CLPS.Entry clps = new CLPS.Entry();
-                        clps.flags = DataHelper.Read32(clpsEntry, 0);
-                        clps.flags |= (ulong)DataHelper.Read32(clpsEntry, 4) << 32;
-                        level.m_CLPS.Add(clps);
+                        SPLC.Entry splc = new SPLC.Entry();
+                        splc.flags = DataHelper.Read32(splcEntry, 0);
+                        splc.flags |= (ulong)DataHelper.Read32(splcEntry, 4) << 32;
+                        level.m_SPLC.Add(splc);
                     }
-                    else if (reader.LocalName.Equals("CLPS"))
+                    else if (reader.LocalName.Equals("SPLC"))
                     {
                         break;
                     }

@@ -10,11 +10,11 @@ namespace SM64DSe.ImportExport.LevelImportExport
     {
         protected override string VERSION { get { return "2"; } }
 
-        protected override void WriteCLPSToXML(XmlWriter writer, Level level)
+        protected override void WriteSPLCToXML(XmlWriter writer, Level level)
         {
-            writer.WriteStartElement("CLPS");
+            writer.WriteStartElement("SPLC");
 
-            foreach (CLPS.Entry entry in level.m_CLPS)
+            foreach (SPLC.Entry entry in level.m_SPLC)
             {
                 writer.WriteStartElement("Entry");
 

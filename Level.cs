@@ -38,7 +38,7 @@ namespace SM64DSe
         public Dictionary<uint, LevelObject> m_LevelObjects;
         public List<LevelTexAnim> m_TexAnims;
         public List<ushort> m_DynLibIDs;
-        public CLPS m_CLPS;
+        public SPLC m_SPLC;
 
         public ushort[] m_MinimapFileIDs;
         public byte[] m_MinimapIndices;
@@ -65,7 +65,7 @@ namespace SM64DSe
                 throw new InvalidDataException("This level was added by a later version of SM64DSe and cannot be read");
             }
 
-            LoadCLPS(m_Overlay);
+            LoadSPLC(m_Overlay);
 
             // read object lists
 
@@ -137,20 +137,20 @@ namespace SM64DSe
             }
         }
 
-        private void LoadCLPS(NitroOverlay ovl)
+        private void LoadSPLC(NitroOverlay ovl)
         {
-            uint clpsAddr = ovl.ReadPointer(0x60);
-            int numCLPSes = ovl.Read16(clpsAddr + 0x06);
-            m_CLPS = new CLPS();
+            uint splcAddr = ovl.ReadPointer(0x60);
+            int numSPLCes = ovl.Read16(splcAddr + 0x06);
+            m_SPLC = new SPLC();
 
-            clpsAddr += 8;
-            for (int i = 0; i < numCLPSes; ++i)
+            splcAddr += 8;
+            for (int i = 0; i < numSPLCes; ++i)
             {
-                CLPS.Entry clps = new CLPS.Entry();
-                clps.flags = ovl.Read32(clpsAddr);
-                clps.flags |= (ulong)ovl.Read32(clpsAddr + 4) << 32;
-                m_CLPS.Add(clps);
-                clpsAddr += 8;
+                SPLC.Entry splc = new SPLC.Entry();
+                splc.flags = ovl.Read32(splcAddr);
+                splc.flags |= (ulong)ovl.Read32(splcAddr + 4) << 32;
+                m_SPLC.Add(splc);
+                splcAddr += 8;
             }
         }
 
@@ -662,7 +662,7 @@ namespace SM64DSe
             uint areaTableOffset;
 
             m_LevelSettings.SaveChanges(binWriter);
-            SaveCLPS(binWriter);
+            SaveSPLC(binWriter);
             SaveMiscObjs(binWriter);
             SaveRegularObjs(binWriter, out areaTableOffset);
             LevelTexAnim.SaveAll(binWriter, m_TexAnims, areaTableOffset, (uint)m_NumAreas);
@@ -713,7 +713,7 @@ namespace SM64DSe
             uint areaTableOffset;
 
             m_LevelSettings.SaveChanges(binWriter);
-            SaveCLPS(binWriter);
+            SaveSPLC(binWriter);
             SaveMiscObjs(binWriter);
             SaveRegularObjs(binWriter, out areaTableOffset);
             LevelTexAnim.SaveAll(binWriter, m_TexAnims, areaTableOffset, (uint)m_NumAreas);
@@ -734,10 +734,10 @@ namespace SM64DSe
             m_Overlay.SaveChangesOld();
         }
 
-        private void SaveCLPS(BinaryWriter binWriter)
+        private void SaveSPLC(BinaryWriter binWriter)
         {
             Helper.WritePosAndRestore(binWriter, 0x60, Program.m_ROM.LevelOvlOffset);
-            m_CLPS.SaveChanges(binWriter);
+            m_SPLC.SaveChanges(binWriter);
         }
 
         private void SaveObjList(BinaryWriter binWriter, IEnumerable<LevelObject> objList, LevelObject.Type[] typeOrder)
@@ -899,19 +899,19 @@ namespace SM64DSe
         public ushort[] DynLibIDs;
     }
 
-    public class CLPS : IEnumerable<CLPS.Entry>
+    public class SPLC : IEnumerable<SPLC.Entry>
     {
         public static readonly char[] HEADER_START = "CLPS".ToCharArray();
 
-        public List<CLPS.Entry> m_Entries;
+        public List<SPLC.Entry> m_Entries;
 
-        public CLPS(List<CLPS.Entry> entries)
+        public SPLC(List<SPLC.Entry> entries)
         {
             m_Entries = entries;
         }
 
-        public CLPS()
-            : this(new List<CLPS.Entry>()) { }
+        public SPLC()
+            : this(new List<SPLC.Entry>()) { }
 
         public int Count { get { return m_Entries.Count; } }
 
@@ -1046,10 +1046,10 @@ namespace SM64DSe
             }
         }
 
-        class CLPSEqualityComparer : IEqualityComparer<CLPS.Entry>
+        class SPLCEqualityComparer : IEqualityComparer<SPLC.Entry>
         {
-            public bool Equals(CLPS.Entry c1, CLPS.Entry c2) { return c1.flags == c2.flags; }
-            public int GetHashCode(CLPS.Entry c) { return (int)(c.flags ^ c.m_WindID << 27); }
+            public bool Equals(SPLC.Entry c1, SPLC.Entry c2) { return c1.flags == c2.flags; }
+            public int GetHashCode(SPLC.Entry c) { return (int)(c.flags ^ c.m_WindID << 27); }
         }
     }
 }
