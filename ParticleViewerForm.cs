@@ -302,7 +302,7 @@ namespace SM64DSe
 
                 ParticleSysDefProperties.GenerateProperties(sysDef, m_Textures);
                 m_SysDefs.Add(sysDef);
-                lbxSysDef.Items.Add($"particle{Convert.ToString(i, 16).PadLeft(3, '0')}.spd");
+                lbxSysDef.Items.Add($"particle{Convert.ToString(i, 16).PadLeft(3, '0')}.spr");
             }
         }
 
@@ -1260,7 +1260,7 @@ namespace SM64DSe
             m_ParticleArchiveFile.SaveChanges();
         }
 
-        private void SaveParticleAsSPD(int particleId, string filePath)
+        private void SaveParticleAsSPR(int particleId, string filePath)
         {
             uint offset = 0;
             INitroROMBlock particleData = new INitroROMBlock();
@@ -1857,14 +1857,14 @@ namespace SM64DSe
 
         private void ReplaceParticle(int particleId, string filePath)
         {
-            byte[] SPD_data = System.IO.File.ReadAllBytes(filePath);
+            byte[] SPR_data = System.IO.File.ReadAllBytes(filePath);
             uint offset = 0x0;
 
             Particle.System.Def sysDef = new Particle.System.Def();
             Particle.MainInfo info = new Particle.MainInfo();
 
-            uint flags = Helper.Read32(SPD_data, offset);
-            int texRepeatFlags = SPD_data[offset + 0x37];
+            uint flags = Helper.Read32(SPR_data, offset);
+            int texRepeatFlags = SPR_data[offset + 0x37];
             info.m_SpawnShape = (Particle.MainInfo.SpawnShape)(flags & 0x7);
             info.m_DrawMode = (Particle.MainInfo.DrawMode)(flags >> 4 & 0x3);
             info.m_Plane = (Particle.MainInfo.Plane)(flags >> 6 & 0x3);
@@ -1874,31 +1874,31 @@ namespace SM64DSe
             info.m_FollowSystem = (flags >> 15 & 1) != 0;
             info.m_WeirdAxis = (flags >> 17 & 1) != 0;
             info.m_HorzIf3D = (flags >> 19 & 1) != 0;
-            info.m_Rate = (int)Helper.Read32(SPD_data, offset + 0x04) / 4096.0f;
-            info.m_StartHorzDist = (int)Helper.Read32(SPD_data, offset + 0x08) / 512.0f;
+            info.m_Rate = (int)Helper.Read32(SPR_data, offset + 0x04) / 4096.0f;
+            info.m_StartHorzDist = (int)Helper.Read32(SPR_data, offset + 0x08) / 512.0f;
             info.m_Dir = new Vector3(
-                (short)Helper.Read16(SPD_data, offset + 0x0c) / 4096.0f,
-                (short)Helper.Read16(SPD_data, offset + 0x0e) / 4096.0f,
-                (short)Helper.Read16(SPD_data, offset + 0x10) / 4096.0f
+                (short)Helper.Read16(SPR_data, offset + 0x0c) / 4096.0f,
+                (short)Helper.Read16(SPR_data, offset + 0x0e) / 4096.0f,
+                (short)Helper.Read16(SPR_data, offset + 0x10) / 4096.0f
                 );
-            info.m_Color = Helper.BGR15ToColor(Helper.Read16(SPD_data, offset + 0x12));
-            info.m_HorzSpeed = (int)Helper.Read32(SPD_data, offset + 0x14) / 512.0f;
-            info.m_VertSpeed = (int)Helper.Read32(SPD_data, offset + 0x18) / 512.0f;
-            info.m_Scale = (int)Helper.Read32(SPD_data, offset + 0x1c) / 512.0f;
-            info.m_HorzScaleMult = (short)Helper.Read16(SPD_data, offset + 0x20) / 4096.0f;
-            info.m_MinAngleSpeed = (short)Helper.Read16(SPD_data, offset + 0x24);
-            info.m_MaxAngleSpeed = (short)Helper.Read16(SPD_data, offset + 0x26);
-            info.m_Frames = Helper.Read16(SPD_data, offset + 0x28);
-            info.m_Lifetime = Helper.Read16(SPD_data, offset + 0x2a);
-            info.m_ScaleRand = SPD_data[offset + 0x2c];
-            info.m_LifetimeRand = SPD_data[offset + 0x2d];
-            info.m_SpeedRand = SPD_data[offset + 0x2e];
-            info.m_SpawnPeriod = SPD_data[offset + 0x30];
-            info.m_Alpha = SPD_data[offset + 0x31];
-            info.m_SpeedFalloff = SPD_data[offset + 0x32];
-            info.m_Sprite = m_Textures[SPD_data[offset + 0x33]];
-            info.m_AltLength = SPD_data[offset + 0x34];
-            info.m_VelStretchFactor = (short)Helper.Read16(SPD_data, offset + 0x35) / 4096.0f;
+            info.m_Color = Helper.BGR15ToColor(Helper.Read16(SPR_data, offset + 0x12));
+            info.m_HorzSpeed = (int)Helper.Read32(SPR_data, offset + 0x14) / 512.0f;
+            info.m_VertSpeed = (int)Helper.Read32(SPR_data, offset + 0x18) / 512.0f;
+            info.m_Scale = (int)Helper.Read32(SPR_data, offset + 0x1c) / 512.0f;
+            info.m_HorzScaleMult = (short)Helper.Read16(SPR_data, offset + 0x20) / 4096.0f;
+            info.m_MinAngleSpeed = (short)Helper.Read16(SPR_data, offset + 0x24);
+            info.m_MaxAngleSpeed = (short)Helper.Read16(SPR_data, offset + 0x26);
+            info.m_Frames = Helper.Read16(SPR_data, offset + 0x28);
+            info.m_Lifetime = Helper.Read16(SPR_data, offset + 0x2a);
+            info.m_ScaleRand = SPR_data[offset + 0x2c];
+            info.m_LifetimeRand = SPR_data[offset + 0x2d];
+            info.m_SpeedRand = SPR_data[offset + 0x2e];
+            info.m_SpawnPeriod = SPR_data[offset + 0x30];
+            info.m_Alpha = SPR_data[offset + 0x31];
+            info.m_SpeedFalloff = SPR_data[offset + 0x32];
+            info.m_Sprite = m_Textures[SPR_data[offset + 0x33]];
+            info.m_AltLength = SPR_data[offset + 0x34];
+            info.m_VelStretchFactor = (short)Helper.Read16(SPR_data, offset + 0x35) / 4096.0f;
             info.m_LogTexRepeatHorz = texRepeatFlags >> 0 & 0x3;
             info.m_LogTexRepeatVert = texRepeatFlags >> 2 & 0x3;
             sysDef.m_MainInfo = info;
@@ -1908,12 +1908,12 @@ namespace SM64DSe
             {
                 Console.WriteLine($"ScaleTransition 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.ScaleTransition scaleTrans = new Particle.ScaleTransition();
-                scaleTrans.m_Start = Helper.Read16(SPD_data, offset + 0x00) / 4096.0f;
-                scaleTrans.m_Middle = Helper.Read16(SPD_data, offset + 0x02) / 4096.0f;
-                scaleTrans.m_End = Helper.Read16(SPD_data, offset + 0x04) / 4096.0f;
-                scaleTrans.m_Trans1End = SPD_data[offset + 0x06];
-                scaleTrans.m_Trans2Start = SPD_data[offset + 0x07];
-                scaleTrans.m_UseAltLength = (SPD_data[offset + 0x08] & 1) != 0;
+                scaleTrans.m_Start = Helper.Read16(SPR_data, offset + 0x00) / 4096.0f;
+                scaleTrans.m_Middle = Helper.Read16(SPR_data, offset + 0x02) / 4096.0f;
+                scaleTrans.m_End = Helper.Read16(SPR_data, offset + 0x04) / 4096.0f;
+                scaleTrans.m_Trans1End = SPR_data[offset + 0x06];
+                scaleTrans.m_Trans2Start = SPR_data[offset + 0x07];
+                scaleTrans.m_UseAltLength = (SPR_data[offset + 0x08] & 1) != 0;
                 sysDef.m_ScaleTrans = scaleTrans;
                 offset += 0x0c;
             }
@@ -1921,12 +1921,12 @@ namespace SM64DSe
             {
                 Console.WriteLine($"ColorTransition 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.ColorTransition colorTrans = new Particle.ColorTransition();
-                uint interpFlags = SPD_data[offset + 0x08];
-                colorTrans.m_Start = Helper.BGR15ToColor(Helper.Read16(SPD_data, offset + 0x00));
-                colorTrans.m_End = Helper.BGR15ToColor(Helper.Read16(SPD_data, offset + 0x02));
-                colorTrans.m_Trans1Start = SPD_data[offset + 0x04];
-                colorTrans.m_Trans2Start = SPD_data[offset + 0x05];
-                colorTrans.m_Trans2End = SPD_data[offset + 0x06];
+                uint interpFlags = SPR_data[offset + 0x08];
+                colorTrans.m_Start = Helper.BGR15ToColor(Helper.Read16(SPR_data, offset + 0x00));
+                colorTrans.m_End = Helper.BGR15ToColor(Helper.Read16(SPR_data, offset + 0x02));
+                colorTrans.m_Trans1Start = SPR_data[offset + 0x04];
+                colorTrans.m_Trans2Start = SPR_data[offset + 0x05];
+                colorTrans.m_Trans2End = SPR_data[offset + 0x06];
                 colorTrans.m_UseAsOptions = (interpFlags >> 0 & 1) != 0;
                 colorTrans.m_UseAltLength = (interpFlags >> 1 & 1) != 0;
                 colorTrans.m_SmoothTrans = (interpFlags >> 2 & 1) != 0;
@@ -1937,14 +1937,14 @@ namespace SM64DSe
             {
                 Console.WriteLine($"AlphaTransition 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.AlphaTransition alphaTrans = new Particle.AlphaTransition();
-                uint alphas = Helper.Read16(SPD_data, offset + 0x00);
+                uint alphas = Helper.Read16(SPR_data, offset + 0x00);
                 alphaTrans.m_Start = (int)(alphas >> 0 & 0x1f);
                 alphaTrans.m_Middle = (int)(alphas >> 5 & 0x1f);
                 alphaTrans.m_End = (int)(alphas >> 10 & 0x1f);
-                alphaTrans.m_Flicker = SPD_data[offset + 0x02];
-                alphaTrans.m_UseAltLength = (SPD_data[offset + 0x03] & 1) != 0;
-                alphaTrans.m_Trans1End = SPD_data[offset + 0x04];
-                alphaTrans.m_Trans2Start = SPD_data[offset + 0x05];
+                alphaTrans.m_Flicker = SPR_data[offset + 0x02];
+                alphaTrans.m_UseAltLength = (SPR_data[offset + 0x03] & 1) != 0;
+                alphaTrans.m_Trans1End = SPR_data[offset + 0x04];
+                alphaTrans.m_Trans2Start = SPR_data[offset + 0x05];
                 sysDef.m_AlphaTrans = alphaTrans;
                 offset += 0x08;
             }
@@ -1953,12 +1953,12 @@ namespace SM64DSe
                 Console.WriteLine($"TextureSequence 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.TextureSequence texSeq = new Particle.TextureSequence();
                 texSeq.m_Sprites = new Particle.Texture[8];
-                int numSprites = SPD_data[offset + 0x08];
-                uint interpFlags = SPD_data[offset + 0x0a];
+                int numSprites = SPR_data[offset + 0x08];
+                uint interpFlags = SPR_data[offset + 0x0a];
                 for (uint j = 0; j < numSprites; ++j)
-                    texSeq.m_Sprites[j] = m_Textures[SPD_data[offset + j]];
+                    texSeq.m_Sprites[j] = m_Textures[SPR_data[offset + j]];
                 texSeq.m_NumSprites = numSprites;
-                texSeq.m_Interval = SPD_data[offset + 0x09];
+                texSeq.m_Interval = SPR_data[offset + 0x09];
                 texSeq.m_UseAsOptions = (interpFlags >> 0 & 1) != 0;
                 texSeq.m_UseAltLength = (interpFlags >> 1 & 1) != 0;
                 sysDef.m_TexSeq = texSeq;
@@ -1968,8 +1968,8 @@ namespace SM64DSe
             {
                 Console.WriteLine($"Glitter 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.Glitter glitter = new Particle.Glitter();
-                int gFlags = Helper.Read16(SPD_data, offset + 0x00);
-                int gTexRepeatFlags = SPD_data[offset + 0x10];
+                int gFlags = Helper.Read16(SPR_data, offset + 0x00);
+                int gTexRepeatFlags = SPR_data[offset + 0x10];
                 glitter.m_HasEffects = (gFlags & 1) != 0;
                 glitter.m_HasScaleTrans = (gFlags >> 1 & 1) != 0;
                 glitter.m_HasAlphaTrans = (gFlags >> 2 & 1) != 0;
@@ -1977,16 +1977,16 @@ namespace SM64DSe
                 glitter.m_FollowSystem = (gFlags >> 5 & 1) != 0;
                 glitter.m_UseGlitterColor = (gFlags >> 6 & 1) != 0;
                 glitter.m_DrawMode = (Particle.MainInfo.DrawMode)(gFlags >> 7 & 0x3);
-                glitter.m_SpeedRand = Helper.Read16(SPD_data, offset + 0x02) / 512.0f;
-                glitter.m_Scale = (short)Helper.Read16(SPD_data, offset + 0x04) / 4096.0f; //multiplier
-                glitter.m_Lifetime = Helper.Read16(SPD_data, offset + 0x06);
-                glitter.m_SpeedMult = SPD_data[offset + 0x08];
-                glitter.m_ScaleMult = SPD_data[offset + 0x09];
-                glitter.m_Color = Helper.BGR15ToColor(Helper.Read16(SPD_data, offset + 0x0a));
-                glitter.m_Rate = SPD_data[offset + 0x0c];
-                glitter.m_Wait = SPD_data[offset + 0x0d];
-                glitter.m_Period = SPD_data[offset + 0x0e];
-                glitter.m_Sprite = m_Textures[SPD_data[offset + 0x0f]];
+                glitter.m_SpeedRand = Helper.Read16(SPR_data, offset + 0x02) / 512.0f;
+                glitter.m_Scale = (short)Helper.Read16(SPR_data, offset + 0x04) / 4096.0f; //multiplier
+                glitter.m_Lifetime = Helper.Read16(SPR_data, offset + 0x06);
+                glitter.m_SpeedMult = SPR_data[offset + 0x08];
+                glitter.m_ScaleMult = SPR_data[offset + 0x09];
+                glitter.m_Color = Helper.BGR15ToColor(Helper.Read16(SPR_data, offset + 0x0a));
+                glitter.m_Rate = SPR_data[offset + 0x0c];
+                glitter.m_Wait = SPR_data[offset + 0x0d];
+                glitter.m_Period = SPR_data[offset + 0x0e];
+                glitter.m_Sprite = m_Textures[SPR_data[offset + 0x0f]];
                 glitter.m_LogTexRepeatHorz = gTexRepeatFlags >> 0 & 0x3;
                 glitter.m_LogTexRepeatVert = gTexRepeatFlags >> 2 & 0x3;
                 sysDef.m_Glitter = glitter;
@@ -1999,9 +1999,9 @@ namespace SM64DSe
                 Console.WriteLine($"Acceleration 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.Acceleration accel = new Particle.Acceleration();
                 accel.m_Accel = new Vector3(
-                    (short)Helper.Read16(SPD_data, offset + 0x00) / 512.0f,
-                    (short)Helper.Read16(SPD_data, offset + 0x02) / 512.0f,
-                    (short)Helper.Read16(SPD_data, offset + 0x04) / 512.0f
+                    (short)Helper.Read16(SPR_data, offset + 0x00) / 512.0f,
+                    (short)Helper.Read16(SPR_data, offset + 0x02) / 512.0f,
+                    (short)Helper.Read16(SPR_data, offset + 0x04) / 512.0f
                     );
                 sysDef.m_Effects.Add(accel);
                 offset += 0x08;
@@ -2011,11 +2011,11 @@ namespace SM64DSe
                 Console.WriteLine($"Jitter 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.Jitter jitter = new Particle.Jitter();
                 jitter.m_Mag = new Vector3(
-                    (short)Helper.Read16(SPD_data, offset + 0x00) / 512.0f,
-                    (short)Helper.Read16(SPD_data, offset + 0x02) / 512.0f,
-                    (short)Helper.Read16(SPD_data, offset + 0x04) / 512.0f
+                    (short)Helper.Read16(SPR_data, offset + 0x00) / 512.0f,
+                    (short)Helper.Read16(SPR_data, offset + 0x02) / 512.0f,
+                    (short)Helper.Read16(SPR_data, offset + 0x04) / 512.0f
                     );
-                jitter.m_Period = Helper.Read16(SPD_data, offset + 0x06);
+                jitter.m_Period = Helper.Read16(SPR_data, offset + 0x06);
                 sysDef.m_Effects.Add(jitter);
                 offset += 0x08;
             }
@@ -2025,11 +2025,11 @@ namespace SM64DSe
                 Console.WriteLine($"flags = {Convert.ToString(flags, 16)}");
                 Particle.Converge converge = new Particle.Converge();
                 converge.m_Offset = new Vector3(
-                    (int)Helper.Read32(SPD_data, offset + 0x00) / 512.0f,
-                    (int)Helper.Read32(SPD_data, offset + 0x04) / 512.0f,
-                    (int)Helper.Read32(SPD_data, offset + 0x08) / 512.0f
+                    (int)Helper.Read32(SPR_data, offset + 0x00) / 512.0f,
+                    (int)Helper.Read32(SPR_data, offset + 0x04) / 512.0f,
+                    (int)Helper.Read32(SPR_data, offset + 0x08) / 512.0f
                     );
-                converge.m_Mag = (short)Helper.Read16(SPD_data, offset + 0x0c) / 4096.0f;
+                converge.m_Mag = (short)Helper.Read16(SPR_data, offset + 0x0c) / 4096.0f;
                 sysDef.m_Effects.Add(converge);
                 offset += 0x10;
             }
@@ -2037,8 +2037,8 @@ namespace SM64DSe
             {
                 Console.WriteLine($"Turn 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.Turn turn = new Particle.Turn();
-                turn.m_AngleSpeed = (short)Helper.Read16(SPD_data, offset + 0x00);
-                turn.m_Axis = (Particle.Turn.Axis)SPD_data[offset + 0x02];
+                turn.m_AngleSpeed = (short)Helper.Read16(SPR_data, offset + 0x00);
+                turn.m_Axis = (Particle.Turn.Axis)SPR_data[offset + 0x02];
                 sysDef.m_Effects.Add(turn);
                 offset += 0x04;
             }
@@ -2046,9 +2046,9 @@ namespace SM64DSe
             {
                 Console.WriteLine($"LimitPlane 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.LimitPlane limit = new Particle.LimitPlane();
-                limit.m_PosY = (int)Helper.Read32(SPD_data, offset + 0x00) / 512.0f;
-                limit.m_ReverseSpeedMult = (short)Helper.Read16(SPD_data, offset + 0x04) / 4096.0f;
-                limit.m_Behavior = (Particle.LimitPlane.Behavior)(SPD_data[offset + 0x06]);
+                limit.m_PosY = (int)Helper.Read32(SPR_data, offset + 0x00) / 512.0f;
+                limit.m_ReverseSpeedMult = (short)Helper.Read16(SPR_data, offset + 0x04) / 4096.0f;
+                limit.m_Behavior = (Particle.LimitPlane.Behavior)(SPR_data[offset + 0x06]);
                 sysDef.m_Effects.Add(limit);
                 offset += 0x08;
             }
@@ -2057,11 +2057,11 @@ namespace SM64DSe
                 Console.WriteLine($"RadiusConverge 0x{Convert.ToString(particleId, 16)} started (0x{Convert.ToString(offset, 16)})");
                 Particle.RadiusConverge converge = new Particle.RadiusConverge();
                 converge.m_Offset = new Vector3(
-                    (int)Helper.Read32(SPD_data, offset + 0x00) / 512.0f,
-                    (int)Helper.Read32(SPD_data, offset + 0x04) / 512.0f,
-                    (int)Helper.Read32(SPD_data, offset + 0x08) / 512.0f
+                    (int)Helper.Read32(SPR_data, offset + 0x00) / 512.0f,
+                    (int)Helper.Read32(SPR_data, offset + 0x04) / 512.0f,
+                    (int)Helper.Read32(SPR_data, offset + 0x08) / 512.0f
                     );
-                converge.m_Mag = (short)Helper.Read16(SPD_data, offset + 0x0c) / 4096.0f;
+                converge.m_Mag = (short)Helper.Read16(SPR_data, offset + 0x0c) / 4096.0f;
                 sysDef.m_Effects.Add(converge);
                 offset += 0x10;
             }
@@ -2070,17 +2070,17 @@ namespace SM64DSe
             ParticleSysDefProperties.GenerateProperties(m_SysDefs[particleId], m_Textures);
         }
 
-        private void exportSPDToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exportSPRToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lbxSysDef.SelectedIndex != -1)
             {
                 SaveFileDialog export = new SaveFileDialog();
-                export.FileName = $"particle{Convert.ToString(lbxSysDef.SelectedIndex, 16).PadLeft(3, '0')}.spd";
-                export.Filter = "Particle Definition (*.spd) | *.spd";
+                export.FileName = $"particle{Convert.ToString(lbxSysDef.SelectedIndex, 16).PadLeft(3, '0')}.spr";
+                export.Filter = "Particle Definition (*.spr) | *.spr";
                 if (export.ShowDialog() == DialogResult.Cancel)
                     return;
 
-                SaveParticleAsSPD(lbxSysDef.SelectedIndex, export.FileName);
+                SaveParticleAsSPR(lbxSysDef.SelectedIndex, export.FileName);
             }
             else
             {
@@ -2088,7 +2088,7 @@ namespace SM64DSe
             }
         }
 
-        private void exportAllSPDToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exportAllSPRToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
@@ -2097,7 +2097,7 @@ namespace SM64DSe
                 string folderName = fbd.SelectedPath;
                 for (int i = 0; i < m_SysDefs.Count; i++)
                 {
-                    SaveParticleAsSPD(i, folderName + "/" + $"particle{Convert.ToString(i, 16).PadLeft(3, '0')}.spd");
+                    SaveParticleAsSPR(i, folderName + "/" + $"particle{Convert.ToString(i, 16).PadLeft(3, '0')}.spr");
                 }
                 MessageBox.Show("Successfully exported " + m_SysDefs.Count + " particle(s) to:\n" + folderName);
             }
@@ -2121,7 +2121,7 @@ namespace SM64DSe
             }
         }
 
-        private void replaceSPDToolStripMenuItem_Click(object sender, EventArgs e)
+        private void replaceSPRToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lbxSysDef.SelectedIndex != -1)
             {
@@ -2153,7 +2153,7 @@ namespace SM64DSe
                 Particle.System.Def sysDef = m_SysDefs[lbxSysDef.SelectedIndex].Copy();
                 ParticleSysDefProperties.GenerateProperties(sysDef, m_Textures);
                 m_SysDefs.Add(sysDef);
-                lbxSysDef.Items.Add($"particle{Convert.ToString(m_SysDefs.Count - 1, 16).PadLeft(3, '0')}.spd");
+                lbxSysDef.Items.Add($"particle{Convert.ToString(m_SysDefs.Count - 1, 16).PadLeft(3, '0')}.spr");
             }
             else
             {
@@ -2161,7 +2161,7 @@ namespace SM64DSe
             }
         }
 
-        private void importSPDToolStripMenuItem_Click(object sender, EventArgs e)
+        private void importSPRToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Select a particle";
@@ -2172,7 +2172,7 @@ namespace SM64DSe
             {
                 m_SysDefs.Add(new Particle.System.Def());
                 ReplaceParticle(m_SysDefs.Count - 1, ofd.FileName); // replace the empty thing we just added
-                lbxSysDef.Items.Add($"particle{Convert.ToString(m_SysDefs.Count - 1, 16).PadLeft(3, '0')}.spd");
+                lbxSysDef.Items.Add($"particle{Convert.ToString(m_SysDefs.Count - 1, 16).PadLeft(3, '0')}.spr");
             }
             catch (Exception ex)
             {
@@ -2192,7 +2192,7 @@ namespace SM64DSe
 
                     // because the indexes have changed
                     for (int i = 0; i < m_SysDefs.Count; i++)
-                        lbxSysDef.Items.Add($"particle{Convert.ToString(i, 16).PadLeft(3, '0')}.spd");
+                        lbxSysDef.Items.Add($"particle{Convert.ToString(i, 16).PadLeft(3, '0')}.spr");
                 }
             }
             else

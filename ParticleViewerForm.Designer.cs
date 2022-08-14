@@ -32,14 +32,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loadSPAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.replaceSPDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceSPRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportSPDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportAllSPDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportSPRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAllSPRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportCppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addParticleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copySelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importSPDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importSPRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -72,7 +72,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadSPAToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.replaceSPDToolStripMenuItem,
+            this.replaceSPRToolStripMenuItem,
             this.exportToolStripMenuItem,
             this.addParticleToolStripMenuItem,
             this.removeSelectedToolStripMenuItem,
@@ -97,36 +97,36 @@
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // replaceSPDToolStripMenuItem
+            // replaceSPRToolStripMenuItem
             // 
-            this.replaceSPDToolStripMenuItem.Name = "replaceSPDToolStripMenuItem";
-            this.replaceSPDToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
-            this.replaceSPDToolStripMenuItem.Text = "Replace SPD";
-            this.replaceSPDToolStripMenuItem.Click += new System.EventHandler(this.replaceSPDToolStripMenuItem_Click);
+            this.replaceSPRToolStripMenuItem.Name = "replaceSPRToolStripMenuItem";
+            this.replaceSPRToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
+            this.replaceSPRToolStripMenuItem.Text = "Replace SPR";
+            this.replaceSPRToolStripMenuItem.Click += new System.EventHandler(this.replaceSPRToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportSPDToolStripMenuItem,
-            this.exportAllSPDToolStripMenuItem,
+            this.exportSPRToolStripMenuItem,
+            this.exportAllSPRToolStripMenuItem,
             this.exportCppToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
             this.exportToolStripMenuItem.Text = "Export";
             // 
-            // exportSPDToolStripMenuItem
+            // exportSPRToolStripMenuItem
             // 
-            this.exportSPDToolStripMenuItem.Name = "exportSPDToolStripMenuItem";
-            this.exportSPDToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.exportSPDToolStripMenuItem.Text = "Export SPD";
-            this.exportSPDToolStripMenuItem.Click += new System.EventHandler(this.exportSPDToolStripMenuItem_Click);
+            this.exportSPRToolStripMenuItem.Name = "exportSPRToolStripMenuItem";
+            this.exportSPRToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.exportSPRToolStripMenuItem.Text = "Export SPR";
+            this.exportSPRToolStripMenuItem.Click += new System.EventHandler(this.exportSPRToolStripMenuItem_Click);
             // 
-            // exportAllSPDToolStripMenuItem
+            // exportAllSPRToolStripMenuItem
             // 
-            this.exportAllSPDToolStripMenuItem.Name = "exportAllSPDToolStripMenuItem";
-            this.exportAllSPDToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.exportAllSPDToolStripMenuItem.Text = "Export All (SPD)";
-            this.exportAllSPDToolStripMenuItem.Click += new System.EventHandler(this.exportAllSPDToolStripMenuItem_Click);
+            this.exportAllSPRToolStripMenuItem.Name = "exportAllSPRToolStripMenuItem";
+            this.exportAllSPRToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.exportAllSPRToolStripMenuItem.Text = "Export All (SPR)";
+            this.exportAllSPRToolStripMenuItem.Click += new System.EventHandler(this.exportAllSPRToolStripMenuItem_Click);
             // 
             // exportCppToolStripMenuItem
             // 
@@ -139,7 +139,7 @@
             // 
             this.addParticleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copySelectedToolStripMenuItem,
-            this.importSPDToolStripMenuItem});
+            this.importSPRToolStripMenuItem});
             this.addParticleToolStripMenuItem.Name = "addParticleToolStripMenuItem";
             this.addParticleToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
             this.addParticleToolStripMenuItem.Text = "Add Particle";
@@ -151,12 +151,12 @@
             this.copySelectedToolStripMenuItem.Text = "Copy Selected";
             this.copySelectedToolStripMenuItem.Click += new System.EventHandler(this.copySelectedToolStripMenuItem_Click);
             // 
-            // importSPDToolStripMenuItem
+            // importSPRToolStripMenuItem
             // 
-            this.importSPDToolStripMenuItem.Name = "importSPDToolStripMenuItem";
-            this.importSPDToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
-            this.importSPDToolStripMenuItem.Text = "Import SPD";
-            this.importSPDToolStripMenuItem.Click += new System.EventHandler(this.importSPDToolStripMenuItem_Click);
+            this.importSPRToolStripMenuItem.Name = "importSPRToolStripMenuItem";
+            this.importSPRToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
+            this.importSPRToolStripMenuItem.Text = "Import SPR";
+            this.importSPRToolStripMenuItem.Click += new System.EventHandler(this.importSPRToolStripMenuItem_Click);
             // 
             // removeSelectedToolStripMenuItem
             // 
@@ -346,15 +346,15 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.PropertyGrid pgSysDefProps;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem replaceSPDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem replaceSPRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportSPDToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportAllSPDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportSPRToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportAllSPRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportCppToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addParticleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copySelectedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importSPDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importSPRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editTexturesToolStripMenuItem;
     }
 }
