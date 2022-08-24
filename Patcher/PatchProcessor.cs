@@ -423,7 +423,7 @@ namespace SM64DSe.Patcher
             foreach (string symbol in unformattedSymbols)
             {
                 string[] data = symbol.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (data.Length == 5 || data.Length == 6 || (data.Length == 4 && (data.Last().StartsWith("nsub_") || data.Last().StartsWith("repl_"))))
+                if (data.Length == 5 || data.Length == 6 || (data.Length == 4 && (data.Last().StartsWith("nsub_") || data.Last().StartsWith("repl_")) && !symbols.Select(s => s.Split(' ').First()).Contains(data.Last())))
                 {
                     string symbolName = data.Last();
                     if (!symbolName.StartsWith(".") && !symbolName.Contains("*ABS*") && !symbolName.Contains(".cpp") && !symbolName.Contains(".o"))
