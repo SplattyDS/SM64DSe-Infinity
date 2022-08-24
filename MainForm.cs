@@ -994,7 +994,7 @@ namespace SM64DSe
                         lines.AddRange(fileHeaderStart);
 
                         foreach (NitroROM.FileEntry file in sortedFiles) if (file.InternalID != 0xffff)
-                            lines.Add("\t\t{ " + ToHex(file.InternalID) + ", " + ToHex(file.ID) + ", " + '"' + file.FullName + '"' + " },");
+                            lines.Add("\t\t{ " + ToHex(file.ID) + ", " + ToHex(file.InternalID) + ", " + '"' + file.FullName + '"' + " },");
 
                         lines.AddRange(fileHeaderEnd);
                         File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), lines);
