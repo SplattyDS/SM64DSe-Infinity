@@ -951,14 +951,21 @@ namespace SM64DSe
         private void importPatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog o = new OpenFileDialog();
-            o.Filter = "SM64DSe Patches(*.fss;*.ccs)|*.fss;*ccs";
+            o.Filter = "SM64DSe Patches(*.fss;*.ccs;*.hs)|*.fss;*ccs;*hs";
             o.RestoreDirectory = true;
             if (o.ShowDialog() != DialogResult.OK)
                 return;
 
+            string basePath = Path.GetDirectoryName(o.FileName) + "\\";
+
+            if (o.FileName.EndsWith(".hs"))
+            {
+                Patcher.PatchProcessor.InsertHooks(new DirectoryInfo(basePath), Path.GetFileName(o.FileName));
+                return;
+            }
+
             //Each line.
             var s = File.ReadAllLines(o.FileName);
-            string basePath = Path.GetDirectoryName(o.FileName) + "\\";
             bool filesystemEditStarted = false;
 
             TreeView dummyTree = new TreeView();

@@ -64,7 +64,7 @@ namespace SM64DSe.Patcher
             }
         }
 
-        private static void InsertHooks(DirectoryInfo codeDir, string fileName)
+        public static void InsertHooks(DirectoryInfo codeDir, string fileName)
         {
             string[] lines = File.ReadAllLines(codeDir.FullName + "\\" + fileName);
             
