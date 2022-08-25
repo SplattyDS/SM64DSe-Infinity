@@ -594,6 +594,7 @@ namespace SM64DSe.Patcher
                 UpdateMakefileSources(codeDir, curSourceDir);
                 PatchCompiler.compilePatch(0x02400000, codeDir);
                 uint size = (uint)File.ReadAllBytes(codeDir.FullName + "\\newcode.bin").Length;
+                size += size % 4;
                 PatchCompiler.cleanPatch(codeDir);
 
                 codeBlocks.Add(new CodeBlock { Directory = curSourceDir, Address = 0x02400000, Size = size });
