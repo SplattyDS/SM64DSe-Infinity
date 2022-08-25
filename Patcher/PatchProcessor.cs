@@ -64,6 +64,28 @@ namespace SM64DSe.Patcher
             }
         }
 
+        public static string CheckDuplicateSymbols(DirectoryInfo codeDir)
+        {
+            IEnumerable<string> symbols = File.ReadAllLines(codeDir.FullName + "\\symbols.x");
+            symbols = symbols.Where(s => s.Contains(" = 0x")).Select(s => s.Substring(0, s.IndexOf(' ')));
+
+            List<string> checkedSymbols = new List<string>(symbols.Count());
+            string duplicateSymbols = "";
+
+            foreach (string symbol in symbols)
+            {
+                if (checkedSymbols.Contains(symbol) && !symbol.StartsWith("_ZThn80_N9AnimationD"))
+                    duplicateSymbols += symbol + "\n";
+                else
+                    checkedSymbols.Add(symbol);
+            }
+
+            if (string.IsNullOrEmpty(duplicateSymbols))
+                return null;
+
+            return duplicateSymbols;
+        }
+
         public static void InsertHooks(DirectoryInfo codeDir, string fileName)
         {
             string[] lines = File.ReadAllLines(codeDir.FullName + "\\" + fileName);

@@ -993,6 +993,13 @@ namespace SM64DSe
                         File.WriteAllBytes(basePath + "symbols.x", File.ReadAllBytes(basePath + "symbols.bak.x"));
                         break;
 
+                    case "check_duplicate_sym":
+                        string duplicateSymbols = Patcher.PatchProcessor.CheckDuplicateSymbols(new DirectoryInfo(basePath));
+                        if (duplicateSymbols != null)
+                            MessageBox.Show(duplicateSymbols, "Duplicate symbols found!");
+
+                        break;
+
                     case "generate_file_list":
                         if (filesystemEditStarted)
                             Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
