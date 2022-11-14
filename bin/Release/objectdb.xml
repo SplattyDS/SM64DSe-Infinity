@@ -146,8 +146,8 @@ P - Path ID
 		<internalname>WANWAN</internalname>
 		<actorid>219</actorid>
 		<description>A Chomp chained to a ground-poundable wood pole. When freed, runs into [object=0033] then disappears. Requires bank 4 to be set to 3, because this actor spawns the wooden pole.</description>
-		<bankreq>7=7</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/chain_chomp.dylb</dlreq>
 	</object>
 	<object id="11">
 		<name>Camera Tag</name>
@@ -234,8 +234,8 @@ F - None
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/goomba.dylb</dlreq>
 	</object>
 	<object id="16">
 		<name>Small Goomba</name>
@@ -265,8 +265,8 @@ F - None
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/goomba.dylb</dlreq>
 	</object>
 	<object id="17">
 		<name>Large Goomba</name>
@@ -296,8 +296,8 @@ F - None
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/goomba.dylb</dlreq>
 	</object>
 	<object id="18">
 		<name>Goomboss</name>
@@ -355,8 +355,8 @@ T: Type. If set to 1-3, ignores Parameter 1?
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bob_omb_buddy.dylb</dlreq>
 	</object>
 	<object id="21">
 		<name>Koopa Troopa</name>
@@ -693,7 +693,7 @@ Parameter 1:
 1 - Fire Sea Behaviour Patterns
 2 - Sky Behaviour Patterns (Can only be used in Sky - Fight)</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/bowser.dylb</dlreq>
 	</object>
 	<object id="41">
 		<name>Tree</name>
@@ -815,7 +815,7 @@ SS - Star ID
 		<dlreq>none</dlreq>
 	</object>
 	<object id="45">
-		<name>Switch-activated Shutter</name>
+		<name>Shutter (BOB)</name>
 		<internalname>SWITCHDOOR</internalname>
 		<actorid>40</actorid>
 		<description>A fence door that opens when the associated switch is activated. Never closes if associated to a timed switch, even after the switch timer runs out.
@@ -825,16 +825,16 @@ XXXX Which way it opens
 
 0000 - Left
 0001 - Right</description>
-		<bankreq>7=7</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/shutter.dylb</dlreq>
 	</object>
 	<object id="46">
-		<name>Switch-activated Shutter - HMC</name>
+		<name>Shutter (HMC)</name>
 		<internalname>CV_SHUTTER</internalname>
 		<actorid>67</actorid>
 		<description>Used in Hazy Maze Cave.</description>
-		<bankreq>7=14</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/shutter.dylb</dlreq>
 	</object>
 	<object id="47">
 		<name>Control Pad Lift</name>
@@ -919,8 +919,8 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 		<internalname>WANWAN_SHUTTER</internalname>
 		<actorid>41</actorid>
 		<description>The fence [object=000A] runs into when freed. In Bob-Omb Battlefield, it is used to prevent access to the 7th star. However, Vanish Luigi can go through it.</description>
-		<bankreq>7=7</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/chain_chomp.dylb</dlreq>
 	</object>
 	<object id="52">
 		<name>Water Bomb</name>
@@ -947,8 +947,8 @@ XXYZ
 Y: Unknown
 
 Z: Number of birds to spawn</description>
-		<bankreq>7=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bird.dylb</dlreq>
 	</object>
 	<object id="54">
 		<name>Fish</name>
@@ -994,8 +994,8 @@ Notes:
 - King Bob-Omb's position in a level is hard-coded to only work properly if placed at -2.998, 4.192, -4.597
 
 Important: Using King Bob-Omb requires that the level contains a Bob-Omb object (can be hidden under level), otherwise during behaviour 1, after throwing a couple of Bob-Ombs, all subsequent Bob-Ombs will have totally corrupted textures. Reason for this is unknown.</description>
-		<bankreq>2=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/king_bob_omb.dylb</dlreq>
 	</object>
 	<object id="57">
 		<name>Mr. Blizzard</name>
@@ -1033,8 +1033,8 @@ Sleeps most of the time, but if a player comes too close, wakes up and starts ch
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
 	</object>
 	<object id="60">
 		<name>Star Camera</name>
@@ -1372,7 +1372,7 @@ This might be because she was never intended to talk, but was given this behavio
 		<dlreq>none</dlreq>
 	</object>
 	<object id="82">
-		<name>BitFS-f Tilting Platform</name>
+		<name>Bowser Fire Sea Arena</name>
 		<internalname>KOOPA2BG</internalname>
 		<actorid>166</actorid>
 		<description>The red tinted platform in Bowser in the Fire Sea - fight. It tilts towards Bowser if he jumps on it.
@@ -1380,10 +1380,10 @@ This might be because she was never intended to talk, but was given this behavio
 Parameter 1:
 Uses FFFF</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/bowser.dylb</dlreq>
 	</object>
 	<object id="83">
-		<name>BitS-f Falling Platform</name>
+		<name>Bowser Sky Platform</name>
 		<internalname>KOOPA3BG</internalname>
 		<actorid>167</actorid>
 		<description>A large green piece of the platform in Bowser in the Sky - Fight. They fall one by one each time Bowser is thrown off the platform. Once Bowser is on his last hit,
@@ -1392,7 +1392,7 @@ Parameter 1:
 FFXX Order that platforms fall in?
 (ex. FF01)</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/bowser.dylb</dlreq>
 	</object>
 	<object id="84">
 		<name>Koopa Shell</name>
@@ -1659,7 +1659,7 @@ FF00 to be actiated by a ! switch</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="114">
-		<name>RR Y Axis Rotating Lift</name>
+		<name>Rotating Platform (RR)</name>
 		<internalname>RC_KAITEN</internalname>
 		<actorid>129</actorid>
 		<description>Spinning platform (Y axis) from Rainbow Ride.
@@ -1675,8 +1675,8 @@ XXXX:
 FEC9 - Clockwise.
 
 (Source: Fiachra)</description>
-		<bankreq>7=29</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
 	</object>
 	<object id="115">
 		<name>RR Axis Spinning Lift with Arms</name>
@@ -1743,12 +1743,12 @@ Use FFFF.</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="122">
-		<name>WDW Rotating Floating Island</name>
+		<name>Rotating Platform (WDW)</name>
 		<internalname>WC_UKISIMA</internalname>
 		<actorid>94</actorid>
 		<description>TODO: Investigate parameters</description>
-		<bankreq>7=22</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
 	</object>
 	<object id="123">
 		<name>WDW 01 (Square Wood Lift)</name>
@@ -1892,12 +1892,12 @@ The name seems to be an interesting reference to London bridge.</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="138">
-		<name>LLL Round Spinning Platform</name>
+		<name>Rotating Platform (LLL)</name>
 		<internalname>FL_KOMA_D</internalname>
 		<actorid>80</actorid>
 		<description />
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
 	</object>
 	<object id="139">
 		<name>LLL Firebar</name>
@@ -1923,7 +1923,7 @@ XXXX Delay before bobbing up and down
 		<dlreq>none</dlreq>
 	</object>
 	<object id="141">
-		<name>LLL Fall Down Block</name>
+		<name>Fall Block (LLL)</name>
 		<internalname>FL_KUZURE</internalname>
 		<actorid>83</actorid>
 		<description>Spawns when a Star Marker with a matching Star ID is activated. Star Markers with Star Switch parameter setup seem to count as "activated" all the time.
@@ -1935,7 +1935,7 @@ XXXS where
 
 S - Star ID.</description>
 		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/fall_block.dylb</dlreq>
 	</object>
 	<object id="142">
 		<name>LLL-V Squasher</name>
@@ -2187,28 +2187,28 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<dlreq>none</dlreq>
 	</object>
 	<object id="167">
-		<name>TTC Painting Short Hand</name>
+		<name>Clock Painting Hand - Short</name>
 		<internalname>CLOCK_SHORT</internalname>
 		<actorid>292</actorid>
 		<description />
-		<bankreq>7=6</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/clock_painting_hand.dylb</dlreq>
 	</object>
 	<object id="168">
-		<name>TTC Painting Long Hand</name>
+		<name>Clock Painting Hand - Long</name>
 		<internalname>CLOCK_LONG</internalname>
 		<actorid>293</actorid>
 		<description />
-		<bankreq>7=6</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/clock_painting_hand.dylb</dlreq>
 	</object>
 	<object id="169">
-		<name>TTC Painting Pendulum</name>
+		<name>Clock Painting Pendulum</name>
 		<internalname>CLOCK_HURIKO</internalname>
 		<actorid>294</actorid>
 		<description />
-		<bankreq>7=6</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/clock_painting_pendulum.dylb</dlreq>
 	</object>
 	<object id="170">
 		<name>Skeeter</name>
@@ -2444,12 +2444,12 @@ Parameter 1:
 		<dlreq>none</dlreq>
 	</object>
 	<object id="196">
-		<name>WF Pole billboard</name>
+		<name>Pole Billboard</name>
 		<internalname>BK_BILLBOARD</internalname>
 		<actorid>42</actorid>
 		<description />
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/pole_billboard.dylb</dlreq>
 	</object>
 	<object id="197">
 		<name>WF Bill Blaster</name>
@@ -2460,7 +2460,7 @@ Parameter 1:
 		<dlreq>none</dlreq>
 	</object>
 	<object id="198">
-		<name>WF Stood-up plank</name>
+		<name>Knock Down Plank</name>
 		<internalname>BK_BOTAOSI</internalname>
 		<actorid>44</actorid>
 		<description>If kicked, it will fall flat, ignoring all collision. If it is bumped into by a giant player it falls down on its back.</description>
@@ -2468,12 +2468,12 @@ Parameter 1:
 		<dlreq>none</dlreq>
 	</object>
 	<object id="199">
-		<name>WF Fall Down Block</name>
+		<name>Fall Block (WF)</name>
 		<internalname>BK_DOWN_B</internalname>
 		<actorid>45</actorid>
 		<description>Falling bridge blocks from Whomp's Fortress.</description>
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fall_block.dylb</dlreq>
 	</object>
 	<object id="200">
 		<name>WF Tower Breakable Wall</name>
@@ -2516,23 +2516,23 @@ Note: The collision map for this object should be scaled by 10.</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="204">
-		<name>WF Rotating Floating Island</name>
+		<name>Rotating Platform (WF)</name>
 		<internalname>BK_UKISIMA</internalname>
 		<actorid>50</actorid>
 		<description>Floating rotating island from Whomp's Fortress.</description>
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
 	</object>
 	<object id="205">
-		<name>WF Rotating Bar Lift</name>
+		<name>Rotating Bridge</name>
 		<internalname>BK_ROTEBAR</internalname>
 		<actorid>51</actorid>
 		<description />
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_bridge.dylb</dlreq>
 	</object>
 	<object id="206">
-		<name>WF Lift 01</name>
+		<name>Tower Step</name>
 		<internalname>BK_LIFT01</internalname>
 		<actorid>52</actorid>
 		<description>Moving steps used to climb the Tower in Whomp's Fortress.
@@ -2544,24 +2544,24 @@ MM: Movement
 FF - No movement
 01 - Move in and out
 02 - Move up and down</description>
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/tower_step.dylb</dlreq>
 	</object>
 	<object id="207">
-		<name>WF Bomp - Small</name>
+		<name>Moving Bar - Small</name>
 		<internalname>BK_DOSSUNBAR_S</internalname>
 		<actorid>54</actorid>
 		<description>Chunk of wall (small) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/moving_bar.dylb</dlreq>
 	</object>
 	<object id="208">
-		<name>WF Bomp - Large</name>
+		<name>Moving Bar - Big</name>
 		<internalname>BK_DOSSUNBAR_L</internalname>
 		<actorid>53</actorid>
 		<description>Chunk of wall (large) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/moving_bar.dylb</dlreq>
 	</object>
 	<object id="209">
 		<name>WF "TRANSBAR"</name>
@@ -2572,20 +2572,20 @@ FF - No movement
 		<dlreq>none</dlreq>
 	</object>
 	<object id="210">
-		<name>BBH Fall Block</name>
+		<name>Fall Block (BBH)</name>
 		<internalname>TH_DOWN_B</internalname>
 		<actorid>66</actorid>
 		<description />
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fall_block.dylb</dlreq>
 	</object>
 	<object id="211">
-		<name>BitFS Fall Down Block</name>
+		<name>Fall Block (BFS)</name>
 		<internalname>KM2_KUZURE</internalname>
 		<actorid>139</actorid>
 		<description />
-		<bankreq>7=38</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fall_block.dylb</dlreq>
 	</object>
 	<object id="212">
 		<name>BitFS Rise Lift</name>
@@ -2720,20 +2720,20 @@ TODO: Work out parameters</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="227">
-		<name />
+		<name>Rotating Platform (BS)</name>
 		<internalname>KM3_KAITENDAI</internalname>
 		<actorid>156</actorid>
 		<description />
-		<bankreq>7=40</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
 	</object>
 	<object id="228">
-		<name>CB Switch Pillar</name>
+		<name>Switch Pillar</name>
 		<internalname>C0_SWITCH</internalname>
 		<actorid>34</actorid>
 		<description>When two of them have been groundpounded, the water level in the castle's moat is lowered, making the 'Secret under the Moat' level accessible.</description>
-		<bankreq>7=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/switch_pillar.dylb</dlreq>
 	</object>
 	<object id="229">
 		<name>CCM ski lift</name>
@@ -2799,7 +2799,7 @@ P - Path ID</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="236">
-		<name>Bowser Spikey Bomb</name>
+		<name>Spike Bomb</name>
 		<internalname>KIRAI</internalname>
 		<actorid>284</actorid>
 		<description>Explodes when touched, taking two wedges of the player's health. If Bowser comes in contact with these after being thrown, he will be damaged.
@@ -2807,7 +2807,7 @@ P - Path ID</description>
 ==Other Requirements==
 * Must be in Bowser fight map</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/bowser.dylb</dlreq>
 	</object>
 	<object id="237">
 		<name>Rabbit</name>
@@ -2847,8 +2847,8 @@ PP - Path ID. Appears to start on the last node of the path.
 		<internalname>OWL</internalname>
 		<actorid>234</actorid>
 		<description>Appears when the player climbs into his tree. While holding B, the player can fly around holding him. Nintendo places him 0.2 y points higher than the tree.</description>
-		<bankreq>5=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/hoot_the_owl.dylb</dlreq>
 	</object>
 	<object id="240">
 		<name>Bully</name>
@@ -2909,7 +2909,7 @@ XX: Whether the player can perform a handstand at the top
 
 YY: (Height of the pole * 100) (in hex)</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/invisible_pole.dylb</dlreq>
 	</object>
 	<object id="244">
 		<name>Lakitu Bro.</name>
@@ -3165,12 +3165,12 @@ P - Path ID</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="262">
-		<name>[?] Switch Cloud</name>
+		<name>Cloud</name>
 		<internalname>OBJ_KUMO</internalname>
 		<actorid>314</actorid>
 		<description />
-		<bankreq>7=32</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/cloud.dylb</dlreq>
 	</object>
 	<object id="263">
 		<name>Clam</name>
@@ -3279,7 +3279,7 @@ Parameter 1:
 		<dlreq>none</dlreq>
 	</object>
 	<object id="273">
-		<name>C1 Trap</name>
+		<name>Trap</name>
 		<internalname>C1_TRAP</internalname>
 		<actorid>36</actorid>
 		<description />
@@ -3287,20 +3287,20 @@ Parameter 1:
 		<dlreq>none</dlreq>
 	</object>
 	<object id="274">
-		<name>C1 Light Beam</name>
+		<name>Light Beam</name>
 		<internalname>C1_HIKARI</internalname>
 		<actorid>37</actorid>
 		<description>Warps to [31] ? Switch if you look at the top of it with the highest zoom level and 14 stars.</description>
-		<bankreq>7=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/light_beam.dylb</dlreq>
 	</object>
 	<object id="275">
-		<name>C1 Peach Painting</name>
+		<name>Peach Painting</name>
 		<internalname>C1_PEACH</internalname>
 		<actorid>38</actorid>
 		<description />
-		<bankreq>7=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/peach_painting.dylb</dlreq>
 	</object>
 	<object id="276">
 		<name>RR Flying Carpet</name>
@@ -3351,8 +3351,8 @@ XYYY
 X - Star ID
 
 This object will only activate if you stand on it or the area around it in specific coordinates in Shifting Sand Land's Pyramid, and nowhere else.</description>
-		<bankreq>0=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/eyerock.dylb</dlreq>
 	</object>
 	<object id="280">
 		<name>Wiggler</name>
@@ -3362,8 +3362,8 @@ This object will only activate if you stand on it or the area around it in speci
 
 Parameter 1:
 FF0X Star ID</description>
-		<bankreq>7=27</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/wiggler.dylb</dlreq>
 	</object>
 	<object id="281">
 		<name>Koopa the Quick</name>
@@ -3520,16 +3520,16 @@ YY - The order of the current chest.
 ** /data/normal_obj/t_box
 *** t_box.bmd
 *** t_box_open.bca</description>
-		<bankreq>0=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/treasure_chest.dylb</dlreq>
 	</object>
 	<object id="293">
-		<name>CG water</name>
+		<name>Castle Water</name>
 		<internalname>MC_WATER</internalname>
 		<actorid>0</actorid>
 		<description />
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/castle_water.dylb</dlreq>
 	</object>
 	<object id="294">
 		<name>Possessed Chair</name>
@@ -3540,12 +3540,12 @@ YY - The order of the current chest.
 		<dlreq>none</dlreq>
 	</object>
 	<object id="295">
-		<name>CG Metal Net</name>
+		<name>Metal Net</name>
 		<internalname>MC_METALNET</internalname>
 		<actorid>339</actorid>
 		<description>A grate that blocks off the cannon and several other locations.</description>
-		<bankreq>7=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/metal_net.dylb</dlreq>
 	</object>
 	<object id="296">
 		<name>CG Stairs (Unused)</name>
@@ -3564,12 +3564,12 @@ YY - The order of the current chest.
 		<dlreq>none</dlreq>
 	</object>
 	<object id="298">
-		<name>CG Flag</name>
+		<name>Flag</name>
 		<internalname>MC_FLAG</internalname>
 		<actorid>342</actorid>
 		<description>A red and white flag, like the ones present on Peach's castle's roof. Purely decorative object.</description>
-		<bankreq>7=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/flag.dylb</dlreq>
 	</object>
 	<object id="299">
 		<name>Grindel</name>
@@ -3640,12 +3640,12 @@ Parameter 1:
 		<dlreq>none</dlreq>
 	</object>
 	<object id="303">
-		<name>C-B Water</name>
+		<name>Basement Water</name>
 		<internalname>C0_WATER</internalname>
 		<actorid>35</actorid>
 		<description />
-		<bankreq>7=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/basement_water.dylb</dlreq>
 	</object>
 	<object id="304">
 		<name>Invisible Secret</name>
@@ -3744,7 +3744,7 @@ Alone, not a really useful object.</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="312">
-		<name>Giant Fire Piranha Plant</name>
+		<name>Fire Piranha Plant - Big</name>
 		<internalname>FIREPAKUN</internalname>
 		<actorid>251</actorid>
 		<description>Giant fire-breathing Piranha Plant that grows into visibility when approached.
@@ -3757,11 +3757,11 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
 	</object>
 	<object id="313">
-		<name>Tiny Fire Piranha Plant</name>
+		<name>Fire Piranha Plant - Small</name>
 		<internalname>FIREPAKUN_S</internalname>
 		<actorid>252</actorid>
 		<description>Tiny fire-breathing Piranha Plant that grows into visibility when approached.
@@ -3769,11 +3769,11 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
 	</object>
 	<object id="314">
-		<name>Hidden Piranha Plant</name>
+		<name>Fire Piranha Plant</name>
 		<internalname>PAKUN2</internalname>
 		<actorid>253</actorid>
 		<description>A Piranha Plant that grows into visibility when approached.
@@ -3781,8 +3781,8 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
 	</object>
 	<object id="315">
 		<name>Enemy Switch Tag</name>
@@ -3862,14 +3862,14 @@ FFXX Seems to always be FF14</description>
 		<dlreq>none</dlreq>
 	</object>
 	<object id="321">
-		<name>Fire Ring</name>
+		<name>Bowser Shockwaves</name>
 		<internalname>FIRERING</internalname>
 		<actorid>281</actorid>
 		<description>Possibly a fire ring. This object's actor code is contained in an overlay that isn't loaded via the regular system. Possibly, it is loaded and used as a sub-object by another object, and isn't meant to be used alone.
 
 [b]Do not use, for it will crash the game.[/b]</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/bowser.dylb</dlreq>
 	</object>
 	<object id="322">
 		<name />
@@ -3900,14 +3900,14 @@ Y:
 		<dlreq>none</dlreq>
 	</object>
 	<object id="324">
-		<name />
+		<name>Mugen Bgm</name>
 		<internalname>MUGEN_BGM</internalname>
 		<actorid>351</actorid>
 		<description>Changes background music. Need proper combination of current level music and a correct param
 to switch properly.
 For instance: Jolly Roger Bay's music + Param 1: 71 = Jolly Roger Overworld music</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/mugen_bgm.dylb</dlreq>
 	</object>
 	<object id="325">
 		<name>Sound</name>

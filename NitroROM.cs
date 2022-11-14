@@ -318,6 +318,17 @@ namespace SM64DSe
 
             return 0xFFFF;
         }
+
+        public ushort GetOv0IDFromName(string name)
+        {
+            foreach (FileEntry fe in m_FileEntries)
+            {
+                if (fe.FullName == name)
+                    return fe.InternalID;
+            }
+
+            return 0xFFFF;
+        }
         public ushort GetFileIDFromOverlayID(uint ovlid) { return m_OverlayEntries[ovlid].FileID; } // TODO!!!!!
         public ushort GetFileIDFromInternalID(ushort intid) { return m_FileTable[intid]; }
 

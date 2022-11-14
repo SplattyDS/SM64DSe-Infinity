@@ -267,6 +267,18 @@ namespace SM64DSe
                 {
                     available = false;
                 }
+                else if (objinfo.m_BankRequirement == 0 && objinfo.m_dlRequirements != null)
+                {
+                    ushort[] fileIDs = objinfo.m_dlRequirements.Select(s => Program.m_ROM.GetOv0IDFromName(s)).ToArray();
+                    foreach (ushort fileID in fileIDs)
+                    {
+                        if (!m_DynLibIDs.Contains(fileID))
+                        {
+                            available = false;
+                            break;
+                        }
+                    }
+                }
 
                 m_ObjAvailable.Add((ushort)i, available);
             }

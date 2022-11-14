@@ -55,6 +55,8 @@ namespace SM64DSe
             public int m_BankRequirement;
             public int m_NumBank, m_BankSetting;
 
+            public string[] m_dlRequirements;
+
             public string m_IsCustomModelPath;
 
             public ParamInfo[] m_ParamInfo;
@@ -136,6 +138,13 @@ namespace SM64DSe
                     catch { oinfo.m_BankRequirement = 2; }
                 }
 
+                xr.ReadToFollowing("dlreq");
+                temp = xr.ReadElementContentAsString();
+                if (temp == "none")
+                    oinfo.m_dlRequirements = null;
+                else
+                    oinfo.m_dlRequirements = temp.Split(' ');
+
                 List<ObjectInfo.ParamInfo> paramlist = new List<ObjectInfo.ParamInfo>();
                 while (xr.ReadToNextSibling("param"))
                 {
@@ -189,6 +198,7 @@ namespace SM64DSe
 
                 oinfo.m_Description = "";
                 oinfo.m_BankRequirement = 2;
+                oinfo.m_dlRequirements = null;
                 oinfo.m_ParamInfo = new ObjectInfo.ParamInfo[0];
             }
 

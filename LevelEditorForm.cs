@@ -3179,13 +3179,12 @@ namespace SM64DSe
 
         private void btnDls_Click(object sender, EventArgs e)
         {
-
             if (!Patcher.PatchMaker.PatchToSupportBigASMHacks())
                 return;
 
-            //Show DL editor.
             new DL_Editor(this).ShowDialog(this);
-
+            m_Level.DetermineAvailableObjects();
+            tvObjectList.Refresh();
         }
 
         private void duplicateButton_Click(object sender, EventArgs e) {
