@@ -46,8 +46,6 @@ namespace SM64DSe
                 return (m_Name + "\n" + m_InternalName + "\n" + m_Description);
             }
 
-            public int m_Category;
-
             public ushort m_ID;
             public ushort m_ActorID;
             public string m_Name;
@@ -84,9 +82,7 @@ namespace SM64DSe
                 fs = File.OpenRead("objectdb.xml"); 
                 xr = XmlReader.Create(fs);
 
-                xr.ReadToFollowing("database");
-                xr.MoveToAttribute("timestamp");
-                m_Timestamp = uint.Parse(xr.Value);
+                m_Timestamp = uint.MaxValue;
             }
             catch
             {
@@ -109,16 +105,12 @@ namespace SM64DSe
                 ObjectInfo oinfo = m_ObjectInfo[id];
                 oinfo.m_ID = (ushort)id;
 
-                xr.ReadToFollowing("category");
-                temp = xr.ReadElementContentAsString();
-                int.TryParse(temp, out oinfo.m_Category);
-
                 xr.ReadToFollowing("name");
                 oinfo.m_Name = xr.ReadElementContentAsString();
                 xr.ReadToFollowing("internalname");
                 oinfo.m_InternalName = xr.ReadElementContentAsString();
                 if (oinfo.m_InternalName.StartsWith("@CUSTOM%")) { oinfo.m_IsCustomModelPath = oinfo.m_InternalName.Substring(8); } else { oinfo.m_IsCustomModelPath = null; }
-
+                
                 if (oinfo.m_Name == "")
                     oinfo.m_Name = oinfo.m_InternalName;
 
@@ -195,7 +187,6 @@ namespace SM64DSe
                 oinfo.m_InternalName = stuff.Groups[2].Value;
                 oinfo.m_ActorID = ushort.Parse(stuff.Groups[3].Value, NumberStyles.HexNumber);
 
-                oinfo.m_Category = 0;
                 oinfo.m_Description = "";
                 oinfo.m_BankRequirement = 2;
                 oinfo.m_ParamInfo = new ObjectInfo.ParamInfo[0];

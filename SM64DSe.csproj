@@ -242,6 +242,12 @@
     <Compile Include="LevelDisplaySettingsForm.Designer.cs">
       <DependentUpon>LevelDisplaySettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ObjectDatabaseEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectDatabaseEditorForm.Designer.cs">
+      <DependentUpon>ObjectDatabaseEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MaterialAnimationEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -457,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BMD KLC Editor.resx">
       <DependentUpon>BMD KLC Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectDatabaseEditorForm.resx">
+      <DependentUpon>ObjectDatabaseEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SPLC_Form.resx">
       <DependentUpon>SPLC_Form.cs</DependentUpon>

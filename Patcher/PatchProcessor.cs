@@ -16,7 +16,7 @@ namespace SM64DSe.Patcher
             if (p.Length < 2)
                 return;
 
-            int minLength = p[1] == "arm9" || p[1] == "hooks" ? 3 : 4;
+            int minLength = p[1] == "arm9" || p[1] == "hooks" || p[1] == "test" || p[1] == "symbols" ? 3 : 4;
 
             if (p.Length < minLength)
                 return;
@@ -57,6 +57,17 @@ namespace SM64DSe.Patcher
 
                 case "hooks":
                     InsertHooks(codeDir, sourceDir);
+                    break;
+
+                case "test":
+                    UpdateMakefileSources(codeDir, sourceDir);
+                    PatchCompiler.compilePatch(0x02400000, codeDir);
+                    PatchCompiler.cleanPatch(codeDir);
+                    break;
+
+                case "symbols":
+                    UpdateMakefileSources(codeDir, sourceDir);
+                    PatchCompiler.compilePatch(0x02400000, codeDir);
                     break;
 
                 default:

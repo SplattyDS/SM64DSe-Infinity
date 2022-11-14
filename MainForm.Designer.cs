@@ -10,7 +10,7 @@
         /// <summary>
         /// Nettoyage des ressources utilisées.
         /// </summary>
-        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -99,6 +99,7 @@
             this.particleArchiveSPAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialAnimationBMAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textureAnimationBTAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditObjectDB = new System.Windows.Forms.Button();
             this.tsToolBar.SuspendLayout();
             this.ssStatusBar.SuspendLayout();
             this.tbcMainFormTabControl.SuspendLayout();
@@ -498,6 +499,7 @@
             // 
             // splitContainerLevels.Panel2
             // 
+            this.splitContainerLevels.Panel2.Controls.Add(this.btnEditObjectDB);
             this.splitContainerLevels.Panel2.Controls.Add(this.btnEditCollisionMap);
             this.splitContainerLevels.Panel2.Controls.Add(this.btnEditLevel);
             this.splitContainerLevels.Panel2.Controls.Add(this.btnEditLevelNamesOverlays);
@@ -538,8 +540,8 @@
             // 
             // lbxLevels
             // 
-            this.lbxLevels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbxLevels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbxLevels.FormattingEnabled = true;
             this.lbxLevels.IntegralHeight = false;
@@ -822,6 +824,16 @@
             this.textureAnimationBTAEditorToolStripMenuItem.Text = "Texture Animation (BTA) Editor";
             this.textureAnimationBTAEditorToolStripMenuItem.Click += new System.EventHandler(this.textureAnimationBTAEditorToolStripMenuItem_Click);
             // 
+            // btnEditObjectDB
+            // 
+            this.btnEditObjectDB.Location = new System.Drawing.Point(300, 3);
+            this.btnEditObjectDB.Name = "btnEditObjectDB";
+            this.btnEditObjectDB.Size = new System.Drawing.Size(100, 23);
+            this.btnEditObjectDB.TabIndex = 0;
+            this.btnEditObjectDB.Text = "Edit Object DB";
+            this.btnEditObjectDB.UseVisualStyleBackColor = true;
+            this.btnEditObjectDB.Click += new System.EventHandler(this.btnEditObjectDB_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -932,6 +944,6 @@
         private System.Windows.Forms.ToolStripMenuItem particleArchiveSPAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materialAnimationBMAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textureAnimationBTAEditorToolStripMenuItem;
+        private System.Windows.Forms.Button btnEditObjectDB;
     }
 }
-

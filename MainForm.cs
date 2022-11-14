@@ -858,6 +858,16 @@ namespace SM64DSe
             "\t\tif (*c0 < *c1) end = mid; else begin = mid;",
             "\t}",
             "}",
+            "",
+            "consteval u16 operator\"\"_fid(const char* name, std::size_t)",
+            "{",
+            "\treturn GetFileIdFromName(name, false);",
+            "}",
+            "",
+            "consteval u16 operator\"\"_ov0(const char* name, std::size_t)",
+            "{",
+            "\treturn GetFileIdFromName(name, true);",
+            "}",
         };
 
         private static readonly string[] soundHeaderStart =
@@ -924,9 +934,9 @@ namespace SM64DSe
             "\t}",
             "\t",
             "\t[[gnu::always_inline]]",
-            "\tinline u32 PlayLong(u32 soundID, SoundIDs ids, Vector3 camSpacePos)",
+            "\tinline u32 PlayLong(u32 soundID, SoundIDs ids, Vector3 camSpacePos, u32 arg4)",
             "\t{",
-            "\t\treturn PlayLong(soundID, ids.seqArcID, ids.seqID, camSpacePos, 0);",
+            "\t\treturn PlayLong(soundID, ids.seqArcID, ids.seqID, camSpacePos, arg4);",
             "\t}",
             "}",
             "",
@@ -1315,6 +1325,11 @@ namespace SM64DSe
         private void btnEditLevelNamesOverlays_Click(object sender, EventArgs e)
         {
             new LevelNameOverlayEditorForm().ShowDialog();
+        }
+
+        private void btnEditObjectDB_Click(object sender, EventArgs e)
+        {
+            new ObjectDatabaseEdtiorForm().ShowDialog();
         }
     }
 
