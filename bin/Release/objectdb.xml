@@ -373,8 +373,8 @@ C: Color
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>0=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/koopa.dylb</dlreq>
 	</object>
 	<object id="22">
 		<name>Small Koopa Troopa</name>
@@ -391,8 +391,8 @@ C: Color
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>0=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/koopa.dylb</dlreq>
 	</object>
 	<object id="23">
 		<name>Brick Block</name>

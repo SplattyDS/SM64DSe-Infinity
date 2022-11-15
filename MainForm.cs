@@ -1330,6 +1330,9 @@ namespace SM64DSe
         private void btnEditObjectDB_Click(object sender, EventArgs e)
         {
             new ObjectDatabaseEdtiorForm().ShowDialog();
+            ObjectDatabase.LoadFallback();
+            try { ObjectDatabase.Load(); }
+            catch { }
         }
     }
 
