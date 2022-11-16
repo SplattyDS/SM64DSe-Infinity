@@ -40,6 +40,8 @@ namespace SM64DSe
         private bool m_UpdatingTextBoxes = false;
         private bool m_UpdatingListBox = false;
 
+        private ObjectInfo m_LastSelectedObjectInfo = null;
+
         private void LoadObjectInfos(string path = null)
         {
             m_ObjectInfos = new List<ObjectInfo>();
@@ -185,9 +187,12 @@ namespace SM64DSe
             if (m_UpdatingListBox || lstObjects.SelectedIndex < 0)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
+            m_LastSelectedObjectInfo = (ObjectInfo)lstObjects.SelectedItem;
+
+            ObjectInfo info = m_LastSelectedObjectInfo;
 
             m_UpdatingTextBoxes = true;
+
             nudObjectID.Value = info.objectID;
             nudActorID.Value = info.actorID;
             txtObjectName.Text = info.name;
@@ -201,68 +206,61 @@ namespace SM64DSe
 
         private void txtObjectName_TextChanged(object sender, EventArgs e)
         {
-            if (m_UpdatingTextBoxes || lstObjects.SelectedIndex < 0)
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
-            info.name = txtObjectName.Text;
-            lstObjects.Items[lstObjects.SelectedIndex] = lstObjects.SelectedItem;
+            m_LastSelectedObjectInfo.name = txtObjectName.Text;
+            RefreshListBoxLabels();
         }
 
         private void nudObjectID_ValueChanged(object sender, EventArgs e)
         {
-            if (m_UpdatingTextBoxes || lstObjects.SelectedIndex < 0)
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
-            info.objectID = (int)nudObjectID.Value;
-            lstObjects.Items[lstObjects.SelectedIndex] = lstObjects.SelectedItem;
+            m_LastSelectedObjectInfo.objectID = (int)nudObjectID.Value;
+            RefreshListBoxLabels();
         }
 
         private void txtInternalName_TextChanged(object sender, EventArgs e)
         {
-            if (m_UpdatingTextBoxes || lstObjects.SelectedIndex < 0)
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
-            info.internalName = txtInternalName.Text;
-            lstObjects.Items[lstObjects.SelectedIndex] = lstObjects.SelectedItem;
+            m_LastSelectedObjectInfo.internalName = txtInternalName.Text;
+            RefreshListBoxLabels();
         }
 
         private void nudActorID_ValueChanged(object sender, EventArgs e)
         {
-            if (m_UpdatingTextBoxes || lstObjects.SelectedIndex < 0)
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
-            info.actorID = (int)nudActorID.Value;
+            m_LastSelectedObjectInfo.actorID = (int)nudActorID.Value;
         }
 
         private void txtBankReq_TextChanged(object sender, EventArgs e)
         {
-            if (m_UpdatingTextBoxes || lstObjects.SelectedIndex < 0)
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
-            info.bankReq = txtBankReq.Text;
+            m_LastSelectedObjectInfo.bankReq = txtBankReq.Text;
         }
 
         private void txtDlReq_TextChanged(object sender, EventArgs e)
         {
-            if (m_UpdatingTextBoxes || lstObjects.SelectedIndex < 0)
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
-            info.dlReq = txtDlReq.Text;
+            m_LastSelectedObjectInfo.dlReq = txtDlReq.Text;
         }
 
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            if (m_UpdatingTextBoxes || lstObjects.SelectedIndex < 0)
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
-            info.description = txtDescription.Text;
+            m_LastSelectedObjectInfo.description = txtDescription.Text;
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -278,6 +276,12 @@ namespace SM64DSe
                 if (string.IsNullOrWhiteSpace(search) || m_ObjectInfos[i].ToString().ToLower().Contains(search.ToLower()))
                     lstObjects.Items.Add(m_ObjectInfos[i]);
             }
+        }
+
+        private void RefreshListBoxLabels()
+        {
+            for (int i = 0; i < lstObjects.Items.Count; i++)
+                lstObjects.Items[i] = lstObjects.Items[i];
         }
     }
 }
