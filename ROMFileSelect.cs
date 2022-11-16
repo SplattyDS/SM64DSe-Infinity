@@ -43,7 +43,7 @@ namespace SM64DSe
                 checkMergeArcs.Checked = (startFolder != "");
         }
 
-        public static void LoadFileList(TreeView tvFileList, String[] filters = null, String startFolder = "", bool mergeArcs = false)
+        public static void LoadFileList(TreeView tvFileList, string[] filters = null, string startFolder = "", bool mergeArcs = false)
         {
             NitroROM.FileEntry[] files = Program.m_ROM.GetFileEntries();
             TreeNode node = tvFileList.Nodes.Add("root", "ROM File System");
@@ -56,25 +56,25 @@ namespace SM64DSe
 
         public static void EnsureAllDirsExist(TreeView tvFileList)
         {
-            NitroROM.DirEntry[] dirs = Program.m_ROM.GetDirEntries();
+            NitroROM.DirEntry[] dirs = Program.m_ROM.GetDirEntriesSorted();
 
             for (int i = 1; i < dirs.Length; ++i)
                 EnsureDirExists(dirs[i].FullName, dirs[i].FullName, tvFileList.Nodes["root"]);
         }
 
-        private static void LoadFiles(TreeView tvFileList, TreeNode node, NitroROM.FileEntry[] files, NARC.FileEntry[] filesNARC, String[] filters = null, String startFolder = "", bool mergeArcs = false)
+        private static void LoadFiles(TreeView tvFileList, TreeNode node, NitroROM.FileEntry[] files, NARC.FileEntry[] filesNARC, string[] filters = null, String startFolder = "", bool mergeArcs = false)
         {
             TreeNode parent = node;
-            String[] names = new String[0];
+            string[] names = new string[0];
             if (files.Length == 0)
             {
-                names = new String[filesNARC.Length];
+                names = new string[filesNARC.Length];
                 for (int i = 0; i < filesNARC.Length; i++)
                     names[i] = filesNARC[i].FullName;
             }
             else if (filesNARC.Length == 0)
             {
-                names = new String[files.Length];
+                names = new string[files.Length];
                 for (int i = 0; i < files.Length; i++)
                     names[i] = files[i].FullName;
             }
@@ -84,7 +84,7 @@ namespace SM64DSe
                 if (filters != null)
                 {
                     bool passedFilters = false;
-                    foreach (String filter in filters)
+                    foreach (string filter in filters)
                     {
                         if (names[i].EndsWith(filter))
                         {
@@ -96,7 +96,7 @@ namespace SM64DSe
                         continue;
                 }
 
-                String[] parts = names[i].Split('/');
+                string[] parts = names[i].Split('/');
 
                 if (parts.Length == 1)
                 {

@@ -52,6 +52,8 @@
             this.txtDescription = new System.Windows.Forms.RichTextBox();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudObjectID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudActorID)).BeginInit();
@@ -260,7 +262,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(117, 32);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(463, 22);
+            this.txtSearch.Size = new System.Drawing.Size(301, 22);
             this.txtSearch.TabIndex = 29;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -273,11 +275,33 @@
             this.label6.TabIndex = 30;
             this.label6.Text = "Search object:";
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(424, 32);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 31;
+            this.btnAdd.Text = "Add new";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(505, 32);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 32;
+            this.btnRemove.Text = "Remove";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // ObjectDatabaseEdtiorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1073, 507);
+            this.Controls.Add(this.btnRemove);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.txtDescription);
@@ -335,5 +359,7 @@
         private System.Windows.Forms.RichTextBox txtDescription;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnRemove;
     }
 }

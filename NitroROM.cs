@@ -572,6 +572,11 @@ namespace SM64DSe
             return m_DirEntries;
         }
 
+        public DirEntry[] GetDirEntriesSorted()
+        {
+            return m_DirEntries.OrderBy(d => d.FullName).ToArray();
+        }
+
         public uint GetOverlayEntryOffset(uint ovlid) { return m_OverlayEntries[ovlid].EntryOffset; }
 
         public OverlayEntry[] GetOverlayEntries()

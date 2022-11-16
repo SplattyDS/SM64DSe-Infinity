@@ -115,10 +115,10 @@ namespace SM64DSe
             else
                 btnRefresh.PerformClick();
 
-            this.tvFileList.Nodes.Clear();
-            ROMFileSelect.LoadFileList(this.tvFileList);
-            this.tvARM9Overlays.Nodes.Clear();
-            ROMFileSelect.LoadOverlayList(this.tvARM9Overlays);
+            tvFileList.Nodes.Clear();
+            ROMFileSelect.LoadFileList(tvFileList);
+            tvARM9Overlays.Nodes.Clear();
+            ROMFileSelect.LoadOverlayList(tvARM9Overlays);
 
             btnASMHacking.Enabled = true;
             btnTools.Enabled = true;
@@ -373,20 +373,23 @@ namespace SM64DSe
 
         private void tvFileList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            this.m_SelectedFile = e.Node == null || e.Node.Tag == null ? "" : e.Node.Tag.ToString();
-            if (!(this.m_SelectedFile != ""))
+            m_SelectedFile = e.Node == null || e.Node.Tag == null ? "" : e.Node.Tag.ToString();
+
+            if (m_SelectedFile == "")
                 return;
-            string str1;
-            if (!this.m_SelectedFile.StartsWith("ARCHIVE") && Program.m_ROM.GetFileIDFromName(this.m_SelectedFile) != ushort.MaxValue) {
-                string str2;
-                if (this.m_SelectedFile.Last<char>() != '/')
-                    str2 = string.Format("File, ID = 0x{0:x4}, Ov0ID = 0x{1:x4}", (object)Program.m_ROM.GetFileIDFromName(this.m_SelectedFile), (object)Program.m_ROM.GetFileEntries()[(int)Program.m_ROM.GetFileIDFromName(this.m_SelectedFile)].InternalID);
-                else
-                    str2 = string.Format("Directory, ID = 0x{0:x4}", (object)Program.m_ROM.GetDirIDFromName(this.m_SelectedFile.TrimEnd('/')));
-                str1 = str2;
-            } else
-                str1 = "";
-            this.slStatusLabel.Text = str1;
+            
+            Console.WriteLine(m_SelectedFile);
+
+            string status;
+            if (Program.m_ROM.GetFileIDFromName(this.m_SelectedFile) != ushort.MaxValue)
+                status = m_SelectedFile.Last() == '/' ?
+                    string.Format("Directory, ID = 0x{0:x4}", Program.m_ROM.GetDirIDFromName(m_SelectedFile.TrimEnd('/'))) :
+                    string.Format("File, ID = 0x{0:x4}, Ov0ID = 0x{1:x4}",
+                        Program.m_ROM.GetFileIDFromName(m_SelectedFile),
+                        Program.m_ROM.GetFileEntries()[Program.m_ROM.GetFileIDFromName(m_SelectedFile)].InternalID);
+            else
+                status = "";
+            slStatusLabel.Text = status;
         }
 
         private void btnExtractRaw_Click(object sender, EventArgs e)
@@ -978,9 +981,7 @@ namespace SM64DSe
             var s = File.ReadAllLines(o.FileName);
             bool filesystemEditStarted = false;
 
-            TreeView dummyTree = new TreeView();
-            ROMFileSelect.LoadFileList(dummyTree);
-            TreeNode dummyNode = dummyTree.Nodes[0];
+            ROMFileSelect.LoadFileList(tvFileList);
 
             foreach (var l in s)
             {
@@ -1096,7 +1097,7 @@ namespace SM64DSe
                             if (!filesystemEditStarted)
                                 Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
 
-                            Program.m_ROM.AddFile(p[1], p[2], data, dummyNode);
+                            Program.m_ROM.AddFile(p[1], p[2], data, tvFileList.Nodes[0]);
                         }
 
                         break;
@@ -1127,7 +1128,7 @@ namespace SM64DSe
                         p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
                         p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
 
-                        Program.m_ROM.RenameFile(p[1], p[2], dummyNode);
+                        Program.m_ROM.RenameFile(p[1], p[2], tvFileList.Nodes[0]);
 
                         break;
 
@@ -1137,7 +1138,7 @@ namespace SM64DSe
 
                         p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
 
-                        Program.m_ROM.RemoveFile(p[1], dummyNode);
+                        Program.m_ROM.RemoveFile(p[1], tvFileList.Nodes[0]);
 
                         break;
 
@@ -1148,7 +1149,7 @@ namespace SM64DSe
                         p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
                         p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
                         Console.WriteLine("Add dir: " + p[1] + " " + p[2]);
-                        Program.m_ROM.AddDir(p[1], p[2], dummyNode);
+                        Program.m_ROM.AddDir(p[1], p[2], tvFileList.Nodes[0]);
 
                         break;
 
@@ -1159,7 +1160,7 @@ namespace SM64DSe
                         p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
                         p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
 
-                        Program.m_ROM.RenameDir(p[1], p[2], dummyNode);
+                        Program.m_ROM.RenameDir(p[1], p[2], tvFileList.Nodes[0]);
 
                         break;
 
@@ -1169,7 +1170,7 @@ namespace SM64DSe
 
                         p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
 
-                        Program.m_ROM.RemoveDir(p[1], dummyNode);
+                        Program.m_ROM.RemoveDir(p[1], tvFileList.Nodes[0]);
 
                         break;
 
