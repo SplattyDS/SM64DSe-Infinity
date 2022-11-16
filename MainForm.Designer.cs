@@ -42,6 +42,7 @@
             this.mnitHexDumpToBinaryFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnitEditSDATINFOBlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkLevelReqToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnASMHacking = new System.Windows.Forms.ToolStripDropDownButton();
             this.mnitASMHackingCompilation = new System.Windows.Forms.ToolStripMenuItem();
             this.mnitASMHackingCompilationCodeCompiler = new System.Windows.Forms.ToolStripMenuItem();
@@ -197,7 +198,8 @@
             this.mnitDecompressOverlaysWithinGame,
             this.mnitHexDumpToBinaryFile,
             this.mnitEditSDATINFOBlockToolStripMenuItem,
-            this.importPatchToolStripMenuItem});
+            this.importPatchToolStripMenuItem,
+            this.checkLevelReqToolStripMenuItem});
             this.btnMore.Enabled = false;
             this.btnMore.Image = ((System.Drawing.Image)(resources.GetObject("btnMore.Image")));
             this.btnMore.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -246,6 +248,13 @@
             this.importPatchToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.importPatchToolStripMenuItem.Text = "Import Patch";
             this.importPatchToolStripMenuItem.Click += new System.EventHandler(this.importPatchToolStripMenuItem_Click);
+            // 
+            // checkLevelReqToolStripMenuItem
+            // 
+            this.checkLevelReqToolStripMenuItem.Name = "checkLevelReqToolStripMenuItem";
+            this.checkLevelReqToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
+            this.checkLevelReqToolStripMenuItem.Text = "Check all level requirements";
+            this.checkLevelReqToolStripMenuItem.Click += new System.EventHandler(this.checkLevelReqToolStripMenuItem_Click);
             // 
             // btnASMHacking
             // 
@@ -940,6 +949,7 @@
         private System.Windows.Forms.ToolStripMenuItem editFileSystemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editOverlaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importPatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkLevelReqToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem particleTextureSPTEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem particleArchiveSPAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materialAnimationBMAEditorToolStripMenuItem;
