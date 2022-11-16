@@ -89,9 +89,7 @@ namespace SM64DSe
                 }
             }
 
-            lstObjects.Items.Clear();
-            for (int i = 0; i < m_ObjectInfos.Count; i++)
-                lstObjects.Items.Add(m_ObjectInfos[i]);
+            FillListBox();
         }
 
         private void SaveObjectInfos()
@@ -265,6 +263,21 @@ namespace SM64DSe
 
             ObjectInfo info = (ObjectInfo)lstObjects.SelectedItem;
             info.description = txtDescription.Text;
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            FillListBox(txtSearch.Text);
+        }
+
+        private void FillListBox(string search = null)
+        {
+            lstObjects.Items.Clear();
+            for (int i = 0; i < m_ObjectInfos.Count; i++)
+            {
+                if (string.IsNullOrWhiteSpace(search) || m_ObjectInfos[i].ToString().ToLower().Contains(search.ToLower()))
+                    lstObjects.Items.Add(m_ObjectInfos[i]);
+            }
         }
     }
 }

@@ -50,6 +50,8 @@
             this.txtDlReq = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.RichTextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudObjectID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudActorID)).BeginInit();
@@ -109,9 +111,9 @@
             this.lstObjects.Font = new System.Drawing.Font("Consolas", 8F);
             this.lstObjects.FormattingEnabled = true;
             this.lstObjects.ItemHeight = 15;
-            this.lstObjects.Location = new System.Drawing.Point(12, 30);
+            this.lstObjects.Location = new System.Drawing.Point(12, 60);
             this.lstObjects.Name = "lstObjects";
-            this.lstObjects.Size = new System.Drawing.Size(568, 454);
+            this.lstObjects.Size = new System.Drawing.Size(568, 424);
             this.lstObjects.TabIndex = 11;
             this.lstObjects.SelectedIndexChanged += new System.EventHandler(this.lstObjects_SelectedIndexChanged);
             // 
@@ -254,11 +256,30 @@
             this.txtDescription.Text = "";
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(117, 32);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(463, 22);
+            this.txtSearch.TabIndex = 29;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(99, 17);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "Search object:";
+            // 
             // ObjectDatabaseEdtiorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1073, 507);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label5);
@@ -312,5 +333,7 @@
         private System.Windows.Forms.TextBox txtDlReq;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox txtDescription;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label label6;
     }
 }

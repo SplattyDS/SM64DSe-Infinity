@@ -3016,7 +3016,7 @@ Z: How it should behave
 		<dlreq>none</dlreq>
 	</object>
 	<object id="252">
-		<name>Klepto the Condor</name>
+		<name>Klepto</name>
 		<internalname>JANGO</internalname>
 		<actorid>239</actorid>
 		<description>A bird that tries to steal the player's hat. If the player is Yoshi, or has no hat, Klepto will try to attack them.
@@ -3040,8 +3040,8 @@ Z: Relates to what he does after he grabs the players hat
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>0=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/klepto.dylb</dlreq>
 	</object>
 	<object id="253">
 		<name>Pokey</name>
@@ -3283,8 +3283,8 @@ Parameter 1:
 		<internalname>C1_TRAP</internalname>
 		<actorid>36</actorid>
 		<description />
-		<bankreq>7=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/trap.dylb</dlreq>
 	</object>
 	<object id="274">
 		<name>Light Beam</name>
@@ -3391,8 +3391,8 @@ S - Star ID
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>0=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/koopa_the_quick.dylb</dlreq>
 	</object>
 	<object id="282">
 		<name>Koopa Flag</name>
@@ -3403,8 +3403,8 @@ S - Star ID
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>0=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/koopa_the_quick.dylb</dlreq>
 	</object>
 	<object id="283">
 		<name>BBH Entrance Cage</name>
@@ -3607,8 +3607,8 @@ TT: Type
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>0=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/chuckya.dylb</dlreq>
 	</object>
 	<object id="302">
 		<name>Super Mushroom</name>
