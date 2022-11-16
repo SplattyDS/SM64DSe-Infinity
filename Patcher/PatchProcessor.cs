@@ -125,6 +125,8 @@ namespace SM64DSe.Patcher
 
                     if (splitLine[2].StartsWith("0x") && splitLine[2].Length == 10)
                         data = Convert.ToUInt32(splitLine[2], 16);
+                    else if (splitLine[2].Equals("nop"))
+                        data = 0xe1a00000;
                     else
                         data = GetBranchAddr(codeDir, splitLine[2]);
 

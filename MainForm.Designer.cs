@@ -51,7 +51,7 @@
             this.platformEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tssASMHacking001 = new System.Windows.Forms.ToolStripSeparator();
             this.mnitToggleSuitabilityForNSMBeASMPatchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dLPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extendItcmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.mnitToolsModelAndCollisionMapImporter = new System.Windows.Forms.ToolStripMenuItem();
             this.mnitToolsCollisionMapEditor = new System.Windows.Forms.ToolStripMenuItem();
@@ -265,7 +265,7 @@
             this.mnitASMHackingGeneration,
             this.tssASMHacking001,
             this.mnitToggleSuitabilityForNSMBeASMPatchingToolStripMenuItem,
-            this.dLPatchToolStripMenuItem});
+            this.extendItcmToolStripMenuItem});
             this.btnASMHacking.Enabled = false;
             this.btnASMHacking.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnASMHacking.Name = "btnASMHacking";
@@ -322,12 +322,12 @@
             this.mnitToggleSuitabilityForNSMBeASMPatchingToolStripMenuItem.Text = "Toggle Suitability for NSMBe ASM Patching";
             this.mnitToggleSuitabilityForNSMBeASMPatchingToolStripMenuItem.Click += new System.EventHandler(this.mnitToggleSuitabilityForNSMBeASMPatchingToolStripMenuItem_Click);
             // 
-            // dLPatchToolStripMenuItem
+            // extendItcmToolStripMenuItem
             // 
-            this.dLPatchToolStripMenuItem.Name = "dLPatchToolStripMenuItem";
-            this.dLPatchToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
-            this.dLPatchToolStripMenuItem.Text = "DL Patch";
-            this.dLPatchToolStripMenuItem.Click += new System.EventHandler(this.dLPatchToolStripMenuItem_Click);
+            this.extendItcmToolStripMenuItem.Name = "extendItcmToolStripMenuItem";
+            this.extendItcmToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
+            this.extendItcmToolStripMenuItem.Text = "Extend ITCM";
+            this.extendItcmToolStripMenuItem.Click += new System.EventHandler(this.extendItcmToolStripMenuItem_Click);
             // 
             // btnTools
             // 
@@ -944,7 +944,7 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ComboBox cbLevelListDisplay;
         private System.Windows.Forms.ListBox lbxLevels;
-        private System.Windows.Forms.ToolStripMenuItem dLPatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extendItcmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kuppaScriptEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editFileSystemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editOverlaysToolStripMenuItem;

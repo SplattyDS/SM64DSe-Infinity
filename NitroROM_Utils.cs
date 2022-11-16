@@ -21,7 +21,7 @@ namespace SM64DSe {
             return true;
         }
 
-        public void SaveFilesystem(bool expandArm9 = false)
+        public void SaveFilesystem(string arm9_expansion_file_path = null)
         {
             MemoryStream newBinStream = new MemoryStream();
             BinaryWriter newBinWriter = new BinaryWriter(newBinStream, Encoding.ASCII);
@@ -44,13 +44,41 @@ namespace SM64DSe {
             //////////
             // ARM9 //
             //////////
-            m_BinReader.BaseStream.Position = 0x2c;
-            int arm9Size = m_BinReader.ReadInt32(); //includes TCM
-            m_BinReader.BaseStream.Position = 0x4000;
-            newBinWriter.Write(m_BinReader.ReadBytes(arm9Size));
-            if (expandArm9)
+            if (arm9_expansion_file_path == null)
             {
+                m_BinReader.BaseStream.Position = 0x2c;
+                int arm9Size = m_BinReader.ReadInt32(); //includes ITCM
+                m_BinReader.BaseStream.Position = 0x4000;
+                newBinWriter.Write(m_BinReader.ReadBytes(arm9Size));
+            }
+            else
+            {
+                m_BinReader.BaseStream.Position = 0x2c;
+                int arm9Size = m_BinReader.ReadInt32();
 
+                // the original arm9.bin without section 3 and the section info
+                m_BinReader.BaseStream.Position = 0x4000;
+                newBinWriter.Write(m_BinReader.ReadBytes(arm9Size - 0x3c));
+
+                // the arm9.bin ITCM expansion
+                byte[] expansion = File.ReadAllBytes(arm9_expansion_file_path);
+                if (expansion.Length != 0x20c0) throw new Exception("The arm9.bin ITCM expansion should be exactly 0x20c0 bytes (was 0x" + Convert.ToString(expansion.Length, 16) + ").");
+                newBinWriter.Write(expansion);
+
+                // section 3 and the section info (with modified ITCM size)
+                byte[] sectionData = m_BinReader.ReadBytes(0x3c);
+                sectionData[0x28] = 0x00;
+                sectionData[0x29] = 0x80;
+                newBinWriter.Write(sectionData);
+
+                // the new arm9 size (header) and some pointer that have to be changed(?)
+                oldPos = (int)newBinWriter.BaseStream.Position;
+                newBinWriter.BaseStream.Position = 0x2c;
+                newBinWriter.Write(0x9f038); // new arm9.bin size
+                newBinWriter.BaseStream.Position = 0x4ad8;
+                newBinWriter.Write(0x020a3020);
+                newBinWriter.Write(0x020a3038);
+                newBinWriter.BaseStream.Position = oldPos;
             }
 
 

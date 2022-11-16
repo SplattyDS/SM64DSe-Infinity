@@ -649,11 +649,6 @@ namespace SM64DSe
             lazyman.ReportProgress(599);
         }
 
-        private void Patch_v6(BackgroundWorker lazyman)
-        {
-
-        }
-
         public void Patch()
         {
             // read previous patch version
@@ -706,7 +701,6 @@ namespace SM64DSe
             if (oldversion < 3) Patch_v3(lazyman); // patch v3: fix for R4/acekard flashcarts
             if (oldversion < 4) Patch_v4(lazyman); // patch v4: level music data stored in and loaded from level overlays
             if (oldversion < 5) Patch_v5(lazyman); // patch v5: fix missing texture animation y translation values
-            if (oldversion < 6) Patch_v6(lazyman); // patch v6: particle related patches including external SPA file
         }
     }
 }
