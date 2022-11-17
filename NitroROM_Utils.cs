@@ -273,6 +273,7 @@ namespace SM64DSe {
 
             m_BinWriter.BaseStream.SetLength(endOfFile);
             EndRW(true);
+            LoadROM(m_Path);
         }
 
         public void RevertFilesystem() {

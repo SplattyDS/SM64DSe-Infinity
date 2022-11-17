@@ -741,6 +741,16 @@ namespace SM64DSe
 
         private void extendItcmToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Program.m_ROM.BeginRW();
+            uint arm9Size = Program.m_ROM.Read32(0x2c);
+            Program.m_ROM.EndRW();
+            
+            if (arm9Size == 0x9f038)
+            {
+                MessageBox.Show("The arm9.bin ITCM has already been extended.", "ITCM already extended.");
+                return;
+            }    
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             openFileDialog.DefaultExt = "bin";
@@ -1105,6 +1115,15 @@ namespace SM64DSe
 
                         p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
                         p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+
+
+                        if (Program.m_ROM.GetDirIDFromName(p[1] + p[2]) != 0)
+                        {
+                            Console.WriteLine("Dir '" + p[1] + p[2] + "' already exists.");
+                            break;
+                        }
+
+
                         Console.WriteLine("Add dir: " + p[1] + " " + p[2]);
                         Program.m_ROM.AddDir(p[1], p[2], tvFileList.Nodes[0]);
 

@@ -136,6 +136,20 @@ namespace SM64DSe.Patcher
                     if (!autorw) Program.m_ROM.EndRW();
                     continue;
                 }
+                else if (splitLine.Length == 5 && splitLine[1] == "-")
+                {
+                    uint data = Convert.ToUInt32(splitLine[4], 16);
+                    uint hookAddr2 = Convert.ToUInt32(splitLine[2], 16);
+
+                    autorw = Program.m_ROM.CanRW();
+                    if (!autorw) Program.m_ROM.BeginRW();
+                    
+                    for (uint addr = hookAddr; addr < hookAddr2; addr += 4)
+                        Program.m_ROM.Write32(addr - 0x02000000, data);
+
+                    if (!autorw) Program.m_ROM.EndRW();
+                    continue;
+                }
 
                 uint branchAddr;
 
