@@ -2298,16 +2298,16 @@ MM - See ! Switch parameter info</description>
 		<internalname>KI_FUNE</internalname>
 		<actorid>56</actorid>
 		<description />
-		<bankreq>7=9</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/ship.dylb</dlreq>
 	</object>
 	<object id="180">
 		<name>JRB Boat - Up</name>
 		<internalname>KI_FUNE_UP</internalname>
 		<actorid>57</actorid>
 		<description />
-		<bankreq>7=9</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/ship.dylb</dlreq>
 	</object>
 	<object id="181">
 		<name>JRB Pillar</name>

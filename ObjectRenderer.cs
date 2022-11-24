@@ -23,6 +23,7 @@ using System.Text;
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using SM64DSe.ImportExport.Loaders.InternalLoaders;
 
 namespace SM64DSe
 {
@@ -914,8 +915,8 @@ namespace SM64DSe
     class NormalBMDRenderer : ObjectRenderer
     {
         public NormalBMDRenderer() { }
-        public NormalBMDRenderer(string filename, float scale) 
-        { 
+        public NormalBMDRenderer(string filename, float scale)
+        {
             Construct(filename, scale);
         }
 
@@ -964,6 +965,121 @@ namespace SM64DSe
 
         private BMD m_Model;
         private int[] m_DisplayLists;
+    }
+
+
+    class NormalKCLRenderer : ObjectRenderer
+    {
+        public NormalKCLRenderer() { }
+        public NormalKCLRenderer(string filename, float scale)
+        {
+            Construct(filename, scale);
+            GetDisplayLists();
+        }
+
+        public override void Release()
+        {
+            GL.DeleteLists(m_KCLMeshDLists[0], 1); m_KCLMeshDLists[0] = 0;
+            GL.DeleteLists(m_KCLMeshDLists[1], 1); m_KCLMeshDLists[1] = 0;
+        }
+
+        public override bool GottaRender(RenderMode mode)
+        {
+            int dl = 0;
+            switch (mode)
+            {
+                case RenderMode.Opaque: dl = m_KCLMeshDLists[0]; break;
+                case RenderMode.Translucent: dl = m_KCLMeshDLists[1]; break;
+                case RenderMode.Picking: dl = m_KCLMeshDLists[0]; break;
+            }
+
+            return dl != 0;
+        }
+
+        public void GetDisplayLists()
+        {
+            m_KCLMeshPickingDLists[0] = GL.GenLists(1);
+            GL.NewList(m_KCLMeshPickingDLists[0], ListMode.Compile);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+            for (int i = 0; i < m_Planes.Count; i++)
+            {
+                GL.Begin(PrimitiveType.Triangles);
+                GL.Color4(Color.FromArgb(i));
+                GL.Vertex3(m_Planes[i].point1);
+                GL.Vertex3(m_Planes[i].point2);
+                GL.Vertex3(m_Planes[i].point3);
+                GL.End();
+            }
+            GL.EndList();
+
+            m_KCLMeshDLists[0] = GL.GenLists(1);
+            GL.NewList(m_KCLMeshDLists[0], ListMode.Compile);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+            GL.Enable(EnableCap.PolygonOffsetFill);
+            GL.PolygonOffset(1f, 1f);
+            for (int i = 0; i < m_Planes.Count; i++)
+            {
+                Color planeColour = m_Colours[m_Planes[i].type];
+
+                GL.Begin(PrimitiveType.Triangles);
+                GL.Color3(planeColour);
+                GL.Vertex3(m_Planes[i].point1);
+                GL.Vertex3(m_Planes[i].point2);
+                GL.Vertex3(m_Planes[i].point3);
+                GL.End();
+            }
+            GL.Disable(EnableCap.PolygonOffsetFill);
+            GL.EndList();
+
+            m_KCLMeshDLists[1] = GL.GenLists(1);
+            GL.NewList(m_KCLMeshDLists[1], ListMode.Compile);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            for (int i = 0; i < m_Planes.Count; i++)
+            {
+                GL.Begin(PrimitiveType.LineLoop);
+                GL.Color3(Color.Orange);
+                GL.Vertex3(m_Planes[i].point1);
+                GL.Vertex3(m_Planes[i].point2);
+                GL.Vertex3(m_Planes[i].point3);
+                GL.End();
+            }
+            GL.EndList();
+        }
+
+        public override void Render(RenderMode mode)
+        {
+            GL.Scale(m_Scale);
+            switch (mode)
+            {
+                case RenderMode.Opaque: GL.CallList(m_KCLMeshDLists[0]); break;
+                case RenderMode.Translucent: GL.CallList(m_KCLMeshDLists[1]); break;
+                case RenderMode.Picking: GL.CallList(m_KCLMeshDLists[0]); break;
+            }
+        }
+
+        public void Construct(string filename, float scale)
+        {
+            m_KCL = new KCL(Program.m_ROM.GetFileFromName(filename));
+            m_Planes = m_KCL.m_Planes;
+            m_Scale = new Vector3(scale, scale, scale);
+            m_Filename = filename;
+        }
+
+        public override void UpdateRenderer()
+        {
+            Construct(m_Filename, m_Scale.X);
+            GetDisplayLists();
+        }
+
+        private KCL m_KCL;
+        private List<KCL.ColFace> m_Planes;
+        private int[] m_KCLMeshPickingDLists = new int[1];
+        private int[] m_KCLMeshDLists = new int[2];
+        private KCLLoader.CollisionMapColours m_Colours = new KCLLoader.CollisionMapColours();
+
+        /*
+        
+        */
     }
 
 
