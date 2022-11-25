@@ -27,6 +27,7 @@ namespace SM64DSe
             public string description;
             public string bankReq;
             public string dlReq;
+            public string renderer; // + params
 
             public override string ToString()
             {
@@ -85,6 +86,62 @@ namespace SM64DSe
                             reader.ReadToNextSibling("dlreq");
                             info.dlReq = reader.ReadElementContentAsString();
 
+                            reader.ReadToNextSibling("renderer");
+                            string type = reader.GetAttribute("type");
+                            string renderer = type + "";
+                            
+                            switch (type)
+                            {
+                                case "NormalBMD":
+                                case "NormalKCL":
+                                    renderer += ' ' + reader.GetAttribute("file") + ' ' + reader.GetAttribute("scale");
+                                    break;
+                                case "DoubleBMD":
+                                    renderer += ' ' + reader.GetAttribute("file1") + ' ' + reader.GetAttribute("file2") + ' ' + reader.GetAttribute("scale");
+                                    string offset1 = reader.GetAttribute("offset1");
+                                    if (!string.IsNullOrEmpty(offset1))
+                                        renderer += ' ' + offset1 + ' ' + reader.GetAttribute("offset2");
+                                    break;
+                                case "Kurumajiku":
+                                    renderer += ' ' + reader.GetAttribute("file1") + ' ' + reader.GetAttribute("file2") + ' ' + reader.GetAttribute("scale");
+                                    break;
+                                case "Pole":
+                                case "ColorCube":
+                                    renderer += ' ' + reader.GetAttribute("border") + ' ' + reader.GetAttribute("fill");
+                                    break;
+                                case "Player":
+                                    renderer += ' ' + reader.GetAttribute("scale") + ' ' + reader.GetAttribute("animation");
+                                    break;
+                                case "Luigi":
+                                    renderer += ' ' + reader.GetAttribute("scale");
+                                    break;
+                                case "ChainedChomp":
+                                case "Goomboss":
+                                case "Tree":
+                                case "Painting":
+                                case "UnchainedChomp":
+                                case "Fish":
+                                case "Butterfly":
+                                case "Star":
+                                case "BowserSkyPlatform":
+                                case "BigSnowman":
+                                case "Toxbox":
+                                case "Pokey":
+                                case "FlPuzzle":
+                                case "FlameThrower":
+                                case "C1Trap":
+                                case "Wiggler":
+                                case "Koopa":
+                                case "KoopaShell":
+                                    // no params
+                                    break;
+                                default:
+                                    MessageBox.Show("Unknown renderer for '" + info.name + "' (id = " + info.objectID + ").");
+                                    break;
+                            }
+
+                            info.renderer = renderer;
+
                             m_ObjectInfos.Add(info);
                         }
                     }
@@ -120,6 +177,71 @@ namespace SM64DSe
                     writer.WriteElementString("description", info.description);
                     writer.WriteElementString("bankreq", info.bankReq);
                     writer.WriteElementString("dlreq", info.dlReq);
+
+                    string[] renderer = info.renderer.Split(' ');
+                    writer.WriteStartElement("renderer");
+                    writer.WriteAttributeString("type", renderer[0]);
+                    switch (renderer[0])
+                    {
+                        case "NormalBMD":
+                        case "NormalKCL":
+                            writer.WriteAttributeString("file", renderer[1]);
+                            writer.WriteAttributeString("scale", renderer[2]);
+                            break;
+                        case "DoubleBMD":
+                            writer.WriteAttributeString("file1", renderer[1]);
+                            writer.WriteAttributeString("file2", renderer[2]);
+                            writer.WriteAttributeString("scale", renderer[3]);
+
+                            if (renderer.Length > 4)
+                            {
+                                writer.WriteAttributeString("offset1", renderer[4]);
+                                writer.WriteAttributeString("offset2", renderer[5]);
+                            }
+
+                            break;
+                        case "Kurumajiku":
+                            writer.WriteAttributeString("file1", renderer[1]);
+                            writer.WriteAttributeString("file2", renderer[2]);
+                            writer.WriteAttributeString("scale", renderer[3]);
+                            break;
+                        case "Pole":
+                        case "ColorCube":
+                            writer.WriteAttributeString("border", renderer[1]);
+                            writer.WriteAttributeString("fill", renderer[2]);
+                            break;
+                        case "Player":
+                            writer.WriteAttributeString("scale", renderer[1]);
+                            writer.WriteAttributeString("animation", renderer[2]);
+                            break;
+                        case "Luigi":
+                            writer.WriteAttributeString("scale", renderer[1]);
+                            break;
+                        case "ChainedChomp":
+                        case "Goomboss":
+                        case "Tree":
+                        case "Painting":
+                        case "UnchainedChomp":
+                        case "Fish":
+                        case "Butterfly":
+                        case "Star":
+                        case "BowserSkyPlatform":
+                        case "BigSnowman":
+                        case "Toxbox":
+                        case "Pokey":
+                        case "FlPuzzle":
+                        case "FlameThrower":
+                        case "C1Trap":
+                        case "Wiggler":
+                        case "Koopa":
+                        case "KoopaShell":
+                            // no params
+                            break;
+                        default:
+                            MessageBox.Show("Unknown renderer for '" + info.name + "' (id = " + info.objectID + ").");
+                            break;
+                    }
+                    writer.WriteEndElement();
 
                     writer.WriteEndElement();
                 }
@@ -200,6 +322,7 @@ namespace SM64DSe
             txtBankReq.Text = info.bankReq;
             txtDlReq.Text = info.dlReq;
             txtDescription.Text = info.description;
+            txtRenderer.Text = info.renderer;
 
             m_UpdatingTextBoxes = false;
         }
@@ -262,6 +385,14 @@ namespace SM64DSe
                 return;
 
             m_LastSelectedObjectInfo.description = txtDescription.Text;
+        }
+
+        private void txtRenderer_TextChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
+                return;
+
+            m_LastSelectedObjectInfo.renderer = txtRenderer.Text;
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)

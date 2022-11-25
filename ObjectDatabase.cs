@@ -57,6 +57,8 @@ namespace SM64DSe
 
             public string[] m_dlRequirements;
 
+            public string[] m_Renderer;
+
             public string m_IsCustomModelPath;
 
             public ParamInfo[] m_ParamInfo;
@@ -144,6 +146,62 @@ namespace SM64DSe
                     oinfo.m_dlRequirements = null;
                 else
                     oinfo.m_dlRequirements = temp.Split(' ');
+
+                xr.ReadToFollowing("renderer");
+                string type = xr.GetAttribute("type");
+                string renderer = type + "";
+
+                switch (type)
+                {
+                    case "NormalBMD":
+                    case "NormalKCL":
+                        renderer += ' ' + xr.GetAttribute("file") + ' ' + xr.GetAttribute("scale");
+                        break;
+                    case "DoubleBMD":
+                        renderer += ' ' + xr.GetAttribute("file1") + ' ' + xr.GetAttribute("file2") + ' ' + xr.GetAttribute("scale");
+                        string offset1 = xr.GetAttribute("offset1");
+                        if (!string.IsNullOrEmpty(offset1))
+                            renderer += ' ' + offset1 + ' ' + xr.GetAttribute("offset2");
+                        break;
+                    case "Kurumajiku":
+                        renderer += ' ' + xr.GetAttribute("file1") + ' ' + xr.GetAttribute("file2") + ' ' + xr.GetAttribute("scale");
+                        break;
+                    case "Pole":
+                    case "ColorCube":
+                        renderer += ' ' + xr.GetAttribute("border") + ' ' + xr.GetAttribute("fill");
+                        break;
+                    case "Player":
+                        renderer += ' ' + xr.GetAttribute("scale") + ' ' + xr.GetAttribute("animation");
+                        break;
+                    case "Luigi":
+                        renderer += ' ' + xr.GetAttribute("scale");
+                        break;
+                    case "ChainedChomp":
+                    case "Goomboss":
+                    case "Tree":
+                    case "Painting":
+                    case "UnchainedChomp":
+                    case "Fish":
+                    case "Butterfly":
+                    case "Star":
+                    case "BowserSkyPlatform":
+                    case "BigSnowman":
+                    case "Toxbox":
+                    case "Pokey":
+                    case "FlPuzzle":
+                    case "FlameThrower":
+                    case "C1Trap":
+                    case "Wiggler":
+                    case "Koopa":
+                    case "KoopaShell":
+                        // no params
+                        break;
+                    default:
+                        MessageBox.Show("Unknown renderer for '" + oinfo.m_Name + "' (id = " + oinfo.m_ID + ").");
+                        break;
+                }
+
+                oinfo.m_Renderer = renderer.Split(' ');
 
                 List<ObjectInfo.ParamInfo> paramlist = new List<ObjectInfo.ParamInfo>();
                 while (xr.ReadToNextSibling("param"))

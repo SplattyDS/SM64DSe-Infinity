@@ -54,6 +54,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtRenderer = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudObjectID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudActorID)).BeginInit();
@@ -115,7 +117,7 @@
             this.lstObjects.ItemHeight = 15;
             this.lstObjects.Location = new System.Drawing.Point(12, 60);
             this.lstObjects.Name = "lstObjects";
-            this.lstObjects.Size = new System.Drawing.Size(568, 424);
+            this.lstObjects.Size = new System.Drawing.Size(568, 454);
             this.lstObjects.TabIndex = 11;
             this.lstObjects.SelectedIndexChanged += new System.EventHandler(this.lstObjects_SelectedIndexChanged);
             // 
@@ -243,7 +245,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(787, 223);
+            this.label3.Location = new System.Drawing.Point(787, 252);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 17);
             this.label3.TabIndex = 27;
@@ -251,7 +253,7 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(586, 243);
+            this.txtDescription.Location = new System.Drawing.Point(586, 273);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(463, 241);
             this.txtDescription.TabIndex = 28;
@@ -295,11 +297,30 @@
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(645, 229);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(72, 17);
+            this.label7.TabIndex = 34;
+            this.label7.Text = "Renderer:";
+            // 
+            // txtRenderer
+            // 
+            this.txtRenderer.Location = new System.Drawing.Point(723, 226);
+            this.txtRenderer.Name = "txtRenderer";
+            this.txtRenderer.Size = new System.Drawing.Size(326, 22);
+            this.txtRenderer.TabIndex = 33;
+            this.txtRenderer.TextChanged += new System.EventHandler(this.txtRenderer_TextChanged);
+            // 
             // ObjectDatabaseEdtiorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 507);
+            this.ClientSize = new System.Drawing.Size(1073, 526);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtRenderer);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label6);
@@ -361,5 +382,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtRenderer;
     }
 }

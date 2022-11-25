@@ -14,6 +14,7 @@ If you set Parameter 1 to 0001, he loads as a mario, but when hit turns into Lui
 Parameters 2 and 3 do nothing.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Player" scale="0.008" animation="wait.bca" />
 	</object>
 	<object id="1">
 		<name>CCC-B Ice A</name>
@@ -28,6 +29,7 @@ Parameters 2 and 3 do nothing.</description>
 ** obj_pathlift.bmd</description>
 		<bankreq>1=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ewb_ice/ewb_ice_a.bmd" scale="0.008" />
 	</object>
 	<object id="2">
 		<name>CCC-B Ice B</name>
@@ -36,6 +38,7 @@ Parameters 2 and 3 do nothing.</description>
 		<description>A layer of ice platforms that Chief Chilly destroys after 2nd hit.</description>
 		<bankreq>1=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ewb_ice/ewb_ice_b.bmd" scale="0.008" />
 	</object>
 	<object id="3">
 		<name>CCC-B Ice C</name>
@@ -49,6 +52,7 @@ Parameters 2 and 3 do nothing.</description>
 *** ewb_ice_c.kcl</description>
 		<bankreq>1=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ewb_ice/ewb_ice_c.bmd" scale="0.008" />
 	</object>
 	<object id="4">
 		<name>Huge Ice Block Lift</name>
@@ -60,6 +64,7 @@ Parameter 1:
 XXXX Path ID to follow</description>
 		<bankreq>7=49</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ewm_ice_brock/ewm_ice_brock.bmd" scale="0.008" />
 	</object>
 	<object id="5">
 		<name>GB Up-down Log</name>
@@ -73,6 +78,7 @@ XXXX Delay before moving up and down (when level is first loaded)
 (Source: Sparsite)</description>
 		<bankreq>7=45</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/emm_log/emm_log.bmd" scale="0.008" />
 	</object>
 	<object id="6">
 		<name>GB Path-controlled Lift</name>
@@ -87,6 +93,7 @@ XXX - Nothing?
 P - Path ID</description>
 		<bankreq>7=45</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/emm_yuka/emm_yuka.bmd" scale="0.008" />
 	</object>
 	<object id="7">
 		<name>Up-down Lift</name>
@@ -100,6 +107,7 @@ P - Path ID</description>
 3: Z rotation for the platform</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_updnlift/obj_updnlift.bmd" scale="0.008" />
 	</object>
 	<object id="8">
 		<name>UtM Up-down Lift</name>
@@ -111,6 +119,7 @@ Parameter 1:
 XXXX The higher the value the earlier it starts?</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/hs_updown_lift/hs_updown_lift.bmd" scale="0.008" />
 	</object>
 	<object id="9">
 		<name>Path-controlled Lift</name>
@@ -140,6 +149,7 @@ P - Path ID
 * obj_pathlift.bmd</description>
 		<bankreq>6=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_pathlift/obj_pathlift.bmd" scale="0.008" />
 	</object>
 	<object id="10">
 		<name>Chain Chomp</name>
@@ -148,6 +158,7 @@ P - Path ID
 		<description>A Chomp chained to a ground-poundable wood pole. When freed, runs into [object=0033] then disappears. Requires bank 4 to be set to 3, because this actor spawns the wooden pole.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/chain_chomp.dylb</dlreq>
+		<renderer type="ChainedChomp" />
 	</object>
 	<object id="11">
 		<name>Camera Tag</name>
@@ -156,6 +167,7 @@ P - Path ID
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="12">
 		<name>UtM Seesaw</name>
@@ -164,6 +176,7 @@ P - Path ID
 		<description>A large, wooden seesaw platform found in The Secret Under The Moat.</description>
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_seesaw/obj_seesaw.bmd" scale="0.008" />
 	</object>
 	<object id="13">
 		<name>Rolling Iron Ball</name>
@@ -181,6 +194,7 @@ FF03 - Doesn't spawn?
 FF04 - Same as FF03?</description>
 		<bankreq>6=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/iron_ball/iron_ball.bmd" scale="0.008" />
 	</object>
 	<object id="14">
 		<name>Rolling Rock</name>
@@ -203,6 +217,7 @@ TT: Type
 Set Star ID to FF if you do not want a star to spawn when breaking the rock, eg. FF04 will spawn a stationary  rock that does nothing when broken.</description>
 		<bankreq>7=14</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/cv_goro_rock/cv_goro_rock.bmd" scale="0.008" />
 	</object>
 	<object id="15">
 		<name>Goomba</name>
@@ -236,6 +251,7 @@ F - None
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/goomba.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/kuribo/kuribo_model.bmd" scale="0.008" />
 	</object>
 	<object id="16">
 		<name>Small Goomba</name>
@@ -267,6 +283,7 @@ F - None
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/goomba.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/kuribo/kuribo_model.bmd" scale="0.002" />
 	</object>
 	<object id="17">
 		<name>Large Goomba</name>
@@ -298,6 +315,7 @@ F - None
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/goomba.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/kuribo/kuribo_model.bmd" scale="0.016" />
 	</object>
 	<object id="18">
 		<name>Goomboss</name>
@@ -311,6 +329,7 @@ F - None
 * 7=46</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/goomboss.dylb data/dynamic/goomba.dylb</dlreq>
+		<renderer type="Goomboss" />
 	</object>
 	<object id="19">
 		<name>Bob-omb</name>
@@ -333,6 +352,7 @@ XXXX:
 (source: Hiccup)</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/bombhei/bombhei.bmd" scale="0.008" />
 	</object>
 	<object id="20">
 		<name>Bob-omb Buddy</name>
@@ -357,6 +377,7 @@ T: Type. If set to 1-3, ignores Parameter 1?
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bob_omb_buddy.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/bombhei/red_bombhei.bmd" scale="0.008" />
 	</object>
 	<object id="21">
 		<name>Koopa Troopa</name>
@@ -375,6 +396,7 @@ C: Color
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/koopa.dylb</dlreq>
+		<renderer type="Koopa" />
 	</object>
 	<object id="22">
 		<name>Small Koopa Troopa</name>
@@ -393,6 +415,7 @@ C: Color
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/koopa.dylb</dlreq>
+		<renderer type="Koopa" />
 	</object>
 	<object id="23">
 		<name>Brick Block</name>
@@ -413,6 +436,7 @@ XXXX: Extra sound when broken?
 * On destruction with Param2 as 1 or Above: Plays empty sound</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_block/broken_block_l.bmd" scale="0.008" />
 	</object>
 	<object id="24">
 		<name>Big Brick Block</name>
@@ -429,6 +453,7 @@ XXXX: Extra sound when broken?
 0002+ - Same as 0001?</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_block/broken_block_l.bmd" scale="0.012" />
 	</object>
 	<object id="25">
 		<name>Switch-activated Brick Block</name>
@@ -443,6 +468,7 @@ XXXX:
 FF00 - Activated by ! Switch with Parameter 1 set to FF00 or FF02</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_block/broken_block_l.bmd" scale="0.008" />
 	</object>
 	<object id="26">
 		<name>Power Flower</name>
@@ -467,6 +493,7 @@ FFFF - Still. Only appears when the player is Luigi, but collecting a Luigi cap 
 * Wario: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_power_flower/p_flower_open.bmd" scale="0.008" />
 	</object>
 	<object id="27">
 		<name>? Switch</name>
@@ -479,6 +506,7 @@ FFFF - Still. Only appears when the player is Luigi, but collecting a Luigi cap 
 * When pressed: Malfunctions/Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_switch/hatena_switch.bmd" scale="0.008" />
 	</object>
 	<object id="28">
 		<name>Crate</name>
@@ -491,6 +519,7 @@ FFFF - Still. Only appears when the player is Luigi, but collecting a Luigi cap 
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_block/broken_block_s.bmd" scale="0.008" />
 	</object>
 	<object id="29">
 		<name>Cannon Hatch</name>
@@ -505,6 +534,7 @@ FF01 - Takes priority over other Cannon Hatches (unless they all have the same p
 FFFF - Doesn't take priority over other Cannon Hatches</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_cannon_shutter/cannon_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="30">
 		<name>? Block</name>
@@ -533,6 +563,7 @@ CC: Contents
 (source: Hiccup)</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/hatena_box.bmd" scale="0.008" />
 	</object>
 	<object id="31">
 		<name>! Block</name>
@@ -563,6 +594,7 @@ CC: Contents
 (source: Hiccup)</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_hatena_y_box.bmd" scale="0.008" />
 	</object>
 	<object id="32">
 		<name>! Block - VS.</name>
@@ -571,6 +603,7 @@ CC: Contents
 		<description>Yellow ! Box used in multiplayer mode. Spawns a feather any player can use to fly.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_hatena_y_box.bmd" scale="0.008" />
 	</object>
 	<object id="33">
 		<name>Mario Cap Block</name>
@@ -581,6 +614,7 @@ CC: Contents
 This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_cap_box_m.bmd" scale="0.008" />
 	</object>
 	<object id="34">
 		<name>Wario Cap Block</name>
@@ -591,6 +625,7 @@ This object is unused in the game, but is present in the general purpose test ma
 This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_cap_box_w.bmd" scale="0.008" />
 	</object>
 	<object id="35">
 		<name>Luigi Cap Block</name>
@@ -601,6 +636,7 @@ This object is unused in the game, but is present in the general purpose test ma
 This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_cap_box_l.bmd" scale="0.008" />
 	</object>
 	<object id="36">
 		<name>Ground-pound post</name>
@@ -609,6 +645,7 @@ This object is unused in the game, but is present in the general purpose test ma
 		<description>Small wooden pole that can be groundpounded to obtain coins.</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_pile/pile.bmd" scale="0.008" />
 	</object>
 	<object id="37">
 		<name>Coin</name>
@@ -630,6 +667,7 @@ Y:
 D -</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/coin/coin_poly32.bmd" scale="0.008" />
 	</object>
 	<object id="38">
 		<name>Red Coin</name>
@@ -653,6 +691,7 @@ Y:
 D -</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/coin/coin_red_poly32.bmd" scale="0.008" />
 	</object>
 	<object id="39">
 		<name>Blue Coin</name>
@@ -680,6 +719,7 @@ D -
 *** coin_blue_poly4.bmd</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/coin/coin_blue_poly32.bmd" scale="0.008" />
 	</object>
 	<object id="40">
 		<name>Bowser</name>
@@ -694,6 +734,7 @@ Parameter 1:
 2 - Sky Behaviour Patterns (Can only be used in Sky - Fight)</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bowser.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/koopa/koopa_model.bmd" scale="0.008" />
 	</object>
 	<object id="41">
 		<name>Tree</name>
@@ -719,6 +760,7 @@ T: Type
 * castle_tree.bmd</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Tree" />
 	</object>
 	<object id="42">
 		<name>Painting</name>
@@ -777,6 +819,7 @@ Z
 Z - Z rotation. Details unsure</description>
 		<bankreq>2=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Painting" />
 	</object>
 	<object id="43">
 		<name>! Switch</name>
@@ -795,6 +838,7 @@ FF12 - Use timer. Any "Switch-activated Brick Block" objects (ID: 25) must have 
 (source: Fiachra, Hiccup)</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_box_switch/obj_box_switch.bmd" scale="0.008" />
 	</object>
 	<object id="44">
 		<name>Star Switch</name>
@@ -813,6 +857,7 @@ SS - Star ID
 * On use: Malfunctions</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_star_switch/obj_star_switch.bmd" scale="0.008" />
 	</object>
 	<object id="45">
 		<name>Shutter (BOB)</name>
@@ -827,6 +872,7 @@ XXXX Which way it opens
 0001 - Right</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/shutter.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/b_ana_shutter/b_ana_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="46">
 		<name>Shutter (HMC)</name>
@@ -835,6 +881,7 @@ XXXX Which way it opens
 		<description>Used in Hazy Maze Cave.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/shutter.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/cv_shutter/cv_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="47">
 		<name>Control Pad Lift</name>
@@ -843,6 +890,7 @@ XXXX Which way it opens
 		<description>Platform in Hazy Maze Cave. Walking onto the arrows makes the platform move in their direction.</description>
 		<bankreq>7=14</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/cv_news_lift/cv_news_lift.bmd" scale="0.008" />
 	</object>
 	<object id="48">
 		<name>Unchained Chomp</name>
@@ -857,6 +905,7 @@ S - Star ID for VS Mode. Set to F in normal mode levels in it appears in (i.e. B
 PP - Path ID</description>
 		<bankreq>6=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="UnchainedChomp" />
 	</object>
 	<object id="49">
 		<name>1-Up Mushroom</name>
@@ -892,6 +941,7 @@ T: Type
 *** oneup_kinoko.bmd</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/oneup_kinoko/oneup_kinoko.bmd" scale="0.008" />
 	</object>
 	<object id="50">
 		<name>Cannon</name>
@@ -913,6 +963,7 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 (Source: Sparsite)</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_cannon/houdai.bmd" scale="0.008" />
 	</object>
 	<object id="51">
 		<name>Chain Chomp Fence</name>
@@ -921,6 +972,7 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 		<description>The fence [object=000A] runs into when freed. In Bob-Omb Battlefield, it is used to prevent access to the 7th star. However, Vanish Luigi can go through it.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/chain_chomp.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/b_wan_shutter/b_wan_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="52">
 		<name>Water Bomb</name>
@@ -934,6 +986,7 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/water_bomb/water_bomb.bmd" scale="0.008" />
 	</object>
 	<object id="53">
 		<name>Bird</name>
@@ -949,6 +1002,7 @@ Y: Unknown
 Z: Number of birds to spawn</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bird.dylb</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="54">
 		<name>Fish</name>
@@ -964,6 +1018,7 @@ X: Unknown
 Y: How many fish to spawn</description>
 		<bankreq>6=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Fish" />
 	</object>
 	<object id="55">
 		<name>Butterflies</name>
@@ -979,6 +1034,7 @@ Parameter 1:
 2F - Turns into cannonball</description>
 		<bankreq>6=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Butterfly" />
 	</object>
 	<object id="56">
 		<name>King Bob-omb</name>
@@ -996,6 +1052,7 @@ Notes:
 Important: Using King Bob-Omb requires that the level contains a Bob-Omb object (can be hidden under level), otherwise during behaviour 1, after throwing a couple of Bob-Ombs, all subsequent Bob-Ombs will have totally corrupted textures. Reason for this is unknown.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/king_bob_omb.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/bombking/bomb_king.bmd" scale="0.008" />
 	</object>
 	<object id="57">
 		<name>Mr. Blizzard</name>
@@ -1013,6 +1070,7 @@ XXXX where
 02FF - Same as 01FF? (used in Snowman's Land)</description>
 		<bankreq>2=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/snowman/snowman_model.bmd" scale="0.008" />
 	</object>
 	<object id="58">
 		<name>Mad Piano</name>
@@ -1021,6 +1079,7 @@ XXXX where
 		<description>Chomps at the player as long as it is in range.</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/piano/piano.bmd" scale="0.008" />
 	</object>
 	<object id="59">
 		<name>Piranha Plant</name>
@@ -1035,6 +1094,7 @@ Sleeps most of the time, but if a player comes too close, wakes up and starts ch
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/pakkun/pakkun_model.bmd" scale="0.008" />
 	</object>
 	<object id="60">
 		<name>Star Camera</name>
@@ -1050,6 +1110,7 @@ XXX - Nothing?
 I - Star ID</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="61">
 		<name>Power Star</name>
@@ -1075,6 +1136,7 @@ T: [T]ype
 I - Star ID. Setting it to 0 makes it the 100 Coin Star. Only values 0-7 (inclusive) actually contribute to the star count and trigger saving/exiting.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Star" />
 	</object>
 	<object id="62">
 		<name>Silver Star</name>
@@ -1103,6 +1165,7 @@ S - Star ID. Match with a Power Star.
 * On load: Malfunctions/Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/star/obj_star_silver.bmd" scale="0.008" />
 	</object>
 	<object id="63">
 		<name>Star Marker</name>
@@ -1126,6 +1189,7 @@ T: [T]ype
 S - [S]tar ID</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Star" />
 	</object>
 	<object id="64">
 		<name>Whomp</name>
@@ -1134,6 +1198,7 @@ S - [S]tar ID</description>
 		<description>Walks in a straight path, then turns around and walks the other way. When it finds a player, it moves faster.</description>
 		<bankreq>2=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/battan/battan.bmd" scale="0.008" />
 	</object>
 	<object id="65">
 		<name>Whomp King</name>
@@ -1147,6 +1212,7 @@ FF followed by Star ID eg. FF01 for Star 1.
 There should be a corresponding Star Marker with Parameters 2 followed by Star ID, eg. 21 for Star 1.</description>
 		<bankreq>2=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/battan_king/battan_king.bmd" scale="0.008" />
 	</object>
 	<object id="66">
 		<name>Thwomp</name>
@@ -1155,6 +1221,7 @@ There should be a corresponding Star Marker with Parameters 2 followed by Star I
 		<description>An angry stone that smashes the ground, then returns to it's initial position. Can be smashed to bits by Mega Players.</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/dosune/dosune.bmd" scale="0.008" />
 	</object>
 	<object id="67">
 		<name>Boo</name>
@@ -1190,6 +1257,7 @@ T: Type
 (source: Hiccup)</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/teresa/teresa.bmd" scale="0.008" />
 	</object>
 	<object id="68">
 		<name>Big Boo</name>
@@ -1212,6 +1280,7 @@ YY:
 05 - same as 4?</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/boss_teresa/boss_teresa.bmd" scale="0.008" />
 	</object>
 	<object id="69">
 		<name>Big Boo Icon</name>
@@ -1227,6 +1296,7 @@ XX: Star ID
 YY: Unknown</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="70">
 		<name>Large Mansion Steps</name>
@@ -1238,6 +1308,7 @@ Parameter 1:
 XXXX Star ID for them to be set down?</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="71">
 		<name>Secret Door Bookshelf</name>
@@ -1246,6 +1317,7 @@ XXXX Star ID for them to be set down?</description>
 		<description>When you hit the books in the right order it will move to the left. If you get the order wrong, it will shoot a book at you and reset the books.</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/th_hondana/th_hondana.bmd" scale="0.008" />
 	</object>
 	<object id="72">
 		<name>Big Boo's Merry-Go-Round</name>
@@ -1254,6 +1326,7 @@ XXXX Star ID for them to be set down?</description>
 		<description>Big Boo's Merry-Go-Round. Rotating platform. Also plays its own music when the player is close enough to it.</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/th_mery_go/th_mery_go.bmd" scale="0.008" />
 	</object>
 	<object id="73">
 		<name>BBH Trap Door</name>
@@ -1262,6 +1335,7 @@ XXXX Star ID for them to be set down?</description>
 		<description>Flipping platform in Big Boo's Haunt.</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/th_trap/th_trap.bmd" scale="0.008" />
 	</object>
 	<object id="74">
 		<name>Rec Room Cupboard object</name>
@@ -1270,6 +1344,7 @@ XXXX Star ID for them to be set down?</description>
 		<description>An long invisible object that triggers the "Continue with adventure / Save and play mini-games" message when you go up to it and press A. Used in front of the actual cupboard.</description>
 		<bankreq>7=51</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="75">
 		<name>Wall Sign</name>
@@ -1288,6 +1363,7 @@ Always Uses FFFF?
 * On load: Freezes/Crashes</description>
 		<bankreq>3=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_kanban/obj_kanban.bmd" scale="0.008" />
 	</object>
 	<object id="76">
 		<name>Sign Post</name>
@@ -1309,6 +1385,7 @@ XXXX: Message
 * On reading: Malfunction/Crash/Freeze</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_tatefuda/obj_tatefuda.bmd" scale="0.008" />
 	</object>
 	<object id="77">
 		<name>Ice Sheet</name>
@@ -1317,6 +1394,7 @@ XXXX: Message
 		<description>Used in Cool, Cool Mountain. A square sheet of ice only Wario can break. Visible from both sides.</description>
 		<bankreq>7=11</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_ice_board/obj_ice_board.bmd" scale="0.008" />
 	</object>
 	<object id="78">
 		<name>Seaweed</name>
@@ -1325,6 +1403,7 @@ XXXX: Message
 		<description>Wavy pieces of seaweed. Seen in water levels like Jolly Roger Bay and Dire Dire Docks.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_wakame/obj_wakame.bmd" scale="0.008" />
 	</object>
 	<object id="79">
 		<name>Healing Heart</name>
@@ -1333,6 +1412,7 @@ XXXX: Message
 		<description>The Healing Heart heals your life, to fullife/power.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_heart/obj_heart.bmd" scale="0.008" />
 	</object>
 	<object id="80">
 		<name>Toad</name>
@@ -1354,6 +1434,7 @@ SS - Star ID to spawn. Use FF for no star.
 * On load: Freezes/Crashes</description>
 		<bankreq>3=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/kinopio/kinopio.bmd" scale="0.008" />
 	</object>
 	<object id="81">
 		<name>Princess Peach</name>
@@ -1370,6 +1451,7 @@ This might be because she was never intended to talk, but was given this behavio
 * On load: Freezes/Crashes</description>
 		<bankreq>3=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/peach/peach_high.bmd" scale="0.008" />
 	</object>
 	<object id="82">
 		<name>Bowser Fire Sea Arena</name>
@@ -1381,6 +1463,7 @@ Parameter 1:
 Uses FFFF</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bowser.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/kb2_stage/kb2_stage.bmd" scale="0.008" />
 	</object>
 	<object id="83">
 		<name>Bowser Sky Platform</name>
@@ -1393,6 +1476,7 @@ FFXX Order that platforms fall in?
 (ex. FF01)</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bowser.dylb</dlreq>
+		<renderer type="BowserSkyPlatform" />
 	</object>
 	<object id="84">
 		<name>Koopa Shell</name>
@@ -1412,6 +1496,7 @@ Z: Color
 1 - Red (Unused)</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="KoopaShell" />
 	</object>
 	<object id="85">
 		<name>Sushi</name>
@@ -1423,6 +1508,7 @@ Parameter 1:
 XXXX Path ID to follow</description>
 		<bankreq>4=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/hojiro/hojiro.bmd" scale="0.008" />
 	</object>
 	<object id="86">
 		<name>TTC Mecha 01</name>
@@ -1431,6 +1517,7 @@ XXXX Path ID to follow</description>
 		<description>A large, yellow, rotating block found in Tick Tock Clock.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj01/ct_mecha_obj01.bmd" scale="0.008" />
 	</object>
 	<object id="87">
 		<name>TTC Mecha 02 (Unused)</name>
@@ -1439,6 +1526,7 @@ XXXX Path ID to follow</description>
 		<description>Unused triangular version of CT_MECHA01 from Tick Tock Clock.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj02/ct_mecha_obj02.bmd" scale="0.008" />
 	</object>
 	<object id="88">
 		<name>TTC Mecha 03 (Pendulum)</name>
@@ -1447,6 +1535,7 @@ XXXX Path ID to follow</description>
 		<description>A large pendulum found in Tick Tock Clock that swings back and forth.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj03/ct_mecha_obj03.bmd" scale="0.008" />
 	</object>
 	<object id="89">
 		<name>TTC Mecha 04L(LargeConveyorBelt)</name>
@@ -1457,6 +1546,7 @@ XXXX Path ID to follow</description>
 A large conveyor belt found in Tick Tock Clock.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj04l/ct_mecha_obj04l.bmd" scale="0.008" />
 	</object>
 	<object id="90">
 		<name>TTC Mecha 04S(SmallConveyorBelt)</name>
@@ -1465,6 +1555,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>A smaller version of the Large conveyor belt found in Tick Tock Clock.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj04s/ct_mecha_obj04s.bmd" scale="0.008" />
 	</object>
 	<object id="91">
 		<name>TTC Mecha 05</name>
@@ -1473,6 +1564,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>A rectangular box that shoots out and trys to push the player out of its way found in Tick Tock Clock.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj05/ct_mecha_obj05.bmd" scale="0.008" />
 	</object>
 	<object id="92">
 		<name>TTC Mecha 06</name>
@@ -1481,6 +1573,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>A rotating gear found in Tick Tock Clock.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj06/ct_mecha_obj06.bmd" scale="0.008" />
 	</object>
 	<object id="93">
 		<name>TTC Mecha 07 (Unused)</name>
@@ -1489,6 +1582,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>Unused rotating triangular platform from Tick Tock clock. Shaped like a segment of a hexagon, rotates about Y (up) axis and has a raised bump at the centre (inner point of triangle). Uses the same shadow as CT_MECHA06.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj07/ct_mecha_obj07.bmd" scale="0.008" />
 	</object>
 	<object id="94">
 		<name>TTT Mecha 08A (Unused)</name>
@@ -1497,6 +1591,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. No shadow. Shares same behaviour as CT_MECHA08B.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj08a/ct_mecha_obj08a.bmd" scale="0.008" />
 	</object>
 	<object id="95">
 		<name>TTC Mecha 08B (Unused)</name>
@@ -1505,6 +1600,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. Shares same behaviour as CT_MECHA08A.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj08b/ct_mecha_obj08b.bmd" scale="0.008" />
 	</object>
 	<object id="96">
 		<name>TTC Mecha 09</name>
@@ -1513,6 +1609,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>A yellow, rectangular platform that moves up and down found in Tick Tock Clock.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj09/ct_mecha_obj09.bmd" scale="0.008" />
 	</object>
 	<object id="97">
 		<name>TTC Mecha 10</name>
@@ -1521,6 +1618,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>Large rotating clock hand found in Tick Tock Clock.</description>
 		<bankreq>7=28</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj10/ct_mecha_obj10.bmd" scale="0.008" />
 	</object>
 	<object id="98">
 		<name>TTC Mecha 11</name>
@@ -1529,6 +1627,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>Dark green platforms that rotate randomly back and forth found in Tick Tock Clock.</description>
 		<bankreq>7=28</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj11/ct_mecha_obj11.bmd" scale="0.008" />
 	</object>
 	<object id="99">
 		<name>TTC Mecha 12L</name>
@@ -1537,6 +1636,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>A large rotating gear found in Tick Tock Clock.</description>
 		<bankreq>7=28</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj12l/ct_mecha_obj12l.bmd" scale="0.008" />
 	</object>
 	<object id="100">
 		<name>TTC Mecha 12S</name>
@@ -1545,6 +1645,7 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<description>A small rotating gear found in Tick Tock Clock.</description>
 		<bankreq>7=28</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj12s/ct_mecha_obj12s.bmd" scale="0.008" />
 	</object>
 	<object id="101">
 		<name>SSL-P Rectangular Block Lift</name>
@@ -1556,6 +1657,7 @@ Parameter 1:
 FF0X How low the block should start relative to its origin when spawned (for different up/down timings)</description>
 		<bankreq>7=18</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/dp_brock/dp_brock.bmd" scale="0.008" />
 	</object>
 	<object id="102">
 		<name>SSL-P Cage Lift</name>
@@ -1564,6 +1666,7 @@ FF0X How low the block should start relative to its origin when spawned (for dif
 		<description>Caged platform that appears in Shifting Sand Land - pyramid.</description>
 		<bankreq>7=18</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/dp_lift/dp_lift.bmd" scale="0.008" />
 	</object>
 	<object id="103">
 		<name>SSL Pyramid Top</name>
@@ -1572,6 +1675,7 @@ FF0X How low the block should start relative to its origin when spawned (for dif
 		<description>Explodes when each of the four triggers (DL_PYRAMID_DUMMY) are touched by the player.</description>
 		<bankreq>7=17</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/dl_pyramid/dl_pyramid.bmd" scale="0.008" />
 	</object>
 	<object id="104">
 		<name>SSL Pyramid Pillar Dummy</name>
@@ -1580,6 +1684,7 @@ FF0X How low the block should start relative to its origin when spawned (for dif
 		<description>When all 4 are triggered, make the tip of the pyramid (DL_PYRAMID) explode.</description>
 		<bankreq>7=17</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="105">
 		<name>DDD Pole Lift</name>
@@ -1590,6 +1695,7 @@ FF0X How low the block should start relative to its origin when spawned (for dif
 Parameter 1 gives the ID (zero-based index) of the path the pole is to follow.</description>
 		<bankreq>7=19</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wl_pole_lift/wl_pole_lift.bmd" scale="0.008" />
 	</object>
 	<object id="106">
 		<name>Bowser's Submarine</name>
@@ -1598,6 +1704,7 @@ Parameter 1 gives the ID (zero-based index) of the path the pole is to follow.</
 		<description>A submarine of Bowsers found in Dire Dire Docks. Disappears permanently after DDD Star 1 is completed.</description>
 		<bankreq>7=19</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wl_submarine/wl_submarine.bmd" scale="0.008" />
 	</object>
 	<object id="107">
 		<name>DDD Bowser Shutter</name>
@@ -1606,6 +1713,7 @@ Parameter 1 gives the ID (zero-based index) of the path the pole is to follow.</
 		<description>A large shutter with Bowser's face on it. Doesn't spawn if DDD Star 1 is completed.</description>
 		<bankreq>7=19</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wl_kupa_shutter/wl_kupa_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="108">
 		<name>RR Tricky Triangles Object</name>
@@ -1617,6 +1725,7 @@ Parameter 1:
 FF00 to be actiated by a ! switch</description>
 		<bankreq>7=29</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_dorifu/rc_dorifu0.bmd" scale="0.008" />
 	</object>
 	<object id="109">
 		<name>RR Lift 01</name>
@@ -1625,6 +1734,7 @@ FF00 to be actiated by a ! switch</description>
 		<description />
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_rift01/rc_rift01.bmd" scale="0.008" />
 	</object>
 	<object id="110">
 		<name>RR Ship Wing</name>
@@ -1633,6 +1743,7 @@ FF00 to be actiated by a ! switch</description>
 		<description />
 		<bankreq>7=29</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_hane/rc_hane.bmd" scale="0.008" />
 	</object>
 	<object id="111">
 		<name>RR Donut Lift</name>
@@ -1641,6 +1752,7 @@ FF00 to be actiated by a ! switch</description>
 		<description>Platform that begins to fall after the player walks on it, from Rainbow Ride. It disappears when it hits the ground.</description>
 		<bankreq>7=29</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_tikuwa/rc_tikuwa.bmd" scale="0.008" />
 	</object>
 	<object id="112">
 		<name>RR Swing Lift</name>
@@ -1649,6 +1761,7 @@ FF00 to be actiated by a ! switch</description>
 		<description>Swinging pendulum-like platform from Rainbow Ride.</description>
 		<bankreq>7=29</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_buranko/rc_buranko.bmd" scale="0.008" />
 	</object>
 	<object id="113">
 		<name>RR Seesaw</name>
@@ -1657,6 +1770,7 @@ FF00 to be actiated by a ! switch</description>
 		<description>Seesaw platform from Rainbow Ride.</description>
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_shiso/rc_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="114">
 		<name>Rotating Platform (RR)</name>
@@ -1677,6 +1791,7 @@ FEC9 - Clockwise.
 (Source: Fiachra)</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_kaiten/rc_kaiten.bmd" scale="0.008" />
 	</object>
 	<object id="115">
 		<name>RR Axis Spinning Lift with Arms</name>
@@ -1685,6 +1800,7 @@ FEC9 - Clockwise.
 		<description>Clockwise spinning platform with 'arms' from Rainbow Ride.</description>
 		<bankreq>7=29</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_guruguru/rc_guruguru.bmd" scale="0.008" />
 	</object>
 	<object id="116">
 		<name>SL Sliding Ice Spawner</name>
@@ -1693,6 +1809,7 @@ FEC9 - Clockwise.
 		<description />
 		<bankreq>7=20</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/sl_ice_brock/sl_ice_brock.bmd" scale="0.008" />
 	</object>
 	<object id="117">
 		<name>TTM Log</name>
@@ -1701,6 +1818,7 @@ FEC9 - Clockwise.
 		<description>Moves when the player walks on it.</description>
 		<bankreq>7=23</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/hm_maruta/hm_maruta.bmd" scale="0.008" />
 	</object>
 	<object id="118">
 		<name>THI-T Breakable Rock</name>
@@ -1711,6 +1829,7 @@ FEC9 - Clockwise.
 Use FFFF.</description>
 		<bankreq>7=26</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/tt_obj_futa/tt_obj_futa.bmd" scale="0.008" />
 	</object>
 	<object id="119">
 		<name>THI-T Water</name>
@@ -1721,6 +1840,7 @@ Use FFFF.</description>
 Uses FFFF.</description>
 		<bankreq>7=26</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/tt_obj_water/tt_obj_water.bmd" scale="0.008" />
 	</object>
 	<object id="120">
 		<name>THI-H Cover</name>
@@ -1731,6 +1851,7 @@ Uses FFFF.</description>
 Use FFFF.</description>
 		<bankreq>7=25</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/td_obj_futa/td_obj_futa.bmd" scale="0.008" />
 	</object>
 	<object id="121">
 		<name>THI-H water</name>
@@ -1741,6 +1862,7 @@ Use FFFF.</description>
 Use FFFF.</description>
 		<bankreq>7=25</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/td_obj_water/td_obj_water.bmd" scale="0.008" />
 	</object>
 	<object id="122">
 		<name>Rotating Platform (WDW)</name>
@@ -1749,6 +1871,7 @@ Use FFFF.</description>
 		<description>TODO: Investigate parameters</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_obj07/wc_obj07.bmd" scale="0.008" />
 	</object>
 	<object id="123">
 		<name>WDW 01 (Square Wood Lift)</name>
@@ -1757,6 +1880,7 @@ Use FFFF.</description>
 		<description>A square wood platform which floats on water. Proportions are 0.5x?x0.5 points.</description>
 		<bankreq>7=22</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_obj01/wc_obj01.bmd" scale="0.008" />
 	</object>
 	<object id="124">
 		<name>WDW 02 (Arrow Lift)</name>
@@ -1765,6 +1889,7 @@ Use FFFF.</description>
 		<description>It moves when you stand on it.</description>
 		<bankreq>7=22</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_obj02/wc_obj02.bmd" scale="0.008" />
 	</object>
 	<object id="125">
 		<name>WDW 03 (Water Diamond)</name>
@@ -1778,6 +1903,7 @@ XXII
 II - Match this with the II of the water.</description>
 		<bankreq>7=22</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_obj03/wc_obj03.bmd" scale="0.008" />
 	</object>
 	<object id="126">
 		<name>WDW 04</name>
@@ -1786,6 +1912,7 @@ II - Match this with the II of the water.</description>
 		<description />
 		<bankreq>7=22</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_obj04/wc_obj04.bmd" scale="0.008" />
 	</object>
 	<object id="127">
 		<name>WDW 05 (Cage's Lift)</name>
@@ -1803,6 +1930,7 @@ T: Type
 1 - Static object (unused)</description>
 		<bankreq>7=22</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_obj05/wc_obj05.bmd" scale="0.008" />
 	</object>
 	<object id="128">
 		<name>WDW - 06 - RectangularWoodLift</name>
@@ -1811,6 +1939,7 @@ T: Type
 		<description>A rectangular wood lift which floats on water.</description>
 		<bankreq>7=22</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_obj06/wc_obj06.bmd" scale="0.008" />
 	</object>
 	<object id="129">
 		<name>WDW Water</name>
@@ -1824,6 +1953,7 @@ XXII
 II - Match this with the II of the Water Diamond.</description>
 		<bankreq>7=22</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wc_mizu/wc_mizu.bmd" scale="0.008" />
 	</object>
 	<object id="130">
 		<name>LLL Rolling Log</name>
@@ -1832,6 +1962,7 @@ II - Match this with the II of the Water Diamond.</description>
 		<description>A log in Lethal Lava Land that the player can roll by running on.</description>
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_log/fl_log.bmd" scale="0.008" />
 	</object>
 	<object id="131">
 		<name>LLL Volcano Ring</name>
@@ -1840,6 +1971,7 @@ II - Match this with the II of the Water Diamond.</description>
 		<description>The rotating ring around the volcano in Lethal Lava Land. It stops and shoots lava out of the centre every so often.</description>
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_ring/fl_ring.bmd" scale="0.008" />
 	</object>
 	<object id="132">
 		<name>LLL Tilting Platform</name>
@@ -1848,6 +1980,7 @@ II - Match this with the II of the Water Diamond.</description>
 		<description>A platform that can tilt based on where the player is standing on it.</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_gura/fl_gura.bmd" scale="0.008" />
 	</object>
 	<object id="133">
 		<name>LLL Bridge</name>
@@ -1858,6 +1991,7 @@ II - Match this with the II of the Water Diamond.</description>
 The name seems to be an interesting reference to London bridge.</description>
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_london/fl_london.bmd" scale="0.008" />
 	</object>
 	<object id="134">
 		<name>LLL Sink While On Platform</name>
@@ -1866,6 +2000,7 @@ The name seems to be an interesting reference to London bridge.</description>
 		<description />
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_block/fl_block.bmd" scale="0.008" />
 	</object>
 	<object id="135">
 		<name>LLL Sinking Platform</name>
@@ -1874,6 +2009,7 @@ The name seems to be an interesting reference to London bridge.</description>
 		<description />
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_uki_yuka/fl_uki_yuka.bmd" scale="0.008" />
 	</object>
 	<object id="136">
 		<name>LLL Sinking Platform - Large</name>
@@ -1882,6 +2018,7 @@ The name seems to be an interesting reference to London bridge.</description>
 		<description />
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_shiso/fl_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="137">
 		<name>LLL Seesaw</name>
@@ -1890,6 +2027,7 @@ The name seems to be an interesting reference to London bridge.</description>
 		<description />
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_shiso/fl_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="138">
 		<name>Rotating Platform (LLL)</name>
@@ -1898,6 +2036,7 @@ The name seems to be an interesting reference to London bridge.</description>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_koma_d/fl_koma_d.bmd" scale="0.008" />
 	</object>
 	<object id="139">
 		<name>LLL Firebar</name>
@@ -1906,6 +2045,7 @@ The name seems to be an interesting reference to London bridge.</description>
 		<description />
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_koma_u/fl_koma_u.bmd" scale="0.008" />
 	</object>
 	<object id="140">
 		<name>LLL Float-on-lava Plank</name>
@@ -1921,6 +2061,7 @@ XXXX Delay before bobbing up and down
 (ex. F000)</description>
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_uki_ki/fl_uki_ki.bmd" scale="0.008" />
 	</object>
 	<object id="141">
 		<name>Fall Block (LLL)</name>
@@ -1936,6 +2077,7 @@ XXXS where
 S - Star ID.</description>
 		<bankreq>7=15</bankreq>
 		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_kuzure/fl_kuzure.bmd" scale="0.008" />
 	</object>
 	<object id="142">
 		<name>LLL-V Squasher</name>
@@ -1947,6 +2089,7 @@ Parameter 1:
 Uses FFFF</description>
 		<bankreq>7=16</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fm_battan/fm_battan.bmd" scale="0.008" />
 	</object>
 	<object id="143">
 		<name>Popping Lava Bubbles</name>
@@ -1955,6 +2098,7 @@ Uses FFFF</description>
 		<description>Adds a 'popping lava bubbles' effect to each plane with either LETHAL LAVA or LETHAL ICE collision applied.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="144">
 		<name>Waterfall Mist</name>
@@ -1963,6 +2107,7 @@ Uses FFFF</description>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="145">
 		<name>Manta Ray</name>
@@ -1979,6 +2124,7 @@ X: Star ID
 Y: Path ID to follow</description>
 		<bankreq>4=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/manta/manta.bmd" scale="0.008" />
 	</object>
 	<object id="146">
 		<name>Scuttlebug</name>
@@ -1994,6 +2140,7 @@ T: Type
 1 - Spawner; a bug springs out a from XYZ placement when you get near. If you defeat it, a replacement will spawn. Only the first one will release coins when defeated.</description>
 		<bankreq>1=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/spider/spider.bmd" scale="0.008" />
 	</object>
 	<object id="147">
 		<name>Spiny</name>
@@ -2006,6 +2153,7 @@ T: Type
 * On load: Freezes/Crashes</description>
 		<bankreq>2=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/togezo/togezo.bmd" scale="0.008" />
 	</object>
 	<object id="148">
 		<name>Lakitu</name>
@@ -2025,6 +2173,7 @@ XXXX:
 * On load: Freezes/Crashes</description>
 		<bankreq>2=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/jugem/jugem.bmd" scale="0.008" />
 	</object>
 	<object id="149">
 		<name>Moneybag</name>
@@ -2033,6 +2182,7 @@ XXXX:
 		<description>Disguised as a coin, this enemy appears to be harmless. When approached, it turns into a purse, then hops away. When hit, it releases many coins.</description>
 		<bankreq>2=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/gamaguchi/gamaguchi.bmd" scale="0.008" />
 	</object>
 	<object id="150">
 		<name>Mr. I</name>
@@ -2041,6 +2191,7 @@ XXXX:
 		<description>Stays in one place, constantly looking at the player. Every 5 seconds or so, it fires a plasma ball at the player. It can be defeated by running circles around it. Releases a blue coin when killed.</description>
 		<bankreq>1=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/eyekun/eyekun.bmd" scale="0.008" />
 	</object>
 	<object id="151">
 		<name>Big Mr. I</name>
@@ -2051,6 +2202,7 @@ XXXX:
 Parameter 1: Star ID</description>
 		<bankreq>1=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/eyekun/eyekun.bmd" scale="0.016" />
 	</object>
 	<object id="152">
 		<name>Crazed Crate</name>
@@ -2059,6 +2211,7 @@ Parameter 1: Star ID</description>
 		<description>When grabbed or eaten, makes the player do a triple jump while diving. If watched closely while idle, the block will hop up and down. If grabbed underwater, the player can carry it like a Koopa Shell.</description>
 		<bankreq>2=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/batta_block/batta_block.bmd" scale="0.008" />
 	</object>
 	<object id="153">
 		<name>Amp</name>
@@ -2071,6 +2224,7 @@ Parameter 1:
 (Diameter of Amp's path) * 10</description>
 		<bankreq>1=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="DoubleBMD" file1="data/enemy/birikyu/birikyu.bmd" file2="data/enemy/birikyu/birikyu_elec.bmd" scale="0.008" />
 	</object>
 	<object id="154">
 		<name>TTM Ukiki Star Cage</name>
@@ -2079,6 +2233,7 @@ Parameter 1:
 		<description>A Power Star inside a monkey cage. The monkey sets it free.</description>
 		<bankreq>7=23</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/hm_basket/hm_basket.bmd" scale="0.008" />
 	</object>
 	<object id="155">
 		<name>Ukiki (Thief)</name>
@@ -2087,6 +2242,7 @@ Parameter 1:
 		<description>Steals the player's hat, making them more vulnerable to enemies.</description>
 		<bankreq>7=23</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/monkey/monkey.bmd" scale="0.008" />
 	</object>
 	<object id="156">
 		<name>Ukiki (Star)</name>
@@ -2095,6 +2251,7 @@ Parameter 1:
 		<description>Releases the Power Star from the monkey cage.</description>
 		<bankreq>7=23</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="157">
 		<name>Baby Penguin</name>
@@ -2107,6 +2264,7 @@ Param 1:
 1 - Fake</description>
 		<bankreq>1=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/penguin/penguin_child.bmd" scale="0.002" />
 	</object>
 	<object id="158">
 		<name>Mother Penguin</name>
@@ -2117,6 +2275,7 @@ Param 1:
 Param 1: Star ID</description>
 		<bankreq>7=11</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/penguin/penguin.bmd" scale="0.008" />
 	</object>
 	<object id="159">
 		<name>Bridge Penguin</name>
@@ -2125,6 +2284,7 @@ Param 1: Star ID</description>
 		<description>Walks back and forth across the bridge on the snowman.</description>
 		<bankreq>7=20</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/penguin/penguin.bmd" scale="0.008" />
 	</object>
 	<object id="160">
 		<name>Racing Penguin</name>
@@ -2133,6 +2293,7 @@ Param 1: Star ID</description>
 		<description>The one that races you in Cool, Cool Mountain - slider. Uses Path ID.</description>
 		<bankreq>7=12</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/penguin/penguin.bmd" scale="0.008" />
 	</object>
 	<object id="161">
 		<name>Flame Chomp</name>
@@ -2145,6 +2306,7 @@ Param 1: Star ID</description>
 When it sees a player, it constantly looks at them. Occasionally, it will puff up twice as large, then it will spew a fireball that follows the player.</description>
 		<bankreq>1=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/keronpa/keronpa.bmd" scale="0.008" />
 	</object>
 	<object id="162">
 		<name>Giant Snowman</name>
@@ -2153,6 +2315,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description />
 		<bankreq>1=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="BigSnowman" />
 	</object>
 	<object id="163">
 		<name>Snowman Head</name>
@@ -2161,6 +2324,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description />
 		<bankreq>1=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/big_snowman/big_snowman_head.bmd" scale="0.008" />
 	</object>
 	<object id="164">
 		<name>Snowman Body</name>
@@ -2169,6 +2333,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description />
 		<bankreq>1=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/big_snowman/big_snowman_body.bmd" scale="0.008" />
 	</object>
 	<object id="165">
 		<name>Snowman Breath</name>
@@ -2177,6 +2342,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description />
 		<bankreq>7=20</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="166">
 		<name>Cheep Cheep</name>
@@ -2185,6 +2351,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description>Fish that appears in Dire, Dire Docks. It swims around and deals 1 piece of health when touched.</description>
 		<bankreq>4=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/pukupuku/pukupuku.bmd" scale="0.008" />
 	</object>
 	<object id="167">
 		<name>Clock Painting Hand - Short</name>
@@ -2193,6 +2360,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/clock_painting_hand.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/c2_hari_short/c2_hari_short.bmd" scale="0.008" />
 	</object>
 	<object id="168">
 		<name>Clock Painting Hand - Long</name>
@@ -2201,6 +2369,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/clock_painting_hand.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/c2_hari_long/c2_hari_long.bmd" scale="0.008" />
 	</object>
 	<object id="169">
 		<name>Clock Painting Pendulum</name>
@@ -2209,6 +2378,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/clock_painting_pendulum.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/c2_huriko/c2_huriko.bmd" scale="0.008" />
 	</object>
 	<object id="170">
 		<name>Skeeter</name>
@@ -2217,6 +2387,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<description>Enemies that slide on top of the water in Wet Dry World. If a Skeeter is stuck between the water and a floating platform, it dies.</description>
 		<bankreq>4=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/menbo/menbo.bmd" scale="0.008" />
 	</object>
 	<object id="171">
 		<name>Coffin</name>
@@ -2232,6 +2403,7 @@ R:
 1 - Do not move</description>
 		<bankreq>1=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="172">
 		<name>Fwoosh</name>
@@ -2240,6 +2412,7 @@ R:
 		<description>An enemy that resembles a cloud with a face. It floats in one spot, trying to blow the player's hat away, and even the player itself.</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/hyuhyu/hyuhyu.bmd" scale="0.008" />
 	</object>
 	<object id="173">
 		<name>BoB Seesaw</name>
@@ -2248,6 +2421,7 @@ R:
 		<description />
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/b_si_so/b_si_so.bmd" scale="0.008" />
 	</object>
 	<object id="174">
 		<name>BitDW Seesaw</name>
@@ -2256,6 +2430,7 @@ R:
 		<description />
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km1_shiso/km1_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="175">
 		<name>BitDW Switch-controlled Stairs</name>
@@ -2267,6 +2442,7 @@ XXMM where
 MM - See ! Switch parameter info</description>
 		<bankreq>7=36</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km1_dorifu/km1_dorifu0.bmd" scale="0.008" />
 	</object>
 	<object id="176">
 		<name>BitDW Diamond Lift</name>
@@ -2276,6 +2452,7 @@ MM - See ! Switch parameter info</description>
 (source: Hiccup)</description>
 		<bankreq>7=36</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km1_ukishima/km1_ukishima.bmd" scale="0.008" />
 	</object>
 	<object id="177">
 		<name>BitDW Rickshaw Lift</name>
@@ -2284,6 +2461,7 @@ MM - See ! Switch parameter info</description>
 		<description />
 		<bankreq>7=36</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Kurumajiku" file1="data/special_obj/km1_kuruma/km1_kuruma.bmd" file2="data/special_obj/km1_kuruma/km1_kurumajiku.bmd" scale="1" />
 	</object>
 	<object id="178">
 		<name>BitDW Sliding (in-out) Lift</name>
@@ -2292,6 +2470,7 @@ MM - See ! Switch parameter info</description>
 		<description />
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km1_deru/km1_deru.bmd" scale="0.008" />
 	</object>
 	<object id="179">
 		<name>JRB Boat - Down</name>
@@ -2300,6 +2479,7 @@ MM - See ! Switch parameter info</description>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/ship.dylb</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="180">
 		<name>JRB Boat - Up</name>
@@ -2308,6 +2488,7 @@ MM - See ! Switch parameter info</description>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/ship.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ki_fune/ki_fune_up.bmd" scale="0.008" />
 	</object>
 	<object id="181">
 		<name>JRB Pillar</name>
@@ -2316,6 +2497,7 @@ MM - See ! Switch parameter info</description>
 		<description>Pillar of rock that falls over on Player from JRB.</description>
 		<bankreq>7=9</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="DoubleBMD" file1="data/special_obj/ki_hasira/ki_hasira_dai.bmd" file2="data/special_obj/ki_hasira/ki_hasira.bmd" scale="0.008" offset1="-" offset2="0,12.5,0" />
 	</object>
 	<object id="182">
 		<name>JRB Rock Triangle</name>
@@ -2324,6 +2506,7 @@ MM - See ! Switch parameter info</description>
 		<description>A rock triangle only solid on top.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ki_hasira/ki_hasira_dai.bmd" scale="0.008" />
 	</object>
 	<object id="183">
 		<name>JRB Float-on-water Plank</name>
@@ -2332,6 +2515,7 @@ MM - See ! Switch parameter info</description>
 		<description />
 		<bankreq>7=9</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ki_ita/ki_ita.bmd" scale="0.008" />
 	</object>
 	<object id="184">
 		<name>JRB Rock</name>
@@ -2340,6 +2524,7 @@ MM - See ! Switch parameter info</description>
 		<description>A piece of rock used as decoration in Jolly Rodger Bay. Lit.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ki_iwa/ki_iwa.bmd" scale="0.008" />
 	</object>
 	<object id="185">
 		<name>JRB-S Water</name>
@@ -2348,6 +2533,7 @@ MM - See ! Switch parameter info</description>
 		<description />
 		<bankreq>7=10</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ks_mizu/ks_mizu.bmd" scale="0.008" />
 	</object>
 	<object id="186">
 		<name>Warp Pipe</name>
@@ -2358,6 +2544,7 @@ MM - See ! Switch parameter info</description>
 Does nothing if placed alone. For it to act as an entrance or an exit, the corresponding objects must be placed inside it.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_dokan/obj_dokan.bmd" scale="0.008" />
 	</object>
 	<object id="187">
 		<name>Arrow Sign left</name>
@@ -2370,6 +2557,7 @@ Does nothing if placed alone. For it to act as an entrance or an exit, the corre
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_yajirusi_l/yajirusi_l.bmd" scale="0.008" />
 	</object>
 	<object id="188">
 		<name>Arrow sign right</name>
@@ -2382,6 +2570,7 @@ Does nothing if placed alone. For it to act as an entrance or an exit, the corre
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_yajirusi_r/yajirusi_r.bmd" scale="0.008" />
 	</object>
 	<object id="189">
 		<name>Fly Guy</name>
@@ -2394,6 +2583,7 @@ Parameter 1:
 1 - Spits fire in addition to swooping at you</description>
 		<bankreq>1=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/propeller_heyho/propeller_heyho.bmd" scale="0.008" />
 	</object>
 	<object id="190">
 		<name>Bullet Bill</name>
@@ -2402,6 +2592,7 @@ Parameter 1:
 		<description>When launched from a Bullet Bill Box (KILLER_DAI) home in on a player and follow them. It can be defeated with a well-timed attack.</description>
 		<bankreq>2=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="DoubleBMD" file1="data/enemy/killer/killer_body.bmd" file2="data/enemy/killer/killer_face.bmd" scale="0.008" />
 	</object>
 	<object id="191">
 		<name>Bowser Orange Ball</name>
@@ -2410,6 +2601,7 @@ Parameter 1:
 		<description>Orange balls placed around the arena in Bowser in the Dark World - Battle.</description>
 		<bankreq>7=37</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/kb1_ball/kb1_ball.bmd" scale="0.008" />
 	</object>
 	<object id="192">
 		<name>TTM-S Moon Decoration</name>
@@ -2418,6 +2610,7 @@ Parameter 1:
 		<description>A smiling, dimly lit silver star used for decoration in the Tall Tall Mountain Slider</description>
 		<bankreq>7=24</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/hs_moon/hs_moon.bmd" scale="0.008" />
 	</object>
 	<object id="193">
 		<name>TTM-S Star Decoration</name>
@@ -2426,6 +2619,7 @@ Parameter 1:
 		<description>A smiling golden star decoration used in the Tall Tall Mountain Slider.</description>
 		<bankreq>7=24</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/hs_star/hs_star.bmd" scale="0.008" />
 	</object>
 	<object id="194">
 		<name>TTM-S Orange Smiley Decoration</name>
@@ -2434,6 +2628,7 @@ Parameter 1:
 		<description>A smiling, blushing, orange face used for decoration in the Tall Tall Mountain Slider.</description>
 		<bankreq>7=24</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/hs_y_star/hs_y_star.bmd" scale="0.008" />
 	</object>
 	<object id="195">
 		<name>TTM-S Blue Smiley Decoration</name>
@@ -2442,6 +2637,7 @@ Parameter 1:
 		<description>A smiling, blushing, blue face thats used for decoration in the Tall Tall Mountain Slider.</description>
 		<bankreq>7=24</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/hs_b_star/hs_b_star.bmd" scale="0.008" />
 	</object>
 	<object id="196">
 		<name>Pole Billboard</name>
@@ -2450,6 +2646,7 @@ Parameter 1:
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/pole_billboard.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_billbord/bk_billbord.bmd" scale="0.008" />
 	</object>
 	<object id="197">
 		<name>WF Bill Blaster</name>
@@ -2458,6 +2655,7 @@ Parameter 1:
 		<description>Fires Bullet Bills if the player is in range and in plain sight.</description>
 		<bankreq>2=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_killer_dai/bk_killer_dai.bmd" scale="0.008" />
 	</object>
 	<object id="198">
 		<name>Knock Down Plank</name>
@@ -2466,6 +2664,7 @@ Parameter 1:
 		<description>If kicked, it will fall flat, ignoring all collision. If it is bumped into by a giant player it falls down on its back.</description>
 		<bankreq>7=8</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_botaosi/bk_botaosi.bmd" scale="0.008" />
 	</object>
 	<object id="199">
 		<name>Fall Block (WF)</name>
@@ -2474,6 +2673,7 @@ Parameter 1:
 		<description>Falling bridge blocks from Whomp's Fortress.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_down_b/bk_down_b.bmd" scale="0.008" />
 	</object>
 	<object id="200">
 		<name>WF Tower Breakable Wall</name>
@@ -2482,6 +2682,7 @@ Parameter 1:
 		<description>Breakable wall at bottom of Tower from Whomp's Fortress.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_futa/bk_futa.bmd" scale="0.008" />
 	</object>
 	<object id="201">
 		<name>WF Non-breakable Wall</name>
@@ -2492,6 +2693,7 @@ Parameter 1:
 Note: The collision map for this object should be scaled by 8 - reason unknown.</description>
 		<bankreq>2=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_kabe01/bk_kabe01.bmd" scale="0.008" />
 	</object>
 	<object id="202">
 		<name>WF Breakable Wall</name>
@@ -2506,6 +2708,7 @@ A Star marker should exist with Parameter of 2 followed by Star ID. eg. 21 for S
 Note: The collision map for this object should be scaled by 10.</description>
 		<bankreq>2=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_kabe00/bk_kabe00.bmd" scale="0.008" />
 	</object>
 	<object id="203">
 		<name>WF Tower</name>
@@ -2514,6 +2717,7 @@ Note: The collision map for this object should be scaled by 10.</description>
 		<description>Large tower from Whomp's Fortress.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_tower/bk_tower.bmd" scale="0.008" />
 	</object>
 	<object id="204">
 		<name>Rotating Platform (WF)</name>
@@ -2522,6 +2726,7 @@ Note: The collision map for this object should be scaled by 10.</description>
 		<description>Floating rotating island from Whomp's Fortress.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_ukisima/bk_ukisima.bmd" scale="0.008" />
 	</object>
 	<object id="205">
 		<name>Rotating Bridge</name>
@@ -2530,6 +2735,7 @@ Note: The collision map for this object should be scaled by 10.</description>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/rotating_bridge.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_rotebar/bk_rotebar.bmd" scale="0.008" />
 	</object>
 	<object id="206">
 		<name>Tower Step</name>
@@ -2546,6 +2752,7 @@ FF - No movement
 02 - Move up and down</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/tower_step.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_lift01/bk_lift01.bmd" scale="0.008" />
 	</object>
 	<object id="207">
 		<name>Moving Bar - Small</name>
@@ -2554,6 +2761,7 @@ FF - No movement
 		<description>Chunk of wall (small) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/moving_bar.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_dossunbar_s/bk_dossunbar_s.bmd" scale="0.008" />
 	</object>
 	<object id="208">
 		<name>Moving Bar - Big</name>
@@ -2562,6 +2770,7 @@ FF - No movement
 		<description>Chunk of wall (large) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/moving_bar.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_dossunbar_l/bk_dossunbar_l.bmd" scale="0.008" />
 	</object>
 	<object id="209">
 		<name>WF "TRANSBAR"</name>
@@ -2570,6 +2779,7 @@ FF - No movement
 		<description>Platforms that move in and out from Whomp's Fortress. Can be rotated.</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/bk_transbar/bk_transbar.bmd" scale="0.008" />
 	</object>
 	<object id="210">
 		<name>Fall Block (BBH)</name>
@@ -2578,6 +2788,7 @@ FF - No movement
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/th_down_b/th_down_b.bmd" scale="0.008" />
 	</object>
 	<object id="211">
 		<name>Fall Block (BFS)</name>
@@ -2586,6 +2797,7 @@ FF - No movement
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_kuzure/km2_kuzure.bmd" scale="0.008" />
 	</object>
 	<object id="212">
 		<name>BitFS Rise Lift</name>
@@ -2594,6 +2806,7 @@ FF - No movement
 		<description>It is only solid from the top.</description>
 		<bankreq>7=38</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_agaru/km2_agaru.bmd" scale="0.008" />
 	</object>
 	<object id="213">
 		<name />
@@ -2602,6 +2815,7 @@ FF - No movement
 		<description />
 		<bankreq>7=38</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_gura/km2_gura.bmd" scale="0.008" />
 	</object>
 	<object id="214">
 		<name>BitFS Metal Net Lift with Pole</name>
@@ -2610,6 +2824,7 @@ FF - No movement
 		<description />
 		<bankreq>7=38</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_ami_bou/km2_ami_bou.bmd" scale="0.008" />
 	</object>
 	<object id="215">
 		<name>BitFS Y-axis Seesaw</name>
@@ -2618,6 +2833,7 @@ FF - No movement
 		<description />
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_yokoshiso/km2_yokoshiso.bmd" scale="0.008" />
 	</object>
 	<object id="216">
 		<name />
@@ -2635,6 +2851,7 @@ PP - Path ID?
 (Source: skawo)</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_susumu/km2_susumu.bmd" scale="0.008" />
 	</object>
 	<object id="217">
 		<name />
@@ -2643,6 +2860,7 @@ PP - Path ID?
 		<description />
 		<bankreq>7=38</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_ukishima/km2_ukishima.bmd" scale="0.008" />
 	</object>
 	<object id="218">
 		<name>BitFS lift 02</name>
@@ -2651,6 +2869,7 @@ PP - Path ID?
 		<description>Rectangular platform that moves along its longer side.</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_rift02/km2_rift02.bmd" scale="0.008" />
 	</object>
 	<object id="219">
 		<name>BitFS lift 01</name>
@@ -2659,6 +2878,7 @@ PP - Path ID?
 		<description />
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_rift01/km2_rift01.bmd" scale="0.008" />
 	</object>
 	<object id="220">
 		<name />
@@ -2667,6 +2887,7 @@ PP - Path ID?
 		<description />
 		<bankreq>7=38</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km2_nobiru/km2_nobiru.bmd" scale="0.008" />
 	</object>
 	<object id="221">
 		<name>BitS Seesaw</name>
@@ -2675,6 +2896,7 @@ PP - Path ID?
 		<description />
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km3_shiso/km3_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="222">
 		<name>BitS Y-axis Zig-zag Seesaw</name>
@@ -2683,6 +2905,7 @@ PP - Path ID?
 		<description />
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km3_yokoshiso/km3_yokoshiso.bmd" scale="0.008" />
 	</object>
 	<object id="223">
 		<name>BitS Rickshaw Lift</name>
@@ -2691,6 +2914,7 @@ PP - Path ID?
 		<description />
 		<bankreq>7=40</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Kurumajiku" file1="data/special_obj/km3_kuruma/km3_kuruma.bmd" file2="data/special_obj/km3_kuruma/km3_kurumajiku.bmd" scale="1" />
 	</object>
 	<object id="224">
 		<name>BitS Switch-controlled Stairs</name>
@@ -2699,6 +2923,7 @@ PP - Path ID?
 		<description />
 		<bankreq>7=40</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km3_dan/km3_dan0.bmd" scale="0.008" />
 	</object>
 	<object id="225">
 		<name />
@@ -2707,6 +2932,7 @@ PP - Path ID?
 		<description />
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km3_deru01/km3_deru01.bmd" scale="0.008" />
 	</object>
 	<object id="226">
 		<name>BitS Sliding-Back-&amp;-Forth Lift 2</name>
@@ -2718,6 +2944,7 @@ PP - Path ID?
 TODO: Work out parameters</description>
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km3_deru02/km3_deru02.bmd" scale="0.008" />
 	</object>
 	<object id="227">
 		<name>Rotating Platform (BS)</name>
@@ -2726,6 +2953,7 @@ TODO: Work out parameters</description>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km3_kaitendai/km3_kaitendai.bmd" scale="0.008" />
 	</object>
 	<object id="228">
 		<name>Switch Pillar</name>
@@ -2734,6 +2962,7 @@ TODO: Work out parameters</description>
 		<description>When two of them have been groundpounded, the water level in the castle's moat is lowered, making the 'Secret under the Moat' level accessible.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/switch_pillar.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/c0_switch/c0_switch.bmd" scale="0.008" />
 	</object>
 	<object id="229">
 		<name>CCM ski lift</name>
@@ -2745,6 +2974,7 @@ XXX - Nothing?
 P - Path ID</description>
 		<bankreq>7=11</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/sm_lift/sm_lift.bmd" scale="0.008" />
 	</object>
 	<object id="230">
 		<name>Fly Guy - Fire</name>
@@ -2757,6 +2987,7 @@ P - Path ID</description>
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="231">
 		<name>BBH Up-down Lift</name>
@@ -2765,6 +2996,7 @@ P - Path ID</description>
 		<description>A wire lift that moves down when stood on.</description>
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/th_lift/th_lift.bmd" scale="0.008" />
 	</object>
 	<object id="232">
 		<name>HMC up-down lift</name>
@@ -2773,6 +3005,7 @@ P - Path ID</description>
 		<description />
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/cv_ud_lift/cv_ud_lift.bmd" scale="0.008" />
 	</object>
 	<object id="233">
 		<name>RR Lift 02</name>
@@ -2781,6 +3014,7 @@ P - Path ID</description>
 		<description />
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_rift02/rc_rift02.bmd" scale="0.008" />
 	</object>
 	<object id="234">
 		<name>Bubba</name>
@@ -2789,6 +3023,7 @@ P - Path ID</description>
 		<description>Also known as Boss Bass.</description>
 		<bankreq>7=25</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/bakubaku/bakubaku.bmd" scale="0.008" />
 	</object>
 	<object id="235">
 		<name />
@@ -2797,6 +3032,7 @@ P - Path ID</description>
 		<description />
 		<bankreq>4=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/km3_rift/km3_rift.bmd" scale="0.008" />
 	</object>
 	<object id="236">
 		<name>Spike Bomb</name>
@@ -2808,6 +3044,7 @@ P - Path ID</description>
 * Must be in Bowser fight map</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bowser.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/koopa_bomb/koopa_bomb.bmd" scale="0.008" />
 	</object>
 	<object id="237">
 		<name>Rabbit</name>
@@ -2831,6 +3068,7 @@ PP - Path ID. Appears to start on the last node of the path.
 * On load: Freezes/Crashes</description>
 		<bankreq>3=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/mip/mip.bmd" scale="0.008" />
 	</object>
 	<object id="238">
 		<name>Rabbit Key</name>
@@ -2841,6 +3079,7 @@ PP - Path ID. Appears to start on the last node of the path.
 * On load: Freezes/Crashes</description>
 		<bankreq>3=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="239">
 		<name>Hoot the Owl</name>
@@ -2849,6 +3088,7 @@ PP - Path ID. Appears to start on the last node of the path.
 		<description>Appears when the player climbs into his tree. While holding B, the player can fly around holding him. Nintendo places him 0.2 y points higher than the tree.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/hoot_the_owl.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/owl/owl.bmd" scale="0.008" />
 	</object>
 	<object id="240">
 		<name>Bully</name>
@@ -2857,6 +3097,7 @@ PP - Path ID. Appears to start on the last node of the path.
 		<description>Tries to push the player into the lava. When killed, throws a coin at the player.</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/donketu/donketu.bmd" scale="0.008" />
 	</object>
 	<object id="241">
 		<name>Big Bully / Three Bullies</name>
@@ -2874,6 +3115,7 @@ T: Type
 S - Star ID. Requires matching Star Marker for the star to spawn.</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/donketu/boss_donketu.bmd" scale="0.008" />
 	</object>
 	<object id="242">
 		<name>Tox Box</name>
@@ -2893,6 +3135,7 @@ Z: Movement path
 3 - Unused movement path? Seems to be used with Tox Boxes that follow paths</description>
 		<bankreq>4=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Toxbox" />
 	</object>
 	<object id="243">
 		<name>Invisible Pole</name>
@@ -2910,6 +3153,7 @@ XX: Whether the player can perform a handstand at the top
 YY: (Height of the pole * 100) (in hex)</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/invisible_pole.dylb</dlreq>
+		<renderer type="Pole" border="0000ff" fill="000040" />
 	</object>
 	<object id="244">
 		<name>Lakitu Bro.</name>
@@ -2925,6 +3169,7 @@ Figure out parameters.
 * On load: Freezes/Crashes</description>
 		<bankreq>3=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/c_jugem/c_jugem.bmd" scale="0.008" />
 	</object>
 	<object id="245">
 		<name>Pushable Block</name>
@@ -2937,6 +3182,7 @@ Figure out parameters.
 * On use: no sound effect</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_pushblock/obj_pushblock.bmd" scale="0.008" />
 	</object>
 	<object id="246">
 		<name>LLL Metal Net Lift</name>
@@ -2956,6 +3202,7 @@ Y - Start Moving
 Z - Path ID</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/fl_amilift/fl_amilift.bmd" scale="0.008" />
 	</object>
 	<object id="247">
 		<name>Snufit</name>
@@ -2964,6 +3211,7 @@ Z - Path ID</description>
 		<description>A type of Shy Guy that shoots bullets out of its mouth.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/yurei_mucho/yurei_mucho.bmd" scale="0.008" />
 	</object>
 	<object id="248">
 		<name>Monty Mole</name>
@@ -2986,6 +3234,7 @@ Z: How it should behave
 2 - Requires another Monty Mole with X set to 1, comes out when other Monty Mole is underground?</description>
 		<bankreq>2=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/choropu/choropu.bmd" scale="0.008" />
 	</object>
 	<object id="249">
 		<name>Monty Mole Rock</name>
@@ -2994,6 +3243,7 @@ Z: How it should behave
 		<description>A rock which Monty Mole throws at the player.</description>
 		<bankreq>2=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/choropu/rock.bmd" scale="0.008" />
 	</object>
 	<object id="250">
 		<name>Swooper</name>
@@ -3002,6 +3252,7 @@ Z: How it should behave
 		<description>Bats in Hazy Maze Cave. They swoop down and try to hurt the player.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/basabasa/basabasa.bmd" scale="0.008" />
 	</object>
 	<object id="251">
 		<name>Heave Ho</name>
@@ -3014,6 +3265,7 @@ Z: How it should behave
 * On load: Freezes/Crashes</description>
 		<bankreq>2=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/popoi/popoi.bmd" scale="0.008" />
 	</object>
 	<object id="252">
 		<name>Klepto</name>
@@ -3042,6 +3294,7 @@ Z: Relates to what he does after he grabs the players hat
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/klepto.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/jango/jango.bmd" scale="0.008" />
 	</object>
 	<object id="253">
 		<name>Pokey</name>
@@ -3050,6 +3303,7 @@ Z: Relates to what he does after he grabs the players hat
 		<description>A cactus-like enemy that tries to slide into the player.</description>
 		<bankreq>5=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Pokey" />
 	</object>
 	<object id="254">
 		<name>Cap</name>
@@ -3088,6 +3342,7 @@ Z: Misc?
 * Name is MARIO_CAP despite it being used for other player's caps. Maybe leftover from earlier version or N64 or not.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="255">
 		<name>Bowser Puzzle Piece</name>
@@ -3096,6 +3351,7 @@ Z: Misc?
 		<description>A puzzle piece in Lethal Lava Land.</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="FlPuzzle" />
 	</object>
 	<object id="256">
 		<name>LLL Bowser Puzzle Manager</name>
@@ -3104,6 +3360,7 @@ Z: Misc?
 		<description>Required for the puzzle pieces to appear.</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="257">
 		<name>Dorrie</name>
@@ -3120,6 +3377,7 @@ YY:
 Above - Same as 00? (Used as FF)</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/dossy/dossy.bmd" scale="0.008" />
 	</object>
 	<object id="258">
 		<name>Dorrie's Wario Cap</name>
@@ -3128,6 +3386,7 @@ Above - Same as 00? (Used as FF)</description>
 		<description>Most likely the Wario Cap that Dorrie wears, considering this object is named DOSSY_CAP, and Dorrie is DOSSY.</description>
 		<bankreq>0=4</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="259">
 		<name>Spindrift</name>
@@ -3136,6 +3395,7 @@ Above - Same as 00? (Used as FF)</description>
 		<description>A flower-like enemy in Snowman's Land and Cool Cool Mountain. It tries to float into the player, and it can also float on water.</description>
 		<bankreq>2=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/huwahuwa/huwahuwa_model.bmd" scale="0.008" />
 	</object>
 	<object id="260">
 		<name>JRB ship's sliding box</name>
@@ -3144,6 +3404,7 @@ Above - Same as 00? (Used as FF)</description>
 		<description>Box that slides on the Jolly Roger Bay ship (when it is afloat). Players can walk on it, but get hurt if they touch it on any side.</description>
 		<bankreq>7=9</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/ki_slide_box/ki_slide_box.bmd" scale="0.008" />
 	</object>
 	<object id="261">
 		<name>Unagi the Eel</name>
@@ -3163,6 +3424,7 @@ F - Swim about following a path.
 P - Path ID</description>
 		<bankreq>7=9</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/moray/moray.bmd" scale="0.008" />
 	</object>
 	<object id="262">
 		<name>Cloud</name>
@@ -3171,6 +3433,7 @@ P - Path ID</description>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/cloud.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_kumo/obj_kumo.bmd" scale="0.008" />
 	</object>
 	<object id="263">
 		<name>Clam</name>
@@ -3179,6 +3442,7 @@ P - Path ID</description>
 		<description>A clam. It opens when the player gets close, but closes after 5 seconds. It can hurt the player while it is closed.</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_shell/obj_shell.bmd" scale="0.008" />
 	</object>
 	<object id="264">
 		<name>Red Flame</name>
@@ -3187,6 +3451,7 @@ P - Path ID</description>
 		<description>Basically a torch.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="265">
 		<name>Blue Flame</name>
@@ -3195,6 +3460,7 @@ P - Path ID</description>
 		<description>A blue flame. Seen in the basement.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="266">
 		<name>Flamethrower</name>
@@ -3214,6 +3480,7 @@ ZZZZ where
 ZZZZ - Z rotation. Unsure of details.</description>
 		<bankreq>5=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="FlameThrower" />
 	</object>
 	<object id="267">
 		<name>Super Mushroom Create Tag</name>
@@ -3224,6 +3491,7 @@ Param 1:
 MMMM - Match this with M of KINOKO_TAG - you cannot match it with more than one.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="268">
 		<name>Super Mushroom Tag</name>
@@ -3234,6 +3502,7 @@ Param 1:
 MMMM - Match this with M of KINOKO_CREATE_TAG - you cannot match it with more than one, but you can have more than one KINOKO_TAG in the same place.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="269">
 		<name>Block 1-Up Mushroom Tag</name>
@@ -3246,6 +3515,7 @@ MMMM - Match this with M of KINOKO_CREATE_TAG - you cannot match it with more th
 * On use: does not function</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="270">
 		<name>Block Super Mushroom Tag</name>
@@ -3257,6 +3527,7 @@ Parameter 1:
 7F</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="271">
 		<name>Block Green Shell Tag</name>
@@ -3265,6 +3536,7 @@ Parameter 1:
 		<description>Spawns a Green Shell if its location is the same as that of a Brick Block or Big Brick Block when the block is destroyed.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="272">
 		<name>Block Silver Star Tag</name>
@@ -3277,6 +3549,7 @@ Parameter 1:
 * On load: Malfunction/Freeze/Crash</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="273">
 		<name>Trap</name>
@@ -3285,6 +3558,7 @@ Parameter 1:
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/trap.dylb</dlreq>
+		<renderer type="C1Trap" />
 	</object>
 	<object id="274">
 		<name>Light Beam</name>
@@ -3293,6 +3567,7 @@ Parameter 1:
 		<description>Warps to [31] ? Switch if you look at the top of it with the highest zoom level and 14 stars.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/light_beam.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/c1_hikari/c1_hikari.bmd" scale="0.008" />
 	</object>
 	<object id="275">
 		<name>Peach Painting</name>
@@ -3301,6 +3576,7 @@ Parameter 1:
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/peach_painting.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/c1_peach/c1_peach.bmd" scale="0.008" />
 	</object>
 	<object id="276">
 		<name>RR Flying Carpet</name>
@@ -3310,6 +3586,7 @@ Parameter 1:
 Parameter 1: First two digits should be 06, second to specify the path ID (zero-based index) the carpet is to follow.</description>
 		<bankreq>7=29</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/rc_carpet/rc_carpet.bmd" scale="0.008" />
 	</object>
 	<object id="277">
 		<name>Key</name>
@@ -3326,6 +3603,7 @@ Parameter1:
 5 - Big Star Key (Unused? - might be used internally, or be a side effect of how the keys work)</description>
 		<bankreq>4=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="278">
 		<name>Last Star</name>
@@ -3336,6 +3614,7 @@ Parameter1:
 Setting Parameter 1 to FFFF causes it to work the same as when Bowser is defeated and trigger the ending sequence.</description>
 		<bankreq>4=1</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="279">
 		<name>Eyerok</name>
@@ -3353,6 +3632,7 @@ X - Star ID
 This object will only activate if you stand on it or the area around it in specific coordinates in Shifting Sand Land's Pyramid, and nowhere else.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/eyerock.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/iwante/iwante_dummy.bmd" scale="0.008" />
 	</object>
 	<object id="280">
 		<name>Wiggler</name>
@@ -3364,6 +3644,7 @@ Parameter 1:
 FF0X Star ID</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/wiggler.dylb</dlreq>
+		<renderer type="Wiggler" />
 	</object>
 	<object id="281">
 		<name>Koopa the Quick</name>
@@ -3393,6 +3674,7 @@ S - Star ID
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/koopa_the_quick.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/nokonoko/nokonoko.bmd" scale="0.01" />
 	</object>
 	<object id="282">
 		<name>Koopa Flag</name>
@@ -3405,6 +3687,7 @@ S - Star ID
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/koopa_the_quick.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_race_flag/obj_race_flag.bmd" scale="0.008" />
 	</object>
 	<object id="283">
 		<name>BBH Entrance Cage</name>
@@ -3413,6 +3696,7 @@ S - Star ID
 		<description>Entrance to Big Boo's Haunt.</description>
 		<bankreq>0=2</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/t_basket/t_basket.bmd" scale="0.008" />
 	</object>
 	<object id="284">
 		<name>Black Brick Block</name>
@@ -3439,6 +3723,7 @@ XXXX: Extra sound when broken?
 0002+ - Same as 0001?</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_block/broken_block_ll.bmd" scale="0.008" />
 	</object>
 	<object id="285">
 		<name>Ice Block</name>
@@ -3448,6 +3733,7 @@ XXXX: Extra sound when broken?
 If you put a Power Star inside it (by literally placing it inside it), the "Power Star appear" cutscene will play when the block is melted. No parameters are needed for this.</description>
 		<bankreq>2=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_block/ice_block_ll.bmd" scale="0.008" />
 	</object>
 	<object id="286">
 		<name />
@@ -3456,6 +3742,7 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<description>Maybe the flying book that is shot out of bookcases in the libary room in BBH?</description>
 		<bankreq>7=13</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="287">
 		<name>Killer Book</name>
@@ -3464,6 +3751,7 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<description>Chomps and flies at the player. This object is placed in a bookshelf in the game.</description>
 		<bankreq>7=13</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="288">
 		<name>Flying Book Spawner</name>
@@ -3472,6 +3760,7 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<description />
 		<bankreq>7=13</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="289">
 		<name>BOOK_SWITCH</name>
@@ -3480,6 +3769,7 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<description>Maybe this is the actor for the book switches on the Secret Door Bookcase?</description>
 		<bankreq>7=13</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="290">
 		<name>Chill Bully</name>
@@ -3495,6 +3785,7 @@ XX - Nothing?
 YY - Star ID</description>
 		<bankreq>7=20</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/donketu/ice_donketu.bmd" scale="0.008" />
 	</object>
 	<object id="291">
 		<name>Chief Chilly</name>
@@ -3503,6 +3794,7 @@ YY - Star ID</description>
 		<description />
 		<bankreq>1=5</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/king_ice_donketu/king_ice_donketu_model.bmd" scale="0.008" />
 	</object>
 	<object id="292">
 		<name>Treasure Chest</name>
@@ -3522,6 +3814,7 @@ YY - The order of the current chest.
 *** t_box_open.bca</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/treasure_chest.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/t_box/t_box.bmd" scale="0.008" />
 	</object>
 	<object id="293">
 		<name>Castle Water</name>
@@ -3530,6 +3823,7 @@ YY - The order of the current chest.
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/castle_water.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/mc_water/mc_water.bmd" scale="0.008" />
 	</object>
 	<object id="294">
 		<name>Possessed Chair</name>
@@ -3538,6 +3832,7 @@ YY - The order of the current chest.
 		<description>A chair that flies at the player.</description>
 		<bankreq>7=13</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/chair/chair.bmd" scale="0.008" />
 	</object>
 	<object id="295">
 		<name>Metal Net</name>
@@ -3546,6 +3841,7 @@ YY - The order of the current chest.
 		<description>A grate that blocks off the cannon and several other locations.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/metal_net.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/mc_metalnet/mc_metalnet.bmd" scale="0.008" />
 	</object>
 	<object id="296">
 		<name>CG Stairs (Unused)</name>
@@ -3554,6 +3850,7 @@ YY - The order of the current chest.
 		<description>Little stairs.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/mc_dodai/mc_dodai.bmd" scale="0.008" />
 	</object>
 	<object id="297">
 		<name>CG Rope Barrier (Unused)</name>
@@ -3562,6 +3859,7 @@ YY - The order of the current chest.
 		<description>Rope barrier.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/mc_hazad/mc_hazad.bmd" scale="0.008" />
 	</object>
 	<object id="298">
 		<name>Flag</name>
@@ -3570,6 +3868,7 @@ YY - The order of the current chest.
 		<description>A red and white flag, like the ones present on Peach's castle's roof. Purely decorative object.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/flag.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/mc_flag/mc_flag.bmd" scale="0.008" />
 	</object>
 	<object id="299">
 		<name>Grindel</name>
@@ -3589,6 +3888,7 @@ TT: Type
 * Must be in "Shifting Sand Land - pyramid" map</description>
 		<bankreq>7=18</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/donkaku/donkaku.bmd" scale="0.008" />
 	</object>
 	<object id="300">
 		<name>Spindel</name>
@@ -3597,6 +3897,7 @@ TT: Type
 		<description>A round, mummified Thwomp that rolls back and forth trying to roll over the player. Nintendo places it 0.175 above the floor. When spawned it rolls forward, pauses, rolls back, pauses and so on. It ignores all collisions and rotation and has no apparent parameters.</description>
 		<bankreq>7=18</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/donguru/donguru.bmd" scale="0.008" />
 	</object>
 	<object id="301">
 		<name>Chuckya</name>
@@ -3609,6 +3910,7 @@ TT: Type
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/chuckya.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/horuhei/horuhei.bmd" scale="0.008" />
 	</object>
 	<object id="302">
 		<name>Super Mushroom</name>
@@ -3638,6 +3940,7 @@ Parameter 1:
 *** scale_up_kinoko.bmd</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/scale_up_kinoko/scale_up_kinoko.bmd" scale="0.008" />
 	</object>
 	<object id="303">
 		<name>Basement Water</name>
@@ -3646,6 +3949,7 @@ Parameter 1:
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/basement_water.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/c0_water/c0_water.bmd" scale="0.008" />
 	</object>
 	<object id="304">
 		<name>Invisible Secret</name>
@@ -3662,6 +3966,7 @@ There should be a Star Marker with parameters 2 followed by Star ID eg. 25 for S
 * It is called SECRET_COIN because it it often put in the same place as coins.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="305">
 		<name>Blue Coin Switch</name>
@@ -3692,6 +3997,7 @@ M - Match this with the M of the Blue Coins you want to trigger. Using the same 
 * On use: only plays "running out of time" ticking sound part, not the main part</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/b_coin_switch/b_coin_switch.bmd" scale="0.008" />
 	</object>
 	<object id="306">
 		<name>Red Coin number</name>
@@ -3702,6 +4008,7 @@ M - Match this with the M of the Blue Coins you want to trigger. Using the same 
 Alone, not a really useful object.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="307">
 		<name>Bouncing Lava Bubble</name>
@@ -3710,6 +4017,7 @@ Alone, not a really useful object.</description>
 		<description />
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="308">
 		<name>Power Star Create</name>
@@ -3718,6 +4026,7 @@ Alone, not a really useful object.</description>
 		<description />
 		<bankreq>7=11</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="309">
 		<name>CCM Shortcut Manager</name>
@@ -3726,6 +4035,7 @@ Alone, not a really useful object.</description>
 		<description>In the Cool, Cool Mountain penguin slide, detects when the player takes the shortcut. Plays the 'secret found' sound effect, but, during races, also tells the racing penguin that the player is cheating.</description>
 		<bankreq>7=12</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="310">
 		<name>OBJ_VOLCANO_CANNON</name>
@@ -3734,6 +4044,7 @@ Alone, not a really useful object.</description>
 		<description>Maybe created by LLL ring to shoot fire for it.</description>
 		<bankreq>7=15</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="311">
 		<name>Manta Ring</name>
@@ -3742,6 +4053,7 @@ Alone, not a really useful object.</description>
 		<description>Rings from Manta.</description>
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/w_ring/w_ring.bmd" scale="0.016" />
 	</object>
 	<object id="312">
 		<name>Fire Piranha Plant - Big</name>
@@ -3759,6 +4071,7 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/pakkun/pakkun_model.bmd" scale="0.016" />
 	</object>
 	<object id="313">
 		<name>Fire Piranha Plant - Small</name>
@@ -3771,6 +4084,7 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/pakkun/pakkun_model.bmd" scale="0.004" />
 	</object>
 	<object id="314">
 		<name>Fire Piranha Plant</name>
@@ -3783,6 +4097,7 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/piranha_plant.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/pakkun/pakkun_model.bmd" scale="0.008" />
 	</object>
 	<object id="315">
 		<name>Enemy Switch Tag</name>
@@ -3803,6 +4118,7 @@ Parameter 3:
 Spawn delay, in frames, 0 is the default, FFFF.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="316">
 		<name>Enemy Spawner</name>
@@ -3823,6 +4139,7 @@ XX - Unknown, 3E
 Y - Event ID of corresponding ENEMY_SWITCH</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="317">
 		<name />
@@ -3831,6 +4148,7 @@ Y - Event ID of corresponding ENEMY_SWITCH</description>
 		<description />
 		<bankreq>0=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="318">
 		<name>Whirlpool</name>
@@ -3839,6 +4157,7 @@ Y - Event ID of corresponding ENEMY_SWITCH</description>
 		<description />
 		<bankreq>7=19</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/water_tatumaki/water_tatumaki.bmd" scale="0.008" />
 	</object>
 	<object id="319">
 		<name />
@@ -3847,6 +4166,7 @@ Y - Event ID of corresponding ENEMY_SWITCH</description>
 		<description />
 		<bankreq>7=19</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="320">
 		<name>SSL Tornado</name>
@@ -3860,6 +4180,7 @@ Parameter 1:
 FFXX Seems to always be FF14</description>
 		<bankreq>5=3</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="NormalBMD" file="data/enemy/sand_tornado/sand_tornado.bmd" scale="0.008" />
 	</object>
 	<object id="321">
 		<name>Bowser Shockwaves</name>
@@ -3870,6 +4191,7 @@ FFXX Seems to always be FF14</description>
 [b]Do not use, for it will crash the game.[/b]</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bowser.dylb</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="322">
 		<name />
@@ -3878,6 +4200,7 @@ FFXX Seems to always be FF14</description>
 		<description />
 		<bankreq>7=48</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="Luigi" scale="0.008" />
 	</object>
 	<object id="323">
 		<name>Ambient Sound Effects</name>
@@ -3898,6 +4221,7 @@ Y:
 8 - Waterfall on right speaker</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="324">
 		<name>Mugen Bgm</name>
@@ -3908,6 +4232,7 @@ to switch properly.
 For instance: Jolly Roger Bay's music + Param 1: 71 = Jolly Roger Overworld music</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/mugen_bgm.dylb</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="325">
 		<name>Sound</name>
@@ -3940,6 +4265,7 @@ F - Same as 3?
 * On load: no sound (testing 0 and 4)?</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="511">
 		<name>Minimap Change</name>
@@ -3948,5 +4274,6 @@ F - Same as 3?
 		<description>Changes the minimap shown on the bottom screen when the user passes near it.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 </database>
