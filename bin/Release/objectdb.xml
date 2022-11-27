@@ -153,7 +153,7 @@ P - Path ID
 	</object>
 	<object id="10">
 		<name>Chain Chomp</name>
-		<internalname>WANWAN</internalname>
+		<internalname>CHAIN_CHOMP</internalname>
 		<actorid>219</actorid>
 		<description>A Chomp chained to a ground-poundable wood pole. When freed, runs into [object=0033] then disappears. Requires bank 4 to be set to 3, because this actor spawns the wooden pole.</description>
 		<bankreq>none</bankreq>
@@ -180,7 +180,7 @@ P - Path ID
 	</object>
 	<object id="13">
 		<name>Rolling Iron Ball</name>
-		<internalname>IRON_BALL</internalname>
+		<internalname>ROLLING_IRON_BALL</internalname>
 		<actorid>220</actorid>
 		<description>Iron boulder. Can roll along a set path, but respects gravity no matter what. Explodes when hitting an obstacle such as a wall. They appear to be hard-coded to be small in "Tiny Huge Island - tiny" (ID 25).
 
@@ -221,7 +221,7 @@ Set Star ID to FF if you do not want a star to spawn when breaking the rock, eg.
 	</object>
 	<object id="15">
 		<name>Goomba</name>
-		<internalname>KURIBO</internalname>
+		<internalname>GOOMBA</internalname>
 		<actorid>200</actorid>
 		<description>That well-known enemy from SMB.
 
@@ -254,8 +254,8 @@ F - None
 		<renderer type="NormalBMD" file="data/enemy/kuribo/kuribo_model.bmd" scale="0.008" />
 	</object>
 	<object id="16">
-		<name>Small Goomba</name>
-		<internalname>KURIBO_S</internalname>
+		<name>Goomba (Small)</name>
+		<internalname>GOOMBA_SMALL</internalname>
 		<actorid>201</actorid>
 		<description>Parameter 1: 
 XWEC
@@ -286,8 +286,8 @@ F - None
 		<renderer type="NormalBMD" file="data/enemy/kuribo/kuribo_model.bmd" scale="0.002" />
 	</object>
 	<object id="17">
-		<name>Large Goomba</name>
-		<internalname>KURIBO_L</internalname>
+		<name>Goomba (Large)</name>
+		<internalname>GOOMBA_LARGE</internalname>
 		<actorid>202</actorid>
 		<description>Paramater 1: 
 XWEC 
@@ -319,7 +319,7 @@ F - None
 	</object>
 	<object id="18">
 		<name>Goomboss</name>
-		<internalname>KURIKING</internalname>
+		<internalname>GOOMBOSS</internalname>
 		<actorid>198</actorid>
 		<description>Encountered in Goomboss Battle. Alternatively known as Goomba King.
 
@@ -356,7 +356,7 @@ XXXX:
 	</object>
 	<object id="20">
 		<name>Bob-omb Buddy</name>
-		<internalname>RED_BOMBHEI</internalname>
+		<internalname>BOB_OMB_BUDDY</internalname>
 		<actorid>181</actorid>
 		<description>Pink, peaceful Bob-Omb buddy. Tells the associated message when the player talks to them. 
 
@@ -380,8 +380,8 @@ T: Type. If set to 1-3, ignores Parameter 1?
 		<renderer type="NormalBMD" file="data/enemy/bombhei/red_bombhei.bmd" scale="0.008" />
 	</object>
 	<object id="21">
-		<name>Koopa Troopa</name>
-		<internalname>NOKONOKO</internalname>
+		<name>Koopa</name>
+		<internalname>KOOPA</internalname>
 		<actorid>203</actorid>
 		<description>Well-known enemy from SMB. Can be kicked out of its shell, and awards a blue coin when killed. Eat the red variation for one-off fire breath. And kick the red shell to knock out enemies, like when you spit out a green shell.
 
@@ -399,8 +399,8 @@ C: Color
 		<renderer type="Koopa" />
 	</object>
 	<object id="22">
-		<name>Small Koopa Troopa</name>
-		<internalname>NOKONOKO_S</internalname>
+		<name>Koopa (Small)</name>
+		<internalname>KOOPA_SMALL</internalname>
 		<actorid>204</actorid>
 		<description>Found in the small area of Tiny Huge Island. Both colours act the same (maybe because the code to make it red is shared/copied from the normal Koopa Troopa).
 
@@ -723,7 +723,7 @@ D -
 	</object>
 	<object id="40">
 		<name>Bowser</name>
-		<internalname>KOOPA</internalname>
+		<internalname>BOWSER</internalname>
 		<actorid>279</actorid>
 		<description>Other requirments:
 * Only works in Bowser fight maps.
@@ -861,7 +861,7 @@ SS - Star ID
 	</object>
 	<object id="45">
 		<name>Shutter (BOB)</name>
-		<internalname>SWITCHDOOR</internalname>
+		<internalname>SHUTTER_BOB</internalname>
 		<actorid>40</actorid>
 		<description>A fence door that opens when the associated switch is activated. Never closes if associated to a timed switch, even after the switch timer runs out.
 
@@ -876,7 +876,7 @@ XXXX Which way it opens
 	</object>
 	<object id="46">
 		<name>Shutter (HMC)</name>
-		<internalname>CV_SHUTTER</internalname>
+		<internalname>SHUTTER_HMC</internalname>
 		<actorid>67</actorid>
 		<description>Used in Hazy Maze Cave.</description>
 		<bankreq>none</bankreq>
@@ -909,7 +909,7 @@ PP - Path ID</description>
 	</object>
 	<object id="49">
 		<name>1-Up Mushroom</name>
-		<internalname>ONEUPKINOKO</internalname>
+		<internalname>ONE_UP_MUSHROOM</internalname>
 		<actorid>276</actorid>
 		<description>Green mushroom that gives the player an extra life. If a mushroom is to be spawned from a tree, Nintendo places the "create tag" mushroom 0.2 y points above the "tag" mushroom.
 		
@@ -967,7 +967,7 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 	</object>
 	<object id="51">
 		<name>Chain Chomp Fence</name>
-		<internalname>WANWAN_SHUTTER</internalname>
+		<internalname>CHAIN_CHOMP_FENCE</internalname>
 		<actorid>41</actorid>
 		<description>The fence [object=000A] runs into when freed. In Bob-Omb Battlefield, it is used to prevent access to the 7th star. However, Vanish Luigi can go through it.</description>
 		<bankreq>none</bankreq>
@@ -990,7 +990,7 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 	</object>
 	<object id="53">
 		<name>Bird</name>
-		<internalname>SBIRD</internalname>
+		<internalname>BIRD</internalname>
 		<actorid>343</actorid>
 		<description>Birds that fly away when a player walks near them.
 
@@ -1038,7 +1038,7 @@ Parameter 1:
 	</object>
 	<object id="56">
 		<name>King Bob-omb</name>
-		<internalname>BOMBKING</internalname>
+		<internalname>KING_BOB_OMB</internalname>
 		<actorid>189</actorid>
 		<description>A big Bob-omb, that can be found on top summit of Bob-omb Battlefield. Formerly known as Big Bob-omb in this game and other earlier games.
 
@@ -1083,7 +1083,7 @@ XXXX where
 	</object>
 	<object id="59">
 		<name>Piranha Plant</name>
-		<internalname>PAKUN</internalname>
+		<internalname>PIRANHA_PLANT</internalname>
 		<actorid>250</actorid>
 		<description>Classic enemy from SMB.
 
@@ -1114,7 +1114,7 @@ I - Star ID</description>
 	</object>
 	<object id="61">
 		<name>Power Star</name>
-		<internalname>STAR</internalname>
+		<internalname>POWER_STAR</internalname>
 		<actorid>178</actorid>
 		<description>Adds 1 star to the player's star counter when collected. Only appears on the minimap if Y matches the current star.
 
@@ -1455,7 +1455,7 @@ This might be because she was never intended to talk, but was given this behavio
 	</object>
 	<object id="82">
 		<name>Bowser Fire Sea Arena</name>
-		<internalname>KOOPA2BG</internalname>
+		<internalname>BOWSER_FIRE_SEA_ARENA</internalname>
 		<actorid>166</actorid>
 		<description>The red tinted platform in Bowser in the Fire Sea - fight. It tilts towards Bowser if he jumps on it.
 
@@ -1467,7 +1467,7 @@ Uses FFFF</description>
 	</object>
 	<object id="83">
 		<name>Bowser Sky Platform</name>
-		<internalname>KOOPA3BG</internalname>
+		<internalname>BOWSER_SKY_PLATFORM</internalname>
 		<actorid>167</actorid>
 		<description>A large green piece of the platform in Bowser in the Sky - Fight. They fall one by one each time Bowser is thrown off the platform. Once Bowser is on his last hit,
 
@@ -1480,7 +1480,7 @@ FFXX Order that platforms fall in?
 	</object>
 	<object id="84">
 		<name>Koopa Shell</name>
-		<internalname>SHELL</internalname>
+		<internalname>KOOPA_SHELL</internalname>
 		<actorid>285</actorid>
 		<description>The green Koopa Shell can be ridden on/under water and on land, while its red counterpart can be hit to send it flying across the ground. Red shells can be eaten by Yoshi to allow him to breathe fire. Green shells can be eaten by Yoshi, then spat out to travel as a Red Shell does when hit.
 		
@@ -1774,7 +1774,7 @@ FF00 to be actiated by a ! switch</description>
 	</object>
 	<object id="114">
 		<name>Rotating Platform (RR)</name>
-		<internalname>RC_KAITEN</internalname>
+		<internalname>ROTATING_PLATFORM_RR</internalname>
 		<actorid>129</actorid>
 		<description>Spinning platform (Y axis) from Rainbow Ride.
 
@@ -1866,7 +1866,7 @@ Use FFFF.</description>
 	</object>
 	<object id="122">
 		<name>Rotating Platform (WDW)</name>
-		<internalname>WC_UKISIMA</internalname>
+		<internalname>ROTATING_PLATFORM_WDW</internalname>
 		<actorid>94</actorid>
 		<description>TODO: Investigate parameters</description>
 		<bankreq>none</bankreq>
@@ -1874,12 +1874,12 @@ Use FFFF.</description>
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj07/wc_obj07.bmd" scale="0.008" />
 	</object>
 	<object id="123">
-		<name>WDW 01 (Square Wood Lift)</name>
-		<internalname>WC_OBJ01</internalname>
+		<name>Float on Water Platform (WDW, Square)</name>
+		<internalname>FLOAT_ON_WATER_PLATFORM_WDW_SQUARE</internalname>
 		<actorid>95</actorid>
 		<description>A square wood platform which floats on water. Proportions are 0.5x?x0.5 points.</description>
-		<bankreq>7=22</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/float_on_water_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj01/wc_obj01.bmd" scale="0.008" />
 	</object>
 	<object id="124">
@@ -1933,12 +1933,12 @@ T: Type
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj05/wc_obj05.bmd" scale="0.008" />
 	</object>
 	<object id="128">
-		<name>WDW - 06 - RectangularWoodLift</name>
-		<internalname>WC_OBJ06</internalname>
+		<name>Float on Water Platform (WDW, Rectangle)</name>
+		<internalname>FLOAT_ON_WATER_PLATFORM_WDW_RECTANGLE</internalname>
 		<actorid>100</actorid>
 		<description>A rectangular wood lift which floats on water.</description>
-		<bankreq>7=22</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/float_on_water_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj06/wc_obj06.bmd" scale="0.008" />
 	</object>
 	<object id="129">
@@ -2031,7 +2031,7 @@ The name seems to be an interesting reference to London bridge.</description>
 	</object>
 	<object id="138">
 		<name>Rotating Platform (LLL)</name>
-		<internalname>FL_KOMA_D</internalname>
+		<internalname>ROTATING_PLATFORM_LLL</internalname>
 		<actorid>80</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2065,7 +2065,7 @@ XXXX Delay before bobbing up and down
 	</object>
 	<object id="141">
 		<name>Fall Block (LLL)</name>
-		<internalname>FL_KUZURE</internalname>
+		<internalname>FALL_BLOCK_LLL</internalname>
 		<actorid>83</actorid>
 		<description>Spawns when a Star Marker with a matching Star ID is activated. Star Markers with Star Switch parameter setup seem to count as "activated" all the time.
 
@@ -2354,8 +2354,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<renderer type="NormalBMD" file="data/enemy/pukupuku/pukupuku.bmd" scale="0.008" />
 	</object>
 	<object id="167">
-		<name>Clock Painting Hand - Short</name>
-		<internalname>CLOCK_SHORT</internalname>
+		<name>Clock Painting Hand (Short)</name>
+		<internalname>CLOCK_PAINTING_HAND_SHORT</internalname>
 		<actorid>292</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2363,8 +2363,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<renderer type="NormalBMD" file="data/special_obj/c2_hari_short/c2_hari_short.bmd" scale="0.008" />
 	</object>
 	<object id="168">
-		<name>Clock Painting Hand - Long</name>
-		<internalname>CLOCK_LONG</internalname>
+		<name>Clock Painting Hand (Long)</name>
+		<internalname>CLOCK_PAINTING_HAND_LONG</internalname>
 		<actorid>293</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2373,7 +2373,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 	</object>
 	<object id="169">
 		<name>Clock Painting Pendulum</name>
-		<internalname>CLOCK_HURIKO</internalname>
+		<internalname>CLOCK_PAINTING_PENDULUM</internalname>
 		<actorid>294</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2473,8 +2473,8 @@ MM - See ! Switch parameter info</description>
 		<renderer type="NormalBMD" file="data/special_obj/km1_deru/km1_deru.bmd" scale="0.008" />
 	</object>
 	<object id="179">
-		<name>JRB Boat - Down</name>
-		<internalname>KI_FUNE</internalname>
+		<name>Ship (Down)</name>
+		<internalname>SHIP_DOWN</internalname>
 		<actorid>56</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2482,8 +2482,8 @@ MM - See ! Switch parameter info</description>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="180">
-		<name>JRB Boat - Up</name>
-		<internalname>KI_FUNE_UP</internalname>
+		<name>Ship (Up)</name>
+		<internalname>SHIP_UP</internalname>
 		<actorid>57</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2491,17 +2491,17 @@ MM - See ! Switch parameter info</description>
 		<renderer type="NormalBMD" file="data/special_obj/ki_fune/ki_fune_up.bmd" scale="0.008" />
 	</object>
 	<object id="181">
-		<name>JRB Pillar</name>
-		<internalname>KI_HASIRA</internalname>
+		<name>Rock Pillar</name>
+		<internalname>ROCK_PILLAR</internalname>
 		<actorid>58</actorid>
 		<description>Pillar of rock that falls over on Player from JRB.</description>
-		<bankreq>7=9</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rock_pillar.dylb</dlreq>
 		<renderer type="DoubleBMD" file1="data/special_obj/ki_hasira/ki_hasira_dai.bmd" file2="data/special_obj/ki_hasira/ki_hasira.bmd" scale="0.008" offset1="-" offset2="0,12.5,0" />
 	</object>
 	<object id="182">
-		<name>JRB Rock Triangle</name>
-		<internalname>KI_HASIRA_DAI</internalname>
+		<name>Rock Triangle</name>
+		<internalname>ROCK_TRIANGLE</internalname>
 		<actorid>59</actorid>
 		<description>A rock triangle only solid on top.</description>
 		<bankreq>none</bankreq>
@@ -2509,12 +2509,12 @@ MM - See ! Switch parameter info</description>
 		<renderer type="NormalBMD" file="data/special_obj/ki_hasira/ki_hasira_dai.bmd" scale="0.008" />
 	</object>
 	<object id="183">
-		<name>JRB Float-on-water Plank</name>
-		<internalname>KI_ITA</internalname>
+		<name>Float on Water Platform (JRB)</name>
+		<internalname>FLOAT_ON_WATER_PLATFORM_JRB</internalname>
 		<actorid>60</actorid>
 		<description />
-		<bankreq>7=9</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/float_on_water_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ki_ita/ki_ita.bmd" scale="0.008" />
 	</object>
 	<object id="184">
@@ -2641,7 +2641,7 @@ Parameter 1:
 	</object>
 	<object id="196">
 		<name>Pole Billboard</name>
-		<internalname>BK_BILLBOARD</internalname>
+		<internalname>POLE_BILLBOARD</internalname>
 		<actorid>42</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2659,7 +2659,7 @@ Parameter 1:
 	</object>
 	<object id="198">
 		<name>Knock Down Plank</name>
-		<internalname>BK_BOTAOSI</internalname>
+		<internalname>KNOCK_DOWN_PLANK</internalname>
 		<actorid>44</actorid>
 		<description>If kicked, it will fall flat, ignoring all collision. If it is bumped into by a giant player it falls down on its back.</description>
 		<bankreq>7=8</bankreq>
@@ -2668,7 +2668,7 @@ Parameter 1:
 	</object>
 	<object id="199">
 		<name>Fall Block (WF)</name>
-		<internalname>BK_DOWN_B</internalname>
+		<internalname>FALL_BLOCK_WF</internalname>
 		<actorid>45</actorid>
 		<description>Falling bridge blocks from Whomp's Fortress.</description>
 		<bankreq>none</bankreq>
@@ -2721,7 +2721,7 @@ Note: The collision map for this object should be scaled by 10.</description>
 	</object>
 	<object id="204">
 		<name>Rotating Platform (WF)</name>
-		<internalname>BK_UKISIMA</internalname>
+		<internalname>ROTATING_PLATFORM_WF</internalname>
 		<actorid>50</actorid>
 		<description>Floating rotating island from Whomp's Fortress.</description>
 		<bankreq>none</bankreq>
@@ -2730,7 +2730,7 @@ Note: The collision map for this object should be scaled by 10.</description>
 	</object>
 	<object id="205">
 		<name>Rotating Bridge</name>
-		<internalname>BK_ROTEBAR</internalname>
+		<internalname>ROTATING_BRIDGE</internalname>
 		<actorid>51</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2739,7 +2739,7 @@ Note: The collision map for this object should be scaled by 10.</description>
 	</object>
 	<object id="206">
 		<name>Tower Step</name>
-		<internalname>BK_LIFT01</internalname>
+		<internalname>TOWER_STEP</internalname>
 		<actorid>52</actorid>
 		<description>Moving steps used to climb the Tower in Whomp's Fortress.
 
@@ -2755,8 +2755,8 @@ FF - No movement
 		<renderer type="NormalBMD" file="data/special_obj/bk_lift01/bk_lift01.bmd" scale="0.008" />
 	</object>
 	<object id="207">
-		<name>Moving Bar - Small</name>
-		<internalname>BK_DOSSUNBAR_S</internalname>
+		<name>Moving Bar (Small)</name>
+		<internalname>MOVING_BAR_SMALL</internalname>
 		<actorid>54</actorid>
 		<description>Chunk of wall (small) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
 		<bankreq>none</bankreq>
@@ -2764,8 +2764,8 @@ FF - No movement
 		<renderer type="NormalBMD" file="data/special_obj/bk_dossunbar_s/bk_dossunbar_s.bmd" scale="0.008" />
 	</object>
 	<object id="208">
-		<name>Moving Bar - Big</name>
-		<internalname>BK_DOSSUNBAR_L</internalname>
+		<name>Moving Bar (Big)</name>
+		<internalname>MOVING_BAR_BIG</internalname>
 		<actorid>53</actorid>
 		<description>Chunk of wall (large) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
 		<bankreq>none</bankreq>
@@ -2783,7 +2783,7 @@ FF - No movement
 	</object>
 	<object id="210">
 		<name>Fall Block (BBH)</name>
-		<internalname>TH_DOWN_B</internalname>
+		<internalname>FALL_BLOCK_BBH</internalname>
 		<actorid>66</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2792,7 +2792,7 @@ FF - No movement
 	</object>
 	<object id="211">
 		<name>Fall Block (BFS)</name>
-		<internalname>KM2_KUZURE</internalname>
+		<internalname>FALL_BLOCK_BFS</internalname>
 		<actorid>139</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2948,7 +2948,7 @@ TODO: Work out parameters</description>
 	</object>
 	<object id="227">
 		<name>Rotating Platform (BS)</name>
-		<internalname>KM3_KAITENDAI</internalname>
+		<internalname>ROTATING_PLATFORM_BS</internalname>
 		<actorid>156</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2957,7 +2957,7 @@ TODO: Work out parameters</description>
 	</object>
 	<object id="228">
 		<name>Switch Pillar</name>
-		<internalname>C0_SWITCH</internalname>
+		<internalname>SWITCH_PILLAR</internalname>
 		<actorid>34</actorid>
 		<description>When two of them have been groundpounded, the water level in the castle's moat is lowered, making the 'Secret under the Moat' level accessible.</description>
 		<bankreq>none</bankreq>
@@ -3036,7 +3036,7 @@ P - Path ID</description>
 	</object>
 	<object id="236">
 		<name>Spike Bomb</name>
-		<internalname>KIRAI</internalname>
+		<internalname>SPIKE_BOMB</internalname>
 		<actorid>284</actorid>
 		<description>Explodes when touched, taking two wedges of the player's health. If Bowser comes in contact with these after being thrown, he will be damaged.
 
@@ -3083,7 +3083,7 @@ PP - Path ID. Appears to start on the last node of the path.
 	</object>
 	<object id="239">
 		<name>Hoot the Owl</name>
-		<internalname>OWL</internalname>
+		<internalname>HOOT_THE_OWL</internalname>
 		<actorid>234</actorid>
 		<description>Appears when the player climbs into his tree. While holding B, the player can fly around holding him. Nintendo places him 0.2 y points higher than the tree.</description>
 		<bankreq>none</bankreq>
@@ -3139,7 +3139,7 @@ Z: Movement path
 	</object>
 	<object id="243">
 		<name>Invisible Pole</name>
-		<internalname>BAR</internalname>
+		<internalname>INVISIBLE_POLE</internalname>
 		<actorid>287</actorid>
 		<description>A pole. However, it is invisible. Used to give parts of the level model "pole behavior".
 
@@ -3269,7 +3269,7 @@ Z: How it should behave
 	</object>
 	<object id="252">
 		<name>Klepto</name>
-		<internalname>JANGO</internalname>
+		<internalname>KLEPTO</internalname>
 		<actorid>239</actorid>
 		<description>A bird that tries to steal the player's hat. If the player is Yoshi, or has no hat, Klepto will try to attack them.
 
@@ -3428,7 +3428,7 @@ P - Path ID</description>
 	</object>
 	<object id="262">
 		<name>Cloud</name>
-		<internalname>OBJ_KUMO</internalname>
+		<internalname>CLOUD</internalname>
 		<actorid>314</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -3483,7 +3483,7 @@ ZZZZ - Z rotation. Unsure of details.</description>
 		<renderer type="FlameThrower" />
 	</object>
 	<object id="267">
-		<name>Super Mushroom Create Tag</name>
+		<name>Mega Mushroom Create Tag</name>
 		<internalname>KINOKO_CREATE_TAG</internalname>
 		<actorid>319</actorid>
 		<description>When KINOKO_TAG tells this to, it spawns a Super Mushroom.
@@ -3494,7 +3494,7 @@ MMMM - Match this with M of KINOKO_TAG - you cannot match it with more than one.
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="268">
-		<name>Super Mushroom Tag</name>
+		<name>Mega Mushroom Tag</name>
 		<internalname>KINOKO_TAG</internalname>
 		<actorid>320</actorid>
 		<description>When you touch this while in the ground-pound "state", it tells the linked [object=0267] to spawn a Super Mushroom.
@@ -3518,7 +3518,7 @@ MMMM - Match this with M of KINOKO_CREATE_TAG - you cannot match it with more th
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="270">
-		<name>Block Super Mushroom Tag</name>
+		<name>Block Mega Mushroom Tag</name>
 		<internalname>BLK_SKINOKO_TAG</internalname>
 		<actorid>322</actorid>
 		<description>Spawns a Super Mushroom if its location is the same as that of a Brick Block or Big Brick Block when the block is destroyed.
@@ -3553,7 +3553,7 @@ Parameter 1:
 	</object>
 	<object id="273">
 		<name>Trap</name>
-		<internalname>C1_TRAP</internalname>
+		<internalname>TRAP</internalname>
 		<actorid>36</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -3562,7 +3562,7 @@ Parameter 1:
 	</object>
 	<object id="274">
 		<name>Light Beam</name>
-		<internalname>C1_HIKARI</internalname>
+		<internalname>LIGHT_BEAM</internalname>
 		<actorid>37</actorid>
 		<description>Warps to [31] ? Switch if you look at the top of it with the highest zoom level and 14 stars.</description>
 		<bankreq>none</bankreq>
@@ -3571,7 +3571,7 @@ Parameter 1:
 	</object>
 	<object id="275">
 		<name>Peach Painting</name>
-		<internalname>C1_PEACH</internalname>
+		<internalname>PEACH_PAINTING</internalname>
 		<actorid>38</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -3590,7 +3590,7 @@ Parameter 1: First two digits should be 06, second to specify the path ID (zero-
 	</object>
 	<object id="277">
 		<name>Key</name>
-		<internalname>OBJ_KEY</internalname>
+		<internalname>KEY</internalname>
 		<actorid>282</actorid>
 		<description>Big key spawned by bosses upon their defeat. These all act the same in the castle courtyard.
 
@@ -3618,7 +3618,7 @@ Setting Parameter 1 to FFFF causes it to work the same as when Bowser is defeate
 	</object>
 	<object id="279">
 		<name>Eyerok</name>
-		<internalname>IWANTE</internalname>
+		<internalname>EYEROK</internalname>
 		<actorid>176</actorid>
 		<description>TODO:
 Write the coordinates.
@@ -3631,12 +3631,12 @@ X - Star ID
 
 This object will only activate if you stand on it or the area around it in specific coordinates in Shifting Sand Land's Pyramid, and nowhere else.</description>
 		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/eyerock.dylb</dlreq>
+		<dlreq>data/dynamic/eyerok.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/iwante/iwante_dummy.bmd" scale="0.008" />
 	</object>
 	<object id="280">
 		<name>Wiggler</name>
-		<internalname>HANACHAN</internalname>
+		<internalname>WIGGLER</internalname>
 		<actorid>248</actorid>
 		<description>A caterpillar that tries to run over the player. When defeated, a Power Star appears, and Wiggler falls.
 
@@ -3648,7 +3648,7 @@ FF0X Star ID</description>
 	</object>
 	<object id="281">
 		<name>Koopa the Quick</name>
-		<internalname>RACE_NOKO</internalname>
+		<internalname>KOOPA_THE_QUICK</internalname>
 		<actorid>188</actorid>
 		<description>A large Koopa that challenges the player to several races. He will follow the path ID stopping at the last node. He respects gravity, has collision detection, will jump at the edge of cliffs and can make it across small gaps. There must be a "Koopa Flag" in the level, or he will freeze when talked to.
 
@@ -3678,7 +3678,7 @@ S - Star ID
 	</object>
 	<object id="282">
 		<name>Koopa Flag</name>
-		<internalname>RACE_FLAG</internalname>
+		<internalname>KOOPA_FLAG</internalname>
 		<actorid>205</actorid>
 		<description>The flag that appears when racing Koopa the Quick.
 
@@ -3798,7 +3798,7 @@ YY - Star ID</description>
 	</object>
 	<object id="292">
 		<name>Treasure Chest</name>
-		<internalname>TREASURE_BOX</internalname>
+		<internalname>TREASURE_CHEST</internalname>
 		<actorid>13</actorid>
 		<description>A treasure chest.
 
@@ -3818,8 +3818,8 @@ YY - The order of the current chest.
 	</object>
 	<object id="293">
 		<name>Castle Water</name>
-		<internalname>MC_WATER</internalname>
-		<actorid>0</actorid>
+		<internalname>CASTLE_WATER</internalname>
+		<actorid>338</actorid>
 		<description />
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/castle_water.dylb</dlreq>
@@ -3836,7 +3836,7 @@ YY - The order of the current chest.
 	</object>
 	<object id="295">
 		<name>Metal Net</name>
-		<internalname>MC_METALNET</internalname>
+		<internalname>METAL_NET</internalname>
 		<actorid>339</actorid>
 		<description>A grate that blocks off the cannon and several other locations.</description>
 		<bankreq>none</bankreq>
@@ -3863,7 +3863,7 @@ YY - The order of the current chest.
 	</object>
 	<object id="298">
 		<name>Flag</name>
-		<internalname>MC_FLAG</internalname>
+		<internalname>FLAG</internalname>
 		<actorid>342</actorid>
 		<description>A red and white flag, like the ones present on Peach's castle's roof. Purely decorative object.</description>
 		<bankreq>none</bankreq>
@@ -3901,7 +3901,7 @@ TT: Type
 	</object>
 	<object id="301">
 		<name>Chuckya</name>
-		<internalname>HOLHEI</internalname>
+		<internalname>CHUCKYA</internalname>
 		<actorid>190</actorid>
 		<description>A large purple enemy that tries to grab the player and throw them. It can also be grabbed and thrown. If grabbed underwater, the player can carry it like a green Koopa Shell. However, after a few seconds, the Chuckya will automatically "throw" itself and die. The player can also throw it underwater.
 
@@ -3913,8 +3913,8 @@ TT: Type
 		<renderer type="NormalBMD" file="data/enemy/horuhei/horuhei.bmd" scale="0.008" />
 	</object>
 	<object id="302">
-		<name>Super Mushroom</name>
-		<internalname>SCALEUP_KINOKO</internalname>
+		<name>Mega Mushroom</name>
+		<internalname>MEGA_MUSHROOM</internalname>
 		<actorid>277</actorid>
 		<description>A mushroom that makes the player huge, stomping everything in their way. If the player is huge and falls into water, the player acts as if they were Metal Wario. It looks glitchy if another player stomps on a huge player. If a mushroom is to be spawned from a tree, Nintendo places the "create tag" mushroom 0.2 y points above the "tag" mushroom.
 		
@@ -3944,7 +3944,7 @@ Parameter 1:
 	</object>
 	<object id="303">
 		<name>Basement Water</name>
-		<internalname>C0_WATER</internalname>
+		<internalname>BASEMENT_WATER</internalname>
 		<actorid>35</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -4012,7 +4012,7 @@ Alone, not a really useful object.</description>
 	</object>
 	<object id="307">
 		<name>Bouncing Lava Bubble</name>
-		<internalname>BUBBLE</internalname>
+		<internalname>LAVA_BUBBLE</internalname>
 		<actorid>214</actorid>
 		<description />
 		<bankreq>0=3</bankreq>
@@ -4056,8 +4056,8 @@ Alone, not a really useful object.</description>
 		<renderer type="NormalBMD" file="data/normal_obj/w_ring/w_ring.bmd" scale="0.016" />
 	</object>
 	<object id="312">
-		<name>Fire Piranha Plant - Big</name>
-		<internalname>FIREPAKUN</internalname>
+		<name>Fire Piranha Plant (Big)</name>
+		<internalname>FIRE_PIRANHA_PLANT_BIG</internalname>
 		<actorid>251</actorid>
 		<description>Giant fire-breathing Piranha Plant that grows into visibility when approached.
 
@@ -4074,8 +4074,8 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 		<renderer type="NormalBMD" file="data/enemy/pakkun/pakkun_model.bmd" scale="0.016" />
 	</object>
 	<object id="313">
-		<name>Fire Piranha Plant - Small</name>
-		<internalname>FIREPAKUN_S</internalname>
+		<name>Fire Piranha Plant (Small)</name>
+		<internalname>FIRE_PIRANHA_PLANT_SMALL</internalname>
 		<actorid>252</actorid>
 		<description>Tiny fire-breathing Piranha Plant that grows into visibility when approached.
 
@@ -4088,7 +4088,7 @@ P - Star ID. Match correctly with a Star Marker for a Power Star to spawn when f
 	</object>
 	<object id="314">
 		<name>Fire Piranha Plant</name>
-		<internalname>PAKUN2</internalname>
+		<internalname>FIRE_PIRANHA_PLANT</internalname>
 		<actorid>253</actorid>
 		<description>A Piranha Plant that grows into visibility when approached.
 
@@ -4184,7 +4184,7 @@ FFXX Seems to always be FF14</description>
 	</object>
 	<object id="321">
 		<name>Bowser Shockwaves</name>
-		<internalname>FIRERING</internalname>
+		<internalname>BOWSER_SHOCKWAVES</internalname>
 		<actorid>281</actorid>
 		<description>Possibly a fire ring. This object's actor code is contained in an overlay that isn't loaded via the regular system. Possibly, it is loaded and used as a sub-object by another object, and isn't meant to be used alone.
 
@@ -4270,10 +4270,595 @@ F - Same as 3?
 	<object id="511">
 		<name>Minimap Change</name>
 		<internalname>MPCHANGE</internalname>
-		<actorid>0</actorid>
+		<actorid>-1</actorid>
 		<description>Changes the minimap shown on the bottom screen when the user passes near it.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
+	</object>
+	<object id="-1">
+		<name>Bowser Fire</name>
+		<internalname>BOWSER_FIRE</internalname>
+		<actorid>280</actorid>
+		<description>The fire Bowser spits out.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>ToxBoxShuffle</name>
+		<internalname>TOXBOXSHUFFLE</internalname>
+		<actorid>361</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MemoryMatch</name>
+		<internalname>MEMORYMATCH_MEMORYMATCH</internalname>
+		<actorid>362</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MemoryMaster</name>
+		<internalname>MEMORYMASTER_MEMORYMASTER</internalname>
+		<actorid>363</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MarioSlot &amp; SuperMarioSlot</name>
+		<internalname>MARIOSLOT_SUPERMARIOSLOT</internalname>
+		<actorid>364</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MixAMug</name>
+		<internalname>MIXAMUG_MIXAMUG</internalname>
+		<actorid>365</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Wanted</name>
+		<internalname>WANTED_WANTED</internalname>
+		<actorid>366</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>BoomBox</name>
+		<internalname>BOOMBOX_BOOMBOX</internalname>
+		<actorid>367</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>BobOmbSquad</name>
+		<internalname>BOBOMBSQUAD</internalname>
+		<actorid>368</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>LakituLaunch</name>
+		<internalname>LAKITULAUNCH_LAKITULAUNCH</internalname>
+		<actorid>369</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>SortOrSplode</name>
+		<internalname>SORTORSPLODE</internalname>
+		<actorid>370</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MariosSlides &amp; ConnectTheCharacters</name>
+		<internalname>MARIOSSLIDES_CONNECTTHECHARACTERS</internalname>
+		<actorid>371</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>BounceAndPounce</name>
+		<internalname>BOUNCEANDPOUNCE</internalname>
+		<actorid>372</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>BounceAndTrounce</name>
+		<internalname>BOUNCEANDTROUNCE</internalname>
+		<actorid>373</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>ShuffleShell</name>
+		<internalname>SHUFFLESHELL_SHUFFLESHELL</internalname>
+		<actorid>374</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>ShellSmash</name>
+		<internalname>SHELLSMASH_SHELLSMASH</internalname>
+		<actorid>375</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>BingoBall &amp; SlotsShot</name>
+		<internalname>BINGOBALL_SLOTSSHOT</internalname>
+		<actorid>376</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>SnowballSlalom &amp; GiantSnowballSlalom</name>
+		<internalname>SNOWBALLSLALOM_GIANTSNOWBALLSLALOM</internalname>
+		<actorid>377</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Coincentration &amp; IntenseCoincentration</name>
+		<internalname>COINCENTRATION_INTENSECOINCENTRATION</internalname>
+		<actorid>378</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>PicturePoker</name>
+		<internalname>PICTUREPOKER_PICTUREPOKER</internalname>
+		<actorid>379</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>PuzzlePanel &amp; PuzzlePanic</name>
+		<internalname>PUZZLEPANEL_PUZZLEPANIC</internalname>
+		<actorid>380</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>PairAGone</name>
+		<internalname>PAIRAGONE_PAIRAGONE</internalname>
+		<actorid>381</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>PairAGoneAndOn</name>
+		<internalname>PAIRAGONEANDON_PAIRAGONEANDON</internalname>
+		<actorid>382</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MushroomRoulette</name>
+		<internalname>MUSHROOMROULETTE_MUSHROOMROULETTE</internalname>
+		<actorid>383</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>TrampolineTime</name>
+		<internalname>TRAMPOLINETIME_TRAMPOLINETIME</internalname>
+		<actorid>384</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>TrampolineTerror</name>
+		<internalname>TRAMPOLINETERROR_TRAMPOLINETERROR</internalname>
+		<actorid>385</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>WhichWiggler</name>
+		<internalname>WHICHWIGGLER_WHICHWIGGLER</internalname>
+		<actorid>386</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>HideAndBooSeek</name>
+		<internalname>HIDEANDBOOSEEK_HIDEANDBOOSEEK</internalname>
+		<actorid>387</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>LuckyStars</name>
+		<internalname>LUCKYSTARS_LUCKYSTARS</internalname>
+		<actorid>388</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>PsycheOut</name>
+		<internalname>PSYCHEOUT_PSYCHEOUT</internalname>
+		<actorid>389</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MultiBoot Scene</name>
+		<internalname>MULTI_BOOT_SCENE</internalname>
+		<actorid>360</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Bubble</name>
+		<internalname>BUBBLE</internalname>
+		<actorid>291</actorid>
+		<description>Bubble spawned by opening a Treasure Chest underwater.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Title Screen</name>
+		<internalname>TITLE_SCREEN</internalname>
+		<actorid>1</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Level Scene</name>
+		<internalname>LEVEL_SCENE</internalname>
+		<actorid>3</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Bowser Tail</name>
+		<internalname>BOWSER_TAIL</internalname>
+		<actorid>278</actorid>
+		<description>Bowser's tail.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Flame Chomp Fireball</name>
+		<internalname>FLAME_CHOMP_FIREBALL</internalname>
+		<actorid>271</actorid>
+		<description>Projectile</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Mr. I Projectile</name>
+		<internalname>MR_I_PROJECTILE</internalname>
+		<actorid>264</actorid>
+		<description>Projectile</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>1 Up Logo</name>
+		<internalname>ONE_UP_LOGO</internalname>
+		<actorid>331</actorid>
+		<description>The logo spawned when collecting a 1 Up Mushroom</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Camera</name>
+		<internalname>CAMERA</internalname>
+		<actorid>332</actorid>
+		<description>Base actor.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Piranha Plant Fireball</name>
+		<internalname>PIRANHA_PLANT_FIREBALL</internalname>
+		<actorid>254</actorid>
+		<description>Projectile</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>HUD</name>
+		<internalname>HUD</internalname>
+		<actorid>334</actorid>
+		<description>Base actor.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Minimap</name>
+		<internalname>MINIMAP</internalname>
+		<actorid>335</actorid>
+		<description>Base actor.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Pokey Segment</name>
+		<internalname>POKEY_SEGMENT</internalname>
+		<actorid>241</actorid>
+		<description>A Pokey piece.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Snowball</name>
+		<internalname>SNOWBALL</internalname>
+		<actorid>224</actorid>
+		<description>Projectile</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Goomboss Explosion Goomba</name>
+		<internalname>EXPLOSION_GOOMBA</internalname>
+		<actorid>199</actorid>
+		<description>The dummy Goombas spawned by Goomboss after he explodes.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>LovesMe</name>
+		<internalname>LOVESME_LOVESME</internalname>
+		<actorid>390</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>BitS Rickshaw Lift Platform</name>
+		<internalname>BITS_PLATFORM</internalname>
+		<actorid>151</actorid>
+		<description>Spawned by its spawner.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>BitDW Rickshaw Lift Platform</name>
+		<internalname>BITDW_PLATFORM</internalname>
+		<actorid>136</actorid>
+		<description>Spawned by its spawner.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>SL Sliding Ice</name>
+		<internalname>SL_SLIDING_ICE</internalname>
+		<actorid>93</actorid>
+		<description>Spawned by its spawner.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Yoshi Egg</name>
+		<internalname>YOSHI_EGG</internalname>
+		<actorid>9</actorid>
+		<description>The egg that Yoshi makes, can be round or squared.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>GameOver Screen</name>
+		<internalname>GAMEOVER_SCREEN</internalname>
+		<actorid>8</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Wing Feather</name>
+		<internalname>WING_FEATHER</internalname>
+		<actorid>345</actorid>
+		<description>Gives the player wings.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Unknown (VS entry)</name>
+		<internalname>UNKNOWN_VS_ENTRY</internalname>
+		<actorid>346</actorid>
+		<description>Not documented.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Warp</name>
+		<internalname>WARP</internalname>
+		<actorid>347</actorid>
+		<description>Has its own object type.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Virtual Door</name>
+		<internalname>VIRTUAL_DOOR</internalname>
+		<actorid>348</actorid>
+		<description>Has its own object type.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>ChScene</name>
+		<internalname>CHSCENE</internalname>
+		<actorid>349</actorid>
+		<description>Not documented yet.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Unknown (VS Menu related)</name>
+		<internalname>UNKNOWN_VS_MENU_RELATED</internalname>
+		<actorid>7</actorid>
+		<description>Not documented.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>VS Menu</name>
+		<internalname>VS_MENU</internalname>
+		<actorid>6</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>DemoSimpleModel</name>
+		<internalname>DEMO_SIMPLE_MODEL</internalname>
+		<actorid>352</actorid>
+		<description>The object used in the intro and ending cutscenes.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Door</name>
+		<internalname>DOOR_DOOR</internalname>
+		<actorid>353</actorid>
+		<description>Has its own object type.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Star Door</name>
+		<internalname>STAR_DOOR</internalname>
+		<actorid>354</actorid>
+		<description>Has its own object type.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Minigame Select</name>
+		<internalname>MINIGAME_SELECT</internalname>
+		<actorid>5</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Star Select</name>
+		<internalname>STAR_SELECT</internalname>
+		<actorid>4</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Debug Level Select</name>
+		<internalname>DEBUG_LEVEL_SELECT</internalname>
+		<actorid>2</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Boot Scene</name>
+		<internalname>BOOT_SCENE</internalname>
+		<actorid>0</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="ffffff" fill="404040" />
 	</object>
 </database>

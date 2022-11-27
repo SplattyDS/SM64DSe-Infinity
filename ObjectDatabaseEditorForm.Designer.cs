@@ -32,8 +32,11 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.btnClose = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnImportXML = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSort = new System.Windows.Forms.ToolStripButton();
+            this.btnDisplay = new System.Windows.Forms.ToolStripButton();
             this.lstObjects = new System.Windows.Forms.ListBox();
             this.txtObjectName = new System.Windows.Forms.TextBox();
             this.txtInternalName = new System.Windows.Forms.TextBox();
@@ -56,6 +59,7 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.txtRenderer = new System.Windows.Forms.TextBox();
+            this.btnImportMultiple = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudObjectID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudActorID)).BeginInit();
@@ -67,11 +71,15 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnSave,
             this.btnClose,
+            this.toolStripSeparator1,
+            this.btnImportXML,
+            this.btnImportMultiple,
             this.toolStripSeparator2,
-            this.btnImportXML});
+            this.btnSort,
+            this.btnDisplay});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1073, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1073, 31);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -80,7 +88,7 @@
             this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(44, 24);
+            this.btnSave.Size = new System.Drawing.Size(44, 28);
             this.btnSave.Text = "Save";
             this.btnSave.ToolTipText = "Save the level names and overlay IDs";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -90,25 +98,50 @@
             this.btnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(49, 24);
+            this.btnClose.Size = new System.Drawing.Size(49, 28);
             this.btnClose.Text = "Close";
             this.btnClose.ToolTipText = "Close the window";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // toolStripSeparator2
+            // toolStripSeparator1
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // btnImportXML
             // 
             this.btnImportXML.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnImportXML.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnImportXML.Name = "btnImportXML";
-            this.btnImportXML.Size = new System.Drawing.Size(91, 24);
+            this.btnImportXML.Size = new System.Drawing.Size(91, 28);
             this.btnImportXML.Text = "Import XML";
             this.btnImportXML.ToolTipText = "Import level names from an XML file";
             this.btnImportXML.Click += new System.EventHandler(this.btnImportXML_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // btnSort
+            // 
+            this.btnSort.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSort.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(130, 28);
+            this.btnSort.Text = "Sort by: Object ID";
+            this.btnSort.ToolTipText = "Import level names from an XML file";
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
+            // 
+            // btnDisplay
+            // 
+            this.btnDisplay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDisplay.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDisplay.Name = "btnDisplay";
+            this.btnDisplay.Size = new System.Drawing.Size(157, 28);
+            this.btnDisplay.Text = "Display: Object Name";
+            this.btnDisplay.ToolTipText = "Import level names from an XML file";
+            this.btnDisplay.Click += new System.EventHandler(this.btnDisplay_Click);
             // 
             // lstObjects
             // 
@@ -145,6 +178,11 @@
             0,
             0,
             0});
+            this.nudObjectID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.nudObjectID.Name = "nudObjectID";
             this.nudObjectID.Size = new System.Drawing.Size(326, 22);
             this.nudObjectID.TabIndex = 14;
@@ -194,6 +232,11 @@
             0,
             0,
             0});
+            this.nudActorID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.nudActorID.Name = "nudActorID";
             this.nudActorID.Size = new System.Drawing.Size(326, 22);
             this.nudActorID.TabIndex = 19;
@@ -314,6 +357,16 @@
             this.txtRenderer.TabIndex = 33;
             this.txtRenderer.TextChanged += new System.EventHandler(this.txtRenderer_TextChanged);
             // 
+            // btnImportMultiple
+            // 
+            this.btnImportMultiple.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnImportMultiple.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnImportMultiple.Name = "btnImportMultiple";
+            this.btnImportMultiple.Size = new System.Drawing.Size(171, 28);
+            this.btnImportMultiple.Text = "Import Multiple Objects";
+            this.btnImportMultiple.ToolTipText = "Import level names from an XML file";
+            this.btnImportMultiple.Click += new System.EventHandler(this.btnImportMultiple_Click);
+            // 
             // ObjectDatabaseEdtiorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -384,5 +437,9 @@
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtRenderer;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btnSort;
+        private System.Windows.Forms.ToolStripButton btnDisplay;
+        private System.Windows.Forms.ToolStripButton btnImportMultiple;
     }
 }

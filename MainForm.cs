@@ -1038,6 +1038,15 @@ namespace SM64DSe
 
                         break;
 
+                    case "generate_actor_list":
+
+                        if (p.Length < 2)
+                            continue;
+
+                        File.WriteAllLines(basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1), ObjectDatabase.ToCPP());
+
+                        break;
+
                     case "compile":
                         if (filesystemEditStarted)
                             Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
@@ -1315,9 +1324,7 @@ namespace SM64DSe
         private void checkLevelReqToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 52; i++)
-            {
                 CheckLevelRequirements(ref i);
-            }
         }
 
         private void CheckLevelRequirements(ref int levelID)

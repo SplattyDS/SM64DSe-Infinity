@@ -29,12 +29,16 @@ namespace SM64DSe
             public string dlReq;
             public string renderer; // + params
 
+            public static bool displayObjectID = true;
+            public static bool displayInternalName = false;
+
             public override string ToString()
             {
-                string displayName = !string.IsNullOrWhiteSpace(name) ? name : internalName;
-                return objectID.ToString().PadLeft(3) + " - " + displayName;
+                string displayName = !string.IsNullOrWhiteSpace(name) && !displayInternalName ? name : internalName;
+                return (displayObjectID ? objectID.ToString().PadLeft(3) : actorID.ToString().PadLeft(3)) + " - " + displayName;
             }
         }
+
 
         private List<ObjectInfo> m_ObjectInfos;
 
@@ -42,6 +46,10 @@ namespace SM64DSe
         private bool m_UpdatingListBox = false;
 
         private ObjectInfo m_LastSelectedObjectInfo = null;
+
+        private string m_OriginalLabelText;
+        private string m_OriginalButtonText;
+        private bool m_ImportingMultiple;
 
         private void LoadObjectInfos(string path = null)
         {
@@ -153,6 +161,10 @@ namespace SM64DSe
 
         private void SaveObjectInfos()
         {
+            // order objects
+            m_ObjectInfos.Sort((a, b) => CompareIDs(a.actorID, b.actorID));
+            m_ObjectInfos.Sort((a, b) => CompareIDs(a.objectID, b.objectID));
+
             // save the XML
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -255,6 +267,12 @@ namespace SM64DSe
         {
             InitializeComponent();
 
+            ObjectInfo.displayObjectID = true;
+            ObjectInfo.displayInternalName = false;
+
+            m_OriginalLabelText = label3.Text;
+            m_OriginalButtonText = btnImportMultiple.Text;
+
             try
             {
                 LoadObjectInfos();
@@ -275,6 +293,7 @@ namespace SM64DSe
             try
             {
                 SaveObjectInfos();
+                FillListBox(txtSearch.Text);
             }
             catch (Exception ex)
             {
@@ -327,6 +346,28 @@ namespace SM64DSe
             m_UpdatingTextBoxes = false;
         }
 
+        private void nudObjectID_ValueChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
+                return;
+
+            m_LastSelectedObjectInfo.objectID = (int)nudObjectID.Value;
+
+            if (ObjectInfo.displayObjectID)
+                FillListBox(txtSearch.Text);
+        }
+
+        private void nudActorID_ValueChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
+                return;
+
+            m_LastSelectedObjectInfo.actorID = (int)nudActorID.Value;
+
+            if (!ObjectInfo.displayObjectID)
+                FillListBox(txtSearch.Text);
+        }
+
         private void txtObjectName_TextChanged(object sender, EventArgs e)
         {
             if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
@@ -336,16 +377,6 @@ namespace SM64DSe
             RefreshListBoxLabels();
         }
 
-        private void nudObjectID_ValueChanged(object sender, EventArgs e)
-        {
-            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
-                return;
-
-            m_LastSelectedObjectInfo.objectID = (int)nudObjectID.Value;
-            SortObjectsByObjectID();
-            FillListBox(txtSearch.Text);
-        }
-
         private void txtInternalName_TextChanged(object sender, EventArgs e)
         {
             if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
@@ -353,14 +384,6 @@ namespace SM64DSe
 
             m_LastSelectedObjectInfo.internalName = txtInternalName.Text;
             RefreshListBoxLabels();
-        }
-
-        private void nudActorID_ValueChanged(object sender, EventArgs e)
-        {
-            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
-                return;
-
-            m_LastSelectedObjectInfo.actorID = (int)nudActorID.Value;
         }
 
         private void txtBankReq_TextChanged(object sender, EventArgs e)
@@ -400,8 +423,30 @@ namespace SM64DSe
             FillListBox(txtSearch.Text);
         }
 
+        private int CompareIDs(int a, int b)
+        {
+            if (a == -1) return b == -1 ? 0 : 1; // a == b => 0, -1 > b => 1
+            if (b == -1) return -1; // a < -1 => -1
+            return a.CompareTo(b);
+        }
+
         private void FillListBox(string search = null)
         {
+            if (ObjectInfo.displayObjectID)
+            {
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.actorID, b.actorID));
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.objectID, b.objectID));
+                // m_ObjectInfos.Sort((a, b) => a.actorID.CompareTo(b.actorID));
+                // m_ObjectInfos.Sort((a, b) => a.objectID.CompareTo(b.objectID));
+            }
+            else
+            {
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.objectID, b.objectID));
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.actorID, b.actorID));
+                // m_ObjectInfos.Sort((a, b) => a.objectID.CompareTo(b.objectID));
+                // m_ObjectInfos.Sort((a, b) => a.actorID.CompareTo(b.actorID));
+            }
+
             lstObjects.Items.Clear();
             for (int i = 0; i < m_ObjectInfos.Count; i++)
             {
@@ -416,15 +461,9 @@ namespace SM64DSe
                 lstObjects.Items[i] = lstObjects.Items[i];
         }
 
-        private void SortObjectsByObjectID()
-        {
-            m_ObjectInfos = m_ObjectInfos.OrderBy(o => o.objectID).ToList();
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            SortObjectsByObjectID();
-            int newID = m_ObjectInfos.Last().objectID + 1;
+            int newID = m_ObjectInfos.OrderBy(o => o.objectID).Last().objectID + 1;
 
             ObjectInfo newObj = new ObjectInfo { objectID = newID, actorID = newID, name = txtSearch.Text, internalName = txtSearch.Text.ToUpper().Replace(' ', '_').Replace("(", "").Replace(")", "").Replace("-", "").Replace("__", "_"), description = "", bankReq = "none", dlReq = "none" };
             m_ObjectInfos.Add(newObj);
@@ -442,11 +481,103 @@ namespace SM64DSe
             m_ObjectInfos.Remove(m_LastSelectedObjectInfo);
             m_LastSelectedObjectInfo = null;
 
-            SortObjectsByObjectID();
             FillListBox(txtSearch.Text);
 
             txtBankReq.Text = txtDescription.Text = txtDlReq.Text = txtInternalName.Text = txtObjectName.Text = "";
             nudActorID.Value = nudObjectID.Value = 0;
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            ObjectInfo.displayObjectID = !ObjectInfo.displayObjectID;
+
+            if (ObjectInfo.displayObjectID)
+                btnSort.Text = "Sort by: Object ID";
+            else
+                btnSort.Text = "Sort by: Actor ID";
+
+            FillListBox(txtSearch.Text);
+
+            /*if (ObjectInfo.displayObjectID)
+            {
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.actorID, b.actorID));
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.objectID, b.objectID));
+
+                for (int i = 0; i < m_ObjectInfos.Count() - 1; i++)
+                {
+                    if (m_ObjectInfos[i].objectID != m_ObjectInfos[i + 1].objectID - 1)
+                        Console.WriteLine("Gap found between objects " + m_ObjectInfos[i].objectID + " and " + m_ObjectInfos[i + 1].objectID);
+                }
+            }
+            else
+            {
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.objectID, b.objectID));
+                m_ObjectInfos.Sort((a, b) => CompareIDs(a.actorID, b.actorID));
+
+                for (int i = 0; i < m_ObjectInfos.Count() - 1; i++)
+                {
+                    if (m_ObjectInfos[i].actorID != m_ObjectInfos[i + 1].actorID - 1)
+                        Console.WriteLine("Gap found between actors " + m_ObjectInfos[i].actorID + " and " + m_ObjectInfos[i + 1].actorID);
+                }
+            }*/
+        }
+
+        private void btnDisplay_Click(object sender, EventArgs e)
+        {
+            ObjectInfo.displayInternalName = !ObjectInfo.displayInternalName;
+
+            if (ObjectInfo.displayInternalName)
+                btnDisplay.Text = "Display: Internal Name";
+            else
+                btnDisplay.Text = "Display: Object Name";
+
+            RefreshListBoxLabels();
+        }
+
+        private void btnImportMultiple_Click(object sender, EventArgs e)
+        {
+            m_ImportingMultiple = !m_ImportingMultiple;
+
+            if (m_ImportingMultiple)
+            {
+                m_LastSelectedObjectInfo = null;
+                label3.Text = "Enter the import data:";
+                btnImportMultiple.Text = "Import!";
+                txtDescription.Text = "Enter import data here!";
+                lstObjects.Items.Clear();
+                txtBankReq.Text = txtDlReq.Text = txtInternalName.Text = txtObjectName.Text = txtRenderer.Text = "";
+                nudActorID.Value = nudObjectID.Value = 0;
+            }
+            else
+            {
+                label3.Text = m_OriginalLabelText;
+                btnImportMultiple.Text = m_OriginalButtonText;
+
+                string[] lines = Regex.Split(txtDescription.Text, "\r\n|\r|\n");
+
+                foreach (string line in lines)
+                {
+                    string[] data = line.Split('\t');
+
+                    ObjectInfo info = new ObjectInfo
+                    {
+                        actorID = Convert.ToInt32(data[0]),
+                        objectID = Convert.ToInt32(data[1]),
+                        name = data[2],
+                        internalName = data[3],
+                        bankReq = data[4],
+                        dlReq = data[5],
+                        renderer = data[6],
+                        description = data[7],
+                    };
+
+                    m_ObjectInfos.Add(info);
+                }
+
+                FillListBox(txtSearch.Text);
+
+                lstObjects.SelectedIndex = 0;
+            }
         }
     }
 }

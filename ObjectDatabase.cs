@@ -268,5 +268,109 @@ namespace SM64DSe
             string ts = force ? "" : "?ts=" + m_Timestamp.ToString();
             m_WebClient.DownloadStringAsync(new Uri(Program.ServerURL + "download_objdb.php" + ts));
         }
+
+        private static readonly string[] HEADER_START =
+        {
+            "#pragma once",
+            "",
+            "enum ActorIDs",
+            "{",
+        };
+
+        private static readonly string[] HEADER_MID =
+        {
+            "};",
+            "",
+            "enum ObjectIDs",
+            "{",
+        };
+
+        private static readonly string[] HEADER_END =
+        {
+            "};",
+        };
+
+        class CppInfo
+        {
+            public string m_InternalName;
+            public int m_ObjectID;
+            public int m_ActorID;
+
+            public string GetLine(bool actorID, int maxLength)
+            {
+                string name = m_InternalName + (actorID ? "_ACTOR_ID" : "_OBJECT_ID");
+                return '\t' + name + new string(' ', maxLength - name.Length) + " = " + (actorID ? m_ActorID : m_ObjectID) + ",";
+            }
+        }
+
+        public static List<string> ToCPP()
+        {
+            FileStream fs = null; XmlReader xr = null;
+            try
+            {
+                fs = File.OpenRead("objectdb.xml");
+                xr = XmlReader.Create(fs);
+
+                m_Timestamp = uint.MaxValue;
+            }
+            catch
+            {
+                if (xr != null) xr.Close();
+                if (fs != null) fs.Close();
+
+                m_Timestamp = 1;
+                throw new Exception("Failed to open objectdb.xml");
+            }
+
+            List<CppInfo> infos = new List<CppInfo>();
+            int longestNameLength = 0;
+
+            while (xr.ReadToFollowing("object"))
+            {
+                CppInfo info = new CppInfo();
+
+                xr.MoveToAttribute("id");
+                info.m_ObjectID = Convert.ToInt32(xr.Value);
+                
+                xr.ReadToFollowing("internalname");
+                info.m_InternalName = xr.ReadElementContentAsString();
+
+                int length = info.m_InternalName.Length;
+                if (length > longestNameLength)
+                    longestNameLength = length;
+
+                xr.ReadToFollowing("actorid");
+                info.m_ActorID = Convert.ToInt32(xr.ReadElementContentAsString());
+
+                infos.Add(info);
+            }
+
+            xr.Close();
+            fs.Close();
+
+            List<string> lines = new List<string>();
+
+            lines.AddRange(HEADER_START);
+
+            infos.Sort((a, b) => a.m_ActorID.CompareTo(b.m_ActorID));
+            foreach (CppInfo info in infos)
+            {
+                if (info.m_ActorID == -1) continue;
+                lines.Add(info.GetLine(true, longestNameLength + 9));
+            }
+
+            lines.AddRange(HEADER_MID);
+
+            infos.Sort((a, b) => a.m_ObjectID.CompareTo(b.m_ObjectID));
+            foreach (CppInfo info in infos)
+            {
+                if (info.m_ObjectID == -1) continue;
+                lines.Add(info.GetLine(false, longestNameLength + 10));
+            }
+
+            lines.AddRange(HEADER_END);
+
+            return lines;
+        }
     }
 }
