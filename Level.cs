@@ -656,17 +656,8 @@ namespace SM64DSe
                     binWriter.Write(Properties.Resources.level_ovl_init_EUR_001);
                     overlayInitialiserVersion = 1;
                     break;
-                case NitroROM.Version.USA_v1:
-                    binWriter.Write(Properties.Resources.level_ovl_init_USAv1);
-                    break;
-                case NitroROM.Version.USA_v2:
-                    binWriter.Write(Properties.Resources.level_ovl_init_USAv2);
-                    break;
-                case NitroROM.Version.JAP:
-                    binWriter.Write(Properties.Resources.level_ovl_init_JAP);
-                    break;
                 default:
-                    throw new InvalidDataException("This ROM is an unknown version.");
+                    throw new InvalidDataException("ROM version not supported.");
             }
             m_LevelSettings.LevelFormatVersion = k_LevelFormatVersion;
             m_LevelSettings.OverlayInitialiserVersion = overlayInitialiserVersion;
@@ -707,17 +698,8 @@ namespace SM64DSe
                     binWriter.Write(Properties.Resources.level_ovl_init_EUR_001);
                     overlayInitialiserVersion = 1;
                     break;
-                case NitroROM.Version.USA_v1:
-                    binWriter.Write(Properties.Resources.level_ovl_init_USAv1);
-                    break;
-                case NitroROM.Version.USA_v2:
-                    binWriter.Write(Properties.Resources.level_ovl_init_USAv2);
-                    break;
-                case NitroROM.Version.JAP:
-                    binWriter.Write(Properties.Resources.level_ovl_init_JAP);
-                    break;
                 default:
-                    throw new InvalidDataException("This ROM is an unknown version.");
+                    throw new InvalidDataException("ROM version not supported.");
             }
             m_LevelSettings.LevelFormatVersion = k_LevelFormatVersion;
             m_LevelSettings.OverlayInitialiserVersion = overlayInitialiserVersion;

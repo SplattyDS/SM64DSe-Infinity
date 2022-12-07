@@ -100,6 +100,7 @@
             this.particleArchiveSPAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialAnimationBMAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textureAnimationBTAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SDATEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEditObjectDB = new System.Windows.Forms.Button();
             this.tsToolBar.SuspendLayout();
             this.ssStatusBar.SuspendLayout();
@@ -347,7 +348,8 @@
             this.editFileSystemToolStripMenuItem,
             this.editOverlaysToolStripMenuItem,
             this.materialAnimationBMAEditorToolStripMenuItem,
-            this.textureAnimationBTAEditorToolStripMenuItem});
+            this.textureAnimationBTAEditorToolStripMenuItem,
+            this.SDATEditorToolStripMenuItem,});
             this.btnTools.Enabled = false;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTools.Name = "btnTools";
@@ -833,6 +835,13 @@
             this.textureAnimationBTAEditorToolStripMenuItem.Text = "Texture Animation (BTA) Editor";
             this.textureAnimationBTAEditorToolStripMenuItem.Click += new System.EventHandler(this.textureAnimationBTAEditorToolStripMenuItem_Click);
             // 
+            // SDATEditorToolStripMenuItem
+            // 
+            this.SDATEditorToolStripMenuItem.Name = "SDATEditorToolStripMenuItem";
+            this.SDATEditorToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
+            this.SDATEditorToolStripMenuItem.Text = "SDAT Editor (Nitro Studio 2)";
+            this.SDATEditorToolStripMenuItem.Click += new System.EventHandler(this.SDATEditorToolStripMenuItem_Click);
+            // 
             // btnEditObjectDB
             // 
             this.btnEditObjectDB.Location = new System.Drawing.Point(300, 3);
@@ -954,6 +963,7 @@
         private System.Windows.Forms.ToolStripMenuItem particleArchiveSPAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materialAnimationBMAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textureAnimationBTAEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SDATEditorToolStripMenuItem;
         private System.Windows.Forms.Button btnEditObjectDB;
     }
 }

@@ -311,36 +311,6 @@ namespace SM64DSe.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] level_ovl_init_JAP {
-            get {
-                object obj = ResourceManager.GetObject("level_ovl_init_JAP", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] level_ovl_init_USAv1 {
-            get {
-                object obj = ResourceManager.GetObject("level_ovl_init_USAv1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] level_ovl_init_USAv2 {
-            get {
-                object obj = ResourceManager.GetObject("level_ovl_init_USAv2", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 0x00 == PLAYER (0xbf)
         ///0x01 == EWB_ICE_A (0xaa)
         ///0x02 == EWB_ICE_B (0xab)

@@ -167,63 +167,6 @@ namespace SM64DSe
 		        objbank_addr_patch = 0x2E074;
 		        objbank_code_patch = 0x2DFAC;
 		        break;
-
-            case Version.JAP:
-                levelptr_table = 0x902B8;
-                objbank_table = 0x73C08;
-                mempatch1 = 0x57368;
-                mempatch2 = 0xFFFFFFFF;
-                loadercode = Properties.Resources.level_ovl_init_JAP;
-                lvl_ovlid_table = 0x73B38;
-                unload_patch = 0x2CDD8;
-                unload_branchop = ARM_BL(0x0202CDD8, 0x021434B8);
-                ovltable_addr_patch[0] = 0x17DE4; ovltable_addr_patch[1] = 0x17E84;
-                ovltable_addr_patch[2] = 0x17F20; ovltable_addr_patch[3] = 0x18050;
-                ovltable_size_patch[0] = 0x17DD4; ovltable_size_patch[1] = 0x17E24;
-                ovltable_size_patch[2] = 0x17EC4; ovltable_size_patch[3] = 0x18018;
-                lvlload_addr_patch = 0x2C7D4;
-                lvlload_code_patch = 0x2C430;
-                objbank_addr_patch = 0x2CFCC;
-                objbank_code_patch = 0x2CF04;
-                break;
-
-	        case Version.USA_v1:
-		        levelptr_table = 0x8FDB0;
-		        objbank_table = 0x73664;
-		        mempatch1 = 0x56EB8;
-		        mempatch2 = 0xFFFFFFFF;
-                loadercode = Properties.Resources.level_ovl_init_USAv1;
-		        lvl_ovlid_table = 0x73594;
-		        unload_patch = 0x2CB00;
-		        unload_branchop = ARM_BL(0x0202CB00, 0x02143BD8);
-		        ovltable_addr_patch[0] = 0x17D70; ovltable_addr_patch[1] = 0x17E10;
-		        ovltable_addr_patch[2] = 0x17EAC; ovltable_addr_patch[3] = 0x17FDC;
-		        ovltable_size_patch[0] = 0x17D60; ovltable_size_patch[1] = 0x17DB0;
-		        ovltable_size_patch[2] = 0x17E50; ovltable_size_patch[3] = 0x17FA4;
-		        lvlload_addr_patch = 0x2C4FC;
-		        lvlload_code_patch = 0x2C15C;
-		        objbank_addr_patch = 0x2CCF4;
-		        objbank_code_patch = 0x2CC2C;
-		        break;
-
-	        case Version.USA_v2:
-		        levelptr_table = 0x90ACC;
-		        objbank_table = 0x74384;
-		        mempatch1 = 0x18A44;
-		        mempatch2 = 0x57B30;
-                loadercode = Properties.Resources.level_ovl_init_USAv2;
-		        lvl_ovlid_table = 0x742B4;
-		        unload_patch = 0x2CE14;
-		        unload_branchop = ARM_BL(0x0202CE14, 0x02145758);
-		        ovltable_addr_patch[0] = 0x17DE4; ovltable_addr_patch[1] = 0x17E84;
-		        ovltable_addr_patch[2] = 0x17F20; ovltable_addr_patch[3] = 0x18050;
-		        ovltable_size_patch[0] = 0x17DD4; ovltable_size_patch[1] = 0x17E24;
-		        ovltable_size_patch[2] = 0x17EC4; ovltable_size_patch[3] = 0x18018;
-		        lvlload_addr_patch = 0x2C810;
-		        lvlload_code_patch = 0x2C46C;
-		        objbank_addr_patch = 0x2D008;
-		        objbank_code_patch = 0x2CF40;
-		        break;
 	        }
 
 	        // tweak the root heap start address to gain more overlay space :)

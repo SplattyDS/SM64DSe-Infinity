@@ -2527,12 +2527,12 @@ MM - See ! Switch parameter info</description>
 		<renderer type="NormalBMD" file="data/special_obj/ki_iwa/ki_iwa.bmd" scale="0.008" />
 	</object>
 	<object id="185">
-		<name>JRB-S Water</name>
-		<internalname>KS_MIZU</internalname>
+		<name>Ship Water</name>
+		<internalname>SHIP_WATER</internalname>
 		<actorid>62</actorid>
 		<description />
-		<bankreq>7=10</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/ship_water.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ks_mizu/ks_mizu.bmd" scale="0.008" />
 	</object>
 	<object id="186">
@@ -3398,17 +3398,17 @@ Above - Same as 00? (Used as FF)</description>
 		<renderer type="NormalBMD" file="data/enemy/huwahuwa/huwahuwa_model.bmd" scale="0.008" />
 	</object>
 	<object id="260">
-		<name>JRB ship's sliding box</name>
-		<internalname>SLIDE_BOX</internalname>
+		<name>Sliding Box</name>
+		<internalname>SLIDING_BOX</internalname>
 		<actorid>313</actorid>
 		<description>Box that slides on the Jolly Roger Bay ship (when it is afloat). Players can walk on it, but get hurt if they touch it on any side.</description>
-		<bankreq>7=9</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_box.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ki_slide_box/ki_slide_box.bmd" scale="0.008" />
 	</object>
 	<object id="261">
 		<name>Unagi the Eel</name>
-		<internalname>MORAY</internalname>
+		<internalname>UNAGI</internalname>
 		<actorid>242</actorid>
 		<description>A giant eel in Jolly Roger Bay. It swims around, but takes 3 life points if touched.
 
@@ -3422,8 +3422,8 @@ T: [T]ype
 F - Swim about following a path.
 
 P - Path ID</description>
-		<bankreq>7=9</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/unagi.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/moray/moray.bmd" scale="0.008" />
 	</object>
 	<object id="262">

@@ -30,6 +30,8 @@ namespace SM64DSe
 {
     public partial class MainForm : Form
     {
+        private System.Diagnostics.Process nitroStudio = null;
+
         private void LoadROM(string filename)
         {
             if (!File.Exists(filename))
@@ -1305,7 +1307,57 @@ namespace SM64DSe
 
         private void textureAnimationBTAEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new ParticleViewerForm().Show();
+            // new TextureAnimationEditor().Show();
+        }
+
+        private void OnCloseNitroStudio(object sender, EventArgs e)
+        {
+            if (nitroStudio == null)
+                return;
+
+            if (!File.Exists(Application.StartupPath + "\\NitroStudio\\_temp.sdat"))
+            {
+                MessageBox.Show("Error! No sdat found after closing Nitro Studio 2.", "No SDAT found.");
+                return;
+            }
+
+            NitroFile sdat = Program.m_ROM.GetFileFromName("data/sound_data.sdat");
+            sdat.m_Data = File.ReadAllBytes(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
+            sdat.SaveChanges();
+            File.Delete(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
+
+            nitroStudio = null;
+
+            SDATEditorToolStripMenuItem.Text = "SDAT Editor (Nitro Studio 2)";
+        }
+
+        private void SDATEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (nitroStudio != null)
+            {
+                File.Delete(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
+
+                nitroStudio.Kill();
+                nitroStudio = null;
+
+                SDATEditorToolStripMenuItem.Text = "SDAT Editor (Nitro Studio 2)";
+                return;
+            }
+
+            File.WriteAllBytes(Application.StartupPath + "\\NitroStudio\\_temp.sdat", Program.m_ROM.GetFileFromName("data/sound_data.sdat").m_Data);
+            
+            System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo();
+            start.Arguments = Application.StartupPath + "\\NitroStudio\\_temp.sdat";
+            start.FileName = Application.StartupPath + "\\NitroStudio\\NitroStudio2.exe";
+            start.WorkingDirectory = Application.StartupPath + "\\NitroStudio";
+
+            nitroStudio = System.Diagnostics.Process.Start(start);
+            nitroStudio.EnableRaisingEvents = true;
+            nitroStudio.Exited += OnCloseNitroStudio;
+
+            SDATEditorToolStripMenuItem.Text = "Quit Nitro Studio 2 without saving";
+
+            Console.WriteLine(Application.StartupPath + "\\NitroStudio\\NitroStudio2.exe " + Application.StartupPath + "\\NitroStudio\\_temp.sdat");
         }
 
         private void btnEditLevelNamesOverlays_Click(object sender, EventArgs e)
