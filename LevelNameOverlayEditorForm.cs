@@ -196,7 +196,7 @@ namespace SM64DSe
                     lstLevels.Items[i] = GetLevelLabel(i);
             }
 
-            Console.WriteLine($"current: {m_BiggestInternalLevelNameSize}, prev: {prevSize}");
+            // Console.WriteLine($"current: {m_BiggestInternalLevelNameSize}, prev: {prevSize}");
         }
 
         private string GetLevelLabel(int levelID)

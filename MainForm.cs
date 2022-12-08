@@ -392,6 +392,8 @@ namespace SM64DSe
             else
                 status = "";
             slStatusLabel.Text = status;
+
+            UpdateOpenFileButton();
         }
 
         private void btnExtractRaw_Click(object sender, EventArgs e)
@@ -1344,8 +1346,13 @@ namespace SM64DSe
                 return;
             }
 
+            OpenSDAT();
+        }
+
+        private void OpenSDAT()
+        {
             File.WriteAllBytes(Application.StartupPath + "\\NitroStudio\\_temp.sdat", Program.m_ROM.GetFileFromName("data/sound_data.sdat").m_Data);
-            
+
             System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo();
             start.Arguments = Application.StartupPath + "\\NitroStudio\\_temp.sdat";
             start.FileName = Application.StartupPath + "\\NitroStudio\\NitroStudio2.exe";
@@ -1357,7 +1364,7 @@ namespace SM64DSe
 
             SDATEditorToolStripMenuItem.Text = "Quit Nitro Studio 2 without saving";
 
-            Console.WriteLine(Application.StartupPath + "\\NitroStudio\\NitroStudio2.exe " + Application.StartupPath + "\\NitroStudio\\_temp.sdat");
+            // Console.WriteLine(Application.StartupPath + "\\NitroStudio\\NitroStudio2.exe " + Application.StartupPath + "\\NitroStudio\\_temp.sdat");
         }
 
         private void btnEditLevelNamesOverlays_Click(object sender, EventArgs e)
@@ -1467,6 +1474,128 @@ namespace SM64DSe
 
             if (banksChanged)
                 levelID--;
+        }
+
+        string m_SavedFile = null;
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Trying to open: " + m_SelectedFile);
+
+            if (m_SelectedFile.EndsWith(".bmd"))
+            {
+                if (string.IsNullOrWhiteSpace(m_SavedFile))
+                    new ModelAndCollisionMapEditor(m_SelectedFile, null, 0.008f, ModelAndCollisionMapEditor.StartMode.ModelAndCollisionMap, true).Show();
+                else if (m_SavedFile.EndsWith(".btp"))
+                    new TextureEditorForm(m_SavedFile, m_SelectedFile).Show();
+                else if (m_SavedFile.EndsWith(".bca"))
+                    new AnimationEditorForm(m_SavedFile, m_SelectedFile).Show();
+                else if (m_SavedFile.EndsWith(".bma"))
+                    new TextureEditorForm(m_SavedFile, m_SelectedFile).Show();
+                /*else if (m_SavedFile.EndsWith(".bta"))
+                    new TextureAnimationEditorForm(m_SavedFile, m_SelectedFile).Show();*/
+            }
+            else if (m_SelectedFile.EndsWith(".kcl"))
+                new ModelAndCollisionMapEditor(null, m_SelectedFile, 1f, ModelAndCollisionMapEditor.StartMode.CollisionMap).Show();
+            else if (m_SelectedFile.EndsWith(".spt"))
+                new ParticleEditorForm(m_SelectedFile).Show();
+            else if (m_SelectedFile.EndsWith(".spa"))
+                new ParticleViewerForm(m_SelectedFile).Show();
+            else if (m_SelectedFile.EndsWith(".sdat"))
+                OpenSDAT();
+            /*else if (m_SelectedFile.EndsWith(".lvl"))
+                new LevelEditorForm().Show();
+            else if (m_SelectedFile.EndsWith(".mesg"))
+                new TextEditorForm().Show();*/
+
+            if (m_SelectedFile.EndsWith(".bca") || m_SelectedFile.EndsWith(".btp") || m_SelectedFile.EndsWith(".bma") /*|| m_SelectedFile.EndsWith(".bta")*/)
+                m_SavedFile = m_SavedFile != null ? null : m_SelectedFile;
+            else
+                m_SavedFile = null;
+
+            UpdateOpenFileButton();
+        }
+
+        private void UpdateOpenFileButton()
+        {
+            if (!string.IsNullOrWhiteSpace(m_SavedFile))
+            {
+                if (m_SelectedFile.EndsWith(".bmd"))
+                {
+                    btnOpenFile.Text = "Open " + m_SavedFile.Substring(m_SavedFile.Length - 3, 3) + " with model";
+                    btnOpenFile.Enabled = true;
+                }
+                else
+                {
+                    btnOpenFile.Text = "Cancel opening " + m_SavedFile.Substring(m_SavedFile.Length - 3, 3);
+                    btnOpenFile.Enabled = true;
+                }
+            }
+            else if (string.IsNullOrWhiteSpace(m_SelectedFile))
+            {
+                btnOpenFile.Text = "Open file";
+                btnOpenFile.Enabled = false;
+            }
+            else if (m_SelectedFile.EndsWith(".bmd"))
+            {
+                btnOpenFile.Text = "Open model";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".kcl"))
+            {
+                btnOpenFile.Text = "Open collision map";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".spt"))
+            {
+                btnOpenFile.Text = "Open particle texture";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".spa"))
+            {
+                btnOpenFile.Text = "Open particle archive";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".btp"))
+            {
+                btnOpenFile.Text = "Open texture sequence";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".bca"))
+            {
+                btnOpenFile.Text = "Open model animation";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".bma"))
+            {
+                btnOpenFile.Text = "Open material animation";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".bta"))
+            {
+                btnOpenFile.Text = "Open texture animation";
+                btnOpenFile.Enabled = false;
+            }
+            else if (m_SelectedFile.EndsWith(".sdat"))
+            {
+                btnOpenFile.Text = "Open sound data";
+                btnOpenFile.Enabled = true;
+            }
+            else if (m_SelectedFile.EndsWith(".lvl"))
+            {
+                btnOpenFile.Text = "Open sound data";
+                btnOpenFile.Enabled = false;
+            }
+            else if (m_SelectedFile.EndsWith(".mesg"))
+            {
+                btnOpenFile.Text = "Open sound data";
+                btnOpenFile.Enabled = false;
+            }
+            else
+            {
+                btnOpenFile.Text = "Open file";
+                btnOpenFile.Enabled = false;
+            }
         }
     }
 }

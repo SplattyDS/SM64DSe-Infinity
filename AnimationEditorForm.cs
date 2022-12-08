@@ -17,7 +17,7 @@ namespace SM64DSe
         private BMD m_BMD;
         private BCA m_BCA;
 
-        private System.Windows.Forms.Timer m_AnimationTimer;
+        private Timer m_AnimationTimer;
         private int m_AnimationFrameNumber = 0;
         private int m_AnimationNumFrames = -1;
         private bool m_LoopAnimation = true;
@@ -30,13 +30,42 @@ namespace SM64DSe
 
         private ROMFileSelect m_ROMFileSelect = new ROMFileSelect();
 
-        public AnimationEditorForm()
+        private string startBCA;
+        private string startBMD;
+
+        public AnimationEditorForm(string bcaFileName = null, string bmdFileName = null)
         {
             InitializeComponent();
             InitTimer();
             glModelView.Initialise();
             glModelView.ProvideDisplayLists(m_DisplayLists);
             m_BCAImportationOptions = BMDImporter.BCAImportationOptions.DEFAULT;
+
+            startBCA = bcaFileName;
+            startBMD = bmdFileName;
+        }
+
+        private void AnimarionEditorForm_Load(object sender, EventArgs e)
+        {
+            if (startBMD != null)
+            {
+                m_BMD = new BMD(Program.m_ROM.GetFileFromName(startBMD));
+                txtBMDName.Text = m_BMD.m_FileName;
+                m_ModelPreviewScale = 0.008f;
+
+                PrerenderModel();
+
+                if (startBCA != null)
+                {
+                    m_BCA = new BCA(Program.m_ROM.GetFileFromName(startBCA));
+                    txtBCAName.Text = m_BCA.m_FileName;
+
+                    m_AnimationFrameNumber = 0;
+                    m_AnimationNumFrames = m_BCA.m_NumFrames;
+                    txtCurrentFrameNum.Text = "" + m_AnimationFrameNumber;
+                    txtNumFrames.Text = "" + (m_BCA.m_NumFrames - 1);
+                }
+            }
         }
 
         private void PrerenderModel()

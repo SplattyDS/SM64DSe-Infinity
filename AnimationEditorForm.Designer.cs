@@ -64,6 +64,7 @@
             this.tsModelPreview = new System.Windows.Forms.ToolStrip();
             this.lblModelPreviewScale = new System.Windows.Forms.ToolStripLabel();
             this.txtModelPreviewScale = new System.Windows.Forms.TextBox();
+            this.Load += new System.EventHandler(this.AnimarionEditorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();

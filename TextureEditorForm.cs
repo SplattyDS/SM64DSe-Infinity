@@ -19,6 +19,7 @@ namespace SM64DSe
         private BMD m_Model;
         private BTP m_BTP;
         private string m_ModelName;
+        private string m_BtpName;
 
         private ROMFileSelect m_ROMFileSelect = new ROMFileSelect();
         private FolderBrowserDialog m_FolderBrowserDialogue = new FolderBrowserDialog();
@@ -31,6 +32,14 @@ namespace SM64DSe
             InitializeComponent();
 
             m_ModelName = fileName;
+        }
+
+        public TextureEditorForm(string btpFileName, string bmdFileName)
+        {
+            InitializeComponent();
+
+            m_ModelName = bmdFileName;
+            m_BtpName = btpFileName;
         }
 
         public TextureEditorForm()
@@ -54,6 +63,12 @@ namespace SM64DSe
 
             LoadTextures();
             InitTimer();
+
+            if (!string.IsNullOrWhiteSpace(m_BtpName))
+            {
+                ClearBTPTextBoxes();
+                LoadBTP(m_BtpName);
+            }
         }
 
         private void LoadTextures()

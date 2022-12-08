@@ -86,9 +86,8 @@
             this.btnLZCompressWithHeader = new System.Windows.Forms.Button();
             this.btnLZForceDecompression = new System.Windows.Forms.Button();
             this.btnLZDecompressWithHeader = new System.Windows.Forms.Button();
-            this.btnReplaceImport = new System.Windows.Forms.Button();
             this.btnReplaceRaw = new System.Windows.Forms.Button();
-            this.btnExtractExport = new System.Windows.Forms.Button();
+            this.btnOpenFile = new System.Windows.Forms.Button();
             this.btnExtractRaw = new System.Windows.Forms.Button();
             this.tbpARM9Overlays = new System.Windows.Forms.TabPage();
             this.spcARM9Overlays = new System.Windows.Forms.SplitContainer();
@@ -644,9 +643,8 @@
             this.pnlFileOptions.Controls.Add(this.btnLZCompressWithHeader);
             this.pnlFileOptions.Controls.Add(this.btnLZForceDecompression);
             this.pnlFileOptions.Controls.Add(this.btnLZDecompressWithHeader);
-            this.pnlFileOptions.Controls.Add(this.btnReplaceImport);
             this.pnlFileOptions.Controls.Add(this.btnReplaceRaw);
-            this.pnlFileOptions.Controls.Add(this.btnExtractExport);
+            this.pnlFileOptions.Controls.Add(this.btnOpenFile);
             this.pnlFileOptions.Controls.Add(this.btnExtractRaw);
             this.pnlFileOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFileOptions.Location = new System.Drawing.Point(0, 0);
@@ -694,17 +692,6 @@
             this.btnLZDecompressWithHeader.UseVisualStyleBackColor = true;
             this.btnLZDecompressWithHeader.Click += new System.EventHandler(this.btnLZDecompressWithHeader_Click);
             // 
-            // btnReplaceImport
-            // 
-            this.btnReplaceImport.Enabled = false;
-            this.btnReplaceImport.Location = new System.Drawing.Point(110, 26);
-            this.btnReplaceImport.Name = "btnReplaceImport";
-            this.btnReplaceImport.Size = new System.Drawing.Size(101, 23);
-            this.btnReplaceImport.TabIndex = 3;
-            this.btnReplaceImport.Text = "Replace (Import)";
-            this.btnReplaceImport.UseVisualStyleBackColor = true;
-            this.btnReplaceImport.Visible = false;
-            // 
             // btnReplaceRaw
             // 
             this.btnReplaceRaw.Location = new System.Drawing.Point(110, 2);
@@ -715,16 +702,17 @@
             this.btnReplaceRaw.UseVisualStyleBackColor = true;
             this.btnReplaceRaw.Click += new System.EventHandler(this.btnReplaceRaw_Click);
             // 
-            // btnExtractExport
+            // btnOpenFile
             // 
-            this.btnExtractExport.Enabled = false;
-            this.btnExtractExport.Location = new System.Drawing.Point(3, 26);
-            this.btnExtractExport.Name = "btnExtractExport";
-            this.btnExtractExport.Size = new System.Drawing.Size(101, 23);
-            this.btnExtractExport.TabIndex = 1;
-            this.btnExtractExport.Text = "Extract (Export)";
-            this.btnExtractExport.UseVisualStyleBackColor = true;
-            this.btnExtractExport.Visible = false;
+            this.btnOpenFile.Enabled = false;
+            this.btnOpenFile.Location = new System.Drawing.Point(3, 26);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Size = new System.Drawing.Size(208, 23);
+            this.btnOpenFile.TabIndex = 1;
+            this.btnOpenFile.Text = "Open file";
+            this.btnOpenFile.UseVisualStyleBackColor = true;
+            this.btnOpenFile.Enabled = false;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
             // btnExtractRaw
             // 
@@ -913,9 +901,8 @@
         private System.Windows.Forms.TabPage tbpFileSystem;
         private System.Windows.Forms.Panel pnlFileOptions;
         private System.Windows.Forms.TreeView tvFileList;
-        private System.Windows.Forms.Button btnReplaceImport;
         private System.Windows.Forms.Button btnReplaceRaw;
-        private System.Windows.Forms.Button btnExtractExport;
+        private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.Button btnExtractRaw;
         private System.Windows.Forms.Button btnLZForceCompression;
         private System.Windows.Forms.Button btnLZCompressWithHeader;
