@@ -93,6 +93,9 @@ namespace SM64DSe
 
         private void m_AnimationTimer_Tick(object sender, EventArgs e)
         {
+            foreach (int dl in m_LevelModelDLs)
+                GL.DeleteLists(dl, 1);
+
             RenderLevelAreas(m_currentArea);
             m_texAnimFrame++;
         }
@@ -210,6 +213,8 @@ namespace SM64DSe
 
             //btnMakeOverlay.Visible = (Program.m_ROM.m_Version == NitroROM.Version.EUR);
             btnDls.Visible = (Program.m_ROM.m_Version == NitroROM.Version.EUR);
+
+            StartTimer();
 
             slStatusLabel.Text = "Ready";
         }
