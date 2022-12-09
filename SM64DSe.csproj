@@ -134,7 +134,7 @@
     </Compile>
     <Compile Include="BasicBigFloat.cs" />
     <Compile Include="BiDictionaryOneToOne.cs" />
-    <Compile Include="BMA.cs" />
+    <Compile Include="SM64DSFormats\BMA.cs" />
     <Compile Include="CodeCompilerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -282,10 +282,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SM64DSFormats\BetterTextureAnimationEditor.cs">
+    <Compile Include="BetterTextureAnimationEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SM64DSFormats\BetterTextureAnimationEditor.Designer.cs">
+    <Compile Include="BetterTextureAnimationEditor.Designer.cs">
       <DependentUpon>BetterTextureAnimationEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="SM64DSFormats\BMD.cs" />
@@ -300,16 +300,16 @@
     <Compile Include="Helper.cs" />
     <Compile Include="SM64DSFormats\BTP.cs" />
     <Compile Include="SM64DSFormats\BMD.NitroTexture.cs" />
-    <Compile Include="SM64DSFormats\CreateNewLevelAnimationDialog.cs">
+    <Compile Include="CreateNewLevelAnimationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SM64DSFormats\CreateNewLevelAnimationDialog.Designer.cs">
+    <Compile Include="CreateNewLevelAnimationDialog.Designer.cs">
       <DependentUpon>CreateNewLevelAnimationDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="SM64DSFormats\DL Editor.cs">
+    <Compile Include="DL Editor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SM64DSFormats\DL Editor.Designer.cs">
+    <Compile Include="DL Editor.Designer.cs">
       <DependentUpon>DL Editor.cs</DependentUpon>
     </Compile>
     <Compile Include="SM64DSFormats\Graphic.cs" />
@@ -399,7 +399,7 @@
     <Compile Include="Templates\PlatformTemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Templates\PlatformTemplateForm.designer.cs">
+    <Compile Include="Templates\PlatformTemplateForm.Designer.cs">
       <DependentUpon>PlatformTemplateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TextDialog.cs">
@@ -522,13 +522,13 @@
     <EmbeddedResource Include="ROMFileSelect.resx">
       <DependentUpon>ROMFileSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SM64DSFormats\BetterTextureAnimationEditor.resx">
+    <EmbeddedResource Include="BetterTextureAnimationEditor.resx">
       <DependentUpon>BetterTextureAnimationEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SM64DSFormats\CreateNewLevelAnimationDialog.resx">
+    <EmbeddedResource Include="CreateNewLevelAnimationDialog.resx">
       <DependentUpon>CreateNewLevelAnimationDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SM64DSFormats\DL Editor.resx">
+    <EmbeddedResource Include="DL Editor.resx">
       <DependentUpon>DL Editor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Templates\PlatformTemplateForm.resx">
@@ -657,10 +657,6 @@
     <Content Include="NitroStudio\tmpStream0.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Enemy.cpp" />
-    <Content Include="Templates\Enemy.h" />
-    <Content Include="Templates\Platform.cpp" />
-    <Content Include="Templates\Platform.h" />
     <None Include="Images\Stop.png" />
     <None Include="Images\Play.png" />
     <None Include="Images\Pause.png" />
