@@ -126,12 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="3DStuff.cs" />
-    <Compile Include="AdditionalPatchesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AdditionalPatchesForm.Designer.cs">
-      <DependentUpon>AdditionalPatchesForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="AnimationEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,23 +135,11 @@
     <Compile Include="BasicBigFloat.cs" />
     <Compile Include="BiDictionaryOneToOne.cs" />
     <Compile Include="BMA.cs" />
-    <Compile Include="BMD KLC Editor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BMD KLC Editor.Designer.cs">
-      <DependentUpon>BMD KLC Editor.cs</DependentUpon>
-    </Compile>
     <Compile Include="CodeCompilerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CodeCompilerForm.designer.cs">
       <DependentUpon>CodeCompilerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CodeFixerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CodeFixerForm.designer.cs">
-      <DependentUpon>CodeFixerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FormationForm.cs">
       <SubType>Form</SubType>
@@ -408,23 +390,11 @@
     <Compile Include="ROMFileSelect.Designer.cs">
       <DependentUpon>ROMFileSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="SDATInfoEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SDATInfoEditor.Designer.cs">
-      <DependentUpon>SDATInfoEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Level.cs" />
     <Compile Include="SM64DSFormats\NeuQuant.cs" />
     <Compile Include="SM64DSFormats\SBNK.cs" />
     <Compile Include="SM64DSFormats\SDAT.cs" />
     <Compile Include="SM64DSFormats\SWAR.cs" />
-    <Compile Include="SoundViewForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SoundViewForm.designer.cs">
-      <DependentUpon>SoundViewForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Templates\CommonTemplate.cs" />
     <Compile Include="Templates\PlatformTemplateForm.cs">
       <SubType>Form</SubType>
@@ -459,15 +429,9 @@
     <Compile Include="UshortEditorForm.Designer.cs">
       <DependentUpon>UshortEditorForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AdditionalPatchesForm.resx">
-      <DependentUpon>AdditionalPatchesForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AnimationEditorForm.resx">
       <DependentUpon>AnimationEditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BMD KLC Editor.resx">
-      <DependentUpon>BMD KLC Editor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectDatabaseEditorForm.resx">
       <DependentUpon>ObjectDatabaseEditorForm.cs</DependentUpon>
@@ -477,9 +441,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CodeCompilerForm.resx">
       <DependentUpon>CodeCompilerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CodeFixerForm.resx">
-      <DependentUpon>CodeFixerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormationForm.resx">
       <DependentUpon>FormationForm.cs</DependentUpon>
@@ -561,13 +522,6 @@
     <EmbeddedResource Include="ROMFileSelect.resx">
       <DependentUpon>ROMFileSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SDATInfoEditor.resx">
-      <DependentUpon>SDATInfoEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SM64DSFormats\BetterTextureAnimationEditor.resx">
       <DependentUpon>BetterTextureAnimationEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -576,9 +530,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SM64DSFormats\DL Editor.resx">
       <DependentUpon>DL Editor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SoundViewForm.resx">
-      <DependentUpon>SoundViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Templates\PlatformTemplateForm.resx">
       <DependentUpon>PlatformTemplateForm.cs</DependentUpon>
@@ -618,12 +569,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="PropertyBag.cs" />
-    <Compile Include="SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Strings.cs" />
     <Compile Include="TextEditorForm.cs">
       <SubType>Form</SubType>

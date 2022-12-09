@@ -125,6 +125,7 @@ namespace SM64DSe
             btnASMHacking.Enabled = true;
             btnTools.Enabled = true;
             btnMore.Enabled = true;
+            btnFileEditors.Enabled = true;
             btnLZCompressWithHeader.Enabled = true;
             btnLZDecompressWithHeader.Enabled = true;
             btnLZForceCompression.Enabled = true;
@@ -138,8 +139,6 @@ namespace SM64DSe
             Text = Program.AppTitle + " " + Program.AppVersion + " " + Program.AppDate;
             Program.m_ROMPath = "";
             Program.m_LevelEditors = new List<LevelEditorForm>();
-
-            btnMore.DropDownItems.Add("Dump Object Info", null, btnDumpObjInfo_Click);
 
             slStatusLabel.Text = "Ready";
             ObjectDatabase.Initialize();
@@ -273,46 +272,25 @@ namespace SM64DSe
             ObjectDatabase.Update(true);
         }
 
-        private void btnEditorSettings_Click(object sender, EventArgs e)
-        {
-            new SettingsForm().ShowDialog(this);
-        }
-
         private void btnHalp_Click(object sender, EventArgs e)
         {
             string msg = Program.AppTitle + " " + Program.AppVersion + " " + Program.AppDate + "\n\n" +
-                "A level editor for Super Mario 64 DS.\n" +
-                "Coding and design by Mega-Mario (StapleButter), with help from others (see credits).\n" +
-                "Provided to you by Kuribo64, the SM64DS hacking department.\n" +
+                "A level editor for Super Mario 64 DS 2: The New Stars being developed by Splatterboy.\n" +
                 "\n" +
-                "Credits:\n" +
+                "Based on SM64DSe Ultimate by Gota7 and jupahe64 (with DL generation code by pants64DS)\n" +
+                "\n" +
+                "Original SM64DSe coding and design by Arisotura (StapleButter), with help from others:\n" +
                 "- Treeki: the overlay decompression (Jap77), the object list and other help\n" +
                 "- Dirbaio: other help\n" +
                 "- blank: help with generating collision\n" +
-                "- mibts: ASM hacking template v2, BCA optimisation, level editor enhancements and other help\n" +
-                "- Fiachra Murray: current developer and maintainer\n" +
+                "- Josh65536: ASM hacking template v2, BCA optimisation, level editor enhancements and other help\n" +
+                "- Fiachra: former developer and maintainer\n" +
                 "\n" +
-                Program.AppTitle + " is free software. If you paid for it, notify Mega-Mario about it.\n" +
+                Program.AppTitle + " is free software. If you paid for it, notify someone about it.\n" +
                 "\n" +
-                "Visit Kuribo64's site (http://kuribo64.net/) for more details.";
+                "Visit the SM64DS Hacking Discord for more details.";
 
             MessageBox.Show(msg, "About " + Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void mnitDumpAllOvls_Click(object sender, EventArgs e)
-        {
-            if (Program.m_ROM == null)
-                return;
-            for (int i = 0; i < 155; i++)
-            {
-                NitroOverlay overlay = new NitroOverlay(Program.m_ROM, (uint)i);
-                string filename = "DecompressedOverlays/overlay_" + i.ToString("0000") + ".bin";
-                string dir = "DecompressedOverlays";
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
-                System.IO.File.WriteAllBytes(filename, overlay.m_Data);
-            }
-            slStatusLabel.Text = "All overlays have been successfully dumped.";
         }
 
         private void btnEditCollisionMap_Click(object sender, EventArgs e)
@@ -331,43 +309,6 @@ namespace SM64DSe
                 KCLEditorForm kclForm = new KCLEditorForm(currentKCL);
                 kclForm.Show();
             }
-        }
-
-        private void mnitDecompressOverlaysWithinGame_Click(object sender, EventArgs e)
-        {
-            if (Program.m_ROM == null)
-                return;
-            Program.m_ROM.BeginRW();
-            Helper.DecompressOverlaysWithinGame();
-            Program.m_ROM.EndRW();
-            slStatusLabel.Text = "All overlays have been decompressed successfully.";
-        }
-
-        private void mnitHexDumpToBinaryFile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Select a hex dump to open.";
-            if (ofd.ShowDialog(this) == DialogResult.OK)
-            {
-                try
-                {
-                    string hexDump = File.ReadAllText(ofd.FileName);
-                    byte[] binaryData = Helper.HexDumpToBinary(hexDump);
-                    System.IO.File.WriteAllBytes(ofd.FileName + ".bin", binaryData);
-
-                    slStatusLabel.Text = "Hex dump successfully converted to binary file.";
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
-                }
-            }
-        }
-
-        private void mnitAdditionalPatches_Click(object sender, EventArgs e)
-        {
-            AdditionalPatchesForm addPatchesForm = new AdditionalPatchesForm();
-            addPatchesForm.Show();
         }
 
         private string m_SelectedFile;
@@ -422,12 +363,6 @@ namespace SM64DSe
             file.Clear();
             file.WriteBlock(0, System.IO.File.ReadAllBytes(ofd.FileName));
             file.SaveChanges();
-        }
-
-        private void mnitEditSDATINFOBlockToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SDATInfoEditor sdatInfoEditor = new SDATInfoEditor();
-            sdatInfoEditor.Show();
         }
 
         private void btnLZDecompressWithHeader_Click(object sender, EventArgs e)
@@ -527,36 +462,6 @@ namespace SM64DSe
                 m_SelectedOverlay = e.Node.Tag.ToString();
         }
 
-        private void mnitToggleSuitabilityForNSMBeASMPatchingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // The v3 patch applied at the beginning prevents patched ROM's working with NSMBe's useful 
-            // ASM patching feature - this simply toggles the application of that patch on and off.
-
-            Program.m_ROM.BeginRW();
-
-            bool suitable = (Program.m_ROM.Read32(0x4AF4) == 0xDEC00621 && Program.m_ROM.Read32(0x4AF8) == 0x2106C0DE) ? true : false;
-            if (!suitable)
-            {
-                Program.m_ROM.Write32(0x4AF4, 0xDEC00621);
-                Program.m_ROM.Write32(0x4AF8, 0x2106C0DE);
-                uint binend = (Program.m_ROM.Read32(0x2C) + 0x4000);
-                Program.m_ROM.Write32(binend, 0xDEC00621);
-                Program.m_ROM.Write32(0x4AEC, 0x00000000);
-            }
-            else
-            {
-                Program.m_ROM.Write32(0x4AF4, 0x00000000);
-                Program.m_ROM.Write32(0x4AF8, 0x00000000);
-                uint binend = (Program.m_ROM.Read32(0x2C) + 0x4000);
-                Program.m_ROM.Write32(binend, 0x00000000);
-                Program.m_ROM.Write32(0x4AEC, 0x02061504);
-            }
-
-            Program.m_ROM.EndRW();
-
-            MessageBox.Show("ROM is " + ((suitable) ? "no longer " : "now ") + "suitable for use with NSMBe's ASM patch insertion feature");
-        }
-
         private void mnitToolsModelAndCollisionMapImporter_Click(object sender, EventArgs e)
         {
             new ModelAndCollisionMapEditor().Show();
@@ -578,41 +483,19 @@ namespace SM64DSe
             new TextEditorForm().Show();
         }
 
-        private void mnitToolsImageEditor_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Not yet implemented");
-        }
-
         private void mnitToolsBTPEditor_Click(object sender, EventArgs e)
         {
             new TextureEditorForm().Show();
         }
 
-        private void mnitToolsSoundBrowser_Click(object sender, EventArgs e)
-        {
-            new SoundViewForm().Show();
-        }
-
-        private void mnitASMHackingCompilationCodeCompiler_Click(object sender, EventArgs e)
+        private void mnitCodeCompiler_Click(object sender, EventArgs e)
         {
             new CodeCompilerForm().Show();
-        }
-
-        private void mnitASMHackingCompilationFixCodeOffsets_Click(object sender, EventArgs e)
-        {
-            new CodeFixerForm().Show();
         }
 
         private void platformEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Templates.PlatformTemplateForm().Show();
-        }
-
-        private void bMDKLCEditorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ROMFileSelect rfs = new ROMFileSelect("Select a BMD or KLC file", new string[] { ".bmd", ".klc" });
-            if (rfs.ShowDialog(this) == DialogResult.OK)
-                new BMD_KLC_Editor(rfs.m_SelectedFile).Show();
         }
 
         private void cbLevelListDisplay_SelectedIndexChanged(object sender, EventArgs e)
