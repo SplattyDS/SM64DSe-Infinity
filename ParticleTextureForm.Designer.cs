@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParticleTextureForm));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnModelPalettesSelectedColour = new System.Windows.Forms.Button();
             this.lblModelPalettesPaletteSelectedColour = new System.Windows.Forms.Label();
@@ -278,6 +279,7 @@
             this.Controls.Add(this.pbxTexture);
             this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

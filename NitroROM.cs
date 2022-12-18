@@ -466,21 +466,13 @@ namespace SM64DSe
             NitroFile msgFile;
             try
             {
-                msgFile = GetFileFromName("data/message/msg_data_nes.bin");
-                Console.WriteLine(" !Any Other!");
+                msgFile = GetFileFromName("data/message/msg_data_eng.bin");
+                Console.WriteLine(" !European!");
             }
             catch (Exception)
             {
-                try
-                {
-                    msgFile = GetFileFromName("data/message/msg_data_eng.bin");
-                    Console.WriteLine(" !European!");
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine(" !Not Supported!");
-                    return;
-                }
+                Console.WriteLine(" !Not Supported!");
+                return;
             }
             BiDictionaryOneToOne<byte, string> BASIC_EUR_US_CHARS = new BiDictionaryOneToOne<byte, string>();
             Dictionary<string, uint> BASIC_EUR_US_SIZES = new Dictionary<string, uint>();

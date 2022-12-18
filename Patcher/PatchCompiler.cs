@@ -12,6 +12,7 @@ namespace SM64DSe.Patcher
 {
     class PatchCompiler
     {
+        public static bool HideConsoleWindow;
 
         public static int compilePatch(uint destAddr, DirectoryInfo romDir)
         {
@@ -35,15 +36,24 @@ namespace SM64DSe.Patcher
 
         public static int runProcess(string proc, string cwd)
         {
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.FileName = "cmd";
-            info.Arguments = "/C " + proc + " || pause";
-            info.CreateNoWindow = false;
-            info.UseShellExecute = false;
-            info.WorkingDirectory = cwd;
+            Process p = new Process();
 
-            Process p = Process.Start(info);
+            p.StartInfo.FileName = "cmd";
+            p.StartInfo.CreateNoWindow = HideConsoleWindow;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.WorkingDirectory = cwd;
+            p.StartInfo.Arguments = "/C " + proc + " || pause";
+            p.StartInfo.RedirectStandardInput = HideConsoleWindow;
+            p.Start();
+
+            if (HideConsoleWindow)
+            {
+                p.StandardInput.WriteLine();
+                p.StandardInput.Close();
+            }
+            
             p.WaitForExit();
+
             return p.ExitCode;
         }
     }

@@ -11,23 +11,24 @@ namespace SM64DSe.Patcher
 {
     public static class PatchProcessor
     {
-        public static void Process(DirectoryInfo codeDir, string[] p)
+        public static string Process(DirectoryInfo codeDir, string[] p, bool hideConsoleWindow)
         {
+            PatchCompiler.HideConsoleWindow = hideConsoleWindow;
+
             if (p.Length < 2)
-                return;
+                throw new IndexOutOfRangeException("Not enough arguments supplied.");
 
             int minLength = p[1] == "arm9" || p[1] == "hooks" || p[1] == "test" || p[1] == "symbols" ? 3 : 4;
 
             if (p.Length < minLength)
-                return;
+                throw new IndexOutOfRangeException("Not enough arguments supplied.");
 
             string sourceDir = p[minLength - 1].Remove(0, 1).Remove(p[minLength - 1].Length - 2, 1);
 
             switch (p[1])
             {
                 case "arm9":
-                    CompileArm9(codeDir, sourceDir);
-                    break;
+                    return CompileArm9(codeDir, sourceDir);
 
                 case "overlay":
                     uint ovID = Convert.ToUInt32(p[2]);
@@ -37,41 +38,43 @@ namespace SM64DSe.Patcher
                     MakeOverlay(ovID, codeDir);
                     UpdateSymbols(codeDir, "Symbols from overlay " + ovID);
                     PatchCompiler.cleanPatch(codeDir);
-                    break;
+                    return "Successfully compiled overlay " + ovID + ".\n" + sourceDir;
 
                 case "dl":
                     string fileName = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
                     if (!Program.m_ROM.FileExists(fileName))
-                        return;
+                        throw new Exception("Couldn't find file '" + fileName + "' in ROM.");
 
                     byte[] dl = MakeDynamicLibrary(codeDir, sourceDir);
                     if (dl == null)
-                        return;
+                        throw new Exception("DL generation failed.");
 
                     NitroFile file = Program.m_ROM.GetFileFromName(fileName);
                     file.m_Data = dl;
                     file.SaveChanges();
 
                     PatchCompiler.cleanPatch(codeDir);
-                    break;
+                    return "Successfully compiled \n" + fileName + "\n" + sourceDir;
 
                 case "hooks":
                     InsertHooks(codeDir, sourceDir);
-                    break;
+                    return "Successfully run hook script\n" + sourceDir;
 
                 case "test":
                     UpdateMakefileSources(codeDir, sourceDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
                     PatchCompiler.cleanPatch(codeDir);
-                    break;
+                    return "Successfully compiled test\n" + sourceDir;
 
                 case "symbols":
                     UpdateMakefileSources(codeDir, sourceDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
-                    break;
+                    string symbols = string.Join("\n", GetSymbols(codeDir));
+                    PatchCompiler.cleanPatch(codeDir);
+                    return "Successfully compiled symbols in " + sourceDir + ":\n" + symbols;
 
                 default:
-                    return;
+                    throw new Exception("Unknown command type '" + p[1] + "'.");
             }
         }
 
@@ -257,7 +260,6 @@ namespace SM64DSe.Patcher
             fs.Read(newdata, 0, (int)fs.Length);
             fs.Close();
 
-
             BinaryWriter newOvl = new BinaryWriter(new MemoryStream());
             BinaryReader newOvlR = new BinaryReader(newOvl.BaseStream);
 
@@ -290,8 +292,7 @@ namespace SM64DSe.Patcher
             }
             catch (Exception ex)
             {
-                new ExceptionMessageBox("Error", ex).ShowDialog();
-                return;
+                throw new Exception("Compiling overlay" + ovID + " (" + codeDir.FullName + ") failed:\n" + ex.Message);
             }
             finally
             {
@@ -340,9 +341,7 @@ namespace SM64DSe.Patcher
             }
             catch (Exception ex)
             {
-                new ExceptionMessageBox("An error occurred while reading newcode.sym", ex).ShowDialog();
-
-                return null;
+                throw new Exception("An error occurred while reading newcode.sym:\n" + ex);
             }
             finally
             {
@@ -353,14 +352,12 @@ namespace SM64DSe.Patcher
             if (initFuncOffset == 0)
             {
                 if (cleanFuncOffset == 0)
-                    MessageBox.Show("Generating DL failed: init and cleanup functions missing");
+                    throw new Exception("Generating DL failed: init and cleanup functions missing.");
                 else
-                    MessageBox.Show("Generating DL failed: init function missing");
+                    throw new Exception("Generating DL failed: init function missing.");
             }
             else
-                MessageBox.Show("Generating DL failed: cleanup function missing");
-
-            return null;
+                throw new Exception("Generating DL failed: cleanup function missing.");
         }
 
         public static byte[] MakeDynamicLibrary(DirectoryInfo codeDir, string sourceDir)
@@ -380,11 +377,7 @@ namespace SM64DSe.Patcher
                 byte[] code1 = File.ReadAllBytes(codeDir.FullName + "/newcode1.bin");
 
                 if (code0.Length != code1.Length)
-                {
-                    MessageBox.Show("Generating DL failed: code lengths don't match");
-
-                    return null;
-                }
+                    throw new Exception("Generating DL failed: code lengths don't match");
 
                 MemoryStream outputStream = new MemoryStream();
                 BinaryWriter output = new BinaryWriter(outputStream);
@@ -419,11 +412,9 @@ namespace SM64DSe.Patcher
                     }
                     else
                     {
-                        MessageBox.Show("Generating DL failed: code files don't match for an unknown reason\nnewcode.bin offset: 0x"
+                        throw new Exception("Generating DL failed: code files don't match for an unknown reason\nnewcode.bin offset: 0x"
                              + i.ToString("X4") + "\nmismatching words: 0x"
                              + word0.ToString("X8") + " and 0x" + word1.ToString("X8"));
-
-                        return null;
                     }
                 }
 
@@ -455,9 +446,7 @@ namespace SM64DSe.Patcher
             }
             catch (Exception ex)
             {
-                new ExceptionMessageBox("Generating DL failed:", ex).ShowDialog();
-
-                return null;
+                throw new Exception("Generating DL failed:\n" + ex.Message);
             }
         }
 
@@ -483,8 +472,32 @@ namespace SM64DSe.Patcher
                     }
                 }
             }
-            
+
             File.WriteAllLines(codeDir.FullName + "symbols.x", symbols);
+        }
+
+        public static List<string> GetSymbols(DirectoryInfo codeDir)
+        {
+            List<string> symbols = new List<string>();
+            string[] unformattedSymbols = File.ReadAllLines(codeDir.FullName + "newcode.sym");
+
+            foreach (string symbol in unformattedSymbols)
+            {
+                string[] data = symbol.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (data.Length == 5 || data.Length == 6 || (data.Length == 4 && (data.Last().StartsWith("nsub_") || data.Last().StartsWith("repl_")) && !symbols.Select(s => s.Split(' ').First()).Contains(data.Last())))
+                {
+                    string symbolName = data.Last();
+                    if (!symbolName.StartsWith(".") && !symbolName.Contains("*ABS*") && !symbolName.Contains(".cpp") && !symbolName.Contains(".o"))
+                    {
+                        //uint addr = uint.Parse(data[0], System.Globalization.NumberStyles.HexNumber);
+                        //string spaces = symbolName.Length >= 82 ? " " : new string(' ', 82 - symbolName.Length);
+                        //symbols.Add(symbolName + spaces + "= " + "0x" + Convert.ToString(addr, 16).PadLeft(8, '0').ToLower() + ";");
+                        symbols.Add(symbolName);
+                    }
+                }
+            }
+
+            return symbols;
         }
 
         public static void UpdateMakefileSources(DirectoryInfo codeDir, string sourceDir)
@@ -613,8 +626,9 @@ namespace SM64DSe.Patcher
             codeBlocks.Sort((a, b) => a.Address.CompareTo(b.Address));
         }
 
-        private static void CompileArm9(DirectoryInfo codeDir, string sourceDir)
+        private static string CompileArm9(DirectoryInfo codeDir, string sourceDir)
         {
+            string ret = "";
             DirectoryInfo directoryInfo = new DirectoryInfo(codeDir.FullName + "\\" + sourceDir);
             codeBlocks = new List<CodeBlock>();
 
@@ -624,29 +638,32 @@ namespace SM64DSe.Patcher
             // check for overlapping sections
             FreeSection[] overlappingSections = OverlappingSections();
             if (overlappingSections != null)
-            {
-                Console.WriteLine("Error! Overlapping sections found:");
-                for (int i = 0; i < overlappingSections.Length; i++)
-                    Console.WriteLine(overlappingSections[i]);
-
-                throw new Exception("Error! Overlapping sections found!");
-            }
+                throw new Exception("Overlapping sections found:" + string.Join("\n", overlappingSections.Select(s => s.ToString())));
 
             // combine the free sections
             CombineFreeArm9Sections();
 
-            // precompile all directories to get the size of the code blocks
-            foreach (DirectoryInfo curDir in directoryInfo.GetDirectories())
+            string curSourceDir = "";
+
+            try
             {
-                string curSourceDir = sourceDir + "\\" + curDir.Name;
+                // precompile all directories to get the size of the code blocks
+                foreach (DirectoryInfo curDir in directoryInfo.GetDirectories())
+                {
+                    curSourceDir = sourceDir + "\\" + curDir.Name;
+                    UpdateMakefileSources(codeDir, curSourceDir);
+                    PatchCompiler.compilePatch(0x02400000, codeDir);
+                    uint size = (uint)File.ReadAllBytes(codeDir.FullName + "\\newcode.bin").Length;
+                    size += size % 4;
+                    PatchCompiler.cleanPatch(codeDir);
+                    ret += "Precompiled arm9 section '" + curSourceDir + "'.\n";
 
-                UpdateMakefileSources(codeDir, curSourceDir);
-                PatchCompiler.compilePatch(0x02400000, codeDir);
-                uint size = (uint)File.ReadAllBytes(codeDir.FullName + "\\newcode.bin").Length;
-                size += size % 4;
-                PatchCompiler.cleanPatch(codeDir);
-
-                codeBlocks.Add(new CodeBlock { Directory = curSourceDir, Address = 0x02400000, Size = size });
+                    codeBlocks.Add(new CodeBlock { Directory = curSourceDir, Address = 0x02400000, Size = size });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Precomping arm9 section '" + curSourceDir + "' failed:\n" + ex.Message);
             }
 
             // sort the codeblocks by size
@@ -655,22 +672,33 @@ namespace SM64DSe.Patcher
 
             // allocate all code blocks on the free arm9 sections
             AllocateCodeBlocks();
-            
+
             // compile and insert the newly allocated code blocks
-            foreach (CodeBlock codeBlock in codeBlocks)
+            try
             {
-                UpdateMakefileSources(codeDir, codeBlock.Directory);
-                PatchCompiler.compilePatch(codeBlock.Address, codeDir);
-                byte[] data = File.ReadAllBytes(codeDir.FullName + "\\newcode.bin");
+                foreach (CodeBlock codeBlock in codeBlocks)
+                {
+                    UpdateMakefileSources(codeDir, codeBlock.Directory);
+                    PatchCompiler.compilePatch(codeBlock.Address, codeDir);
+                    byte[] data = File.ReadAllBytes(codeDir.FullName + "\\newcode.bin");
 
-                bool autorw = Program.m_ROM.CanRW();
-                if (!autorw) Program.m_ROM.BeginRW();
-                Program.m_ROM.WriteBlock(codeBlock.Address - 0x02000000, data);
-                if (!autorw) Program.m_ROM.EndRW();
+                    bool autorw = Program.m_ROM.CanRW();
+                    if (!autorw) Program.m_ROM.BeginRW();
+                    Program.m_ROM.WriteBlock(codeBlock.Address - 0x02000000, data);
+                    if (!autorw) Program.m_ROM.EndRW();
 
-                UpdateSymbols(codeDir, "Symbols from arm9 patch (" + codeBlock.Directory + ")");
-                PatchCompiler.cleanPatch(codeDir);
+                    UpdateSymbols(codeDir, "Symbols from arm9 patch (" + codeBlock.Directory + ")");
+                    PatchCompiler.cleanPatch(codeDir);
+
+                    ret += "Compiled and inserted arm9 section '" + codeBlock.Directory + "' at 0x" + Convert.ToString(codeBlock.Address, 16).ToLower() + ".\n";
+                }
             }
+            catch (Exception ex)
+            {
+                throw new Exception("Compiling arm9 section '" + curSourceDir + "' failed:\n" + ex.Message);
+            }
+
+            return ret;
         }
     }
 }

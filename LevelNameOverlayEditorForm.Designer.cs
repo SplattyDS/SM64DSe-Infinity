@@ -199,7 +199,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LevelNameOverlayEditorForm";
-            this.Text = "SPT Editor";
+            this.Text = "Level XML Editor";
             this.Load += new System.EventHandler(this.LevelNameOverlayEditorForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

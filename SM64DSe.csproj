@@ -134,6 +134,12 @@
     </Compile>
     <Compile Include="BasicBigFloat.cs" />
     <Compile Include="BiDictionaryOneToOne.cs" />
+    <Compile Include="PatchViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PatchViewerForm.Designer.cs">
+      <DependentUpon>PatchViewerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SM64DSFormats\BMA.cs" />
     <Compile Include="CodeCompilerForm.cs">
       <SubType>Form</SubType>
@@ -435,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectDatabaseEditorForm.resx">
       <DependentUpon>ObjectDatabaseEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PatchViewerForm.resx">
+      <DependentUpon>PatchViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SPLC_Form.resx">
       <DependentUpon>SPLC_Form.cs</DependentUpon>
