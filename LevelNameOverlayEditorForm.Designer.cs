@@ -57,7 +57,7 @@
             this.btnImportXML});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1073, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1148, 27);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -103,13 +103,13 @@
             this.lstLevels.ItemHeight = 15;
             this.lstLevels.Location = new System.Drawing.Point(12, 30);
             this.lstLevels.Name = "lstLevels";
-            this.lstLevels.Size = new System.Drawing.Size(568, 454);
+            this.lstLevels.Size = new System.Drawing.Size(701, 454);
             this.lstLevels.TabIndex = 11;
             this.lstLevels.SelectedIndexChanged += new System.EventHandler(this.lstLevels_SelectedIndexChanged);
             // 
             // txtLevelName
             // 
-            this.txtLevelName.Location = new System.Drawing.Point(702, 50);
+            this.txtLevelName.Location = new System.Drawing.Point(810, 50);
             this.txtLevelName.Name = "txtLevelName";
             this.txtLevelName.Size = new System.Drawing.Size(326, 22);
             this.txtLevelName.TabIndex = 12;
@@ -117,7 +117,7 @@
             // 
             // txtShortName
             // 
-            this.txtShortName.Location = new System.Drawing.Point(702, 78);
+            this.txtShortName.Location = new System.Drawing.Point(810, 78);
             this.txtShortName.Name = "txtShortName";
             this.txtShortName.Size = new System.Drawing.Size(326, 22);
             this.txtShortName.TabIndex = 13;
@@ -125,7 +125,7 @@
             // 
             // nudOverlayID
             // 
-            this.nudOverlayID.Location = new System.Drawing.Point(702, 123);
+            this.nudOverlayID.Location = new System.Drawing.Point(810, 123);
             this.nudOverlayID.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -139,7 +139,7 @@
             // lblLevelName
             // 
             this.lblLevelName.AutoSize = true;
-            this.lblLevelName.Location = new System.Drawing.Point(611, 53);
+            this.lblLevelName.Location = new System.Drawing.Point(719, 53);
             this.lblLevelName.Name = "lblLevelName";
             this.lblLevelName.Size = new System.Drawing.Size(85, 17);
             this.lblLevelName.TabIndex = 15;
@@ -148,7 +148,7 @@
             // lblShortName
             // 
             this.lblShortName.AutoSize = true;
-            this.lblShortName.Location = new System.Drawing.Point(611, 81);
+            this.lblShortName.Location = new System.Drawing.Point(719, 81);
             this.lblShortName.Name = "lblShortName";
             this.lblShortName.Size = new System.Drawing.Size(85, 17);
             this.lblShortName.TabIndex = 16;
@@ -157,7 +157,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(618, 125);
+            this.label1.Location = new System.Drawing.Point(726, 125);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 17);
             this.label1.TabIndex = 17;
@@ -166,7 +166,7 @@
             // lblXMLData
             // 
             this.lblXMLData.AutoSize = true;
-            this.lblXMLData.Location = new System.Drawing.Point(853, 30);
+            this.lblXMLData.Location = new System.Drawing.Point(961, 30);
             this.lblXMLData.Name = "lblXMLData";
             this.lblXMLData.Size = new System.Drawing.Size(175, 17);
             this.lblXMLData.TabIndex = 18;
@@ -175,7 +175,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(840, 103);
+            this.label2.Location = new System.Drawing.Point(948, 103);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(188, 17);
             this.label2.TabIndex = 19;
@@ -185,7 +185,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 507);
+            this.ClientSize = new System.Drawing.Size(1148, 507);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblXMLData);
             this.Controls.Add(this.label1);
