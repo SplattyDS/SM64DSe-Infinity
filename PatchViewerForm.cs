@@ -238,6 +238,11 @@ namespace SM64DSe
             lstCommands.Items.Clear();
             lstCommands.Items.AddRange(commandInfos);
 
+            pbProgress.Minimum = pbProgress.Value = 0;
+            pbProgress.Maximum = commandInfos.Count();
+            pbProgress.Step = 1;
+            lblProgress.BackColor = Color.Transparent;
+
             Thread thread = new Thread(ApplyPatch);
             thread.IsBackground = true;
             thread.Start();
@@ -245,6 +250,8 @@ namespace SM64DSe
 
         private void UpdateForm(int refreshIndex)
         {
+            pbProgress.Invoke(new MethodInvoker(delegate { pbProgress.Value = commandInfos.Where(c => c.state == CommandInfo.State.SUCCESS || c.state == CommandInfo.State.FAILED_FS).Count(); }));
+            lblProgress.Invoke(new MethodInvoker(delegate { lblProgress.Text = $"Progress: {pbProgress.Value * 100 / pbProgress.Maximum}%"; }));
             lstCommands.Invoke(new MethodInvoker(delegate { lstCommands.Items[refreshIndex] = lstCommands.Items[refreshIndex]; }));
             txtCommandInfo.Invoke(new MethodInvoker(delegate { txtCommandInfo.Text = lstCommands.SelectedIndex < 0 ? "" : commandInfos[lstCommands.SelectedIndex].description; }));
             bool enableRetryButton = commandInfos.Select(c => c.state == CommandInfo.State.FAILED).Contains(true);

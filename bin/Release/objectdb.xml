@@ -911,34 +911,27 @@ PP - Path ID</description>
 		<name>1-Up Mushroom</name>
 		<internalname>ONE_UP_MUSHROOM</internalname>
 		<actorid>276</actorid>
-		<description>Green mushroom that gives the player an extra life. If a mushroom is to be spawned from a tree, Nintendo places the "create tag" mushroom 0.2 y points above the "tag" mushroom.
-		
-TODO: figure out parameters
+		<description>Parameter 1:
+XXCB
 
-Parameter 1:
-TTTT where
+C: Amount of tags needed in order to spawn (used by behavior 5 and 7, 'f' for others)
 
-T: Type
-0000 - Like spawned from block (springs out, trundles around slowly and eventually disappears)
-0001 - Trundles around, trying to avoid player.
-0014 - Still, until approached; then does a big jump. It sparkles, but never disappears.
-0015 - Spawns when one Mushroom with Parameter 1 set to F6 is triggered. Mushroom trundles around, trying to avoid player and eventually disappears. There is not point having more than one 00015 mushroom, as only the first one will spawn.
-0016 - Nothing?
-0017 - Spawns when one Mushroom with Parameter 1 set to F8 is triggered. Mushroom flies towards the player, going through all obstacles.
-0045 - Spawns when four Mushrooms with Parameter 1 set to F6 are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
-0085 - Spawns when eight Mushrooms with Parameter 1 set to FB are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
-00F1 - Nothing?
-00F2 - Still, until approached; then it starts trundling back and forth very quickly, eventually disappering.
-00F3 - Still
-00F4 - Mushroom jumps when approached
-00F6 - Invisible tag for one Mushroom with Parameter 1 set to 0045 or 0015. If you have too many triggers it won't work.
-00F7 - Nothing?
-00F8 - Invisible tag for one Mushroom with Parameter 1 set to 0017. See 0017 for more info.
-00FB - Invisible tag for one Mushroom with Parameter 1 set to 0085. See 0085 for more info. Appears and acts like a coin.
-
-* Files:
-** /data/ARCHIVE/arc1.narc/data/normal_obj/oneup_kinoko
-*** oneup_kinoko.bmd</description>
+B: Behavior
+	0: spins around when spawned
+	1: spins around when spawned, avoids player
+	2: moves fast in a straight line (used in slide levels)
+	3: still, never moves
+	4: still, jumps up when approached
+	5: spawned when all behavior 6 tags are activated (spins around when spawned, avoids player)
+	6: tag for behavior 5
+	7: spawned when all behavior 8 tags are activated (spins around when spawned, chases player)
+	8: tag for behavior 7
+	9: spawns 2 with behavior b (x +- 0x1f4000_f) and 1 with behavior 5 (y + 0x32000_f), then gets killed (used in THI huge on the sand)
+	a: jumps up when spawned, then spins around
+	b: coin tag for behavior 5
+	c: coin tag for behavior 7
+	d: jumps up when spawned, no collision until landed on ground (spawned from create tag)
+</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/oneup_kinoko/oneup_kinoko.bmd" scale="0.008" />
