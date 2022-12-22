@@ -614,5 +614,10 @@ namespace SM64DSe
                     }
             }
         }
+
+        private void PatchViewerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = commandInfos.Select(c => c.state).Contains(CommandInfo.State.WAITING);
+        }
     }
 }

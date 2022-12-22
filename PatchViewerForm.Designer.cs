@@ -120,6 +120,7 @@ namespace SM64DSe
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PatchViewerForm";
             this.Text = "Patch Viewer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PatchViewerForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
