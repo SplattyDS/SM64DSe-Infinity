@@ -44,14 +44,16 @@ namespace SM64DSe.Patcher
             p.StartInfo.WorkingDirectory = cwd;
             p.StartInfo.Arguments = "/C " + proc + " || pause";
             p.StartInfo.RedirectStandardInput = HideConsoleWindow;
+            p.StartInfo.RedirectStandardOutput = HideConsoleWindow;
             p.Start();
 
             if (HideConsoleWindow)
             {
                 p.StandardInput.WriteLine();
                 p.StandardInput.Close();
+                p.StandardOutput.ReadToEnd();
             }
-            
+
             p.WaitForExit();
 
             return p.ExitCode;
