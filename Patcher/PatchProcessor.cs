@@ -63,6 +63,7 @@ namespace SM64DSe.Patcher
                 case "test":
                     UpdateMakefileSources(codeDir, sourceDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
+                    if (!File.Exists(codeDir.FullName + "\\newcode.bin")) throw new Exception("Code didn't compile successfully.\nRetry for more details.");
                     PatchCompiler.cleanPatch(codeDir);
                     return "Successfully compiled test\n" + sourceDir;
 

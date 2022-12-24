@@ -1292,8 +1292,8 @@ YY: Unknown</description>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="70">
-		<name>Large Mansion Steps</name>
-		<internalname>KAIDAN</internalname>
+		<name>Mansion Steps</name>
+		<internalname>MANSION_STEPS</internalname>
 		<actorid>65</actorid>
 		<description>These appear after defeating Big Boo in the mansion.
 
@@ -1304,7 +1304,7 @@ XXXX Star ID for them to be set down?</description>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="71">
-		<name>Secret Door Bookshelf</name>
+		<name>Bookshelf</name>
 		<internalname>BOOKSHELF</internalname>
 		<actorid>158</actorid>
 		<description>When you hit the books in the right order it will move to the left. If you get the order wrong, it will shoot a book at you and reset the books.</description>
@@ -1313,8 +1313,8 @@ XXXX Star ID for them to be set down?</description>
 		<renderer type="NormalBMD" file="data/special_obj/th_hondana/th_hondana.bmd" scale="0.008" />
 	</object>
 	<object id="72">
-		<name>Big Boo's Merry-Go-Round</name>
-		<internalname>MERRYGOROUND</internalname>
+		<name>Merry-Go-Round</name>
+		<internalname>MERRY_GO_ROUND</internalname>
 		<actorid>159</actorid>
 		<description>Big Boo's Merry-Go-Round. Rotating platform. Also plays its own music when the player is close enough to it.</description>
 		<bankreq>0=2</bankreq>
@@ -1322,8 +1322,8 @@ XXXX Star ID for them to be set down?</description>
 		<renderer type="NormalBMD" file="data/special_obj/th_mery_go/th_mery_go.bmd" scale="0.008" />
 	</object>
 	<object id="73">
-		<name>BBH Trap Door</name>
-		<internalname>TERESAPIT</internalname>
+		<name>Trap Door</name>
+		<internalname>TRAP_DOOR</internalname>
 		<actorid>160</actorid>
 		<description>Flipping platform in Big Boo's Haunt.</description>
 		<bankreq>0=2</bankreq>
@@ -1382,11 +1382,11 @@ XXXX: Message
 	</object>
 	<object id="77">
 		<name>Ice Sheet</name>
-		<internalname>ICE_BOARD</internalname>
+		<internalname>ICE_SHEET</internalname>
 		<actorid>295</actorid>
 		<description>Used in Cool, Cool Mountain. A square sheet of ice only Wario can break. Visible from both sides.</description>
-		<bankreq>7=11</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/ice_sheet.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_ice_board/obj_ice_board.bmd" scale="0.008" />
 	</object>
 	<object id="78">
@@ -2261,13 +2261,13 @@ Param 1:
 	</object>
 	<object id="158">
 		<name>Mother Penguin</name>
-		<internalname>PENGUIN_MOTHER</internalname>
+		<internalname>MOTHER_PENGUIN</internalname>
 		<actorid>257</actorid>
 		<description>Bring her the correct baby and she will reward you with a star. Its position in the level affects where she looks down at player; level needs to be high enough or low enough so it looks right.
 
 Param 1: Star ID</description>
-		<bankreq>7=11</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/mother_penguin.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/penguin/penguin.bmd" scale="0.008" />
 	</object>
 	<object id="159">
@@ -2281,11 +2281,11 @@ Param 1: Star ID</description>
 	</object>
 	<object id="160">
 		<name>Racing Penguin</name>
-		<internalname>PENGUIN_RACER</internalname>
+		<internalname>RACING_PENGUIN</internalname>
 		<actorid>259</actorid>
 		<description>The one that races you in Cool, Cool Mountain - slider. Uses Path ID.</description>
-		<bankreq>7=12</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/racing_penguin.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/penguin/penguin.bmd" scale="0.008" />
 	</object>
 	<object id="161">
@@ -2958,15 +2958,15 @@ TODO: Work out parameters</description>
 		<renderer type="NormalBMD" file="data/special_obj/c0_switch/c0_switch.bmd" scale="0.008" />
 	</object>
 	<object id="229">
-		<name>CCM ski lift</name>
-		<internalname>SM_LIFT</internalname>
+		<name>Ski Lift</name>
+		<internalname>SKI_LIFT</internalname>
 		<actorid>63</actorid>
 		<description>Parameter 1:
 XXXP
 XXX - Nothing?
 P - Path ID</description>
-		<bankreq>7=11</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/ski_lift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/sm_lift/sm_lift.bmd" scale="0.008" />
 	</object>
 	<object id="230">
@@ -3729,8 +3729,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<renderer type="NormalBMD" file="data/normal_obj/obj_block/ice_block_ll.bmd" scale="0.008" />
 	</object>
 	<object id="286">
-		<name />
-		<internalname>SHOOT_BOOK</internalname>
+		<name>Book Shot</name>
+		<internalname>BOOK_SHOT</internalname>
 		<actorid>325</actorid>
 		<description>Maybe the flying book that is shot out of bookcases in the libary room in BBH?</description>
 		<bankreq>7=13</bankreq>
@@ -3738,8 +3738,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="287">
-		<name>Killer Book</name>
-		<internalname>KILLER_BOOK</internalname>
+		<name>Bookend</name>
+		<internalname>BOOKEND</internalname>
 		<actorid>327</actorid>
 		<description>Chomps and flies at the player. This object is placed in a bookshelf in the game.</description>
 		<bankreq>7=13</bankreq>
@@ -3747,8 +3747,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="288">
-		<name>Flying Book Spawner</name>
-		<internalname>BOOK_GENERATOR</internalname>
+		<name>Book Shot Spawner</name>
+		<internalname>BOOK_SHOT_SPAWNER</internalname>
 		<actorid>328</actorid>
 		<description />
 		<bankreq>7=13</bankreq>
@@ -3756,7 +3756,7 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="289">
-		<name>BOOK_SWITCH</name>
+		<name>Book Switch</name>
 		<internalname>BOOK_SWITCH</internalname>
 		<actorid>213</actorid>
 		<description>Maybe this is the actor for the book switches on the Secret Door Bookcase?</description>
@@ -3819,8 +3819,8 @@ YY - The order of the current chest.
 		<renderer type="NormalBMD" file="data/special_obj/mc_water/mc_water.bmd" scale="0.008" />
 	</object>
 	<object id="294">
-		<name>Possessed Chair</name>
-		<internalname>CHAIR</internalname>
+		<name>Haunted Chair</name>
+		<internalname>HAUNTED_CHAIR</internalname>
 		<actorid>326</actorid>
 		<description>A chair that flies at the player.</description>
 		<bankreq>7=13</bankreq>
@@ -4014,20 +4014,20 @@ Alone, not a really useful object.</description>
 	</object>
 	<object id="308">
 		<name>Power Star Create</name>
-		<internalname>STAR_CREATE</internalname>
+		<internalname>POWER_STAR_CREATE</internalname>
 		<actorid>355</actorid>
 		<description />
-		<bankreq>7=11</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/power_star_create.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="309">
-		<name>CCM Shortcut Manager</name>
-		<internalname>SLIDER_MANAGER</internalname>
+		<name>Ice Slide Manager</name>
+		<internalname>ICE_SLIDE_MANAGER</internalname>
 		<actorid>356</actorid>
 		<description>In the Cool, Cool Mountain penguin slide, detects when the player takes the shortcut. Plays the 'secret found' sound effect, but, during races, also tells the racing penguin that the player is cheating.</description>
-		<bankreq>7=12</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/ice_slide_manager.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="310">
