@@ -527,7 +527,12 @@ namespace SM64DSe.Patcher
             {
                 return Address + UsedSize;
             }
-        }
+
+			public override string ToString()
+			{
+                return Description + " (0x" + Convert.ToString(Address, 16).ToLower() + "): 0x" + Convert.ToString(UsedSize, 16).ToLower() + "/0x" + Convert.ToString(Size, 16).ToLower() + " (" + Math.Round((double)UsedSize / Size * 100, 2) + "%)";
+			}
+		}
 
         class CodeBlock
         {
@@ -691,8 +696,16 @@ namespace SM64DSe.Patcher
                     UpdateSymbols(codeDir, "Symbols from arm9 patch (" + codeBlock.Directory + ")");
                     PatchCompiler.cleanPatch(codeDir);
 
-                    ret += "Compiled and inserted arm9 section '" + codeBlock.Directory + "' at 0x" + Convert.ToString(codeBlock.Address, 16).ToLower() + ".\n";
+                    ret += "Compiled and inserted arm9 section '" + codeBlock.Directory + "' at 0x" + Convert.ToString(codeBlock.Address, 16).ToLower() + " with size 0x" + Convert.ToString(codeBlock.Size, 16).ToLower() + ".\n";
                 }
+
+                ret += "\nAll code blocks compiled and inserted.\narm9 section information:";
+
+                foreach (FreeSection section in combinedSections)
+                    ret += "\n" + section;
+
+                foreach (FreeSection section in sections)
+                    section.UsedSize = 0;
             }
             catch (Exception ex)
             {
