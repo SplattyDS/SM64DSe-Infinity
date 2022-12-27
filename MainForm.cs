@@ -742,7 +742,7 @@ namespace SM64DSe
 
             nitroStudio = null;
 
-            SDATEditorToolStripMenuItem.Text = "SDAT Editor (Nitro Studio 2)";
+            tsToolBar.Invoke(new MethodInvoker(delegate { SDATEditorToolStripMenuItem.Text = "SDAT Editor (Nitro Studio 2)"; }));
         }
 
         private void SDATEditorToolStripMenuItem_Click(object sender, EventArgs e)
