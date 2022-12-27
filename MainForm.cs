@@ -732,14 +732,15 @@ namespace SM64DSe
             if (!File.Exists(Application.StartupPath + "\\NitroStudio\\_temp.sdat"))
             {
                 MessageBox.Show("Error! No sdat found after closing Nitro Studio 2.", "No SDAT found.");
-                return;
             }
-
-            NitroFile sdat = Program.m_ROM.GetFileFromName("data/sound_data.sdat");
-            sdat.m_Data = File.ReadAllBytes(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
-            sdat.SaveChanges();
-            File.Delete(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
-
+            else
+			{
+                NitroFile sdat = Program.m_ROM.GetFileFromName("data/sound_data.sdat");
+                sdat.m_Data = File.ReadAllBytes(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
+                sdat.SaveChanges();
+                File.Delete(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
+            }
+            
             nitroStudio = null;
 
             tsToolBar.Invoke(new MethodInvoker(delegate { SDATEditorToolStripMenuItem.Text = "SDAT Editor (Nitro Studio 2)"; }));
