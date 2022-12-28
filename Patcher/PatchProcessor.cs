@@ -11,6 +11,7 @@ namespace SM64DSe.Patcher
 {
     public static class PatchProcessor
     {
+        #region Compile Command Processing
         public static string Process(DirectoryInfo codeDir, string[] p, bool hideConsoleWindow)
         {
             PatchCompiler.HideConsoleWindow = hideConsoleWindow;
@@ -78,7 +79,9 @@ namespace SM64DSe.Patcher
                     throw new Exception("Unknown command type '" + p[1] + "'.");
             }
         }
+        #endregion
 
+        #region Check Duplicate Symbols
         public static string CheckDuplicateSymbols(DirectoryInfo codeDir)
         {
             IEnumerable<string> symbols = File.ReadAllLines(codeDir.FullName + "\\symbols.x");
@@ -100,7 +103,9 @@ namespace SM64DSe.Patcher
 
             return duplicateSymbols;
         }
+        #endregion
 
+        #region Insert Hooks
         public static void InsertHooks(DirectoryInfo codeDir, string fileName)
         {
             string[] lines = File.ReadAllLines(codeDir.FullName + "\\" + fileName);
@@ -206,7 +211,9 @@ namespace SM64DSe.Patcher
                 if (!autorw) Program.m_ROM.EndRW();
             }
         }
+        #endregion
 
+        #region Utility
         private static uint GetBranchAddr(DirectoryInfo codeDir, string symbol)
         {
             string[] lines = File.ReadAllLines(codeDir.FullName + "\\symbols.x");
@@ -248,7 +255,9 @@ namespace SM64DSe.Patcher
                 return (uint)(((branchOpcode & 0x00ffffff) << 8 >> 6) + 8 + srcAddr);
             }
         }
+        #endregion
 
+        #region Compile Overlay
         public static void MakeOverlay(uint ovID, DirectoryInfo codeDir)
         {
             FileInfo f = new FileInfo(codeDir.FullName + "/newcode.bin");
@@ -302,7 +311,9 @@ namespace SM64DSe.Patcher
                 newOvlR.Close();
             }
         }
+        #endregion
 
+        #region Compile DL
         private static (uint, uint)? GetInitAndCleanup(DirectoryInfo codeDir)
         {
             StreamReader symbolFile = null;
@@ -450,7 +461,9 @@ namespace SM64DSe.Patcher
                 throw new Exception("Generating DL failed:\n" + ex.Message);
             }
         }
+        #endregion
 
+        #region Update Symbols
         public static void UpdateSymbols(DirectoryInfo codeDir, string title)
         {
             List<string> symbols = File.ReadAllLines(codeDir.FullName + "symbols.x").ToList();
@@ -476,7 +489,9 @@ namespace SM64DSe.Patcher
 
             File.WriteAllLines(codeDir.FullName + "symbols.x", symbols);
         }
+        #endregion
 
+        #region Compile Symbols
         public static List<string> GetSymbols(DirectoryInfo codeDir)
         {
             List<string> symbols = new List<string>();
@@ -500,7 +515,9 @@ namespace SM64DSe.Patcher
 
             return symbols;
         }
+        #endregion
 
+        #region Update Makefile Sources Path
         public static void UpdateMakefileSources(DirectoryInfo codeDir, string sourceDir)
         {
             string[] lines = File.ReadAllLines(codeDir.FullName + "Makefile");
@@ -510,7 +527,9 @@ namespace SM64DSe.Patcher
 
             File.WriteAllLines(codeDir.FullName + "Makefile", lines);
         }
+        #endregion
 
+        #region Compile arm9
         class FreeSection
         {
             public uint Address; // subtract 0x02004000 to get offset in arm9.bin
@@ -714,5 +733,423 @@ namespace SM64DSe.Patcher
 
             return ret;
         }
+		#endregion
+
+		#region Update no$gba Symbols
+        public static void UpdateNoCashSymbols(DirectoryInfo codeDir)
+		{
+            string symPath = Program.m_ROMPath.Replace(".nds", ".sym");
+
+            string[] oldLines = File.ReadAllLines(codeDir.FullName + "\\symbols.x");
+            bool inComment = false;
+
+            // assumes comments start at the beginning of a line and end at the ending of a line
+            for (int i = 0; i < oldLines.Length; i++)
+            {
+                if (oldLines[i].Contains("/*") || inComment)
+                {
+                    inComment = true;
+
+                    if (oldLines[i].Contains("*/"))
+                        inComment = false;
+
+                    oldLines[i] = "";
+                }
+            }
+
+            List<string> lines = new List<string>();
+
+            for (int i = 0; i < oldLines.Length; i++)
+            {
+                string oldLine = oldLines[i];
+                if (string.IsNullOrWhiteSpace(oldLine))
+                    continue;
+
+                string mangledSymbol = GetSymbolName(oldLine);
+                string symbolAddress = GetSymbolAddress(oldLine);
+                // Console.WriteLine("Attempting symbol: " + mangledSymbol);
+                string demangledSymbol = DemangleSymbol(mangledSymbol);
+
+                lines.Add(symbolAddress + " " + demangledSymbol.Replace("const ", ""));
+            }
+
+            File.WriteAllLines(symPath, lines);
+        }
+
+        static string GetSymbolName(string line)
+        {
+            int nameLength = line.IndexOf(' ');
+            return line.Substring(0, nameLength);
+        }
+
+        static string GetSymbolAddress(string line)
+        {
+            int addressStart = line.IndexOf('=') + 4; // remove the "= 0x"
+            return line.Substring(addressStart, 8).ToUpper();
+        }
+
+        static bool IsCharNumeric(char theChar)
+        {
+            return theChar >= 0x30 && theChar <= 0x39;
+        }
+
+        static int CountNumsAt(string theString, int startIndex = 0)
+        {
+            for (int i = startIndex; i < theString.Length; i++)
+            {
+                if (!IsCharNumeric(theString[i]))
+                    return i - startIndex;
+            }
+
+            return 0;
+        }
+
+        static int CountAt(string theString, char toCount, int startIndex = 0)
+        {
+            for (int i = startIndex; i < theString.Length; i++)
+            {
+                if (theString[i] != toCount)
+                    return i - startIndex;
+            }
+
+            return 0;
+        }
+
+        static string GetStandardType(string args)
+        {
+            switch (args[0])
+            {
+                case 'v':
+                    return "void";
+                case 'b':
+                    return "bool";
+                case 'c':
+                    return "char";
+                case 'h':
+                    return "u8";
+                case 'a':
+                    return "s8";
+                case 't':
+                    return "u16";
+                case 's':
+                    return "s16";
+                case 'j':
+                    return "u32";
+                case 'i':
+                    return "s32";
+                case 'y':
+                    return "u64";
+                /*case '':
+                    return "s64";*/
+                default:
+                    throw new Exception("Unknown argument type '" + args[0] + "'.");
+            }
+        }
+
+        static int GetIndexOfEndE(string args, bool removeS_check = false)
+        {
+            int level = 0;
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                char x = args[i];
+                bool y = IsCharNumeric(args[i]);
+
+                if (args[i] == 'E' && level-- == 0)
+                    return i;
+
+                if (i != 0 && (args[i] == 'I' || args[i] == 'F' || args[i] == 'N'))
+                    level++;
+
+                // skip strings that can give false E's
+                if (IsCharNumeric(args[i]) && (i == 0 || ((args[i - 1] != 'S' || removeS_check) && args[i - 1] != 'D' && args[i - 1] != 'C')))
+                {
+                    int numLength = CountNumsAt(args, i);
+                    int num = int.Parse(args.Substring(i, numLength));
+                    i += numLength + num - 1;
+                }
+            }
+
+            return 0;
+        }
+
+        static string ReadString(string symbol, ref int i)
+        {
+            while (IsCharNumeric(symbol[i]))
+                i++;
+
+            // i + 1 is the first non-numeric index, i is the length of the number
+            int lengthOfString = int.Parse(symbol.Substring(0, i));
+
+            string ret = symbol.Substring(i, lengthOfString);
+            i += lengthOfString;
+
+            return ret;
+        }
+
+        static string ReadArgs(string args, List<string> savedTypes)
+        {
+            if (args == "v")
+                return "";
+
+            string ret = "";
+            bool first = true;
+
+            while (!string.IsNullOrEmpty(args))
+            {
+                if (!first) ret += ",";
+
+                // {typePrefix}{type}{typeSuffix}, ...
+                string typePrefix = "";
+                string type = "";
+                string typeSuffix = "";
+
+                bool namespaceMode = false;
+                bool standard = false;
+
+                if (args[0] == 'N')
+                {
+                    namespaceMode = true;
+                    args = args.Substring(1);
+                }
+
+                while (args[0] == 'P' || args[0] == 'R')
+                {
+                    if (args[0] == 'P')
+                    {
+                        /*int numOfPtrs = CountAtStart(args, 'P');
+                        typeSuffix = new string('*', numOfPtrs);
+                        args = args.Substring(numOfPtrs);*/
+                        typeSuffix += "*";
+                        args = args.Substring(1);
+                    }
+                    else if (args[0] == 'R')
+                    {
+                        typeSuffix += "&";
+                        args = args.Substring(1);
+                    }
+                }
+
+                if (args[0] == 'K')
+                {
+                    typePrefix = "const ";
+                    args = args.Substring(1);
+                }
+
+                if (args[0] == 'N')
+                {
+                    namespaceMode = true;
+                    args = args.Substring(1);
+                }
+
+                if (IsCharNumeric(args[0]))
+                {
+                    /*if (args.StartsWith("5Fix12IiE") || args.StartsWith("5Fix12IsE"))
+					{
+                        // Fix12i and Fix12s
+                        type = "Fix12" + args[7];
+                        args = args.Substring(9);
+
+                        // Fix12i adds both Fix12 and Fix12i
+                        _S_params.Add("Fix12");
+                    }
+                    else
+					{*/
+                    // more complex types like structs
+                    bool firstS = true;
+                    string curType = "";
+
+                    while (args.Length != 0 && IsCharNumeric(args[0]))
+                    {
+                        if (!firstS) curType += "::";
+                        int nextStringStartIndex = 0;
+                        curType += ReadString(args, ref nextStringStartIndex);
+                        args = args.Substring(nextStringStartIndex);
+                        firstS = false;
+                        savedTypes.Add(curType);
+                        if (!namespaceMode)
+                            break;
+                    }
+
+                    type += curType;
+
+                    if (args.Length != 0 && args[0] == 'I')
+                    {
+                        // template
+                        args = args.Substring(1);
+                        int templateArgsEnd = GetIndexOfEndE(args);
+                        string templateArgs = args.Substring(0, templateArgsEnd);
+                        type += "<" + ReadArgs(templateArgs, savedTypes) + ">";
+                        args = args.Substring(templateArgsEnd + 1); // + 1 because E
+
+                        // common SM64DS templates
+                        type = type.Replace("Fix12<s32>", "Fix12i");
+                        type = type.Replace("Fix12<s16>", "Fix12s");
+
+                        savedTypes.Add(type);
+                    }
+                    else if (args.Length != 0 && (args[0] == 'C' || args[0] == 'D') && IsCharNumeric(args[1]))
+                    {
+                        // constructor / destructor
+                        int startIndex = type.LastIndexOf("::") + 2;
+                        if (startIndex < 2)
+                            startIndex = 0;
+
+                        type += (args[0] == 'D' ? "::~" : "::") + type.Substring(startIndex);
+                        args = args.Substring(2);
+                        savedTypes.Add(type);
+                    }
+                    else if (args.Length != 0 && args[0] == 'a' && args[1] == 'S')
+                    {
+                        type += "::operator=";
+                        args = args.Substring(2);
+                        savedTypes.Add(type);
+                    }
+                    else if (args.Length != 0 && args[0] == 'n' && args[1] == 'w')
+                    {
+                        type += "::operator_new";
+                        args = args.Substring(2);
+                        savedTypes.Add(type);
+                    }
+                }
+                else if (args[0] == 'F' || args[0] == 'M')
+                {
+                    // function pointer
+                    string memberName = "";
+
+                    if (args[0] == 'M')
+                    {
+                        args = args.Substring(2); // MS
+
+                        int numLength = CountNumsAt(args);
+                        typeSuffix = "*";
+
+                        if (numLength != 0)
+                        {
+                            int num = int.Parse(args.Substring(0, numLength));
+                            memberName = savedTypes[num + 1];
+                            args = args.Substring(numLength + 1); // {x}_
+                        }
+                        else
+                        {
+                            memberName = savedTypes[0];
+                            args = args.Substring(1); // _
+                        }
+                    }
+
+                    args = args.Substring(1); // F
+
+                    int funcPtrEnd = GetIndexOfEndE(args);
+                    string funData = ReadArgs(args.Substring(0, funcPtrEnd), savedTypes);
+
+
+                    string funcPrefix = funData.Substring(0, funData.IndexOf(',')); // returnType
+                    string funcPtrs = memberName == "" ? "" : $"{memberName}::"; // *
+                    string funcSuffix = "(" + funData.Substring(funData.IndexOf(',') + 1) + ")"; // (args)
+
+                    funcSuffix = funcSuffix.Replace("void,", ",");
+                    funcSuffix = funcSuffix.Replace(",,", ",");
+                    funcSuffix = funcSuffix.Replace("(,", "(");
+                    funcSuffix = funcSuffix.Replace(",)", ")");
+
+                    savedTypes.Add(funcPrefix + funcSuffix);
+
+                    for (int i = 0; i < typeSuffix.Length; i++)
+                    {
+                        funcPtrs += typeSuffix[i];
+                        type = funcPrefix + "(" + funcPtrs + ")" + funcSuffix;
+                        savedTypes.Add(type);
+                    }
+
+                    typeSuffix = typePrefix = "";
+
+                    args = args.Substring(funcPtrEnd + 1);
+                }
+                else if (args[0] == 'S')
+                {
+                    args = args.Substring(1);
+
+                    int numLength = CountNumsAt(args);
+
+                    if (numLength != 0)
+                    {
+                        int num = int.Parse(args.Substring(0, numLength));
+                        type = savedTypes[num + 1];
+                        args = args.Substring(numLength + 1);
+                    }
+                    else
+                    {
+                        type = savedTypes[0];
+                        args = args.Substring(1);
+                    }
+                }
+                else
+                {
+                    standard = true;
+                    type = GetStandardType(args);
+                    args = args.Substring(1);
+                }
+
+                if (args.Length != 0 && args[0] == 'E')
+                    args = args.Substring(1);
+
+                if (!standard || typePrefix != "")
+                {
+                    if (typePrefix != "")
+                        savedTypes.Add(typePrefix + type);
+                    for (int i = 0; i < typeSuffix.Length; i++)
+                        savedTypes.Add(savedTypes[savedTypes.Count - 1] + typeSuffix[i]);
+
+                }
+
+                ret += typePrefix + type + typeSuffix;
+                first = false;
+            }
+
+            return ret;
+        }
+
+        static string DemangleSymbol(string symbol)
+        {
+            // The symbol is already demangled
+            if (!symbol.StartsWith("_Z"))
+                return symbol;
+
+            // The symbol is mangled, demangle it
+            symbol = symbol.Substring(2);
+
+            string demangledSymbol;
+            List<string> savedTypes = new List<string>();
+
+            if (symbol[0] == 'N')
+            {
+                int endOfName = GetIndexOfEndE(symbol, true);
+                demangledSymbol = ReadArgs(symbol.Substring(0, endOfName), savedTypes);
+                symbol = symbol.Substring(endOfName + 1);
+            }
+            else
+            {
+                int numLength = CountNumsAt(symbol);
+                if (numLength == 0)
+                    return symbol;
+
+                int num = int.Parse(symbol.Substring(0, numLength));
+
+                demangledSymbol = ReadArgs(symbol.Substring(0, numLength + num), savedTypes);
+                symbol = symbol.Substring(numLength + num);
+            }
+
+
+            if (symbol.Length != 0)
+            {
+                // function parameters
+                if (savedTypes.Count != 0)
+                    savedTypes.RemoveAt(savedTypes.Count - 1); // function name is not a type
+                demangledSymbol += "(" + ReadArgs(symbol, savedTypes) + ")";
+            }
+
+            return demangledSymbol;
+        }
+        #endregion
     }
 }
