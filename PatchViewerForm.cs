@@ -377,8 +377,30 @@ namespace SM64DSe
                 }
             }
 
+            StopFilesystemEditIfNecessary();
+        }
+
+        private void CheckLength(string[] s, int minLength)
+        {
+            if (s.Length < minLength)
+                throw new IndexOutOfRangeException("Not enough arguments supplied.");
+        }
+
+        private void RemoveFirstAndLastChars(ref string s)
+		{
+            s = s.Remove(0, 1).Remove(s.Length - 2, 1);
+        }
+
+        private void StopFilesystemEditIfNecessary()
+		{
             if (filesystemEditStarted)
                 Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+        }
+
+        private void StartFilesystemEditIfNecessary()
+		{
+            if (!filesystemEditStarted)
+                Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
         }
 
         private void ProcessCommand(string[] p, CommandInfo info, TreeNode dummyNode)
@@ -388,17 +410,23 @@ namespace SM64DSe
             {
                 // restore the symbols from the backup
                 case "load_backup_sym":
-                    if (filesystemEditStarted)
-                        Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+                    CheckLength(p, 3);
 
-                    File.WriteAllBytes(basePath + "symbols.x", File.ReadAllBytes(basePath + "symbols.bak.x"));
+                    RemoveFirstAndLastChars(ref p[1]);
+                    RemoveFirstAndLastChars(ref p[2]);
 
-                    info.description = basePath + "symbols.x\nhas been reset with symbols from\n" + basePath + "symbols.bak.x";
+                    File.WriteAllBytes(basePath + p[1], File.ReadAllBytes(basePath + p[2]));
+
+                    info.description = basePath + p[1] + "\nhas been reset with symbols from\n" + basePath + p[2];
 
                     break;
 
                 case "check_duplicate_sym":
-                    string duplicateSymbols = Patcher.PatchProcessor.CheckDuplicateSymbols(new DirectoryInfo(basePath));
+                    CheckLength(p, 2);
+
+                    RemoveFirstAndLastChars(ref p[1]);
+
+                    string duplicateSymbols = Patcher.PatchProcessor.CheckDuplicateSymbols(basePath, p[1]);
                     if (duplicateSymbols != null)
                         throw new Exception("Duplicate symbols found:\n" + duplicateSymbols);
 
@@ -407,19 +435,22 @@ namespace SM64DSe
                     break;
 
                 case "update_nocash_sym":
-                    Patcher.PatchProcessor.UpdateNoCashSymbols(new DirectoryInfo(basePath));
+                    CheckLength(p, 2);
+
+                    RemoveFirstAndLastChars(ref p[1]);
+
+                    Patcher.PatchProcessor.UpdateNoCashSymbols(basePath, p[1]);
 
                     info.description = "Updated no$gba symbols (" + Program.m_ROMPath.Replace(".nds", ".sym") + ").";
 
                     break;
-                    // also add 'Reload Script' and 'Import Script' buttons so you don't have to reopen the window
 
                 case "generate_file_list":
-                    if (filesystemEditStarted)
-                        Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+                    CheckLength(p, 2);
 
-                    if (p.Length < 2)
-                        throw new IndexOutOfRangeException("Not enough arguments supplied.");
+                    StopFilesystemEditIfNecessary();
+
+                    RemoveFirstAndLastChars(ref p[1]);
 
                     List<NitroROM.FileEntry> sortedFiles = Program.m_ROM.m_FileEntries.ToList();
                     sortedFiles.Sort((a, b) => string.CompareOrdinal(a.FullName, b.FullName));
@@ -433,7 +464,7 @@ namespace SM64DSe
 
                     lines.AddRange(fileHeaderEnd);
 
-                    string fileListHeaderLoc = basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                    string fileListHeaderLoc = basePath + p[1];
                     File.WriteAllLines(fileListHeaderLoc, lines);
 
                     info.description = "File list generated at:\n" + fileListHeaderLoc;
@@ -441,11 +472,11 @@ namespace SM64DSe
                     break;
 
                 case "generate_sound_list":
-                    if (filesystemEditStarted)
-                        Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+                    CheckLength(p, 2);
 
-                    if (p.Length < 2)
-                        throw new IndexOutOfRangeException("Not enough arguments supplied.");
+                    StopFilesystemEditIfNecessary();
+
+                    RemoveFirstAndLastChars(ref p[1]);
 
                     SM64DSFormats.SDAT soundData = new SM64DSFormats.SDAT(Program.m_ROM.GetFileFromName("data/sound_data.sdat"));
                     List<SeqArcListItem> sequences = new List<SeqArcListItem>();
@@ -475,7 +506,7 @@ namespace SM64DSe
 
                     lines.AddRange(soundHeaderEnd);
 
-                    string soundListHeaderLoc = basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                    string soundListHeaderLoc = basePath + p[1];
                     File.WriteAllLines(soundListHeaderLoc, lines);
 
                     info.description = "Sound list generated at:\n" + soundListHeaderLoc;
@@ -483,10 +514,10 @@ namespace SM64DSe
                     break;
 
                 case "generate_actor_list":
-                    if (p.Length < 2)
-                        throw new IndexOutOfRangeException("Not enough arguments supplied.");
+                    CheckLength(p, 2);
 
-                    string actorListHeaderLoc = basePath + p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                    RemoveFirstAndLastChars(ref p[1]);
+                    string actorListHeaderLoc = basePath + p[1];
                     File.WriteAllLines(actorListHeaderLoc, ObjectDatabase.ToCPP());
 
                     info.description = "Actor list generated at:\n" + actorListHeaderLoc;
@@ -494,16 +525,18 @@ namespace SM64DSe
                     break;
 
                 case "compile":
-                    if (filesystemEditStarted)
-                        Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+                    CheckLength(p, 3);
+
+                    StopFilesystemEditIfNecessary();
 
                     info.description = Patcher.PatchProcessor.Process(new DirectoryInfo(basePath), p, hideConsoleWindow);
 
                     break;
 
                 case "extend_itcm":
-                    if (filesystemEditStarted)
-                        Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+                    CheckLength(p, 3);
+
+                    StopFilesystemEditIfNecessary();
 
                     bool autorw = !Program.m_ROM.CanRW();
                     if (autorw) Program.m_ROM.BeginRW();
@@ -519,8 +552,8 @@ namespace SM64DSe
                         break;
                     }
 
-                    p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
-                    p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                    RemoveFirstAndLastChars(ref p[1]);
+                    RemoveFirstAndLastChars(ref p[2]);
 
                     Program.m_ROM.StartFilesystemEdit();
                     Program.m_ROM.SaveFilesystem(basePath + p[1]);
@@ -535,10 +568,12 @@ namespace SM64DSe
                     break;
 
                 case "add_or_replace":
+                    CheckLength(p, 3);
+
                     try
                     {
-                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
-                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                        RemoveFirstAndLastChars(ref p[1]);
+                        RemoveFirstAndLastChars(ref p[2]);
 
                         byte[] data;
 
@@ -554,8 +589,7 @@ namespace SM64DSe
                         
                         if (Program.m_ROM.FileExists(p[1] + p[2]))
                         {
-                            if (filesystemEditStarted)
-                                Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+                            StopFilesystemEditIfNecessary();
 
                             Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1] + p[2]), data);
 
@@ -563,8 +597,7 @@ namespace SM64DSe
                         }
                         else
                         {
-                            if (!filesystemEditStarted)
-                                Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+                            StartFilesystemEditIfNecessary();
 
                             Program.m_ROM.AddFile(p[1], p[2], data, dummyNode);
 
@@ -581,25 +614,24 @@ namespace SM64DSe
                     }
 
                 case "replace":
+                    CheckLength(p, 4);
+
                     try
                     {
-                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
-                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
-                        p[3] = p[3].Remove(0, 1).Remove(p[3].Length - 2, 1);
+                        RemoveFirstAndLastChars(ref p[1]);
+                        RemoveFirstAndLastChars(ref p[2]);
+                        RemoveFirstAndLastChars(ref p[3]);
 
                         byte[] data = File.ReadAllBytes(basePath + p[3]);
 
-                        if (Program.m_ROM.FileExists(p[1] + p[2]))
-                        {
-                            if (filesystemEditStarted)
-                                Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
-
-                            Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1] + p[2]), data);
-
-                            info.description = "Replaced file\n" + p[1] + p[2] + "\nwith data of\n" + basePath + p[3];
-                        }
-                        else
+                        if (!Program.m_ROM.FileExists(p[1] + p[2]))
                             throw new Exception("File not found:\n" + p[1] + p[2]);
+
+                        StopFilesystemEditIfNecessary();
+
+                        Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1] + p[2]), data);
+
+                        info.description = "Replaced file\n" + p[1] + p[2] + "\nwith data of\n" + basePath + p[3];
 
                         break;
                     }
@@ -611,13 +643,14 @@ namespace SM64DSe
                     }
                     
                 case "rename":
+                    CheckLength(p, 3);
+
                     try
                     {
-                        if (!filesystemEditStarted)
-                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+                        StartFilesystemEditIfNecessary();
 
-                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
-                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                        RemoveFirstAndLastChars(ref p[1]);
+                        RemoveFirstAndLastChars(ref p[2]);
 
                         Program.m_ROM.RenameFile(p[1], p[2], dummyNode);
 
@@ -632,12 +665,13 @@ namespace SM64DSe
                     }
                     
                 case "remove":
+                    CheckLength(p, 2);
+
                     try
                     {
-                        if (!filesystemEditStarted)
-                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+                        StartFilesystemEditIfNecessary();
 
-                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                        RemoveFirstAndLastChars(ref p[1]);
 
                         Program.m_ROM.RemoveFile(p[1], dummyNode);
 
@@ -652,13 +686,14 @@ namespace SM64DSe
                     }
 
                 case "add_dir":
+                    CheckLength(p, 3);
+
                     try
                     {
-                        if (!filesystemEditStarted)
-                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+                        StartFilesystemEditIfNecessary();
 
-                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
-                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                        RemoveFirstAndLastChars(ref p[1]);
+                        RemoveFirstAndLastChars(ref p[2]);
 
                         if (Program.m_ROM.GetDirIDFromName(p[1] + p[2]) != 0)
                             throw new Exception("Directory\n" + p[1] + p[2] + "\nalready exists.");
@@ -676,13 +711,14 @@ namespace SM64DSe
                     }
 
                 case "rename_dir":
+                    CheckLength(p, 3);
+
                     try
                     {
-                        if (!filesystemEditStarted)
-                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+                        StartFilesystemEditIfNecessary();
 
-                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
-                        p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                        RemoveFirstAndLastChars(ref p[1]);
+                        RemoveFirstAndLastChars(ref p[2]);
 
                         Program.m_ROM.RenameDir(p[1], p[2], dummyNode);
 
@@ -697,12 +733,13 @@ namespace SM64DSe
                     }
 
                 case "remove_dir":
+                    CheckLength(p, 2);
+
                     try
                     {
-                        if (!filesystemEditStarted)
-                            Program.m_ROM.StartFilesystemEdit(); filesystemEditStarted = true;
+                        StartFilesystemEditIfNecessary();
 
-                        p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                        RemoveFirstAndLastChars(ref p[1]);
 
                         Program.m_ROM.RemoveDir(p[1], dummyNode);
 

@@ -302,9 +302,9 @@ namespace SM64DSe {
         public void RenameFile(string filename, string newName, TreeNode root) {
             int fileIdFromName = (int)this.GetFileIDFromName(filename);
             if (fileIdFromName == (int)ushort.MaxValue) {
-                int num1 = (int)MessageBox.Show("This is a bug and shouldn't happen.", "Sorry,");
+                throw new Exception("File '" + filename + "' doesn't exist.");
             } else if (fileIdFromName >= 32768) {
-                int num2 = (int)MessageBox.Show("Manipulation of archives not supported", "Sorry,");
+                throw new Exception("Manipulation of archives not supported.");
             } else {
                 int length = filename.LastIndexOf('/') + 1;
                 string str1 = filename.Substring(0, length) + newName;
@@ -323,7 +323,7 @@ namespace SM64DSe {
         {
             int index1 = (int)this.GetDirIDFromName(dirname) - 61440;
             if (dirname.StartsWith("ARCHIVE")) {
-                int num = (int)MessageBox.Show("Manipulation of archives not supported", "Sorry,");
+                throw new Exception("Manipulation of archives not supported.");
             } else {
                 int length = dirname.LastIndexOf('/') + 1;
                 string newFullName = dirname.Substring(0, length) + newName;
@@ -345,7 +345,7 @@ namespace SM64DSe {
         public void RemoveDir(string dirname, TreeNode root)
         {
             if (dirname.StartsWith("ARCHIVE")) {
-                int num = (int)MessageBox.Show("Manipulation of archives not supported", "Sorry,");
+                throw new Exception("Manipulation of archives not supported.");
             } else {
                 List<int> fileIDs = new List<int>();
                 List<int> dirIDs = new List<int>();
@@ -412,9 +412,9 @@ namespace SM64DSe {
         public void RemoveFile(string filename, TreeNode root) {
             int fileIdFromName = (int)this.GetFileIDFromName(filename);
             if (fileIdFromName == (int)ushort.MaxValue) {
-                int num1 = (int)MessageBox.Show("This is a bug and shouldn't happen.", "Sorry,");
+                throw new Exception("File '" + filename + "' already exists.");
             } else if (fileIdFromName >= 32768) {
-                int num2 = (int)MessageBox.Show("Manipulation of archives not supported", "Sorry,");
+                throw new Exception("Manipulation of archives not supported.");
             } else {
                 this.AllowEmptySpaceInOv0();
                 this.RemoveFileEntriesAndCorrectIDs(new List<int>()
@@ -426,22 +426,24 @@ namespace SM64DSe {
         }
 
         public void AddDir(string path, string newName, TreeNode root) {
-            if (path.StartsWith("ARCHIVE")) {
-                int num = (int)MessageBox.Show("Manipulation of archives not supported", "Sorry,");
-            } else {
-                ushort dirIdFromName = this.GetDirIDFromName(path.TrimEnd('/'));
-                Array.Resize<NitroROM.DirEntry>(ref this.m_DirEntries, this.m_DirEntries.Length + 1);
-                NitroROM.DirEntry dirEntry = new DirEntry();
-                dirEntry.ID = (ushort)(this.m_DirEntries.Length - 1 + 61440);
-                dirEntry.ParentID = dirIdFromName;
-                dirEntry.Name = newName;
-                dirEntry.FullName = path + newName;
-                this.m_DirEntries[this.m_DirEntries.Length - 1] = dirEntry;
-                TreeNode treeNode = ROMFileSelect.GetFileOrDir(path.TrimEnd('/'), root).Nodes.Add(newName, newName);
-                treeNode.Tag = (object)(path + newName + "/");
-                treeNode.EnsureVisible();
-                treeNode.TreeView.SelectedNode = treeNode;
-            }
+            if (path.StartsWith("ARCHIVE"))
+                throw new Exception("Manipulation of archives not supported.");
+
+            ushort dirIdFromName = this.GetDirIDFromName(path.TrimEnd('/'));
+            if (dirIdFromName == 0)
+                throw new Exception("Directory '" + path + "' doesn't exist.");
+
+            Array.Resize<NitroROM.DirEntry>(ref this.m_DirEntries, this.m_DirEntries.Length + 1);
+            NitroROM.DirEntry dirEntry = new DirEntry();
+            dirEntry.ID = (ushort)(this.m_DirEntries.Length - 1 + 61440);
+            dirEntry.ParentID = dirIdFromName;
+            dirEntry.Name = newName;
+            dirEntry.FullName = path + newName;
+            this.m_DirEntries[this.m_DirEntries.Length - 1] = dirEntry;
+            TreeNode treeNode = ROMFileSelect.GetFileOrDir(path.TrimEnd('/'), root).Nodes.Add(newName, newName);
+            treeNode.Tag = (object)(path + newName + "/");
+            treeNode.EnsureVisible();
+            treeNode.TreeView.SelectedNode = treeNode;
         }
 
         private int GetFirstOv0Space() {
@@ -494,7 +496,7 @@ namespace SM64DSe {
           List<string> fullNames,
           TreeNode root) {
             if (path.StartsWith("ARCHIVE")) {
-                int num1 = (int)MessageBox.Show("Manipulation of archives not supported", "Sorry,");
+                throw new Exception("Manipulation of archives not supported");
             } else {
                 try {
                     for (int index = 0; index < filenames.Count; ++index) {
@@ -506,8 +508,7 @@ namespace SM64DSe {
                         }
                     }
                 } catch (Exception ex) {
-                    int num2 = (int)MessageBox.Show(ex.Message, "File cannot be read");
-                    return;
+                    throw new Exception("File cannot be read:\n" + ex.Message);
                 }
                 this.AddFileEntriesAndCorrectIDs(path, filenames, fullNames);
                 TreeNode fileOrDir = ROMFileSelect.GetFileOrDir(path.TrimEnd('/'), root);
@@ -580,10 +581,7 @@ namespace SM64DSe {
         public void AddFile(string path, string filename, byte[] filedata, TreeNode root)
         {
             if (path.StartsWith("ARCHIVE"))
-            {
-                MessageBox.Show("Manipulation of archives not supported", "Sorry,");
-                return;
-            }
+                throw new Exception("Manipulation of archives not supported.");
 
             try
             {
@@ -593,8 +591,7 @@ namespace SM64DSe {
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "File cannot be added");
-                return;
+                throw new Exception("File cannot be added:\n" + e.Message);
             }
 
             AddFileEntriesAndCorrectIDs(path, new List<string>(new string[] { filename }), new List<string>(new string[] { filename }), filedata);

@@ -12,6 +12,11 @@ namespace SM64DSe.Patcher
     public static class PatchProcessor
     {
         #region Compile Command Processing
+        private static string RemoveFirstAndLastChars(string s)
+        {
+            return s.Remove(0, 1).Remove(s.Length - 2, 1);
+        }
+
         public static string Process(DirectoryInfo codeDir, string[] p, bool hideConsoleWindow)
         {
             PatchCompiler.HideConsoleWindow = hideConsoleWindow;
@@ -19,12 +24,15 @@ namespace SM64DSe.Patcher
             if (p.Length < 2)
                 throw new IndexOutOfRangeException("Not enough arguments supplied.");
 
-            int minLength = p[1] == "arm9" || p[1] == "hooks" || p[1] == "test" || p[1] == "symbols" ? 3 : 4;
+            int minLength = p[1] == "dl" || p[1] == "overlay" ? 5 : 4;
 
             if (p.Length < minLength)
                 throw new IndexOutOfRangeException("Not enough arguments supplied.");
 
-            string sourceDir = p[minLength - 1].Remove(0, 1).Remove(p[minLength - 1].Length - 2, 1);
+            string sourceDir = RemoveFirstAndLastChars(p[minLength - 1]);
+            string codeSubDir = RemoveFirstAndLastChars(p[minLength - 2]);
+
+            codeDir = new DirectoryInfo(codeDir.FullName + codeSubDir + "\\");
 
             switch (p[1])
             {
@@ -42,7 +50,7 @@ namespace SM64DSe.Patcher
                     return "Successfully compiled overlay " + ovID + ".\n" + sourceDir;
 
                 case "dl":
-                    string fileName = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+                    string fileName = RemoveFirstAndLastChars(p[2]);
                     if (!Program.m_ROM.FileExists(fileName))
                         throw new Exception("Couldn't find file '" + fileName + "' in ROM.");
 
@@ -82,9 +90,9 @@ namespace SM64DSe.Patcher
         #endregion
 
         #region Check Duplicate Symbols
-        public static string CheckDuplicateSymbols(DirectoryInfo codeDir)
+        public static string CheckDuplicateSymbols(string basePath, string symFile)
         {
-            IEnumerable<string> symbols = File.ReadAllLines(codeDir.FullName + "\\symbols.x");
+            IEnumerable<string> symbols = File.ReadAllLines(basePath + symFile);
             symbols = symbols.Where(s => s.Contains(" = 0x")).Select(s => s.Substring(0, s.IndexOf(' ')));
 
             List<string> checkedSymbols = new List<string>(symbols.Count());
@@ -736,11 +744,11 @@ namespace SM64DSe.Patcher
 		#endregion
 
 		#region Update no$gba Symbols
-        public static void UpdateNoCashSymbols(DirectoryInfo codeDir)
+        public static void UpdateNoCashSymbols(string basePath, string symFile)
 		{
             string symPath = Program.m_ROMPath.Replace(".nds", ".sym");
 
-            string[] oldLines = File.ReadAllLines(codeDir.FullName + "\\symbols.x");
+            string[] oldLines = File.ReadAllLines(basePath + symFile);
             bool inComment = false;
 
             // assumes comments start at the beginning of a line and end at the ending of a line
