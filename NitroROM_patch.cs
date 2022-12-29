@@ -31,7 +31,7 @@ namespace SM64DSe
 {
     public partial class NitroROM
     {
-        public const uint ROM_PATCH_VERSION = 5;
+        public const uint ROM_PATCH_VERSION = 6;
         public const uint LEVEL_OVERLAY_SIZE = 32768;
         public const int NUM_LEVELS = 52;
         public const int NEW_LEVEL_OVERLAYS_START_INDEX = 103;
@@ -592,6 +592,34 @@ namespace SM64DSe
             lazyman.ReportProgress(599);
         }
 
+        private void Patch_v6(BackgroundWorker lazyman)
+        {
+            // this was in the old DL patch
+            // it moves the ACTOR_SPAWN_TABLE and OBJ_TO_ACTOR_TABLE tables
+
+            //Move the ACTOR_SPAWN_TABLE so it can expand
+            Program.m_ROM.WriteBlock(0x6590, Program.m_ROM.ReadBlock(0x90864, 0x61c));
+            Program.m_ROM.WriteBlock(0x90864, new byte[0x61c]);
+
+            //Adjust pointers
+            Program.m_ROM.Write32(0x1a198, 0x02006590);
+
+            NitroOverlay ov2 = new NitroOverlay(this, 2);
+
+            //Move the OBJ_TO_ACTOR_TABLE so it can expand
+            Program.m_ROM.WriteBlock(0x4b00, ov2.ReadBlock(0x0210cbf4 - ov2.GetRAMAddr(), 0x28c));
+            ov2.WriteBlock(0x0210cbf4 - ov2.GetRAMAddr(), new byte[0x28c]);
+
+            //Adjust pointers
+            ov2.Write32(0x020fe890 - ov2.GetRAMAddr(), 0x02004b00);
+            ov2.Write32(0x020fe958 - ov2.GetRAMAddr(), 0x02004b00);
+            ov2.Write32(0x020fea44 - ov2.GetRAMAddr(), 0x02004b00);
+
+            ov2.SaveChangesOld();
+
+            lazyman.ReportProgress(699);
+        }
+
         public void Patch()
         {
             // read previous patch version
@@ -644,6 +672,7 @@ namespace SM64DSe
             if (oldversion < 3) Patch_v3(lazyman); // patch v3: fix for R4/acekard flashcarts
             if (oldversion < 4) Patch_v4(lazyman); // patch v4: level music data stored in and loaded from level overlays
             if (oldversion < 5) Patch_v5(lazyman); // patch v5: fix missing texture animation y translation values
+            if (oldversion < 6) Patch_v6(lazyman); // patch v6: move actor tables
         }
     }
 }

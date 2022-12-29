@@ -59,6 +59,7 @@ namespace SM64DSe
             }
 
             Program.m_ROM.BeginRW();
+
             if (Program.m_ROM.NeedsPatch())
             {
                 DialogResult res = MessageBox.Show(
@@ -102,8 +103,18 @@ namespace SM64DSe
                     Program.m_ROMPath = "";
                     return;
                 }
-            }
 
+                Program.m_ROM.EndRW();
+
+                // this 
+                // this should fix the overlays having an incorrect file id
+                Program.m_ROM.StartFilesystemEdit();
+                Program.m_ROM.SaveFilesystem();
+            }
+            else
+                Program.m_ROM.EndRW();
+
+            Program.m_ROM.BeginRW();
             Program.m_ROM.LoadTables();
             Program.m_ROM.EndRW();
 

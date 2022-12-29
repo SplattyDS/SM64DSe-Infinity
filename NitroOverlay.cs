@@ -92,24 +92,29 @@ namespace SM64DSe
 
         public override void SaveChanges()
         {
+            // first, ensure that the size is aligned to 4 byte boundary
+            if (m_Data.Length % 4 != 0)
+            {
+                SetSize((uint)((m_Data.Length + 3) & ~3));
+            }
+            NitroROM.OverlayEntry[] overlays = m_ROM.GetOverlayEntries();
+            NitroROM.OverlayEntry ovEntry = overlays[m_ID];
+            ovEntry.RAMSize = (uint)m_Data.Length;
+            overlays[m_ID] = ovEntry;
 
-            if (this.m_Data.Length % 4 != 0)
-                this.SetSize((uint)(this.m_Data.Length + 3 & -4));
+            // reinsert file data (must not be done while RW is active)
+            m_ROM.ReinsertFile(m_FileID, m_Data);
+            Update();
 
-            NitroROM.OverlayEntry[] overlayEntries = this.m_ROM.GetOverlayEntries();
-            NitroROM.OverlayEntry overlayEntry = overlayEntries[(int)this.m_ID];
-            overlayEntry.RAMSize = (uint)this.m_Data.Length;
-            overlayEntries[(int)this.m_ID] = overlayEntry;
-            this.m_ROM.ReinsertFile(this.m_FileID, this.m_Data);
-            this.Update();
-            int num = !this.m_ROM.CanRW() ? 1 : 0;
-            if (num != 0)
-                this.m_ROM.BeginRW();
-            this.m_ROM.Write8(this.m_OVTEntryAddr + 31U, (byte)((uint)this.m_ROM.Read8(this.m_OVTEntryAddr + 31U) & 254U));
-            if (num == 0)
-                return;
-            this.m_ROM.EndRW();
+            bool autorw = !m_ROM.CanRW();
+            if (autorw) m_ROM.BeginRW();
 
+            // tweak the overlay table entry (m_OVTEntryAddr is fixed by Update())
+            byte flags = m_ROM.Read8(m_OVTEntryAddr + 0x1F);
+            flags &= 0xFE; // [Treeki] disable compression :)
+            m_ROM.Write8(m_OVTEntryAddr + 0x1F, flags);
+
+            if (autorw) m_ROM.EndRW();
         }
 
         public uint GetSize()

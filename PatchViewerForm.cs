@@ -501,15 +501,57 @@ namespace SM64DSe
 
                     break;
 
+                case "extend_itcm":
+                    if (filesystemEditStarted)
+                        Program.m_ROM.SaveFilesystem(); filesystemEditStarted = false;
+
+                    bool autorw = !Program.m_ROM.CanRW();
+                    if (autorw) Program.m_ROM.BeginRW();
+
+                    uint arm9Size = Program.m_ROM.Read32(0x2c);
+
+                    if (autorw) Program.m_ROM.EndRW();
+
+                    if (arm9Size == 0x9f038)
+                    {
+                        info.description = "The arm9.bin ITCM has already been extended.";
+                        info.state = CommandInfo.State.FAILED_FS;
+                        break;
+                    }
+
+                    p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
+                    p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
+
+                    Program.m_ROM.StartFilesystemEdit();
+                    Program.m_ROM.SaveFilesystem(basePath + p[1]);
+
+                    NitroOverlay ov2 = new NitroOverlay(Program.m_ROM, 2);
+                    ov2.m_Data = File.ReadAllBytes(basePath + p[2]);
+                    Program.m_ROM.m_OverlayEntries[2].Flags &= 0xfeffffff;// overlay 2 is now decompressed
+                    ov2.SaveChanges();
+
+                    info.description = "The arm9.bin ITCM has been extended.";
+
+                    break;
+
                 case "add_or_replace":
                     try
                     {
                         p[1] = p[1].Remove(0, 1).Remove(p[1].Length - 2, 1);
                         p[2] = p[2].Remove(0, 1).Remove(p[2].Length - 2, 1);
-                        p[3] = p[3].Remove(0, 1).Remove(p[3].Length - 2, 1);
 
-                        byte[] data = File.ReadAllBytes(basePath + p[3]);
+                        byte[] data;
 
+                        if (p[3] == "empty_file")
+						{
+                            data = new byte[] { 0xde, 0xad, 0xbe, 0xef };
+                        }
+                        else
+						{
+                            p[3] = p[3].Remove(0, 1).Remove(p[3].Length - 2, 1);
+                            data = File.ReadAllBytes(basePath + p[3]);
+                        }
+                        
                         if (Program.m_ROM.FileExists(p[1] + p[2]))
                         {
                             if (filesystemEditStarted)
@@ -517,7 +559,7 @@ namespace SM64DSe
 
                             Program.m_ROM.ReinsertFile(Program.m_ROM.GetFileIDFromName(p[1] + p[2]), data);
 
-                            info.description = "Replaced file\n" + p[1] + p[2] + "\nwith data of\n" + basePath + p[3];
+                            info.description = "Replaced file\n" + p[1] + p[2] + "\nwith data of\n" + (p[3] == "empty_file" ? p[3] : basePath + p[3]);
                         }
                         else
                         {
@@ -526,7 +568,7 @@ namespace SM64DSe
 
                             Program.m_ROM.AddFile(p[1], p[2], data, dummyNode);
 
-                            info.description = "Added file\n" + p[1] + p[2] + "\nwith data of \n" + basePath + p[3];
+                            info.description = "Added file\n" + p[1] + p[2] + "\nwith data of \n" + (p[3] == "empty_file" ? p[3] : basePath + p[3]);
                         }
 
                         break;

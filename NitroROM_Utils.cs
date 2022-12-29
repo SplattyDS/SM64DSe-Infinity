@@ -98,6 +98,8 @@ namespace SM64DSe {
             ///////////////
             // Overlay 0 //
             ///////////////
+            m_OverlayEntries[0].Flags &= 0xfeffffff;// overlay 0 is now decompressed
+
             int[] newFileOffsets = new int[m_OverlayEntries.Length + fileEntries.Count];
             int[] newFileEndOffsets = new int[m_OverlayEntries.Length + fileEntries.Count];
             newFileOffsets[0] = (int)newBinWriter.BaseStream.Position;
@@ -181,6 +183,17 @@ namespace SM64DSe {
                 newFileEndOffsets[i + m_OverlayEntries.Length] = (int)newBinWriter.BaseStream.Position;
                 Helper.AlignWriter(newBinWriter, 4);
             }
+
+            ////////////
+            // Banner //
+            ////////////
+            m_BinReader.BaseStream.Position = 0x68;
+            uint bannerOffset = m_BinReader.ReadUInt32();
+
+            Helper.WritePosAndRestore(newBinWriter, 0x68, 0);
+
+            m_BinReader.BaseStream.Position = bannerOffset;
+            newBinWriter.Write(m_BinReader.ReadBytes(0xa00));
 
             /////////////////////
             // File Name Table //
@@ -530,7 +543,7 @@ namespace SM64DSe {
             string dirname = path.TrimEnd('/');
 
             uint dirID = GetDirIDFromName(dirname) - 0xf000u;
-            int whereToInsert = Array.FindLastIndex(m_FileEntries, x => x.FullName.StartsWith(dirname)) + 1;
+            int whereToInsert = Array.FindLastIndex(m_FileEntries, x => x.FullName.StartsWith(path)) + 1;
             if (whereToInsert == 0)
                 whereToInsert = m_FileEntries.Length;
 

@@ -726,23 +726,20 @@ namespace SM64DSe
 
         public void ReinsertFile(ushort fileid, byte[] data)
         {
-            if (Program.m_ROM.m_Version != Version.EUR)
-            {
-                ReinsertFileOld(fileid, data);
-                return;
-            }
-            if (!this.StartFilesystemEdit())
+            if (!StartFilesystemEdit())
                 return;
 
-            Array.Resize<byte>(ref data, (data.Length + 3) / 4 * 4);
-            NitroROM.FileEntry fileEntry = this.m_FileEntries[(int)fileid];
-            fileEntry.Data = data;
-            this.m_FileEntries[(int)fileid] = fileEntry;
-            this.SaveFilesystem();
-            this.LoadROM(this.m_Path);
-            this.BeginRW();
-            this.LoadTables();
-            this.EndRW();
+            Array.Resize(ref data, (data.Length + 3) / 4 * 4);
+
+            FileEntry file = m_FileEntries[fileid];
+            file.Data = data;
+            m_FileEntries[fileid] = file;
+
+            SaveFilesystem(); //yes, it's overkill, but it's fast enough and works without offset meddling.
+            // LoadROM(m_Path); // done by SaveFilesystem now
+            BeginRW();
+            LoadTables();
+            EndRW();
         }
 
         public void ReinsertFileOld(ushort fileid, byte[] data)
