@@ -531,7 +531,7 @@ namespace SM64DSe.Patcher
             string[] lines = File.ReadAllLines(codeDir.FullName + "Makefile");
 
             for (int i = 0; i < lines.Length; i++) if (lines[i].StartsWith("SOURCES  := "))
-                    lines[i] = "SOURCES  := " + sourceDir + " libfat_source";
+                    lines[i] = "SOURCES  := " + sourceDir;
 
             File.WriteAllLines(codeDir.FullName + "Makefile", lines);
         }

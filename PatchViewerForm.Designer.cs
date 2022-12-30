@@ -35,10 +35,11 @@ namespace SM64DSe
 			this.txtCommandInfo = new System.Windows.Forms.RichTextBox();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.btnRetry = new System.Windows.Forms.ToolStripMenuItem();
-			this.pbProgress = new System.Windows.Forms.ProgressBar();
-			this.lblProgress = new System.Windows.Forms.Label();
 			this.btnReloadScript = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnImportScript = new System.Windows.Forms.ToolStripMenuItem();
+			this.pbProgress = new System.Windows.Forms.ProgressBar();
+			this.lblProgress = new System.Windows.Forms.Label();
+			this.lblTimeElapsed = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -93,23 +94,6 @@ namespace SM64DSe
 			this.btnRetry.Text = "Retry from failed command";
 			this.btnRetry.Click += new System.EventHandler(this.btnRetry_Click);
 			// 
-			// pbProgress
-			// 
-			this.pbProgress.Location = new System.Drawing.Point(12, 31);
-			this.pbProgress.Name = "pbProgress";
-			this.pbProgress.Size = new System.Drawing.Size(799, 33);
-			this.pbProgress.TabIndex = 38;
-			// 
-			// lblProgress
-			// 
-			this.lblProgress.AutoSize = true;
-			this.lblProgress.BackColor = System.Drawing.Color.Transparent;
-			this.lblProgress.Location = new System.Drawing.Point(565, 11);
-			this.lblProgress.Name = "lblProgress";
-			this.lblProgress.Size = new System.Drawing.Size(93, 17);
-			this.lblProgress.TabIndex = 39;
-			this.lblProgress.Text = "Progress: 0%";
-			// 
 			// btnReloadScript
 			// 
 			this.btnReloadScript.Name = "btnReloadScript";
@@ -124,11 +108,39 @@ namespace SM64DSe
 			this.btnImportScript.Text = "Import Script";
 			this.btnImportScript.Click += new System.EventHandler(this.btnImportScript_Click);
 			// 
+			// pbProgress
+			// 
+			this.pbProgress.Location = new System.Drawing.Point(12, 31);
+			this.pbProgress.Name = "pbProgress";
+			this.pbProgress.Size = new System.Drawing.Size(799, 33);
+			this.pbProgress.TabIndex = 38;
+			// 
+			// lblProgress
+			// 
+			this.lblProgress.AutoSize = true;
+			this.lblProgress.BackColor = System.Drawing.Color.Transparent;
+			this.lblProgress.Location = new System.Drawing.Point(518, 11);
+			this.lblProgress.Name = "lblProgress";
+			this.lblProgress.Size = new System.Drawing.Size(93, 17);
+			this.lblProgress.TabIndex = 39;
+			this.lblProgress.Text = "Progress: 0%";
+			// 
+			// lblTimeElapsed
+			// 
+			this.lblTimeElapsed.AutoSize = true;
+			this.lblTimeElapsed.BackColor = System.Drawing.Color.Transparent;
+			this.lblTimeElapsed.Location = new System.Drawing.Point(659, 11);
+			this.lblTimeElapsed.Name = "lblTimeElapsed";
+			this.lblTimeElapsed.Size = new System.Drawing.Size(116, 17);
+			this.lblTimeElapsed.TabIndex = 40;
+			this.lblTimeElapsed.Text = "Time elapsed: 0s";
+			// 
 			// PatchViewerForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1334, 641);
+			this.Controls.Add(this.lblTimeElapsed);
 			this.Controls.Add(this.lblProgress);
 			this.Controls.Add(this.pbProgress);
 			this.Controls.Add(this.menuStrip1);
@@ -156,5 +168,6 @@ namespace SM64DSe
         private System.Windows.Forms.Label lblProgress;
 		private System.Windows.Forms.ToolStripMenuItem btnReloadScript;
 		private System.Windows.Forms.ToolStripMenuItem btnImportScript;
+		private System.Windows.Forms.Label lblTimeElapsed;
 	}
 }

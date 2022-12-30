@@ -211,6 +211,9 @@ namespace SM64DSe
         private bool filesystemEditStarted;
         private bool hideConsoleWindow;
 
+        private System.Timers.Timer patchTimer = new System.Timers.Timer(1000);
+        private int secondCounter;
+
         private string ToHex(ushort num)
         {
             return "0x" + Convert.ToString(num, 16).PadLeft(4, '0').ToLower();
@@ -219,6 +222,7 @@ namespace SM64DSe
         public PatchViewerForm(string patchPath)
         {
             InitializeComponent();
+            patchTimer.Elapsed += Timer_Tick;
             LoadPatch(patchPath);
         }
 
@@ -331,13 +335,24 @@ namespace SM64DSe
             pbProgress.Step = 1;
             lblProgress.BackColor = Color.Transparent;
 
+            secondCounter = 0;
+            lblTimeElapsed.Text = "Time elapsed: 0s";
+
             Thread thread = new Thread(ApplyPatch);
             thread.IsBackground = true;
             thread.Start();
         }
 
+        private void Timer_Tick(object source, System.Timers.ElapsedEventArgs e)
+		{
+            secondCounter++;
+            lblTimeElapsed.Invoke(new MethodInvoker(delegate { lblTimeElapsed.Text = "Time elapsed: " + secondCounter + "s"; }));
+        }
+
         private void ApplyPatch()
         {
+            patchTimer.Start();
+
             filesystemEditStarted = false;
 
             TreeView dummyTree = new TreeView();
@@ -373,10 +388,13 @@ namespace SM64DSe
                     info.state = CommandInfo.State.FAILED;
                     UpdateForm(i);
                     System.Media.SystemSounds.Hand.Play();
+                    patchTimer.Stop();
+                    StopFilesystemEditIfNecessary();
                     break;
                 }
             }
 
+            patchTimer.Stop();
             StopFilesystemEditIfNecessary();
         }
 

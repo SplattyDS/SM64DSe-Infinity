@@ -1218,7 +1218,7 @@ There should be a corresponding Star Marker with Parameters 2 followed by Star I
 	</object>
 	<object id="67">
 		<name>Boo</name>
-		<internalname>TERESA</internalname>
+		<internalname>BOO</internalname>
 		<actorid>209</actorid>
 		<description>Chases the player. Turns translucent when looked at, revealing a Blue Coin, or ocaisonly a Red Coin  or Yellow Coin inside.
 
@@ -1254,7 +1254,7 @@ T: Type
 	</object>
 	<object id="68">
 		<name>Big Boo</name>
-		<internalname>BOSS_TERESA</internalname>
+		<internalname>BIG_BOO</internalname>
 		<actorid>210</actorid>
 		<description>The Boo's larger brethren. Takes 3 hits to destroy and releases a Power Star.
 
@@ -1277,7 +1277,7 @@ YY:
 	</object>
 	<object id="69">
 		<name>Big Boo Icon</name>
-		<internalname>ICON_TERESA</internalname>
+		<internalname>BIG_BOO_ICON</internalname>
 		<actorid>211</actorid>
 		<description>Activates when Big Boo appears, draws a Star icon on the minimap at Big Boo's current location.
 
@@ -3683,8 +3683,8 @@ S - Star ID
 		<renderer type="NormalBMD" file="data/normal_obj/obj_race_flag/obj_race_flag.bmd" scale="0.008" />
 	</object>
 	<object id="283">
-		<name>BBH Entrance Cage</name>
-		<internalname>T_BASKET</internalname>
+		<name>Boo Cage</name>
+		<internalname>BOO_CAGE</internalname>
 		<actorid>212</actorid>
 		<description>Entrance to Big Boo's Haunt.</description>
 		<bankreq>0=2</bankreq>
