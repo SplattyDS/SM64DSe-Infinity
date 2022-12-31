@@ -364,7 +364,7 @@ namespace SM64DSe
             {
                 CommandInfo info = commandInfos[i];
 
-                if (info.state == CommandInfo.State.SUCCESS)
+                if (info.state == CommandInfo.State.SUCCESS || info.state == CommandInfo.State.FAILED_FS)
                     continue;
 
                 //Get parameters.

@@ -1067,11 +1067,11 @@ XXXX where
 	</object>
 	<object id="58">
 		<name>Mad Piano</name>
-		<internalname>PIANO</internalname>
+		<internalname>MAD_PIANO</internalname>
 		<actorid>249</actorid>
 		<description>Chomps at the player as long as it is in range.</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/mad_piano.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/piano/piano.bmd" scale="0.008" />
 	</object>
 	<object id="59">
@@ -1248,8 +1248,8 @@ T: Type
 0B - Doesn't spawn?
 
 (source: Hiccup)</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/boo.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/teresa/teresa.bmd" scale="0.008" />
 	</object>
 	<object id="68">
@@ -1271,8 +1271,8 @@ YY:
 03 - King Boo (may require object LUIGI to function)
 04 - Stays still, doesn't turn transparent, cannot be defeated or stomped but can be pushed around by walking into it.
 05 - same as 4?</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/boo.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/boss_teresa/boss_teresa.bmd" scale="0.008" />
 	</object>
 	<object id="69">
@@ -1287,8 +1287,8 @@ XXYY
 where:
 XX: Star ID
 YY: Unknown</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/boo.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="70">
@@ -1299,8 +1299,8 @@ YY: Unknown</description>
 
 Parameter 1:
 XXXX Star ID for them to be set down?</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bbh_platform.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="71">
@@ -1308,8 +1308,8 @@ XXXX Star ID for them to be set down?</description>
 		<internalname>BOOKSHELF</internalname>
 		<actorid>158</actorid>
 		<description>When you hit the books in the right order it will move to the left. If you get the order wrong, it will shoot a book at you and reset the books.</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bbh_platform.dylb data/dynamic/book.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_hondana/th_hondana.bmd" scale="0.008" />
 	</object>
 	<object id="72">
@@ -1317,8 +1317,8 @@ XXXX Star ID for them to be set down?</description>
 		<internalname>MERRY_GO_ROUND</internalname>
 		<actorid>159</actorid>
 		<description>Big Boo's Merry-Go-Round. Rotating platform. Also plays its own music when the player is close enough to it.</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bbh_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_mery_go/th_mery_go.bmd" scale="0.008" />
 	</object>
 	<object id="73">
@@ -1326,8 +1326,8 @@ XXXX Star ID for them to be set down?</description>
 		<internalname>TRAP_DOOR</internalname>
 		<actorid>160</actorid>
 		<description>Flipping platform in Big Boo's Haunt.</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bbh_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_trap/th_trap.bmd" scale="0.008" />
 	</object>
 	<object id="74">
@@ -3687,8 +3687,8 @@ S - Star ID
 		<internalname>BOO_CAGE</internalname>
 		<actorid>212</actorid>
 		<description>Entrance to Big Boo's Haunt.</description>
-		<bankreq>0=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/boo.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/t_basket/t_basket.bmd" scale="0.008" />
 	</object>
 	<object id="284">
@@ -3733,8 +3733,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOK_SHOT</internalname>
 		<actorid>325</actorid>
 		<description>Maybe the flying book that is shot out of bookcases in the libary room in BBH?</description>
-		<bankreq>7=13</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/book.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="287">
@@ -3742,8 +3742,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOKEND</internalname>
 		<actorid>327</actorid>
 		<description>Chomps and flies at the player. This object is placed in a bookshelf in the game.</description>
-		<bankreq>7=13</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/book.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="288">
@@ -3751,8 +3751,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOK_SHOT_SPAWNER</internalname>
 		<actorid>328</actorid>
 		<description />
-		<bankreq>7=13</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/book.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="289">
@@ -3760,8 +3760,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOK_SWITCH</internalname>
 		<actorid>213</actorid>
 		<description>Maybe this is the actor for the book switches on the Secret Door Bookcase?</description>
-		<bankreq>7=13</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/book.dylb data/dynamic/bbh_platform.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="290">
@@ -3823,8 +3823,8 @@ YY - The order of the current chest.
 		<internalname>HAUNTED_CHAIR</internalname>
 		<actorid>326</actorid>
 		<description>A chair that flies at the player.</description>
-		<bankreq>7=13</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/haunted_chair.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/chair/chair.bmd" scale="0.008" />
 	</object>
 	<object id="295">
