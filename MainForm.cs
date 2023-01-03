@@ -349,6 +349,12 @@ namespace SM64DSe
             UpdateOpenFileButton();
         }
 
+        private void tvFileList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+		{
+            if (btnOpenFile.Enabled)
+                btnOpenFile.PerformClick();
+		}
+
         private void btnExtractRaw_Click(object sender, EventArgs e)
         {
             if (m_SelectedFile == null || m_SelectedFile.Equals(""))
@@ -833,7 +839,7 @@ namespace SM64DSe
 
             nitroPaint = null;
 
-            tsToolBar.Invoke(new MethodInvoker(delegate { GraphicsEditorToolStripMenuItem.Text = "Graphics Editor (Nitro Paint)"; }));
+            tsToolBar.Invoke(new MethodInvoker(delegate { GraphicsEditorToolStripMenuItem.Text = "2D Graphics - Nitro Paint"; }));
         }
 
         private void GraphicsEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -846,14 +852,14 @@ namespace SM64DSe
                 nitroPaint.Kill();
                 nitroPaint = null;
 
-                GraphicsEditorToolStripMenuItem.Text = "Graphics Editor (Nitro Paint)";
+                GraphicsEditorToolStripMenuItem.Text = "2D Graphics - Nitro Paint";
                 return;
             }
 
             OpenNitroPaintFile();
         }
 
-        private void OpenNitroPaintFile(string romFilePath = null)
+        private void OpenNitroPaintFile(string[] romFilePaths = null)
         {
             if (nitroPaint == null)
 			{
@@ -871,15 +877,33 @@ namespace SM64DSe
                 GraphicsEditorToolStripMenuItem.Text = "Quit Nitro Paint without saving";
             }
 
-            if (romFilePath != null && !nitroPaintFiles.Where(f => f.romFilePath == romFilePath).Any())
+            if (romFilePaths != null && romFilePaths.Length != 0)
             {
-                NitroPaintFile nitroPaintFile = new NitroPaintFile(romFilePath, nitroPaintFiles.Count);
-                string filePath = Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName();
-                string[] filePaths = new string[] { filePath };
+                string filePath;
+                string[] filePaths = new string[romFilePaths.Length];
 
-                File.WriteAllBytes(filePath, Program.m_ROM.GetFileFromName(romFilePath).m_Data);
-                
-                Console.WriteLine("NP File added: " + nitroPaintFile.GetFileName());
+                for (int i = 0; i < romFilePaths.Length; i++)
+				{
+                    string romFilePath = romFilePaths[i];
+                    NitroPaintFile nitroPaintFile = nitroPaintFiles.Where(f => f.romFilePath == romFilePath).FirstOrDefault();
+
+                    // has the file already been added?
+                    if (nitroPaintFile != null)
+					{
+                        filePaths[i] = Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName();
+                        continue;
+                    }
+
+                    nitroPaintFile = new NitroPaintFile(romFilePath, nitroPaintFiles.Count);
+                    filePath = Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName();
+                    filePaths[i] = filePath;
+
+                    File.WriteAllBytes(filePath, Program.m_ROM.GetFileFromName(romFilePath).m_Data);
+
+                    nitroPaintFiles.Add(nitroPaintFile);
+
+                    Console.WriteLine("NP File added: " + nitroPaintFile.GetFileName());
+                }
 
                 // Get the ID of the process
                 uint processId = (uint)nitroPaint.Id;
@@ -947,8 +971,6 @@ namespace SM64DSe
 
                     // Send the WM_DROPFILES message to the other program
                     PostMessage(otherProgramHandle, 0x0233, dropFilesPtr, IntPtr.Zero);
-
-                    nitroPaintFiles.Add(nitroPaintFile);
                 }
                 else
                 {
@@ -1134,7 +1156,7 @@ namespace SM64DSe
                 OpenSDAT();
             else if (m_SelectedFile.EndsWith("ncl.bin") || m_SelectedFile.EndsWith("ncg.bin") || m_SelectedFile.EndsWith("nsc.bin") ||
                      m_SelectedFile.EndsWith("icl.bin") || m_SelectedFile.EndsWith("icg.bin") || m_SelectedFile.EndsWith("isc.bin"))
-                OpenNitroPaintFile(m_SelectedFile);
+                OpenNitroPaintFile(new string[] { m_SelectedFile });
             
             /*else if (m_SelectedFile.EndsWith(".lvl"))
                 new LevelEditorForm().Show();
