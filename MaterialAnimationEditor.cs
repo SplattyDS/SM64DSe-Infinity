@@ -131,8 +131,6 @@ namespace SM64DSe
 
         private void MaterialAnimationEditor_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            if (!m_ModelSourceLoaded) return;
-
             glModelView.PrepareForClose();
 
             if (m_LoadedModel != null) m_LoadedModel.Release();

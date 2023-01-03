@@ -106,7 +106,6 @@ namespace SM64DSe
 
                 Program.m_ROM.EndRW();
 
-                // this 
                 // this should fix the overlays having an incorrect file id
                 Program.m_ROM.StartFilesystemEdit();
                 Program.m_ROM.SaveFilesystem();

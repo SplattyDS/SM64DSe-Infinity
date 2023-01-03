@@ -356,8 +356,6 @@ namespace SM64DSe
 
         private void ModelAndCollisionMapEditor_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            if (!m_ModelSourceLoaded) return;
-
             glModelView.PrepareForClose();
             glCollisionMapView.PrepareForClose();
 

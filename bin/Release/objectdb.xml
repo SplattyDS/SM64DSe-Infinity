@@ -198,7 +198,7 @@ FF04 - Same as FF03?</description>
 	</object>
 	<object id="14">
 		<name>Rolling Rock</name>
-		<internalname>GORO_ROCK</internalname>
+		<internalname>ROLLING_ROCK</internalname>
 		<actorid>221</actorid>
 		<description>Used in Hazy Maze Cave.
 Parameter 1:
@@ -215,8 +215,8 @@ TT: Type
 05+ - Same as 02?
 
 Set Star ID to FF if you do not want a star to spawn when breaking the rock, eg. FF04 will spawn a stationary  rock that does nothing when broken.</description>
-		<bankreq>7=14</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rolling_rock.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/cv_goro_rock/cv_goro_rock.bmd" scale="0.008" />
 	</object>
 	<object id="15">
@@ -884,12 +884,12 @@ XXXX Which way it opens
 		<renderer type="NormalBMD" file="data/special_obj/cv_shutter/cv_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="47">
-		<name>Control Pad Lift</name>
-		<internalname>CV_NEWS_LIFT</internalname>
+		<name>Work Elevator</name>
+		<internalname>WORK_ELEVATOR</internalname>
 		<actorid>68</actorid>
 		<description>Platform in Hazy Maze Cave. Walking onto the arrows makes the platform move in their direction.</description>
-		<bankreq>7=14</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/work_elevator.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/cv_news_lift/cv_news_lift.bmd" scale="0.008" />
 	</object>
 	<object id="48">
@@ -1162,7 +1162,7 @@ S - Star ID. Match with a Power Star.
 	</object>
 	<object id="63">
 		<name>Star Marker</name>
-		<internalname>STARBASE</internalname>
+		<internalname>STAR_MARKER</internalname>
 		<actorid>180</actorid>
 		<description>Tells where the associated Power Star lands after it spawns.
 
@@ -1805,12 +1805,12 @@ FEC9 - Clockwise.
 		<renderer type="NormalBMD" file="data/special_obj/sl_ice_brock/sl_ice_brock.bmd" scale="0.008" />
 	</object>
 	<object id="117">
-		<name>TTM Log</name>
-		<internalname>HM_MARUTA</internalname>
+		<name>Rolling Log (TTM)</name>
+		<internalname>ROLLING_LOG_TTM</internalname>
 		<actorid>102</actorid>
 		<description>Moves when the player walks on it.</description>
-		<bankreq>7=23</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rolling_log.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/hm_maruta/hm_maruta.bmd" scale="0.008" />
 	</object>
 	<object id="118">
@@ -1949,12 +1949,12 @@ II - Match this with the II of the Water Diamond.</description>
 		<renderer type="NormalBMD" file="data/special_obj/wc_mizu/wc_mizu.bmd" scale="0.008" />
 	</object>
 	<object id="130">
-		<name>LLL Rolling Log</name>
-		<internalname>FL_MARUTA</internalname>
+		<name>Rolling Log (LLL)</name>
+		<internalname>ROLLING_LOG_LLL</internalname>
 		<actorid>70</actorid>
 		<description>A log in Lethal Lava Land that the player can roll by running on.</description>
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rolling_log.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_log/fl_log.bmd" scale="0.008" />
 	</object>
 	<object id="131">
@@ -2068,7 +2068,7 @@ Parameter 1:
 XXXS where
 
 S - Star ID.</description>
-		<bankreq>7=15</bankreq>
+		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/fall_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_kuzure/fl_kuzure.bmd" scale="0.008" />
 	</object>
@@ -2095,7 +2095,7 @@ Uses FFFF</description>
 	</object>
 	<object id="144">
 		<name>Waterfall Mist</name>
-		<internalname>WATERFALL</internalname>
+		<internalname>WATERFALL_MIST</internalname>
 		<actorid>197</actorid>
 		<description />
 		<bankreq>none</bankreq>
@@ -2655,8 +2655,8 @@ Parameter 1:
 		<internalname>KNOCK_DOWN_PLANK</internalname>
 		<actorid>44</actorid>
 		<description>If kicked, it will fall flat, ignoring all collision. If it is bumped into by a giant player it falls down on its back.</description>
-		<bankreq>7=8</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/knock_down_plank.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_botaosi/bk_botaosi.bmd" scale="0.008" />
 	</object>
 	<object id="199">
@@ -4765,10 +4765,10 @@ F - Same as 3?
 		<renderer type="ColorCube" border="ffffff" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>ChScene</name>
-		<internalname>CHSCENE</internalname>
+		<name>Exit</name>
+		<internalname>EXIT</internalname>
 		<actorid>349</actorid>
-		<description>Not documented yet.</description>
+		<description>Has its own object type.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="ffffff" fill="404040" />
@@ -4802,7 +4802,7 @@ F - Same as 3?
 	</object>
 	<object id="-1">
 		<name>Door</name>
-		<internalname>DOOR_DOOR</internalname>
+		<internalname>DOOR</internalname>
 		<actorid>353</actorid>
 		<description>Has its own object type.</description>
 		<bankreq>none</bankreq>
