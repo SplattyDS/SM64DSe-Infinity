@@ -87,6 +87,7 @@
             this.materialAnimationBMAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textureAnimationBTAEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SDATEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GraphicsEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEditObjectDB = new System.Windows.Forms.Button();
             this.tsToolBar.SuspendLayout();
             this.ssStatusBar.SuspendLayout();
@@ -160,7 +161,8 @@
             this.particleArchiveSPAEditorToolStripMenuItem,
             this.materialAnimationBMAEditorToolStripMenuItem,
             this.textureAnimationBTAEditorToolStripMenuItem,
-            this.SDATEditorToolStripMenuItem,});
+            this.SDATEditorToolStripMenuItem,
+            this.GraphicsEditorToolStripMenuItem,});
             this.btnFileEditors.Enabled = false;
             this.btnFileEditors.Name = "btnFileEditors";
             this.btnFileEditors.Size = new System.Drawing.Size(62, 22);
@@ -228,6 +230,13 @@
             this.SDATEditorToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
             this.SDATEditorToolStripMenuItem.Text = "SDAT (Sound) - Nitro Studio 2";
             this.SDATEditorToolStripMenuItem.Click += new System.EventHandler(this.SDATEditorToolStripMenuItem_Click);
+            // 
+            // GraphicsEditorToolStripMenuItem
+            // 
+            this.GraphicsEditorToolStripMenuItem.Name = "GraphicsEditorToolStripMenuItem";
+            this.GraphicsEditorToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
+            this.GraphicsEditorToolStripMenuItem.Text = "2D Graphics - Nitro Paint";
+            this.GraphicsEditorToolStripMenuItem.Click += new System.EventHandler(this.GraphicsEditorToolStripMenuItem_Click);
             // 
             // btnMore
             // 
@@ -757,7 +766,7 @@
             this.spcARM9Overlays.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
         }
 
         #endregion
@@ -820,6 +829,7 @@
         private System.Windows.Forms.ToolStripMenuItem materialAnimationBMAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textureAnimationBTAEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SDATEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem GraphicsEditorToolStripMenuItem;
         private System.Windows.Forms.Button btnEditObjectDB;
     }
 }

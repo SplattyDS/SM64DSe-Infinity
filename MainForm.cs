@@ -25,12 +25,14 @@ using System.Net;
 using System.Web;
 using SM64DSe.ImportExport.LevelImportExport;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace SM64DSe
 {
     public partial class MainForm : Form
     {
         private System.Diagnostics.Process nitroStudio = null;
+        private System.Diagnostics.Process nitroPaint = null;
 
         private void LoadROM(string filename)
         {
@@ -790,6 +792,210 @@ namespace SM64DSe
             // Console.WriteLine(Application.StartupPath + "\\NitroStudio\\NitroStudio2.exe " + Application.StartupPath + "\\NitroStudio\\_temp.sdat");
         }
 
+        public class NitroPaintFile
+        {
+            public string romFilePath;
+            public int ID;
+
+            public NitroPaintFile(string romFilePath, int ID)
+			{
+                this.romFilePath = romFilePath;
+                this.ID = ID;
+			}
+
+            public string GetFileName()
+			{
+                return "temp" + ID + "-" + romFilePath.Substring(romFilePath.LastIndexOf('/') + 1);
+			}
+        }
+
+        private List<NitroPaintFile> nitroPaintFiles;
+
+        private void OnCloseNitroPaint(object sender, EventArgs e)
+        {
+            if (nitroPaint == null)
+                return;
+
+            foreach (NitroPaintFile nitroPaintFile in nitroPaintFiles)
+			{
+                if (!File.Exists(Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName()))
+                {
+                    MessageBox.Show("Error! File not found after closing Nitro Paint:\n" + nitroPaintFile.GetFileName(), "File not found.");
+                }
+                else
+				{
+                    NitroFile file = Program.m_ROM.GetFileFromName(nitroPaintFile.romFilePath);
+                    file.m_Data = File.ReadAllBytes(Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName());
+                    file.SaveChanges();
+                    File.Delete(Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName());
+                }
+            }
+
+            nitroPaint = null;
+
+            tsToolBar.Invoke(new MethodInvoker(delegate { GraphicsEditorToolStripMenuItem.Text = "Graphics Editor (Nitro Paint)"; }));
+        }
+
+        private void GraphicsEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (nitroPaint != null)
+            {
+                foreach (NitroPaintFile nitroPaintFile in nitroPaintFiles)
+                    File.Delete(Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName());
+
+                nitroPaint.Kill();
+                nitroPaint = null;
+
+                GraphicsEditorToolStripMenuItem.Text = "Graphics Editor (Nitro Paint)";
+                return;
+            }
+
+            OpenNitroPaintFile();
+        }
+
+        private void OpenNitroPaintFile(string romFilePath = null)
+        {
+            if (nitroPaint == null)
+			{
+                nitroPaintFiles = new List<NitroPaintFile>();
+
+                System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo();
+                // start.Arguments = Application.StartupPath + "\\NitroPaint\\_temp.sdat";
+                start.FileName = Application.StartupPath + "\\NitroPaint\\NitroPaint.exe";
+                start.WorkingDirectory = Application.StartupPath + "\\NitroPaint";
+
+                nitroPaint = System.Diagnostics.Process.Start(start);
+                nitroPaint.EnableRaisingEvents = true;
+                nitroPaint.Exited += OnCloseNitroPaint;
+
+                GraphicsEditorToolStripMenuItem.Text = "Quit Nitro Paint without saving";
+            }
+
+            if (romFilePath != null && !nitroPaintFiles.Where(f => f.romFilePath == romFilePath).Any())
+            {
+                NitroPaintFile nitroPaintFile = new NitroPaintFile(romFilePath, nitroPaintFiles.Count);
+                string filePath = Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName();
+                string[] filePaths = new string[] { filePath };
+
+                File.WriteAllBytes(filePath, Program.m_ROM.GetFileFromName(romFilePath).m_Data);
+                
+                Console.WriteLine("NP File added: " + nitroPaintFile.GetFileName());
+
+                // Get the ID of the process
+                uint processId = (uint)nitroPaint.Id;
+
+                // Create a list to store the window handles
+                List<IntPtr> windowHandles = new List<IntPtr>();
+
+                System.Threading.Thread.Sleep(200);
+
+                // Enumerate the windows of the process
+                EnumWindows((hWnd, lParam) =>
+                {
+                    // Get the ID of the window's process
+                    uint windowProcessId;
+                    GetWindowThreadProcessId(hWnd, out windowProcessId);
+
+                    // Check if the window belongs to the process
+                    if (windowProcessId == processId)
+                    {
+                        // Add the window handle to the list
+                        windowHandles.Add(hWnd);
+                    }
+
+                    // Continue enumerating
+                    return true;
+                }, IntPtr.Zero);
+
+                // Check if any windows were found
+                if (windowHandles.Count > 0)
+                {
+                    // Use the first window handle in the list
+                    IntPtr otherProgramHandle = windowHandles[0];
+
+                    // Create a DROPFILES structure to hold the list of file paths
+                    DROPFILES dropFiles = new DROPFILES
+                    {
+                        pFiles = 0, // Offset to the file list, in bytes
+                        pt = new POINT(0, 0), // Cursor position, in screen coordinates
+                        fNC = false, // Non-client area flag
+                        fWide = true // Unicode flag
+                    };
+
+                    // Add the file paths together, with a double null byte at the end
+                    string listValue = "";
+                    foreach (string path in filePaths)
+                        listValue += path + "\0";
+                    listValue += "\0";
+
+                    byte[] bytes = Encoding.Unicode.GetBytes(listValue);
+
+                    int offset = Marshal.SizeOf(dropFiles);
+
+                    // Allocate a block of memory to hold the DROPFILES structure and the file list
+                    IntPtr dropFilesPtr = Marshal.AllocHGlobal(offset + bytes.Length);
+
+                    // Write the offset to the file list to the DROPFILES structure
+                    dropFiles.pFiles = (uint)offset;
+
+                    // Copy the DROPFILES structure to the memory block
+                    Marshal.StructureToPtr(dropFiles, dropFilesPtr, false);
+
+                    // Write the file list to the memory block
+                    IntPtr fileListPtr = dropFilesPtr + offset;
+                    Marshal.Copy(bytes, 0, fileListPtr, bytes.Length);
+
+                    // Send the WM_DROPFILES message to the other program
+                    PostMessage(otherProgramHandle, 0x0233, dropFilesPtr, IntPtr.Zero);
+
+                    nitroPaintFiles.Add(nitroPaintFile);
+                }
+                else
+                {
+                    MessageBox.Show("Couldn't find windows of Nitro Paint.");
+                }
+            }
+        }
+
+        // Declare the EnumWindows function
+        [DllImport("user32.dll")]
+        private static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        // Declare the GetWindowThreadProcessId function
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        // Declare the delegate for the EnumWindows function
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        // Declare the SendMessage function
+        [DllImport("user32.dll")]
+        private static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        // Declare the DROPFILES structure
+        [StructLayout(LayoutKind.Sequential)]
+        private struct DROPFILES
+        {
+            public uint pFiles;
+            public POINT pt;
+            public bool fNC;
+            public bool fWide;
+        }
+
+        // Declare the POINT structure
+        [StructLayout(LayoutKind.Sequential)]
+        private struct POINT
+        {
+            public int X;
+            public int Y;
+
+            public POINT(int x, int y)
+			{
+                X = x;
+                Y = y;
+			}
+        }
+
         private void btnEditLevelNamesOverlays_Click(object sender, EventArgs e)
         {
             new LevelNameOverlayEditorForm().ShowDialog();
@@ -926,6 +1132,10 @@ namespace SM64DSe
                 new ParticleViewerForm(m_SelectedFile).Show();
             else if (m_SelectedFile.EndsWith(".sdat"))
                 OpenSDAT();
+            else if (m_SelectedFile.EndsWith("ncl.bin") || m_SelectedFile.EndsWith("ncg.bin") || m_SelectedFile.EndsWith("nsc.bin") ||
+                     m_SelectedFile.EndsWith("icl.bin") || m_SelectedFile.EndsWith("icg.bin") || m_SelectedFile.EndsWith("isc.bin"))
+                OpenNitroPaintFile(m_SelectedFile);
+            
             /*else if (m_SelectedFile.EndsWith(".lvl"))
                 new LevelEditorForm().Show();
             else if (m_SelectedFile.EndsWith(".mesg"))
@@ -1004,20 +1214,66 @@ namespace SM64DSe
                 btnOpenFile.Text = "Open sound data";
                 btnOpenFile.Enabled = true;
             }
+            else if (m_SelectedFile.EndsWith("ncl.bin") || m_SelectedFile.EndsWith("ncg.bin") || m_SelectedFile.EndsWith("nsc.bin") ||
+                     m_SelectedFile.EndsWith("icl.bin") || m_SelectedFile.EndsWith("icg.bin") || m_SelectedFile.EndsWith("isc.bin"))
+			{
+                btnOpenFile.Text = "Open 2D graphic";
+                btnOpenFile.Enabled = true;
+            }
             else if (m_SelectedFile.EndsWith(".lvl"))
             {
-                btnOpenFile.Text = "Open sound data";
+                btnOpenFile.Text = "Open level";
                 btnOpenFile.Enabled = false;
             }
             else if (m_SelectedFile.EndsWith(".mesg"))
             {
-                btnOpenFile.Text = "Open sound data";
+                btnOpenFile.Text = "Open message";
                 btnOpenFile.Enabled = false;
             }
             else
             {
                 btnOpenFile.Text = "Open file";
                 btnOpenFile.Enabled = false;
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+            if (nitroStudio != null)
+            {
+                System.Media.SystemSounds.Hand.Play();
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to exit without saving changes in Nitro Studio 2?", "Nitro Studio 2 still open", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else
+				{
+                    File.Delete(Application.StartupPath + "\\NitroStudio\\_temp.sdat");
+
+                    nitroStudio.Kill();
+                    nitroStudio = null;
+                }
+            }
+
+            if (nitroPaint != null)
+            {
+                System.Media.SystemSounds.Hand.Play();
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to exit without saving changes in Nitro Paint?", "Nitro Paint still open", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else
+				{
+                    foreach (NitroPaintFile nitroPaintFile in nitroPaintFiles)
+                        File.Delete(Application.StartupPath + "\\NitroPaint\\" + nitroPaintFile.GetFileName());
+
+                    nitroPaint.Kill();
+                    nitroPaint = null;
+                }
             }
         }
     }

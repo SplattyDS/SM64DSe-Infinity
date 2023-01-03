@@ -567,6 +567,9 @@
     </None>
     <None Include="level_ovl_init_EUR.000.bin" />
     <None Include="level_ovl_init_EUR.001.bin" />
+    <None Include="NitroPaint\nitropaint.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -609,6 +612,9 @@
     <None Include="Resources\stepRight.png" />
     <None Include="Images\build.png" />
     <Content Include="Images\DummyTex.png" />
+    <Content Include="NitroPaint\NitroPaint.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="NitroStudio\AxInterop.WMPLib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
