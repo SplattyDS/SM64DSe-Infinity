@@ -1147,8 +1147,8 @@ namespace SM64DSe
                     new TextureAnimationEditorForm(m_SavedFile, m_SelectedFile).Show();*/
             }
             else if (m_SelectedFile.EndsWith(".kcl"))
-                //new ModelAndCollisionMapEditor(null, m_SelectedFile, 1f, ModelAndCollisionMapEditor.StartMode.CollisionMap).Show();
-                new KCLEditorForm(Program.m_ROM.GetFileFromName(m_SelectedFile)).Show();
+                new ModelAndCollisionMapEditor(null, m_SelectedFile, 1f, ModelAndCollisionMapEditor.StartMode.CollisionMap).Show();
+                // new KCLEditorForm(Program.m_ROM.GetFileFromName(m_SelectedFile)).Show();
             else if (m_SelectedFile.EndsWith(".spt"))
                 new ParticleEditorForm(m_SelectedFile).Show();
             else if (m_SelectedFile.EndsWith(".spa"))

@@ -603,9 +603,7 @@ namespace SM64DSe
             if (preserveIndividualFaceCollisionTypes)
             {
                 for (int i = 0; i < originalPlanes.Count; i++)
-                {
                     SetCollisionMapPlaneCollisionType(result, i, originalPlanes[i].type);
-                }
             }
 
             return result;
@@ -2639,7 +2637,7 @@ namespace SM64DSe
         private void SetEnabledStateCollisionMapPlanes(bool state)
         {
             lbxCollisionMapPlanes.Enabled = state;
-            txtCollisionMapPlanesCollisionType.Enabled = state;
+            txtCollisionMapPlanesCollisionType.Enabled = false;
         }
 
         private void UpdateKCLMapAndPreview(float scale, bool callKCLImporter = true, bool preserveIndividualFaceCollisionTypes = true)
@@ -2753,19 +2751,13 @@ namespace SM64DSe
             if (m_ModelBase != null)
             {
                 foreach (string material in m_CollisionMapMaterialTypeMap.Keys.ToList())
-                {
                     if (!m_ModelBase.m_Materials.ContainsKey(material))
-                    {
                         m_CollisionMapMaterialTypeMap.Remove(material);
-                    }
-                }
+
+                int i = 0;
                 foreach (string material in m_ModelBase.m_Materials.Keys)
-                {
                     if (!m_CollisionMapMaterialTypeMap.ContainsKey(material))
-                    {
-                        m_CollisionMapMaterialTypeMap.Add(material, 0);
-                    }
-                }
+                        m_CollisionMapMaterialTypeMap.Add(material, i++);
             }
 
             gridCollisionMapGeneralMaterialCollisionTypes.ColumnCount = 2;
@@ -2793,9 +2785,7 @@ namespace SM64DSe
             lbxCollisionMapPlanes.Items.Clear();
 
             for (int i = 0; i < m_CollisionMapPlanes.Count; i++)
-            {
                 lbxCollisionMapPlanes.Items.Add("Plane " + i.ToString("00000"));
-            }
 
             txtCollisionMapPlanesCollisionType.BackColor = Color.White;
 
@@ -2906,7 +2896,7 @@ namespace SM64DSe
 
         private void txtCollisionMapPlanesCollisionType_TextChanged(object sender, EventArgs e)
         {
-            if (txtCollisionMapPlanesCollisionType.Text == null || txtCollisionMapPlanesCollisionType.Text.Trim().Length < 1) return;
+            /*if (txtCollisionMapPlanesCollisionType.Text == null || txtCollisionMapPlanesCollisionType.Text.Trim().Length < 1) return;
             
             int collisionType = 0;
             if (Helper.TryParseInt(txtCollisionMapPlanesCollisionType, ref collisionType))
@@ -2917,7 +2907,7 @@ namespace SM64DSe
                 }
 
                 RefreshCollisionMapView();
-            }
+            }*/
         }
 
         private void txtCollisionMapGeneralFaceSizeThreshold_TextChanged(object sender, EventArgs e)
@@ -2928,17 +2918,13 @@ namespace SM64DSe
         private void txtCollisionMapGeneralScale_TextChanged(object sender, EventArgs e)
         {
             if (Helper.TryParseFloat(txtCollisionMapGeneralScale, out m_CollisionMapImportationSettings.m_Scale))
-            {
                 RefreshKCLScale();
-            }
         }
 
         private void txtCollisionMapGeneralTargetScale_TextChanged(object sender, EventArgs e)
         {
             if (Helper.TryParseFloat(txtCollisionMapGeneralTargetScale, out m_CollisionMapImportationSettings.m_InGameModelScale))
-            {
                 RefreshKCLScale();
-            }
         }
 
         private void CopyNitroFileData(NitroFile sourceFile, NitroFile targetFile, bool save)
@@ -2979,7 +2965,7 @@ namespace SM64DSe
             {
                 try
                 {
-                    m_ImportedCollisionMap = CallKCLImporter(true);
+                    // m_ImportedCollisionMap = CallKCLImporter(true);
 
                     NitroFile kclTargetFile = Program.m_ROM.GetFileFromName(m_KCLTargetName);
                     if (m_ImportedCollisionMap.m_File.m_ID != kclTargetFile.m_ID)
@@ -3088,7 +3074,7 @@ namespace SM64DSe
             if (m_ModelSourceLoaded)
             {
                 m_SaveFileDialogue.FileName = Path.GetFileNameWithoutExtension(m_ModelSourceName) + "_collision_map";
-                m_SaveFileDialogue.DefaultExt = ".dae";
+                m_SaveFileDialogue.DefaultExt = ".obj";
                 m_SaveFileDialogue.Filter = Strings.MODEL_EXPORT_FORMATS_FILTER;
                 DialogResult result = m_SaveFileDialogue.ShowDialog();
                 if (result == DialogResult.OK)
