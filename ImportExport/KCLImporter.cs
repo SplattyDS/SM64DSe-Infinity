@@ -43,10 +43,9 @@ namespace SM64DSe.ImportExport
 
             Dictionary<string, int> matColTypes = new Dictionary<string, int>();
 
+            int i = 0;
             foreach (string key in materials.Keys)
-            {
-                matColTypes.Add(key, 0);
-            }
+                matColTypes.Add(key, i++);
 
             return matColTypes;
         }

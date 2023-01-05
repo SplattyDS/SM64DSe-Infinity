@@ -1867,7 +1867,7 @@ Use FFFF.</description>
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj07/wc_obj07.bmd" scale="0.008" />
 	</object>
 	<object id="123">
-		<name>Float on Water Platform (WDW, Square)</name>
+		<name>Float on Water Platform (WDW) - Square</name>
 		<internalname>FLOAT_ON_WATER_PLATFORM_WDW_SQUARE</internalname>
 		<actorid>95</actorid>
 		<description>A square wood platform which floats on water. Proportions are 0.5x?x0.5 points.</description>
@@ -1926,7 +1926,7 @@ T: Type
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj05/wc_obj05.bmd" scale="0.008" />
 	</object>
 	<object id="128">
-		<name>Float on Water Platform (WDW, Rectangle)</name>
+		<name>Float on Water Platform (WDW) - Rectangle</name>
 		<internalname>FLOAT_ON_WATER_PLATFORM_WDW_RECTANGLE</internalname>
 		<actorid>100</actorid>
 		<description>A rectangular wood lift which floats on water.</description>
@@ -1958,12 +1958,12 @@ II - Match this with the II of the Water Diamond.</description>
 		<renderer type="NormalBMD" file="data/special_obj/fl_log/fl_log.bmd" scale="0.008" />
 	</object>
 	<object id="131">
-		<name>LLL Volcano Ring</name>
-		<internalname>FL_RING</internalname>
+		<name>Volcano Ring</name>
+		<internalname>VOLCANO_RING</internalname>
 		<actorid>71</actorid>
 		<description>The rotating ring around the volcano in Lethal Lava Land. It stops and shoots lava out of the centre every so often.</description>
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/volcano_ring.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_ring/fl_ring.bmd" scale="0.008" />
 	</object>
 	<object id="132">
@@ -1976,50 +1976,50 @@ II - Match this with the II of the Water Diamond.</description>
 		<renderer type="NormalBMD" file="data/special_obj/fl_gura/fl_gura.bmd" scale="0.008" />
 	</object>
 	<object id="133">
-		<name>LLL Bridge</name>
-		<internalname>FL_LONDON</internalname>
+		<name>Lava Bridge</name>
+		<internalname>LAVA_BRIDGE</internalname>
 		<actorid>73</actorid>
 		<description>The little bridge that goes up and down from Lethal Lava Land.
 
 The name seems to be an interesting reference to London bridge.</description>
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/lava_bridge.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_london/fl_london.bmd" scale="0.008" />
 	</object>
 	<object id="134">
-		<name>LLL Sink While On Platform</name>
-		<internalname>FL_BLOCK</internalname>
+		<name>Float on Lava Platform</name>
+		<internalname>FLOAT_ON_LAVA_PLATFORM</internalname>
 		<actorid>74</actorid>
 		<description />
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/float_on_lava_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_block/fl_block.bmd" scale="0.008" />
 	</object>
 	<object id="135">
-		<name>LLL Sinking Platform</name>
-		<internalname>FL_UKIYUKA</internalname>
+		<name>Floating Floor (LLL) - Big</name>
+		<internalname>FLOATING_FLOOR_LLL_BIG</internalname>
 		<actorid>75</actorid>
 		<description />
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/floating_floor.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_uki_yuka/fl_uki_yuka.bmd" scale="0.008" />
 	</object>
 	<object id="136">
-		<name>LLL Sinking Platform - Large</name>
-		<internalname>FL_UKIYUKA_L</internalname>
+		<name>Floating Floor (LLL) - Small</name>
+		<internalname>FLOATING_FLOOR_LLL_SMALL</internalname>
 		<actorid>76</actorid>
 		<description />
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/floating_floor.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_shiso/fl_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="137">
-		<name>LLL Seesaw</name>
-		<internalname>FL_SEESAW</internalname>
+		<name>Lava Seesaw</name>
+		<internalname>LAVA_SEESAW</internalname>
 		<actorid>77</actorid>
 		<description />
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/lava_seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_shiso/fl_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="138">
@@ -2041,8 +2041,8 @@ The name seems to be an interesting reference to London bridge.</description>
 		<renderer type="NormalBMD" file="data/special_obj/fl_koma_u/fl_koma_u.bmd" scale="0.008" />
 	</object>
 	<object id="140">
-		<name>LLL Float-on-lava Plank</name>
-		<internalname>FL_UKI_KI</internalname>
+		<name>Lava Plank</name>
+		<internalname>LAVA_PLANK</internalname>
 		<actorid>82</actorid>
 		<description>A rectangular wooden plank that floats up and down in Lethal Lava Land
 
@@ -2052,8 +2052,8 @@ Should always be set to FFFF
 Parameter 2: 
 XXXX Delay before bobbing up and down
 (ex. F000)</description>
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/lava_plank.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_uki_ki/fl_uki_ki.bmd" scale="0.008" />
 	</object>
 	<object id="141">
@@ -2073,15 +2073,15 @@ S - Star ID.</description>
 		<renderer type="NormalBMD" file="data/special_obj/fl_kuzure/fl_kuzure.bmd" scale="0.008" />
 	</object>
 	<object id="142">
-		<name>LLL-V Squasher</name>
-		<internalname>FM_BATTAN</internalname>
+		<name>Squasher</name>
+		<internalname>SQUASHER</internalname>
 		<actorid>84</actorid>
 		<description>An object that comes out of the wall when the player gets near it in an attempt to kill the player.
 
 Parameter 1:
 Uses FFFF</description>
-		<bankreq>7=16</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/squasher.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fm_battan/fm_battan.bmd" scale="0.008" />
 	</object>
 	<object id="143">
@@ -2847,12 +2847,12 @@ PP - Path ID?
 		<renderer type="NormalBMD" file="data/special_obj/km2_susumu/km2_susumu.bmd" scale="0.008" />
 	</object>
 	<object id="217">
-		<name />
-		<internalname>KM2_UKISHIMA</internalname>
+		<name>Floating Floor (BFS)</name>
+		<internalname>FLOATING_FLOOR_BFS</internalname>
 		<actorid>145</actorid>
 		<description />
-		<bankreq>7=38</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/floating_floor.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_ukishima/km2_ukishima.bmd" scale="0.008" />
 	</object>
 	<object id="218">
@@ -4031,12 +4031,12 @@ Alone, not a really useful object.</description>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="310">
-		<name>OBJ_VOLCANO_CANNON</name>
-		<internalname>OBJ_VOLCANO_CANNON</internalname>
+		<name>Volcano Fire</name>
+		<internalname>VOLCANO_FIRE</internalname>
 		<actorid>243</actorid>
 		<description>Maybe created by LLL ring to shoot fire for it.</description>
-		<bankreq>7=15</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/volcano_ring.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="311">

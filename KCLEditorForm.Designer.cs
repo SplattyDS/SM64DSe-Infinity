@@ -393,7 +393,7 @@
             this.txtThreshold.Name = "txtThreshold";
             this.txtThreshold.Size = new System.Drawing.Size(119, 20);
             this.txtThreshold.TabIndex = 4;
-            this.txtThreshold.Text = "0.0005";
+            this.txtThreshold.Text = "0";
             // 
             // label2
             // 
