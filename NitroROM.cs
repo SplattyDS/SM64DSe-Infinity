@@ -467,11 +467,11 @@ namespace SM64DSe
             try
             {
                 msgFile = GetFileFromName("data/message/msg_data_eng.bin");
-                Console.WriteLine(" !European!");
+                // Console.WriteLine(" !European!");
             }
             catch (Exception)
             {
-                Console.WriteLine(" !Not Supported!");
+                // Console.WriteLine(" !Not Supported!");
                 return;
             }
             BiDictionaryOneToOne<byte, string> BASIC_EUR_US_CHARS = new BiDictionaryOneToOne<byte, string>();
@@ -737,9 +737,9 @@ namespace SM64DSe
 
             SaveFilesystem(); //yes, it's overkill, but it's fast enough and works without offset meddling.
             // LoadROM(m_Path); // done by SaveFilesystem now
-            BeginRW();
-            LoadTables();
-            EndRW();
+            // BeginRW();
+            // LoadTables(); // done by LoadROM
+            // EndRW();
         }
 
         public void ReinsertFileOld(ushort fileid, byte[] data)

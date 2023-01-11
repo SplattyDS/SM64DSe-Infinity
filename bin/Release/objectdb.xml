@@ -1209,11 +1209,11 @@ There should be a corresponding Star Marker with Parameters 2 followed by Star I
 	</object>
 	<object id="66">
 		<name>Thwomp</name>
-		<internalname>DOSUN</internalname>
+		<internalname>THWOMP</internalname>
 		<actorid>161</actorid>
 		<description>An angry stone that smashes the ground, then returns to it's initial position. Can be smashed to bits by Mega Players.</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/thwomp.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/dosune/dosune.bmd" scale="0.008" />
 	</object>
 	<object id="67">
@@ -1641,71 +1641,71 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj12s/ct_mecha_obj12s.bmd" scale="0.008" />
 	</object>
 	<object id="101">
-		<name>SSL-P Rectangular Block Lift</name>
-		<internalname>DP_BROCK</internalname>
+		<name>Pyramid Step</name>
+		<internalname>PYRAMID_STEP</internalname>
 		<actorid>87</actorid>
 		<description>A thin rectangular brick block from Shifting Sand Land. Moves up and down.
 
 Parameter 1:
 FF0X How low the block should start relative to its origin when spawned (for different up/down timings)</description>
-		<bankreq>7=18</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/pyramid_step.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/dp_brock/dp_brock.bmd" scale="0.008" />
 	</object>
 	<object id="102">
-		<name>SSL-P Cage Lift</name>
-		<internalname>DP_LIFT</internalname>
+		<name>Pyramid Lift</name>
+		<internalname>PYRAMID_LIFT</internalname>
 		<actorid>88</actorid>
 		<description>Caged platform that appears in Shifting Sand Land - pyramid.</description>
-		<bankreq>7=18</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/pyramid_lift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/dp_lift/dp_lift.bmd" scale="0.008" />
 	</object>
 	<object id="103">
-		<name>SSL Pyramid Top</name>
-		<internalname>DL_PYRAMID</internalname>
+		<name>Pyramid Top</name>
+		<internalname>PYRAMID_TOP</internalname>
 		<actorid>85</actorid>
 		<description>Explodes when each of the four triggers (DL_PYRAMID_DUMMY) are touched by the player.</description>
-		<bankreq>7=17</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/pyramid_top.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/dl_pyramid/dl_pyramid.bmd" scale="0.008" />
 	</object>
 	<object id="104">
-		<name>SSL Pyramid Pillar Dummy</name>
-		<internalname>DL_PYRAMID_DUMMY</internalname>
+		<name>Pyramid Tag</name>
+		<internalname>PYRAMID_TAG</internalname>
 		<actorid>86</actorid>
 		<description>When all 4 are triggered, make the tip of the pyramid (DL_PYRAMID) explode.</description>
-		<bankreq>7=17</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/pyramid_top.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="105">
-		<name>DDD Pole Lift</name>
-		<internalname>WL_POLELIFT</internalname>
+		<name>Dock Pole</name>
+		<internalname>DOCK_POLE</internalname>
 		<actorid>89</actorid>
 		<description>Sliding poles that appear in Dire Dire Docks. 
 
 Parameter 1 gives the ID (zero-based index) of the path the pole is to follow.</description>
-		<bankreq>7=19</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/dock_pole.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wl_pole_lift/wl_pole_lift.bmd" scale="0.008" />
 	</object>
 	<object id="106">
-		<name>Bowser's Submarine</name>
-		<internalname>WL_SUBMARINE</internalname>
+		<name>Submarine</name>
+		<internalname>SUBMARINE</internalname>
 		<actorid>90</actorid>
 		<description>A submarine of Bowsers found in Dire Dire Docks. Disappears permanently after DDD Star 1 is completed.</description>
-		<bankreq>7=19</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/submarine.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wl_submarine/wl_submarine.bmd" scale="0.008" />
 	</object>
 	<object id="107">
-		<name>DDD Bowser Shutter</name>
-		<internalname>WL_KOOPA_SHUTTER</internalname>
+		<name>Bowser Shutter</name>
+		<internalname>BOWSER_SHUTTER</internalname>
 		<actorid>91</actorid>
 		<description>A large shutter with Bowser's face on it. Doesn't spawn if DDD Star 1 is completed.</description>
-		<bankreq>7=19</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bowser_shutter.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wl_kupa_shutter/wl_kupa_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="108">
@@ -3865,7 +3865,7 @@ YY - The order of the current chest.
 	</object>
 	<object id="299">
 		<name>Grindel</name>
-		<internalname>DONKAKU</internalname>
+		<internalname>GRINDEL</internalname>
 		<actorid>162</actorid>
 		<description>A square, mummified Thwomp. He could be useful for access to high platforms.
 
@@ -3879,17 +3879,17 @@ TT: Type
 
 ==Other Requirements==
 * Must be in "Shifting Sand Land - pyramid" map</description>
-		<bankreq>7=18</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/thwomp.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/donkaku/donkaku.bmd" scale="0.008" />
 	</object>
 	<object id="300">
 		<name>Spindel</name>
-		<internalname>DONGURU</internalname>
+		<internalname>SPINDEL</internalname>
 		<actorid>163</actorid>
 		<description>A round, mummified Thwomp that rolls back and forth trying to roll over the player. Nintendo places it 0.175 above the floor. When spawned it rolls forward, pauses, rolls back, pauses and so on. It ignores all collisions and rotation and has no apparent parameters.</description>
-		<bankreq>7=18</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/spindel.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/donguru/donguru.bmd" scale="0.008" />
 	</object>
 	<object id="301">
@@ -4145,20 +4145,20 @@ Y - Event ID of corresponding ENEMY_SWITCH</description>
 	</object>
 	<object id="318">
 		<name>Whirlpool</name>
-		<internalname>WATER_TATUMAKI</internalname>
+		<internalname>WHIRLPOOL</internalname>
 		<actorid>246</actorid>
 		<description />
-		<bankreq>7=19</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/whirlpool.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/water_tatumaki/water_tatumaki.bmd" scale="0.008" />
 	</object>
 	<object id="319">
-		<name />
-		<internalname>WATER_SUIKOMI</internalname>
+		<name>Water Suction (Unfinished)</name>
+		<internalname>WATER_SUCTION</internalname>
 		<actorid>247</actorid>
 		<description />
-		<bankreq>7=19</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/water_suction.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="320">

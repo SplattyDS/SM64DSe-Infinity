@@ -143,6 +143,8 @@ namespace SM64DSe
             btnLZForceCompression.Enabled = true;
             btnLZForceDecompression.Enabled = true;
             btnEditLevelNamesOverlays.Enabled = true;
+
+            Test();
         }
 
         public MainForm(string[] args)
@@ -1299,5 +1301,57 @@ namespace SM64DSe
                 }
             }
         }
+
+        private bool CompareData(byte[] arr1, byte[] arr2)
+		{
+            if (arr1 == null || arr2 == null)
+                return false;
+
+            int alignedLen1 = (((arr1.Length) + 3) & ~3);
+            int alignedLen2 = (((arr2.Length) + 3) & ~3);
+
+            if (alignedLen1 != alignedLen2)
+                return false;
+
+            for (int i = 0; i < alignedLen1; i++)
+			{
+                if (i >= arr1.Length || i >= arr2.Length)
+                    continue;
+
+                if (arr1[i] != arr2[i])
+                    return false;
+			}
+
+            return true;
+		}
+
+        private void Test()
+		{
+            foreach (var fileEntry in Program.m_ROM.GetFileEntries())
+			{
+                if (!fileEntry.FullName.EndsWith(".btp"))
+                    continue;
+
+                NitroFile file = Program.m_ROM.GetFileFromName(fileEntry.FullName);
+
+                byte[] dataCopy = new byte[file.m_Data.Length];
+                file.m_Data.CopyTo(dataCopy, 0);
+
+
+
+                SM64DSFormats.BTP btp1 = new SM64DSFormats.BTP(file);
+                btp1.SaveChanges();
+
+                file = Program.m_ROM.GetFileFromName(fileEntry.FullName);
+
+                if (!CompareData(dataCopy, file.m_Data))
+                    Console.WriteLine(fileEntry.FullName);
+
+                file.m_Data = dataCopy;
+                file.SaveChanges();
+            }
+
+            Console.WriteLine("Test done.");
+		}
     }
 }
