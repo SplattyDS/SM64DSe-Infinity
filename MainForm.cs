@@ -1327,6 +1327,8 @@ namespace SM64DSe
 
         private void Test()
 		{
+            return;
+
             foreach (var fileEntry in Program.m_ROM.GetFileEntries())
 			{
                 if (!fileEntry.FullName.EndsWith(".btp"))
