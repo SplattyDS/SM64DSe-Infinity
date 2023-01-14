@@ -1967,12 +1967,12 @@ II - Match this with the II of the Water Diamond.</description>
 		<renderer type="NormalBMD" file="data/special_obj/fl_ring/fl_ring.bmd" scale="0.008" />
 	</object>
 	<object id="132">
-		<name>LLL Tilting Platform</name>
-		<internalname>FL_GURA</internalname>
+		<name>Tilting Platform (LLL)</name>
+		<internalname>TILTING_PLATFORM_LLL</internalname>
 		<actorid>72</actorid>
 		<description>A platform that can tilt based on where the player is standing on it.</description>
-		<bankreq>0=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/tilting_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_gura/fl_gura.bmd" scale="0.008" />
 	</object>
 	<object id="133">
@@ -2032,12 +2032,12 @@ The name seems to be an interesting reference to London bridge.</description>
 		<renderer type="NormalBMD" file="data/special_obj/fl_koma_d/fl_koma_d.bmd" scale="0.008" />
 	</object>
 	<object id="139">
-		<name>LLL Firebar</name>
-		<internalname>FL_KOMA_U</internalname>
+		<name>Rotating Firebar</name>
+		<internalname>ROTATING_FIREBAR</internalname>
 		<actorid>81</actorid>
 		<description />
-		<bankreq>0=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_firebar.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_koma_u/fl_koma_u.bmd" scale="0.008" />
 	</object>
 	<object id="140">
@@ -2802,12 +2802,12 @@ FF - No movement
 		<renderer type="NormalBMD" file="data/special_obj/km2_agaru/km2_agaru.bmd" scale="0.008" />
 	</object>
 	<object id="213">
-		<name />
-		<internalname>KM2_GURA</internalname>
+		<name>Tilting Platform (BFS)</name>
+		<internalname>TILTING_PLATFORM_BFS</internalname>
 		<actorid>141</actorid>
 		<description />
-		<bankreq>7=38</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/tilting_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_gura/km2_gura.bmd" scale="0.008" />
 	</object>
 	<object id="214">
@@ -3178,8 +3178,8 @@ Figure out parameters.
 		<renderer type="NormalBMD" file="data/normal_obj/obj_pushblock/obj_pushblock.bmd" scale="0.008" />
 	</object>
 	<object id="246">
-		<name>LLL Metal Net Lift</name>
-		<internalname>FL_AMILIFT</internalname>
+		<name>Metal Net Lift</name>
+		<internalname>METAL_NET_LIFT</internalname>
 		<actorid>69</actorid>
 		<description>A moving metal grate seen in Lethal Lava Land, Bowser in the Fire Sea and Chief Chilly Challenge
 
@@ -3193,8 +3193,8 @@ Y - Start Moving
 1 - When touched
 
 Z - Path ID</description>
-		<bankreq>0=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/metal_net_lift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_amilift/fl_amilift.bmd" scale="0.008" />
 	</object>
 	<object id="247">
@@ -3339,20 +3339,20 @@ Z: Misc?
 	</object>
 	<object id="255">
 		<name>Bowser Puzzle Piece</name>
-		<internalname>FL_PUZZLE</internalname>
+		<internalname>BOWSER_PUZZLE_PIECE</internalname>
 		<actorid>78</actorid>
 		<description>A puzzle piece in Lethal Lava Land.</description>
-		<bankreq>0=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bowser_puzzle.dylb</dlreq>
 		<renderer type="FlPuzzle" />
 	</object>
 	<object id="256">
-		<name>LLL Bowser Puzzle Manager</name>
-		<internalname>FL_COIN</internalname>
+		<name>Bowser Puzzle Manager</name>
+		<internalname>BOWSER_PUZZLE_MANAGER</internalname>
 		<actorid>79</actorid>
 		<description>Required for the puzzle pieces to appear.</description>
-		<bankreq>0=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bowser_puzzle.dylb</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="257">

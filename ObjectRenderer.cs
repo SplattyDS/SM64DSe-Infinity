@@ -36,6 +36,13 @@ namespace SM64DSe
 
             string[] rendererInfo = ObjectDatabase.m_ObjectInfo[obj.ID].m_Renderer;
 
+            if (rendererInfo == null)
+			{
+                ret = new ColorCubeRenderer(Color.FromArgb(255, 0, 0), Color.FromArgb(64, 0, 0), obj.SupportsRotation());
+                ret.m_ObjUniqueID = obj.m_UniqueID;
+                return ret;
+            }
+
             switch (rendererInfo[0])
             {
                 case "NormalBMD":
