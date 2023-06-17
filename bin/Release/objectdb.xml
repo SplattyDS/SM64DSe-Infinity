@@ -215,8 +215,8 @@ TT: Type
 05+ - Same as 02?
 
 Set Star ID to FF if you do not want a star to spawn when breaking the rock, eg. FF04 will spawn a stationary  rock that does nothing when broken.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rolling_rock.dylb</dlreq>
+		<bankreq>7=14</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/cv_goro_rock/cv_goro_rock.bmd" scale="0.008" />
 	</object>
 	<object id="15">
@@ -394,8 +394,8 @@ C: Color
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/koopa.dylb</dlreq>
+		<bankreq>0=1</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="Koopa" />
 	</object>
 	<object id="22">
@@ -413,13 +413,13 @@ C: Color
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/koopa.dylb</dlreq>
+		<bankreq>0=1</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="Koopa" />
 	</object>
 	<object id="23">
 		<name>Brick Block</name>
-		<internalname>BLOCK_L</internalname>
+		<internalname>BRICK_BLOCK</internalname>
 		<actorid>15</actorid>
 		<description>Those orange brick blocks. Anyone but Yoshi can break them with normal attacks. If it contains a Red Coin (by literally putting it inside the block), it does not spawn coins when broken. It is aprox 1.65x1.65x1.65 inches or 0.2x0.2x0.2 points.
 
@@ -870,8 +870,8 @@ XXXX Which way it opens
 
 0000 - Left
 0001 - Right</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/shutter.dylb</dlreq>
+		<bankreq>7=7</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/b_ana_shutter/b_ana_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="46">
@@ -879,8 +879,8 @@ XXXX Which way it opens
 		<internalname>SHUTTER_HMC</internalname>
 		<actorid>67</actorid>
 		<description>Used in Hazy Maze Cave.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/shutter.dylb</dlreq>
+		<bankreq>7=14</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/cv_shutter/cv_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="47">
@@ -888,8 +888,8 @@ XXXX Which way it opens
 		<internalname>WORK_ELEVATOR</internalname>
 		<actorid>68</actorid>
 		<description>Platform in Hazy Maze Cave. Walking onto the arrows makes the platform move in their direction.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/work_elevator.dylb</dlreq>
+		<bankreq>7=14</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/cv_news_lift/cv_news_lift.bmd" scale="0.008" />
 	</object>
 	<object id="48">
@@ -911,27 +911,34 @@ PP - Path ID</description>
 		<name>1-Up Mushroom</name>
 		<internalname>ONE_UP_MUSHROOM</internalname>
 		<actorid>276</actorid>
-		<description>Parameter 1:
-XXCB
+		<description>Green mushroom that gives the player an extra life. If a mushroom is to be spawned from a tree, Nintendo places the "create tag" mushroom 0.2 y points above the "tag" mushroom.
+		
+TODO: figure out parameters
 
-C: Amount of tags needed in order to spawn (used by behavior 5 and 7, 'f' for others)
+Parameter 1:
+TTTT where
 
-B: Behavior
-	0: spins around when spawned
-	1: spins around when spawned, avoids player
-	2: moves fast in a straight line (used in slide levels)
-	3: still, never moves
-	4: still, jumps up when approached
-	5: spawned when all behavior 6 tags are activated (spins around when spawned, avoids player)
-	6: tag for behavior 5
-	7: spawned when all behavior 8 tags are activated (spins around when spawned, chases player)
-	8: tag for behavior 7
-	9: spawns 2 with behavior b (x +- 0x1f4000_f) and 1 with behavior 5 (y + 0x32000_f), then gets killed (used in THI huge on the sand)
-	a: jumps up when spawned, then spins around
-	b: coin tag for behavior 5
-	c: coin tag for behavior 7
-	d: jumps up when spawned, no collision until landed on ground (spawned from create tag)
-</description>
+T: Type
+0000 - Like spawned from block (springs out, trundles around slowly and eventually disappears)
+0001 - Trundles around, trying to avoid player.
+0014 - Still, until approached; then does a big jump. It sparkles, but never disappears.
+0015 - Spawns when one Mushroom with Parameter 1 set to F6 is triggered. Mushroom trundles around, trying to avoid player and eventually disappears. There is not point having more than one 00015 mushroom, as only the first one will spawn.
+0016 - Nothing?
+0017 - Spawns when one Mushroom with Parameter 1 set to F8 is triggered. Mushroom flies towards the player, going through all obstacles.
+0045 - Spawns when four Mushrooms with Parameter 1 set to F6 are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
+0085 - Spawns when eight Mushrooms with Parameter 1 set to FB are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
+00F1 - Nothing?
+00F2 - Still, until approached; then it starts trundling back and forth very quickly, eventually disappering.
+00F3 - Still
+00F4 - Mushroom jumps when approached
+00F6 - Invisible tag for one Mushroom with Parameter 1 set to 0045 or 0015. If you have too many triggers it won't work.
+00F7 - Nothing?
+00F8 - Invisible tag for one Mushroom with Parameter 1 set to 0017. See 0017 for more info.
+00FB - Invisible tag for one Mushroom with Parameter 1 set to 0085. See 0085 for more info. Appears and acts like a coin.
+
+* Files:
+** /data/ARCHIVE/arc1.narc/data/normal_obj/oneup_kinoko
+*** oneup_kinoko.bmd</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/oneup_kinoko/oneup_kinoko.bmd" scale="0.008" />
@@ -1070,8 +1077,8 @@ XXXX where
 		<internalname>MAD_PIANO</internalname>
 		<actorid>249</actorid>
 		<description>Chomps at the player as long as it is in range.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/mad_piano.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/piano/piano.bmd" scale="0.008" />
 	</object>
 	<object id="59">
@@ -1209,11 +1216,11 @@ There should be a corresponding Star Marker with Parameters 2 followed by Star I
 	</object>
 	<object id="66">
 		<name>Thwomp</name>
-		<internalname>THWOMP</internalname>
+		<internalname>DOSUN</internalname>
 		<actorid>161</actorid>
 		<description>An angry stone that smashes the ground, then returns to it's initial position. Can be smashed to bits by Mega Players.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/thwomp.dylb</dlreq>
+		<bankreq>4=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/dosune/dosune.bmd" scale="0.008" />
 	</object>
 	<object id="67">
@@ -1248,8 +1255,8 @@ T: Type
 0B - Doesn't spawn?
 
 (source: Hiccup)</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/boo.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/teresa/teresa.bmd" scale="0.008" />
 	</object>
 	<object id="68">
@@ -1271,8 +1278,8 @@ YY:
 03 - King Boo (may require object LUIGI to function)
 04 - Stays still, doesn't turn transparent, cannot be defeated or stomped but can be pushed around by walking into it.
 05 - same as 4?</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/boo.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/boss_teresa/boss_teresa.bmd" scale="0.008" />
 	</object>
 	<object id="69">
@@ -1287,47 +1294,47 @@ XXYY
 where:
 XX: Star ID
 YY: Unknown</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/boo.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="70">
-		<name>Mansion Steps</name>
-		<internalname>MANSION_STEPS</internalname>
+		<name>Large Mansion Steps</name>
+		<internalname>KAIDAN</internalname>
 		<actorid>65</actorid>
 		<description>These appear after defeating Big Boo in the mansion.
 
 Parameter 1:
 XXXX Star ID for them to be set down?</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bbh_platform.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="71">
-		<name>Bookshelf</name>
+		<name>Secret Door Bookshelf</name>
 		<internalname>BOOKSHELF</internalname>
 		<actorid>158</actorid>
 		<description>When you hit the books in the right order it will move to the left. If you get the order wrong, it will shoot a book at you and reset the books.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bbh_platform.dylb data/dynamic/book.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_hondana/th_hondana.bmd" scale="0.008" />
 	</object>
 	<object id="72">
-		<name>Merry-Go-Round</name>
-		<internalname>MERRY_GO_ROUND</internalname>
+		<name>Big Boo's Merry-Go-Round</name>
+		<internalname>MERRYGOROUND</internalname>
 		<actorid>159</actorid>
 		<description>Big Boo's Merry-Go-Round. Rotating platform. Also plays its own music when the player is close enough to it.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bbh_platform.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_mery_go/th_mery_go.bmd" scale="0.008" />
 	</object>
 	<object id="73">
-		<name>Trap Door</name>
-		<internalname>TRAP_DOOR</internalname>
+		<name>BBH Trap Door</name>
+		<internalname>TERESAPIT</internalname>
 		<actorid>160</actorid>
 		<description>Flipping platform in Big Boo's Haunt.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bbh_platform.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_trap/th_trap.bmd" scale="0.008" />
 	</object>
 	<object id="74">
@@ -1382,11 +1389,11 @@ XXXX: Message
 	</object>
 	<object id="77">
 		<name>Ice Sheet</name>
-		<internalname>ICE_SHEET</internalname>
+		<internalname>ICE_BOARD</internalname>
 		<actorid>295</actorid>
 		<description>Used in Cool, Cool Mountain. A square sheet of ice only Wario can break. Visible from both sides.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ice_sheet.dylb</dlreq>
+		<bankreq>7=11</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_ice_board/obj_ice_board.bmd" scale="0.008" />
 	</object>
 	<object id="78">
@@ -1641,71 +1648,71 @@ A large conveyor belt found in Tick Tock Clock.</description>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj12s/ct_mecha_obj12s.bmd" scale="0.008" />
 	</object>
 	<object id="101">
-		<name>Pyramid Step</name>
-		<internalname>PYRAMID_STEP</internalname>
+		<name>SSL-P Rectangular Block Lift</name>
+		<internalname>DP_BROCK</internalname>
 		<actorid>87</actorid>
 		<description>A thin rectangular brick block from Shifting Sand Land. Moves up and down.
 
 Parameter 1:
 FF0X How low the block should start relative to its origin when spawned (for different up/down timings)</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/pyramid_step.dylb</dlreq>
+		<bankreq>7=18</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/dp_brock/dp_brock.bmd" scale="0.008" />
 	</object>
 	<object id="102">
-		<name>Pyramid Lift</name>
-		<internalname>PYRAMID_LIFT</internalname>
+		<name>SSL-P Cage Lift</name>
+		<internalname>DP_LIFT</internalname>
 		<actorid>88</actorid>
 		<description>Caged platform that appears in Shifting Sand Land - pyramid.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/pyramid_lift.dylb</dlreq>
+		<bankreq>7=18</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/dp_lift/dp_lift.bmd" scale="0.008" />
 	</object>
 	<object id="103">
-		<name>Pyramid Top</name>
-		<internalname>PYRAMID_TOP</internalname>
+		<name>SSL Pyramid Top</name>
+		<internalname>DL_PYRAMID</internalname>
 		<actorid>85</actorid>
 		<description>Explodes when each of the four triggers (DL_PYRAMID_DUMMY) are touched by the player.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/pyramid_top.dylb</dlreq>
+		<bankreq>7=17</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/dl_pyramid/dl_pyramid.bmd" scale="0.008" />
 	</object>
 	<object id="104">
-		<name>Pyramid Tag</name>
-		<internalname>PYRAMID_TAG</internalname>
+		<name>SSL Pyramid Pillar Dummy</name>
+		<internalname>DL_PYRAMID_DUMMY</internalname>
 		<actorid>86</actorid>
 		<description>When all 4 are triggered, make the tip of the pyramid (DL_PYRAMID) explode.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/pyramid_top.dylb</dlreq>
+		<bankreq>7=17</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="105">
-		<name>Dock Pole</name>
-		<internalname>DOCK_POLE</internalname>
+		<name>DDD Pole Lift</name>
+		<internalname>WL_POLELIFT</internalname>
 		<actorid>89</actorid>
 		<description>Sliding poles that appear in Dire Dire Docks. 
 
 Parameter 1 gives the ID (zero-based index) of the path the pole is to follow.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/dock_pole.dylb</dlreq>
+		<bankreq>7=19</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wl_pole_lift/wl_pole_lift.bmd" scale="0.008" />
 	</object>
 	<object id="106">
-		<name>Submarine</name>
-		<internalname>SUBMARINE</internalname>
+		<name>Bowser's Submarine</name>
+		<internalname>WL_SUBMARINE</internalname>
 		<actorid>90</actorid>
 		<description>A submarine of Bowsers found in Dire Dire Docks. Disappears permanently after DDD Star 1 is completed.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/submarine.dylb</dlreq>
+		<bankreq>7=19</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wl_submarine/wl_submarine.bmd" scale="0.008" />
 	</object>
 	<object id="107">
-		<name>Bowser Shutter</name>
-		<internalname>BOWSER_SHUTTER</internalname>
+		<name>DDD Bowser Shutter</name>
+		<internalname>WL_KOOPA_SHUTTER</internalname>
 		<actorid>91</actorid>
 		<description>A large shutter with Bowser's face on it. Doesn't spawn if DDD Star 1 is completed.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bowser_shutter.dylb</dlreq>
+		<bankreq>7=19</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wl_kupa_shutter/wl_kupa_shutter.bmd" scale="0.008" />
 	</object>
 	<object id="108">
@@ -1740,7 +1747,7 @@ FF00 to be actiated by a ! switch</description>
 	</object>
 	<object id="111">
 		<name>RR Donut Lift</name>
-		<internalname>RC_TIKUWA</internalname>
+		<internalname>DONUT_BLOCK</internalname>
 		<actorid>126</actorid>
 		<description>Platform that begins to fall after the player walks on it, from Rainbow Ride. It disappears when it hits the ground.</description>
 		<bankreq>7=29</bankreq>
@@ -1782,8 +1789,8 @@ XXXX:
 FEC9 - Clockwise.
 
 (Source: Fiachra)</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<bankreq>7=29</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/rc_kaiten/rc_kaiten.bmd" scale="0.008" />
 	</object>
 	<object id="115">
@@ -1805,12 +1812,12 @@ FEC9 - Clockwise.
 		<renderer type="NormalBMD" file="data/special_obj/sl_ice_brock/sl_ice_brock.bmd" scale="0.008" />
 	</object>
 	<object id="117">
-		<name>Rolling Log (TTM)</name>
-		<internalname>ROLLING_LOG_TTM</internalname>
+		<name>TTM Log</name>
+		<internalname>HM_MARUTA</internalname>
 		<actorid>102</actorid>
 		<description>Moves when the player walks on it.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rolling_log.dylb</dlreq>
+		<bankreq>7=23</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/hm_maruta/hm_maruta.bmd" scale="0.008" />
 	</object>
 	<object id="118">
@@ -1862,17 +1869,17 @@ Use FFFF.</description>
 		<internalname>ROTATING_PLATFORM_WDW</internalname>
 		<actorid>94</actorid>
 		<description>TODO: Investigate parameters</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<bankreq>7=22</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj07/wc_obj07.bmd" scale="0.008" />
 	</object>
 	<object id="123">
-		<name>Float on Water Platform (WDW) - Square</name>
+		<name>Float on Water Platform (WDW, Square)</name>
 		<internalname>FLOAT_ON_WATER_PLATFORM_WDW_SQUARE</internalname>
 		<actorid>95</actorid>
 		<description>A square wood platform which floats on water. Proportions are 0.5x?x0.5 points.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/float_on_water_platform.dylb</dlreq>
+		<bankreq>7=22</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj01/wc_obj01.bmd" scale="0.008" />
 	</object>
 	<object id="124">
@@ -1926,12 +1933,12 @@ T: Type
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj05/wc_obj05.bmd" scale="0.008" />
 	</object>
 	<object id="128">
-		<name>Float on Water Platform (WDW) - Rectangle</name>
+		<name>Float on Water Platform (WDW, Rectangle)</name>
 		<internalname>FLOAT_ON_WATER_PLATFORM_WDW_RECTANGLE</internalname>
 		<actorid>100</actorid>
 		<description>A rectangular wood lift which floats on water.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/float_on_water_platform.dylb</dlreq>
+		<bankreq>7=22</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/wc_obj06/wc_obj06.bmd" scale="0.008" />
 	</object>
 	<object id="129">
@@ -1949,77 +1956,77 @@ II - Match this with the II of the Water Diamond.</description>
 		<renderer type="NormalBMD" file="data/special_obj/wc_mizu/wc_mizu.bmd" scale="0.008" />
 	</object>
 	<object id="130">
-		<name>Rolling Log (LLL)</name>
-		<internalname>ROLLING_LOG_LLL</internalname>
+		<name>LLL Rolling Log</name>
+		<internalname>FL_MARUTA</internalname>
 		<actorid>70</actorid>
 		<description>A log in Lethal Lava Land that the player can roll by running on.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rolling_log.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_log/fl_log.bmd" scale="0.008" />
 	</object>
 	<object id="131">
-		<name>Volcano Ring</name>
-		<internalname>VOLCANO_RING</internalname>
+		<name>LLL Volcano Ring</name>
+		<internalname>FL_RING</internalname>
 		<actorid>71</actorid>
 		<description>The rotating ring around the volcano in Lethal Lava Land. It stops and shoots lava out of the centre every so often.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/volcano_ring.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_ring/fl_ring.bmd" scale="0.008" />
 	</object>
 	<object id="132">
-		<name>Tilting Platform (LLL)</name>
-		<internalname>TILTING_PLATFORM_LLL</internalname>
+		<name>LLL Tilting Platform</name>
+		<internalname>FL_GURA</internalname>
 		<actorid>72</actorid>
 		<description>A platform that can tilt based on where the player is standing on it.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/tilting_platform.dylb</dlreq>
+		<bankreq>0=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_gura/fl_gura.bmd" scale="0.008" />
 	</object>
 	<object id="133">
-		<name>Lava Bridge</name>
-		<internalname>LAVA_BRIDGE</internalname>
+		<name>LLL Bridge</name>
+		<internalname>FL_LONDON</internalname>
 		<actorid>73</actorid>
 		<description>The little bridge that goes up and down from Lethal Lava Land.
 
 The name seems to be an interesting reference to London bridge.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/lava_bridge.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_london/fl_london.bmd" scale="0.008" />
 	</object>
 	<object id="134">
-		<name>Float on Lava Platform</name>
-		<internalname>FLOAT_ON_LAVA_PLATFORM</internalname>
+		<name>LLL Sink While On Platform</name>
+		<internalname>FL_BLOCK</internalname>
 		<actorid>74</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/float_on_lava_platform.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_block/fl_block.bmd" scale="0.008" />
 	</object>
 	<object id="135">
-		<name>Floating Floor (LLL) - Big</name>
-		<internalname>FLOATING_FLOOR_LLL_BIG</internalname>
+		<name>LLL Sinking Platform</name>
+		<internalname>FL_UKIYUKA</internalname>
 		<actorid>75</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/floating_floor.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_uki_yuka/fl_uki_yuka.bmd" scale="0.008" />
 	</object>
 	<object id="136">
-		<name>Floating Floor (LLL) - Small</name>
-		<internalname>FLOATING_FLOOR_LLL_SMALL</internalname>
+		<name>LLL Sinking Platform - Large</name>
+		<internalname>FL_UKIYUKA_L</internalname>
 		<actorid>76</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/floating_floor.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_shiso/fl_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="137">
-		<name>Lava Seesaw</name>
-		<internalname>LAVA_SEESAW</internalname>
+		<name>LLL Seesaw</name>
+		<internalname>FL_SEESAW</internalname>
 		<actorid>77</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/lava_seesaw.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_shiso/fl_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="138">
@@ -2027,22 +2034,22 @@ The name seems to be an interesting reference to London bridge.</description>
 		<internalname>ROTATING_PLATFORM_LLL</internalname>
 		<actorid>80</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_koma_d/fl_koma_d.bmd" scale="0.008" />
 	</object>
 	<object id="139">
-		<name>Rotating Firebar</name>
-		<internalname>ROTATING_FIREBAR</internalname>
+		<name>LLL Firebar</name>
+		<internalname>FL_KOMA_U</internalname>
 		<actorid>81</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rotating_firebar.dylb</dlreq>
+		<bankreq>0=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_koma_u/fl_koma_u.bmd" scale="0.008" />
 	</object>
 	<object id="140">
-		<name>Lava Plank</name>
-		<internalname>LAVA_PLANK</internalname>
+		<name>LLL Float-on-lava Plank</name>
+		<internalname>FL_UKI_KI</internalname>
 		<actorid>82</actorid>
 		<description>A rectangular wooden plank that floats up and down in Lethal Lava Land
 
@@ -2052,8 +2059,8 @@ Should always be set to FFFF
 Parameter 2: 
 XXXX Delay before bobbing up and down
 (ex. F000)</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/lava_plank.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_uki_ki/fl_uki_ki.bmd" scale="0.008" />
 	</object>
 	<object id="141">
@@ -2068,20 +2075,20 @@ Parameter 1:
 XXXS where
 
 S - Star ID.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_kuzure/fl_kuzure.bmd" scale="0.008" />
 	</object>
 	<object id="142">
-		<name>Squasher</name>
-		<internalname>SQUASHER</internalname>
+		<name>LLL-V Squasher</name>
+		<internalname>FM_BATTAN</internalname>
 		<actorid>84</actorid>
 		<description>An object that comes out of the wall when the player gets near it in an attempt to kill the player.
 
 Parameter 1:
 Uses FFFF</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/squasher.dylb</dlreq>
+		<bankreq>7=16</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fm_battan/fm_battan.bmd" scale="0.008" />
 	</object>
 	<object id="143">
@@ -2220,8 +2227,8 @@ Parameter 1:
 		<renderer type="DoubleBMD" file1="data/enemy/birikyu/birikyu.bmd" file2="data/enemy/birikyu/birikyu_elec.bmd" scale="0.008" />
 	</object>
 	<object id="154">
-		<name>TTM Ukiki Star Cage</name>
-		<internalname>HM_BASKET</internalname>
+		<name>Ukiki Cage</name>
+		<internalname>UKIKI_CAGE</internalname>
 		<actorid>103</actorid>
 		<description>A Power Star inside a monkey cage. The monkey sets it free.</description>
 		<bankreq>7=23</bankreq>
@@ -2230,7 +2237,7 @@ Parameter 1:
 	</object>
 	<object id="155">
 		<name>Ukiki (Thief)</name>
-		<internalname>MONKEY_THIEF</internalname>
+		<internalname>UKIKI_THIEF</internalname>
 		<actorid>267</actorid>
 		<description>Steals the player's hat, making them more vulnerable to enemies.</description>
 		<bankreq>7=23</bankreq>
@@ -2239,7 +2246,7 @@ Parameter 1:
 	</object>
 	<object id="156">
 		<name>Ukiki (Star)</name>
-		<internalname>MONKEY_STAR</internalname>
+		<internalname>UKIKI_STAR</internalname>
 		<actorid>268</actorid>
 		<description>Releases the Power Star from the monkey cage.</description>
 		<bankreq>7=23</bankreq>
@@ -2266,8 +2273,8 @@ Param 1:
 		<description>Bring her the correct baby and she will reward you with a star. Its position in the level affects where she looks down at player; level needs to be high enough or low enough so it looks right.
 
 Param 1: Star ID</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/mother_penguin.dylb</dlreq>
+		<bankreq>7=11</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/penguin/penguin.bmd" scale="0.008" />
 	</object>
 	<object id="159">
@@ -2284,8 +2291,8 @@ Param 1: Star ID</description>
 		<internalname>RACING_PENGUIN</internalname>
 		<actorid>259</actorid>
 		<description>The one that races you in Cool, Cool Mountain - slider. Uses Path ID.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/racing_penguin.dylb</dlreq>
+		<bankreq>7=12</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/penguin/penguin.bmd" scale="0.008" />
 	</object>
 	<object id="161">
@@ -2351,8 +2358,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>CLOCK_PAINTING_HAND_SHORT</internalname>
 		<actorid>292</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/clock_painting_hand.dylb</dlreq>
+		<bankreq>7=6</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/c2_hari_short/c2_hari_short.bmd" scale="0.008" />
 	</object>
 	<object id="168">
@@ -2360,8 +2367,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>CLOCK_PAINTING_HAND_LONG</internalname>
 		<actorid>293</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/clock_painting_hand.dylb</dlreq>
+		<bankreq>7=6</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/c2_hari_long/c2_hari_long.bmd" scale="0.008" />
 	</object>
 	<object id="169">
@@ -2369,8 +2376,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>CLOCK_PAINTING_PENDULUM</internalname>
 		<actorid>294</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/clock_painting_pendulum.dylb</dlreq>
+		<bankreq>7=6</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/c2_huriko/c2_huriko.bmd" scale="0.008" />
 	</object>
 	<object id="170">
@@ -2470,8 +2477,8 @@ MM - See ! Switch parameter info</description>
 		<internalname>SHIP_DOWN</internalname>
 		<actorid>56</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ship.dylb</dlreq>
+		<bankreq>7=9</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="180">
@@ -2479,8 +2486,8 @@ MM - See ! Switch parameter info</description>
 		<internalname>SHIP_UP</internalname>
 		<actorid>57</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ship.dylb</dlreq>
+		<bankreq>7=9</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ki_fune/ki_fune_up.bmd" scale="0.008" />
 	</object>
 	<object id="181">
@@ -2488,8 +2495,8 @@ MM - See ! Switch parameter info</description>
 		<internalname>ROCK_PILLAR</internalname>
 		<actorid>58</actorid>
 		<description>Pillar of rock that falls over on Player from JRB.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rock_pillar.dylb</dlreq>
+		<bankreq>7=9</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="DoubleBMD" file1="data/special_obj/ki_hasira/ki_hasira_dai.bmd" file2="data/special_obj/ki_hasira/ki_hasira.bmd" scale="0.008" offset1="-" offset2="0,12.5,0" />
 	</object>
 	<object id="182">
@@ -2506,8 +2513,8 @@ MM - See ! Switch parameter info</description>
 		<internalname>FLOAT_ON_WATER_PLATFORM_JRB</internalname>
 		<actorid>60</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/float_on_water_platform.dylb</dlreq>
+		<bankreq>7=9</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ki_ita/ki_ita.bmd" scale="0.008" />
 	</object>
 	<object id="184">
@@ -2520,17 +2527,17 @@ MM - See ! Switch parameter info</description>
 		<renderer type="NormalBMD" file="data/special_obj/ki_iwa/ki_iwa.bmd" scale="0.008" />
 	</object>
 	<object id="185">
-		<name>Ship Water</name>
-		<internalname>SHIP_WATER</internalname>
+		<name>JRB-S Water</name>
+		<internalname>KS_MIZU</internalname>
 		<actorid>62</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ship_water.dylb</dlreq>
+		<bankreq>7=10</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ks_mizu/ks_mizu.bmd" scale="0.008" />
 	</object>
 	<object id="186">
 		<name>Warp Pipe</name>
-		<internalname>DOKAN</internalname>
+		<internalname>WARP_PIPE</internalname>
 		<actorid>298</actorid>
 		<description>That green warp pipe from every Mario game.
 
@@ -2637,8 +2644,8 @@ Parameter 1:
 		<internalname>POLE_BILLBOARD</internalname>
 		<actorid>42</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/pole_billboard.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_billbord/bk_billbord.bmd" scale="0.008" />
 	</object>
 	<object id="197">
@@ -2655,8 +2662,8 @@ Parameter 1:
 		<internalname>KNOCK_DOWN_PLANK</internalname>
 		<actorid>44</actorid>
 		<description>If kicked, it will fall flat, ignoring all collision. If it is bumped into by a giant player it falls down on its back.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/knock_down_plank.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_botaosi/bk_botaosi.bmd" scale="0.008" />
 	</object>
 	<object id="199">
@@ -2664,8 +2671,8 @@ Parameter 1:
 		<internalname>FALL_BLOCK_WF</internalname>
 		<actorid>45</actorid>
 		<description>Falling bridge blocks from Whomp's Fortress.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_down_b/bk_down_b.bmd" scale="0.008" />
 	</object>
 	<object id="200">
@@ -2717,8 +2724,8 @@ Note: The collision map for this object should be scaled by 10.</description>
 		<internalname>ROTATING_PLATFORM_WF</internalname>
 		<actorid>50</actorid>
 		<description>Floating rotating island from Whomp's Fortress.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_ukisima/bk_ukisima.bmd" scale="0.008" />
 	</object>
 	<object id="205">
@@ -2726,8 +2733,8 @@ Note: The collision map for this object should be scaled by 10.</description>
 		<internalname>ROTATING_BRIDGE</internalname>
 		<actorid>51</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rotating_bridge.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_rotebar/bk_rotebar.bmd" scale="0.008" />
 	</object>
 	<object id="206">
@@ -2743,8 +2750,8 @@ MM: Movement
 FF - No movement
 01 - Move in and out
 02 - Move up and down</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/tower_step.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_lift01/bk_lift01.bmd" scale="0.008" />
 	</object>
 	<object id="207">
@@ -2752,8 +2759,8 @@ FF - No movement
 		<internalname>MOVING_BAR_SMALL</internalname>
 		<actorid>54</actorid>
 		<description>Chunk of wall (small) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/moving_bar.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_dossunbar_s/bk_dossunbar_s.bmd" scale="0.008" />
 	</object>
 	<object id="208">
@@ -2761,8 +2768,8 @@ FF - No movement
 		<internalname>MOVING_BAR_BIG</internalname>
 		<actorid>53</actorid>
 		<description>Chunk of wall (large) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/moving_bar.dylb</dlreq>
+		<bankreq>7=8</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_dossunbar_l/bk_dossunbar_l.bmd" scale="0.008" />
 	</object>
 	<object id="209">
@@ -2779,8 +2786,8 @@ FF - No movement
 		<internalname>FALL_BLOCK_BBH</internalname>
 		<actorid>66</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_down_b/th_down_b.bmd" scale="0.008" />
 	</object>
 	<object id="211">
@@ -2788,8 +2795,8 @@ FF - No movement
 		<internalname>FALL_BLOCK_BFS</internalname>
 		<actorid>139</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/fall_block.dylb</dlreq>
+		<bankreq>7=38</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_kuzure/km2_kuzure.bmd" scale="0.008" />
 	</object>
 	<object id="212">
@@ -2802,12 +2809,12 @@ FF - No movement
 		<renderer type="NormalBMD" file="data/special_obj/km2_agaru/km2_agaru.bmd" scale="0.008" />
 	</object>
 	<object id="213">
-		<name>Tilting Platform (BFS)</name>
-		<internalname>TILTING_PLATFORM_BFS</internalname>
+		<name />
+		<internalname>KM2_GURA</internalname>
 		<actorid>141</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/tilting_platform.dylb</dlreq>
+		<bankreq>7=38</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_gura/km2_gura.bmd" scale="0.008" />
 	</object>
 	<object id="214">
@@ -2847,12 +2854,12 @@ PP - Path ID?
 		<renderer type="NormalBMD" file="data/special_obj/km2_susumu/km2_susumu.bmd" scale="0.008" />
 	</object>
 	<object id="217">
-		<name>Floating Floor (BFS)</name>
-		<internalname>FLOATING_FLOOR_BFS</internalname>
+		<name />
+		<internalname>KM2_UKISHIMA</internalname>
 		<actorid>145</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/floating_floor.dylb</dlreq>
+		<bankreq>7=38</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_ukishima/km2_ukishima.bmd" scale="0.008" />
 	</object>
 	<object id="218">
@@ -2944,8 +2951,8 @@ TODO: Work out parameters</description>
 		<internalname>ROTATING_PLATFORM_BS</internalname>
 		<actorid>156</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/rotating_platform.dylb</dlreq>
+		<bankreq>7=40</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km3_kaitendai/km3_kaitendai.bmd" scale="0.008" />
 	</object>
 	<object id="228">
@@ -2953,20 +2960,20 @@ TODO: Work out parameters</description>
 		<internalname>SWITCH_PILLAR</internalname>
 		<actorid>34</actorid>
 		<description>When two of them have been groundpounded, the water level in the castle's moat is lowered, making the 'Secret under the Moat' level accessible.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/switch_pillar.dylb</dlreq>
+		<bankreq>7=5</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/c0_switch/c0_switch.bmd" scale="0.008" />
 	</object>
 	<object id="229">
-		<name>Ski Lift</name>
-		<internalname>SKI_LIFT</internalname>
+		<name>CCM ski lift</name>
+		<internalname>SM_LIFT</internalname>
 		<actorid>63</actorid>
 		<description>Parameter 1:
 XXXP
 XXX - Nothing?
 P - Path ID</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ski_lift.dylb</dlreq>
+		<bankreq>7=11</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/sm_lift/sm_lift.bmd" scale="0.008" />
 	</object>
 	<object id="230">
@@ -3011,7 +3018,7 @@ P - Path ID</description>
 	</object>
 	<object id="234">
 		<name>Bubba</name>
-		<internalname>BAKUBAKU</internalname>
+		<internalname>BUBBA</internalname>
 		<actorid>228</actorid>
 		<description>Also known as Boss Bass.</description>
 		<bankreq>7=25</bankreq>
@@ -3145,7 +3152,7 @@ XX: Whether the player can perform a handstand at the top
 
 YY: (Height of the pole * 100) (in hex)</description>
 		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/invisible_pole.dylb</dlreq>
+		<dlreq>none</dlreq>
 		<renderer type="Pole" border="0000ff" fill="000040" />
 	</object>
 	<object id="244">
@@ -3178,8 +3185,8 @@ Figure out parameters.
 		<renderer type="NormalBMD" file="data/normal_obj/obj_pushblock/obj_pushblock.bmd" scale="0.008" />
 	</object>
 	<object id="246">
-		<name>Metal Net Lift</name>
-		<internalname>METAL_NET_LIFT</internalname>
+		<name>LLL Metal Net Lift</name>
+		<internalname>FL_AMILIFT</internalname>
 		<actorid>69</actorid>
 		<description>A moving metal grate seen in Lethal Lava Land, Bowser in the Fire Sea and Chief Chilly Challenge
 
@@ -3193,8 +3200,8 @@ Y - Start Moving
 1 - When touched
 
 Z - Path ID</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/metal_net_lift.dylb</dlreq>
+		<bankreq>0=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/fl_amilift/fl_amilift.bmd" scale="0.008" />
 	</object>
 	<object id="247">
@@ -3339,20 +3346,20 @@ Z: Misc?
 	</object>
 	<object id="255">
 		<name>Bowser Puzzle Piece</name>
-		<internalname>BOWSER_PUZZLE_PIECE</internalname>
+		<internalname>FL_PUZZLE</internalname>
 		<actorid>78</actorid>
 		<description>A puzzle piece in Lethal Lava Land.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bowser_puzzle.dylb</dlreq>
+		<bankreq>0=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="FlPuzzle" />
 	</object>
 	<object id="256">
-		<name>Bowser Puzzle Manager</name>
+		<name>LLL Bowser Puzzle Manager</name>
 		<internalname>BOWSER_PUZZLE_MANAGER</internalname>
 		<actorid>79</actorid>
 		<description>Required for the puzzle pieces to appear.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bowser_puzzle.dylb</dlreq>
+		<bankreq>0=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="257">
@@ -3391,12 +3398,12 @@ Above - Same as 00? (Used as FF)</description>
 		<renderer type="NormalBMD" file="data/enemy/huwahuwa/huwahuwa_model.bmd" scale="0.008" />
 	</object>
 	<object id="260">
-		<name>Sliding Box</name>
-		<internalname>SLIDING_BOX</internalname>
+		<name>JRB ship's sliding box</name>
+		<internalname>SLIDE_BOX</internalname>
 		<actorid>313</actorid>
 		<description>Box that slides on the Jolly Roger Bay ship (when it is afloat). Players can walk on it, but get hurt if they touch it on any side.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/sliding_box.dylb</dlreq>
+		<bankreq>7=9</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ki_slide_box/ki_slide_box.bmd" scale="0.008" />
 	</object>
 	<object id="261">
@@ -3415,8 +3422,8 @@ T: [T]ype
 F - Swim about following a path.
 
 P - Path ID</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/unagi.dylb</dlreq>
+		<bankreq>7=9</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/moray/moray.bmd" scale="0.008" />
 	</object>
 	<object id="262">
@@ -3424,8 +3431,8 @@ P - Path ID</description>
 		<internalname>CLOUD</internalname>
 		<actorid>314</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/cloud.dylb</dlreq>
+		<bankreq>7=32</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_kumo/obj_kumo.bmd" scale="0.008" />
 	</object>
 	<object id="263">
@@ -3549,8 +3556,8 @@ Parameter 1:
 		<internalname>TRAP</internalname>
 		<actorid>36</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/trap.dylb</dlreq>
+		<bankreq>7=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="C1Trap" />
 	</object>
 	<object id="274">
@@ -3558,8 +3565,8 @@ Parameter 1:
 		<internalname>LIGHT_BEAM</internalname>
 		<actorid>37</actorid>
 		<description>Warps to [31] ? Switch if you look at the top of it with the highest zoom level and 14 stars.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/light_beam.dylb</dlreq>
+		<bankreq>7=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/c1_hikari/c1_hikari.bmd" scale="0.008" />
 	</object>
 	<object id="275">
@@ -3567,8 +3574,8 @@ Parameter 1:
 		<internalname>PEACH_PAINTING</internalname>
 		<actorid>38</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/peach_painting.dylb</dlreq>
+		<bankreq>7=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/c1_peach/c1_peach.bmd" scale="0.008" />
 	</object>
 	<object id="276">
@@ -3665,8 +3672,8 @@ S - Star ID
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/koopa_the_quick.dylb</dlreq>
+		<bankreq>0=1</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/nokonoko/nokonoko.bmd" scale="0.01" />
 	</object>
 	<object id="282">
@@ -3678,8 +3685,8 @@ S - Star ID
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/koopa_the_quick.dylb</dlreq>
+		<bankreq>0=1</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_race_flag/obj_race_flag.bmd" scale="0.008" />
 	</object>
 	<object id="283">
@@ -3687,8 +3694,8 @@ S - Star ID
 		<internalname>BOO_CAGE</internalname>
 		<actorid>212</actorid>
 		<description>Entrance to Big Boo's Haunt.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/boo.dylb</dlreq>
+		<bankreq>0=2</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/t_basket/t_basket.bmd" scale="0.008" />
 	</object>
 	<object id="284">
@@ -3733,8 +3740,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOK_SHOT</internalname>
 		<actorid>325</actorid>
 		<description>Maybe the flying book that is shot out of bookcases in the libary room in BBH?</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/book.dylb</dlreq>
+		<bankreq>7=13</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="287">
@@ -3742,8 +3749,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOKEND</internalname>
 		<actorid>327</actorid>
 		<description>Chomps and flies at the player. This object is placed in a bookshelf in the game.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/book.dylb</dlreq>
+		<bankreq>7=13</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="288">
@@ -3751,8 +3758,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOK_SHOT_SPAWNER</internalname>
 		<actorid>328</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/book.dylb</dlreq>
+		<bankreq>7=13</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="289">
@@ -3760,8 +3767,8 @@ If you put a Power Star inside it (by literally placing it inside it), the "Powe
 		<internalname>BOOK_SWITCH</internalname>
 		<actorid>213</actorid>
 		<description>Maybe this is the actor for the book switches on the Secret Door Bookcase?</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/book.dylb data/dynamic/bbh_platform.dylb</dlreq>
+		<bankreq>7=13</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="290">
@@ -3823,8 +3830,8 @@ YY - The order of the current chest.
 		<internalname>HAUNTED_CHAIR</internalname>
 		<actorid>326</actorid>
 		<description>A chair that flies at the player.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/haunted_chair.dylb</dlreq>
+		<bankreq>7=13</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/chair/chair.bmd" scale="0.008" />
 	</object>
 	<object id="295">
@@ -3865,7 +3872,7 @@ YY - The order of the current chest.
 	</object>
 	<object id="299">
 		<name>Grindel</name>
-		<internalname>GRINDEL</internalname>
+		<internalname>DONKAKU</internalname>
 		<actorid>162</actorid>
 		<description>A square, mummified Thwomp. He could be useful for access to high platforms.
 
@@ -3879,17 +3886,17 @@ TT: Type
 
 ==Other Requirements==
 * Must be in "Shifting Sand Land - pyramid" map</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/thwomp.dylb</dlreq>
+		<bankreq>7=18</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/donkaku/donkaku.bmd" scale="0.008" />
 	</object>
 	<object id="300">
 		<name>Spindel</name>
-		<internalname>SPINDEL</internalname>
+		<internalname>DONGURU</internalname>
 		<actorid>163</actorid>
 		<description>A round, mummified Thwomp that rolls back and forth trying to roll over the player. Nintendo places it 0.175 above the floor. When spawned it rolls forward, pauses, rolls back, pauses and so on. It ignores all collisions and rotation and has no apparent parameters.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/spindel.dylb</dlreq>
+		<bankreq>7=18</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/donguru/donguru.bmd" scale="0.008" />
 	</object>
 	<object id="301">
@@ -3940,8 +3947,8 @@ Parameter 1:
 		<internalname>BASEMENT_WATER</internalname>
 		<actorid>35</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/basement_water.dylb</dlreq>
+		<bankreq>7=5</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/c0_water/c0_water.bmd" scale="0.008" />
 	</object>
 	<object id="304">
@@ -3963,7 +3970,7 @@ There should be a Star Marker with parameters 2 followed by Star ID eg. 25 for S
 	</object>
 	<object id="305">
 		<name>Blue Coin Switch</name>
-		<internalname>BC_SWITCH</internalname>
+		<internalname>BLUE_COIN_SWITCH</internalname>
 		<actorid>10</actorid>
 		<description>Makes Blue Coins appear for a limited time.
 
@@ -4014,29 +4021,29 @@ Alone, not a really useful object.</description>
 	</object>
 	<object id="308">
 		<name>Power Star Create</name>
-		<internalname>POWER_STAR_CREATE</internalname>
+		<internalname>STAR_CREATE</internalname>
 		<actorid>355</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/power_star_create.dylb</dlreq>
+		<bankreq>7=11</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="309">
-		<name>Ice Slide Manager</name>
-		<internalname>ICE_SLIDE_MANAGER</internalname>
+		<name>CCM Shortcut Manager</name>
+		<internalname>SLIDER_MANAGER</internalname>
 		<actorid>356</actorid>
 		<description>In the Cool, Cool Mountain penguin slide, detects when the player takes the shortcut. Plays the 'secret found' sound effect, but, during races, also tells the racing penguin that the player is cheating.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ice_slide_manager.dylb</dlreq>
+		<bankreq>7=12</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="310">
-		<name>Volcano Fire</name>
-		<internalname>VOLCANO_FIRE</internalname>
+		<name>OBJ_VOLCANO_CANNON</name>
+		<internalname>OBJ_VOLCANO_CANNON</internalname>
 		<actorid>243</actorid>
 		<description>Maybe created by LLL ring to shoot fire for it.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/volcano_ring.dylb</dlreq>
+		<bankreq>7=15</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="311">
@@ -4145,20 +4152,20 @@ Y - Event ID of corresponding ENEMY_SWITCH</description>
 	</object>
 	<object id="318">
 		<name>Whirlpool</name>
-		<internalname>WHIRLPOOL</internalname>
+		<internalname>WATER_TATUMAKI</internalname>
 		<actorid>246</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/whirlpool.dylb</dlreq>
+		<bankreq>7=19</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/water_tatumaki/water_tatumaki.bmd" scale="0.008" />
 	</object>
 	<object id="319">
-		<name>Water Suction (Unfinished)</name>
-		<internalname>WATER_SUCTION</internalname>
+		<name />
+		<internalname>WATER_SUIKOMI</internalname>
 		<actorid>247</actorid>
 		<description />
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/water_suction.dylb</dlreq>
+		<bankreq>7=19</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="320">
@@ -4224,7 +4231,7 @@ Y:
 to switch properly.
 For instance: Jolly Roger Bay's music + Param 1: 71 = Jolly Roger Overworld music</description>
 		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/mugen_bgm.dylb</dlreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="325">
@@ -4567,8 +4574,8 @@ F - Same as 3?
 		<renderer type="ColorCube" border="ffffff" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Level Scene</name>
-		<internalname>LEVEL_SCENE</internalname>
+		<name>Stage</name>
+		<internalname>STAGE</internalname>
 		<actorid>3</actorid>
 		<description>Scene</description>
 		<bankreq>none</bankreq>

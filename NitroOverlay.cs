@@ -100,6 +100,7 @@ namespace SM64DSe
             NitroROM.OverlayEntry[] overlays = m_ROM.GetOverlayEntries();
             NitroROM.OverlayEntry ovEntry = overlays[m_ID];
             ovEntry.RAMSize = (uint)m_Data.Length;
+            ovEntry.Flags &= 0xfeffffff;
             overlays[m_ID] = ovEntry;
 
             // reinsert file data (must not be done while RW is active)
@@ -111,7 +112,7 @@ namespace SM64DSe
 
             // tweak the overlay table entry (m_OVTEntryAddr is fixed by Update())
             byte flags = m_ROM.Read8(m_OVTEntryAddr + 0x1F);
-            flags &= 0xFE; // [Treeki] disable compression :)
+            flags &= 0xfe; // [Treeki] disable compression :)
             m_ROM.Write8(m_OVTEntryAddr + 0x1F, flags);
 
             if (autorw) m_ROM.EndRW();

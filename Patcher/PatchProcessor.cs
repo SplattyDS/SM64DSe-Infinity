@@ -29,8 +29,10 @@ namespace SM64DSe.Patcher
             if (p.Length < minLength)
                 throw new IndexOutOfRangeException("Not enough arguments supplied.");
 
-            string sourceDir = RemoveFirstAndLastChars(p[minLength - 1]);
+            string sourceDir = string.Join(" ", p).Split('\"').Where(s => !string.IsNullOrWhiteSpace(s)).Last();
+            // string sourceDir = RemoveFirstAndLastChars(p[minLength - 1]);
             string codeSubDir = RemoveFirstAndLastChars(p[minLength - 2]);
+            
 
             codeDir = new DirectoryInfo(codeDir.FullName + codeSubDir + "\\");
 
@@ -100,7 +102,7 @@ namespace SM64DSe.Patcher
 
             foreach (string symbol in symbols)
             {
-                if (checkedSymbols.Contains(symbol) && !symbol.StartsWith("_ZThn80_N9AnimationD"))
+                if (checkedSymbols.Contains(symbol) && !symbol.StartsWith("_ZN12_GLOBAL__N_") && !symbol.StartsWith("_ZThn80_N9AnimationD"))
                     duplicateSymbols += symbol + "\n";
                 else
                     checkedSymbols.Add(symbol);
@@ -114,14 +116,22 @@ namespace SM64DSe.Patcher
         #endregion
 
         #region Insert Hooks
+
         public static void InsertHooks(DirectoryInfo codeDir, string fileName)
         {
+            int overlayID = -1;
+            int prevOverlayID = -1;
+
+            NitroOverlay overlay = null;
+
             string[] lines = File.ReadAllLines(codeDir.FullName + "\\" + fileName);
-            
+
             foreach (string line in lines)
             {
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
+
+                bool autorw;
 
                 string[] splitLine;
                 if (line.Contains("#"))
@@ -129,11 +139,37 @@ namespace SM64DSe.Patcher
                 else
                     splitLine = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
+                if (splitLine.Length == 2 && splitLine[0] == "set_overlay")
+				{
+                    prevOverlayID = overlayID;
+                    overlayID = Convert.ToInt32(splitLine[1], 10);
+
+                    // overlay changed
+                    if (overlayID != prevOverlayID)
+					{
+                        if (overlay != null)
+						{
+                            autorw = Program.m_ROM.CanRW();
+                            if (autorw) Program.m_ROM.EndRW();
+
+                            overlay.SaveChanges();
+
+                            if (autorw) Program.m_ROM.BeginRW();
+                        }
+
+                        if (overlayID != -1)
+                            overlay = new NitroOverlay(Program.m_ROM, (uint)overlayID);
+                        else
+                            overlay = null;
+					}
+
+                    continue;
+                }
+
                 if (splitLine.Length < 3)
                     continue;
 
                 uint hookAddr = Convert.ToUInt32(splitLine[0], 16);
-                bool autorw;
 
                 // data
                 if (splitLine.Length == 3)
@@ -147,10 +183,18 @@ namespace SM64DSe.Patcher
                     else
                         data = GetBranchAddr(codeDir, splitLine[2]);
 
-                    autorw = Program.m_ROM.CanRW();
-                    if (!autorw) Program.m_ROM.BeginRW();
-                    Program.m_ROM.Write32(hookAddr - 0x02000000, data);
-                    if (!autorw) Program.m_ROM.EndRW();
+                    if (overlayID == -1)
+                    {
+                        autorw = Program.m_ROM.CanRW();
+                        if (!autorw) Program.m_ROM.BeginRW();
+                        Program.m_ROM.Write32(hookAddr - 0x02000000, data);
+                        if (!autorw) Program.m_ROM.EndRW();
+                    }
+                    else
+					{
+                        overlay.Write32(hookAddr - overlay.GetRAMAddr(), data);
+					}
+
                     continue;
                 }
                 else if (splitLine.Length == 5 && splitLine[1] == "-")
@@ -158,13 +202,22 @@ namespace SM64DSe.Patcher
                     uint data = Convert.ToUInt32(splitLine[4], 16);
                     uint hookAddr2 = Convert.ToUInt32(splitLine[2], 16);
 
-                    autorw = Program.m_ROM.CanRW();
-                    if (!autorw) Program.m_ROM.BeginRW();
-                    
-                    for (uint addr = hookAddr; addr < hookAddr2; addr += 4)
-                        Program.m_ROM.Write32(addr - 0x02000000, data);
+                    if (overlayID == -1)
+                    {
+                        autorw = Program.m_ROM.CanRW();
+                        if (!autorw) Program.m_ROM.BeginRW();
 
-                    if (!autorw) Program.m_ROM.EndRW();
+                        for (uint addr = hookAddr; addr < hookAddr2; addr += 4)
+                            Program.m_ROM.Write32(addr - 0x02000000, data);
+
+                        if (!autorw) Program.m_ROM.EndRW();
+                    }
+                    else
+					{
+                        for (uint addr = hookAddr; addr < hookAddr2; addr += 4)
+                            overlay.Write32(addr - overlay.GetRAMAddr(), data);
+                    }
+
                     continue;
                 }
 
@@ -213,10 +266,28 @@ namespace SM64DSe.Patcher
 
                 instruction += ((branchAddr - hookAddr - 8) >> 2) & 0x00ffffff;
 
-                autorw = Program.m_ROM.CanRW();
-                if (!autorw) Program.m_ROM.BeginRW();
-                Program.m_ROM.Write32(hookAddr - 0x02000000, instruction);
-                if (!autorw) Program.m_ROM.EndRW();
+                if (overlayID == -1)
+                {
+                    autorw = Program.m_ROM.CanRW();
+                    if (!autorw) Program.m_ROM.BeginRW();
+                    Program.m_ROM.Write32(hookAddr - 0x02000000, instruction);
+                    if (!autorw) Program.m_ROM.EndRW();
+                }
+                else
+                {
+                    overlay.Write32(hookAddr - overlay.GetRAMAddr(), instruction);
+                }
+            }
+
+
+            if (overlay != null)
+            {
+                bool autorw = Program.m_ROM.CanRW();
+                if (autorw) Program.m_ROM.EndRW();
+
+                overlay.SaveChanges();
+
+                if (autorw) Program.m_ROM.BeginRW();
             }
         }
         #endregion
@@ -232,7 +303,7 @@ namespace SM64DSe.Patcher
 
                 if (splitLine.Length < 3 || splitLine[0] != symbol)
                     continue;
-                
+
                 return Convert.ToUInt32(splitLine[2].Remove(splitLine[2].Length - 1), 16); // get rid of the ';'
             }
 
@@ -262,6 +333,95 @@ namespace SM64DSe.Patcher
             {
                 return (uint)(((branchOpcode & 0x00ffffff) << 8 >> 6) + 8 + srcAddr);
             }
+        }
+
+        public static void BackupBuildFiles(string codeDir, string dirName, bool isDL = false)
+        {
+            /*dirName = dirName.Replace('\\', '-').Replace('/', '-');
+
+            string buildDir = codeDir + "build/";
+            string savedBuildDir = codeDir + "build_saved/";
+            string savedBuildBuildDir = savedBuildDir + dirName + "-build/";
+
+            if (!Directory.Exists(buildDir))
+                return;
+
+            List<string> newcodeFiles = new List<string>(new string[] { "newcode.bin", "newcode.elf", "newcode.sym" });
+
+            if (isDL)
+            {
+                newcodeFiles.Add("newcode1.bin");
+                newcodeFiles.Add("newcode1.elf");
+                newcodeFiles.Add("newcode1.sym");
+            }
+
+            if (!Directory.Exists(savedBuildDir))
+                Directory.CreateDirectory(savedBuildDir);
+
+            if (Directory.Exists(savedBuildBuildDir))
+                Directory.Delete(savedBuildBuildDir, true);
+            
+            Directory.CreateDirectory(savedBuildBuildDir);
+
+            foreach (string file in Directory.GetFiles(buildDir))
+                File.Copy(file, Path.Combine(savedBuildBuildDir, Path.GetFileName(file)));
+
+            foreach (string file in newcodeFiles)
+            {
+                string newFileName = Path.Combine(savedBuildDir, dirName + "-" + file);
+                string sourceFileName = codeDir + file;
+
+                if (File.Exists(newFileName))
+                    File.Delete(newFileName);
+
+                if (!File.Exists(sourceFileName))
+                    continue;
+
+                File.Copy(sourceFileName, newFileName);
+            }*/
+        }
+
+        public static void RestoreBuildFiles(string codeDir, string dirName, bool isDL = false)
+        {
+            /*dirName = dirName.Replace('\\', '-').Replace('/', '-');
+
+            string buildDir = codeDir + "build/";
+            string savedBuildDir = codeDir + "build_saved/";
+            string savedBuildBuildDir = savedBuildDir + dirName + "-build/";
+
+            if (!Directory.Exists(savedBuildDir) || !Directory.Exists(savedBuildBuildDir))
+                return;
+
+            List<string> newcodeFiles = new List<string>(new string[] { "newcode.bin", "newcode.elf", "newcode.sym" });
+
+            if (isDL)
+            {
+                newcodeFiles.Add("newcode1.bin");
+                newcodeFiles.Add("newcode1.elf");
+                newcodeFiles.Add("newcode1.sym");
+            }
+
+            if (Directory.Exists(buildDir))
+                Directory.Delete(buildDir, true);
+            
+            Directory.CreateDirectory(buildDir);
+
+            foreach (string file in Directory.GetFiles(savedBuildBuildDir))
+                File.Copy(file, Path.Combine(buildDir, Path.GetFileName(file)));
+
+            foreach (string file in newcodeFiles)
+			{
+                string sourceFileName = Path.Combine(savedBuildDir, dirName + "-" + file);
+                string newFileName = codeDir + file;
+
+                if (File.Exists(newFileName))
+                    File.Delete(newFileName);
+
+                if (!File.Exists(sourceFileName))
+                    continue;
+
+                File.Copy(sourceFileName, newFileName);
+            }*/
         }
         #endregion
 
@@ -387,11 +547,15 @@ namespace SM64DSe.Patcher
                 const uint baseAddress = 0x02400000;
 
                 UpdateMakefileSources(codeDir, sourceDir);
+                RestoreBuildFiles(codeDir.FullName + '\\', sourceDir, true);
+
                 string make = "(make CODEADDR=0x" + baseAddress.ToString("X8")
                      + " && make CODEADDR=0x" + (baseAddress + 4).ToString("X8")
                      + " TARGET=newcode1)";
                 if (PatchCompiler.runProcess(make, codeDir.FullName) != 0)
                     return null;
+
+                BackupBuildFiles(codeDir.FullName + '\\', sourceDir, true);
 
                 byte[] code0 = File.ReadAllBytes(codeDir.FullName + "/newcode.bin");
                 byte[] code1 = File.ReadAllBytes(codeDir.FullName + "/newcode1.bin");
@@ -557,7 +721,7 @@ namespace SM64DSe.Patcher
 
 			public override string ToString()
 			{
-                return Description + " (0x" + Convert.ToString(Address, 16).ToLower() + "): 0x" + Convert.ToString(UsedSize, 16).ToLower() + "/0x" + Convert.ToString(Size, 16).ToLower() + " (" + Math.Round((double)UsedSize / Size * 100, 2) + "%)";
+                return "(0x" + Convert.ToString(Address, 16).ToLower() + "): 0x" + Convert.ToString(UsedSize, 16).ToLower() + "/0x" + Convert.ToString(Size, 16).ToLower() + " (" + Math.Round((double)UsedSize / Size * 100, 2) + "%)";
 			}
 		}
 
@@ -567,15 +731,6 @@ namespace SM64DSe.Patcher
             public uint Size = 0;
             public string Directory;
         }
-
-        private static readonly FreeSection[] freeArm9SectionsC =
-        {
-            new FreeSection { Address = 0x02075f14, Size = 0x0000c210, Description = "ROM Embedded SPA File" },
-            //new FreeSection { Address = 0x0202cc0c, Size = 0x00000a84, Description = "Stage::InitResources" },
-            //new FreeSection { Address = 0x0202c9a8, Size = 0x00000264, Description = "Stage::CleanupResources" },
-            //new FreeSection { Address = 0x0202bbbc, Size = 0x000006f0, Description = "Stage::Behavior" },
-            //new FreeSection { Address = 0x0202b8a4, Size = 0x00000318, Description = "Stage::Render" },
-        };
 
         private static List<FreeSection> sections;
         private static List<FreeSection> combinedSections;
@@ -659,13 +814,53 @@ namespace SM64DSe.Patcher
             codeBlocks.Sort((a, b) => a.Address.CompareTo(b.Address));
         }
 
+        private static List<FreeSection> GetFreeArm9Sections(string path)
+		{
+            if (!File.Exists(path))
+                throw new FileNotFoundException(path);
+
+            string[] lines = File.ReadAllLines(path);
+            List<FreeSection> sections = new List<FreeSection>();
+
+            foreach (string line in lines)
+			{
+                if (line.StartsWith("#") || string.IsNullOrWhiteSpace(line))
+                    continue;
+
+                string[] args = line.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+
+                uint address = uint.Parse(args[0].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
+                uint size = uint.Parse(args[1].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
+
+                sections.Add(new FreeSection { Address = address, Size = size, Description = args[2] });
+            }
+
+            return sections;
+		}
+
+        private static string[] GetSubDirsInOrder(string path, string sourceDir)
+		{
+            if (!File.Exists(path))
+                throw new FileNotFoundException(path);
+
+            string sourceDirModified = ' ' + sourceDir + '\\';
+
+            string[] lines = File.ReadAllLines(path);
+            string[] orderedLines = lines.Where(l => !l.StartsWith("#")).Select(l => sourceDir + '\\' + l.Replace(" ", sourceDirModified)).ToArray();
+
+            return orderedLines;
+		}
+
         private static string CompileArm9(DirectoryInfo codeDir, string sourceDir)
         {
             string ret = "";
-            DirectoryInfo directoryInfo = new DirectoryInfo(codeDir.FullName + "\\" + sourceDir);
+            string directoryPath = codeDir.FullName + "\\" + sourceDir;
+            string[] subDirs = GetSubDirsInOrder(directoryPath + "/order.txt", sourceDir);
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
             codeBlocks = new List<CodeBlock>();
 
-            sections = freeArm9SectionsC.ToList();
+            sections = GetFreeArm9Sections(directoryPath + "/sections.txt");
             sections.Sort((a, b) => a.Address.CompareTo(b.Address));
 
             // check for overlapping sections
@@ -681,23 +876,34 @@ namespace SM64DSe.Patcher
             try
             {
                 // precompile all directories to get the size of the code blocks
-                foreach (DirectoryInfo curDir in directoryInfo.GetDirectories())
+                foreach (string subDir in subDirs)
                 {
-                    curSourceDir = sourceDir + "\\" + curDir.Name;
+                    curSourceDir = subDir;
+
                     UpdateMakefileSources(codeDir, curSourceDir);
+                    RestoreBuildFiles(codeDir.FullName + '\\', curSourceDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
+
                     uint size = (uint)File.ReadAllBytes(codeDir.FullName + "\\newcode.bin").Length;
                     size += size % 4;
-                    PatchCompiler.cleanPatch(codeDir);
-                    ret += "Precompiled arm9 section '" + curSourceDir + "'.\n";
+                    size += 0x10; // because the size is sometimes incorrect, this is not that expensive and doesn't require changing the entire build system
 
-                    codeBlocks.Add(new CodeBlock { Directory = curSourceDir, Address = 0x02400000, Size = size });
+                    UpdateSymbols(codeDir, "Temporary Symbols from arm9 patch (" + curSourceDir + ")");
+                    BackupBuildFiles(codeDir.FullName + '\\', curSourceDir);
+                    PatchCompiler.cleanPatch(codeDir);
+
+                    // ret += "Precompiled arm9 section '" + curSourceDir + "'.\n";
+
+                    codeBlocks.Add(new CodeBlock { Directory = subDir, Address = 0x02400000, Size = size });
                 }
             }
             catch (Exception ex)
             {
                 throw new Exception("Precomping arm9 section '" + curSourceDir + "' failed:\n" + ex.Message);
             }
+
+            // reset symbols.x
+            File.WriteAllBytes(codeDir.FullName + "/symbols.x", File.ReadAllBytes(codeDir.FullName + "/symbols.bak.x"));
 
             // sort the codeblocks by size
             codeBlocks.Sort((a, b) => a.Size.CompareTo(b.Size));
@@ -709,11 +915,21 @@ namespace SM64DSe.Patcher
             // compile and insert the newly allocated code blocks
             try
             {
-                foreach (CodeBlock codeBlock in codeBlocks)
+                foreach (string subDir in subDirs)
                 {
-                    UpdateMakefileSources(codeDir, codeBlock.Directory);
+                    CodeBlock codeBlock = codeBlocks.Where(c => c.Directory == subDir).First();
+                    curSourceDir = subDir;
+
+                    UpdateMakefileSources(codeDir, curSourceDir);
+                    RestoreBuildFiles(codeDir.FullName + '\\', curSourceDir);
                     PatchCompiler.compilePatch(codeBlock.Address, codeDir);
+
                     byte[] data = File.ReadAllBytes(codeDir.FullName + "\\newcode.bin");
+
+                    if (data.Length > codeBlock.Size)
+                        throw new Exception($"{subDir} size was {data.Length}, expected {codeBlock.Size} at most");
+
+                    Array.Resize(ref data, (int)codeBlock.Size);
 
                     bool autorw = Program.m_ROM.CanRW();
                     if (!autorw) Program.m_ROM.BeginRW();
@@ -721,9 +937,10 @@ namespace SM64DSe.Patcher
                     if (!autorw) Program.m_ROM.EndRW();
 
                     UpdateSymbols(codeDir, "Symbols from arm9 patch (" + codeBlock.Directory + ")");
+                    BackupBuildFiles(codeDir.FullName + '\\', curSourceDir);
                     PatchCompiler.cleanPatch(codeDir);
 
-                    ret += "Compiled and inserted arm9 section '" + codeBlock.Directory + "' at 0x" + Convert.ToString(codeBlock.Address, 16).ToLower() + " with size 0x" + Convert.ToString(codeBlock.Size, 16).ToLower() + ".\n";
+                    // ret += "Compiled and inserted arm9 section '" + codeBlock.Directory + "' at 0x" + Convert.ToString(codeBlock.Address, 16).ToLower() + " with size 0x" + Convert.ToString(codeBlock.Size, 16).ToLower() + ".\n";
                 }
 
                 ret += "\nAll code blocks compiled and inserted.\narm9 section information:";
@@ -744,8 +961,10 @@ namespace SM64DSe.Patcher
 		#endregion
 
 		#region Update no$gba Symbols
-        public static void UpdateNoCashSymbols(string basePath, string symFile)
+        public static List<string> UpdateNoCashSymbols(string basePath, string symFile)
 		{
+            List<string> ret = new List<string>();
+
             string symPath = Program.m_ROMPath.Replace(".nds", ".sym");
 
             string[] oldLines = File.ReadAllLines(basePath + symFile);
@@ -776,12 +995,24 @@ namespace SM64DSe.Patcher
                 string mangledSymbol = GetSymbolName(oldLine);
                 string symbolAddress = GetSymbolAddress(oldLine);
                 // Console.WriteLine("Attempting symbol: " + mangledSymbol);
-                string demangledSymbol = DemangleSymbol(mangledSymbol);
+                string demangledSymbol;
+
+                try
+                {
+                     demangledSymbol = DemangleSymbol(mangledSymbol);
+                }
+                catch
+				{
+                    demangledSymbol = "FUN_" + symbolAddress;
+                    ret.Add(mangledSymbol);
+                }
 
                 lines.Add(symbolAddress + " " + demangledSymbol.Replace("const ", ""));
             }
 
             File.WriteAllLines(symPath, lines);
+
+            return ret;
         }
 
         static string GetSymbolName(string line)
@@ -1147,14 +1378,14 @@ namespace SM64DSe.Patcher
                 symbol = symbol.Substring(numLength + num);
             }
 
+            if (symbol.Length == 0)
+                return demangledSymbol;
+            
+            // function parameters
+            if (savedTypes.Count != 0)
+                savedTypes.RemoveAt(savedTypes.Count - 1); // function name is not a type
 
-            if (symbol.Length != 0)
-            {
-                // function parameters
-                if (savedTypes.Count != 0)
-                    savedTypes.RemoveAt(savedTypes.Count - 1); // function name is not a type
-                demangledSymbol += "(" + ReadArgs(symbol, savedTypes) + ")";
-            }
+            demangledSymbol += "(" + ReadArgs(symbol, savedTypes) + ")";
 
             return demangledSymbol;
         }

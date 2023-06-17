@@ -500,7 +500,16 @@ namespace SM64DSe
 
         private void mnitToolsTextEditor_Click(object sender, EventArgs e)
         {
-            new TextEditorForm().Show();
+            string msgFile;
+
+            if (Program.m_ROM.GetFileIDFromName("data/message/msg_data_eng.mesg") != 0xFFFF)
+                msgFile = "data/message/msg_data_eng.mesg";
+            else
+                msgFile = "data/message/msg_data_eng.bin";
+
+            Console.WriteLine("MESG FILE: " + msgFile);
+
+            new TextEditorForm(msgFile).Show();
         }
 
         private void mnitToolsBTPEditor_Click(object sender, EventArgs e)
@@ -1160,11 +1169,11 @@ namespace SM64DSe
             else if (m_SelectedFile.EndsWith("ncl.bin") || m_SelectedFile.EndsWith("ncg.bin") || m_SelectedFile.EndsWith("nsc.bin") ||
                      m_SelectedFile.EndsWith("icl.bin") || m_SelectedFile.EndsWith("icg.bin") || m_SelectedFile.EndsWith("isc.bin"))
                 OpenNitroPaintFile(new string[] { m_SelectedFile });
-            
-            /*else if (m_SelectedFile.EndsWith(".lvl"))
-                new LevelEditorForm().Show();
             else if (m_SelectedFile.EndsWith(".mesg"))
-                new TextEditorForm().Show();*/
+                new TextEditorForm(m_SelectedFile).Show();
+
+            /*else if (m_SelectedFile.EndsWith(".lvl"))
+                new LevelEditorForm().Show();*/
 
             if (m_SelectedFile.EndsWith(".bca") || m_SelectedFile.EndsWith(".btp") || m_SelectedFile.EndsWith(".bma") /*|| m_SelectedFile.EndsWith(".bta")*/)
                 m_SavedFile = m_SavedFile != null ? null : m_SelectedFile;
@@ -1253,7 +1262,7 @@ namespace SM64DSe
             else if (m_SelectedFile.EndsWith(".mesg"))
             {
                 btnOpenFile.Text = "Open message";
-                btnOpenFile.Enabled = false;
+                btnOpenFile.Enabled = true;
             }
             else
             {

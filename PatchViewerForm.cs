@@ -457,9 +457,18 @@ namespace SM64DSe
 
                     RemoveFirstAndLastChars(ref p[1]);
 
-                    Patcher.PatchProcessor.UpdateNoCashSymbols(basePath, p[1]);
+                    List<string> unprocessedSymbols = Patcher.PatchProcessor.UpdateNoCashSymbols(basePath, p[1]);
 
                     info.description = "Updated no$gba symbols (" + Program.m_ROMPath.Replace(".nds", ".sym") + ").";
+
+                    if (unprocessedSymbols.Count != 0)
+                    {
+                        info.state = CommandInfo.State.FAILED_FS;
+                        info.description += "\nThe following symbols were not found:";
+
+                        foreach (string symbol in unprocessedSymbols)
+                            info.description += '\n' + symbol;
+                    }
 
                     break;
 
@@ -770,6 +779,13 @@ namespace SM64DSe
                         info.state = CommandInfo.State.FAILED_FS;
                         break;
                     }
+
+                case "clean_build_files":
+                    string codeDir = p[1].Substring(1, p[1].Length - 2);
+                    if (Directory.Exists(basePath + codeDir + "/build_saved/"))
+                        Directory.Delete(basePath + codeDir + "/build_saved/", true);
+
+                    break;
             }
         }
 	}

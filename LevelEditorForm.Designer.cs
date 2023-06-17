@@ -128,6 +128,7 @@ namespace SM64DSe
 			this.btnDls = new System.Windows.Forms.ToolStripButton();
 			this.btnOrthView = new System.Windows.Forms.ToolStripButton();
 			this.btnTextureAnims = new System.Windows.Forms.ToolStripButton();
+			this.btnBezierCurve = new System.Windows.Forms.ToolStripButton();
 			this.tsToolBar = new System.Windows.Forms.ToolStrip();
 			this.btnSave = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -155,7 +156,6 @@ namespace SM64DSe
 			this.btnStarAll = new System.Windows.Forms.ToolStripButton();
 			this.ssStatusBar = new System.Windows.Forms.StatusStrip();
 			this.slStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.btnBezierCurve = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.spcMainContainer)).BeginInit();
 			this.spcMainContainer.Panel1.SuspendLayout();
 			this.spcMainContainer.Panel2.SuspendLayout();
@@ -226,7 +226,7 @@ namespace SM64DSe
 			this.spcLeftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.spcLeftPanel.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
 			this.spcLeftPanel.Location = new System.Drawing.Point(0, 189);
-			this.spcLeftPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.spcLeftPanel.Margin = new System.Windows.Forms.Padding(4);
 			this.spcLeftPanel.Name = "spcLeftPanel";
 			this.spcLeftPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
@@ -238,7 +238,7 @@ namespace SM64DSe
 			// 
 			this.spcLeftPanel.Panel2.Controls.Add(this.spcPropertyInterface);
 			this.spcLeftPanel.Size = new System.Drawing.Size(289, 409);
-			this.spcLeftPanel.SplitterDistance = 136;
+			this.spcLeftPanel.SplitterDistance = 135;
 			this.spcLeftPanel.SplitterWidth = 5;
 			this.spcLeftPanel.TabIndex = 1;
 			// 
@@ -248,9 +248,9 @@ namespace SM64DSe
 			this.tvObjectList.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
 			this.tvObjectList.HideSelection = false;
 			this.tvObjectList.Location = new System.Drawing.Point(0, 0);
-			this.tvObjectList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tvObjectList.Margin = new System.Windows.Forms.Padding(4);
 			this.tvObjectList.Name = "tvObjectList";
-			this.tvObjectList.Size = new System.Drawing.Size(289, 136);
+			this.tvObjectList.Size = new System.Drawing.Size(289, 135);
 			this.tvObjectList.TabIndex = 0;
 			this.tvObjectList.TabStop = false;
 			this.tvObjectList.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.tvObjectList_DrawNode);
@@ -261,7 +261,7 @@ namespace SM64DSe
 			// 
 			this.spcPropertyInterface.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.spcPropertyInterface.Location = new System.Drawing.Point(0, 0);
-			this.spcPropertyInterface.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.spcPropertyInterface.Margin = new System.Windows.Forms.Padding(4);
 			this.spcPropertyInterface.Name = "spcPropertyInterface";
 			this.spcPropertyInterface.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
@@ -279,7 +279,7 @@ namespace SM64DSe
 			this.spcPropertyInterface.Panel2.Controls.Add(this.btnDuplicate);
 			this.spcPropertyInterface.Panel2.Controls.Add(this.btnPasteCoordinates);
 			this.spcPropertyInterface.Panel2.Controls.Add(this.btnCopyCoordinates);
-			this.spcPropertyInterface.Size = new System.Drawing.Size(289, 268);
+			this.spcPropertyInterface.Size = new System.Drawing.Size(289, 269);
 			this.spcPropertyInterface.SplitterDistance = 238;
 			this.spcPropertyInterface.SplitterWidth = 5;
 			this.spcPropertyInterface.TabIndex = 1;
@@ -297,10 +297,10 @@ namespace SM64DSe
 			this.box_position.Controls.Add(this.lbl_posX);
 			this.box_position.Cursor = System.Windows.Forms.Cursors.Default;
 			this.box_position.Location = new System.Drawing.Point(4, 69);
-			this.box_position.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.box_position.Margin = new System.Windows.Forms.Padding(4);
 			this.box_position.Name = "box_position";
-			this.box_position.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.box_position.Size = new System.Drawing.Size(187, 48);
+			this.box_position.Padding = new System.Windows.Forms.Padding(4);
+			this.box_position.Size = new System.Drawing.Size(166, 48);
 			this.box_position.TabIndex = 2;
 			this.box_position.TabStop = false;
 			this.box_position.Text = "Position";
@@ -310,8 +310,8 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapsePosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapsePosition.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapsePosition.Location = new System.Drawing.Point(165, 0);
-			this.btnToogleCollapsePosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnToogleCollapsePosition.Location = new System.Drawing.Point(144, 0);
+			this.btnToogleCollapsePosition.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapsePosition.Name = "btnToogleCollapsePosition";
 			this.btnToogleCollapsePosition.Size = new System.Drawing.Size(21, 20);
 			this.btnToogleCollapsePosition.TabIndex = 7;
@@ -434,10 +434,10 @@ namespace SM64DSe
 			this.box_rotation.Controls.Add(this.lbl_rotX);
 			this.box_rotation.Cursor = System.Windows.Forms.Cursors.Default;
 			this.box_rotation.Location = new System.Drawing.Point(4, 124);
-			this.box_rotation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.box_rotation.Margin = new System.Windows.Forms.Padding(4);
 			this.box_rotation.Name = "box_rotation";
-			this.box_rotation.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.box_rotation.Size = new System.Drawing.Size(185, 48);
+			this.box_rotation.Padding = new System.Windows.Forms.Padding(4);
+			this.box_rotation.Size = new System.Drawing.Size(164, 48);
 			this.box_rotation.TabIndex = 6;
 			this.box_rotation.TabStop = false;
 			this.box_rotation.Text = "Rotation";
@@ -447,8 +447,8 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseRotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseRotation.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseRotation.Location = new System.Drawing.Point(164, -1);
-			this.btnToogleCollapseRotation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnToogleCollapseRotation.Location = new System.Drawing.Point(143, -1);
+			this.btnToogleCollapseRotation.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseRotation.Name = "btnToogleCollapseRotation";
 			this.btnToogleCollapseRotation.Size = new System.Drawing.Size(21, 20);
 			this.btnToogleCollapseRotation.TabIndex = 8;
@@ -532,10 +532,10 @@ namespace SM64DSe
 			this.box_parameters.Controls.Add(this.btnToogleCollapseParameters);
 			this.box_parameters.Cursor = System.Windows.Forms.Cursors.Default;
 			this.box_parameters.Location = new System.Drawing.Point(4, 178);
-			this.box_parameters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.box_parameters.Margin = new System.Windows.Forms.Padding(4);
 			this.box_parameters.Name = "box_parameters";
-			this.box_parameters.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.box_parameters.Size = new System.Drawing.Size(185, 142);
+			this.box_parameters.Padding = new System.Windows.Forms.Padding(4);
+			this.box_parameters.Size = new System.Drawing.Size(164, 142);
 			this.box_parameters.TabIndex = 9;
 			this.box_parameters.TabStop = false;
 			this.box_parameters.Text = "Parameters";
@@ -545,8 +545,8 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseParameters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseParameters.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseParameters.Location = new System.Drawing.Point(164, 0);
-			this.btnToogleCollapseParameters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnToogleCollapseParameters.Location = new System.Drawing.Point(143, 0);
+			this.btnToogleCollapseParameters.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseParameters.Name = "btnToogleCollapseParameters";
 			this.btnToogleCollapseParameters.Size = new System.Drawing.Size(21, 20);
 			this.btnToogleCollapseParameters.TabIndex = 10;
@@ -566,10 +566,10 @@ namespace SM64DSe
 			this.box_fogSettings.Controls.Add(this.btnToogleCollapseColor);
 			this.box_fogSettings.Cursor = System.Windows.Forms.Cursors.Default;
 			this.box_fogSettings.Location = new System.Drawing.Point(4, 327);
-			this.box_fogSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.box_fogSettings.Margin = new System.Windows.Forms.Padding(4);
 			this.box_fogSettings.Name = "box_fogSettings";
-			this.box_fogSettings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.box_fogSettings.Size = new System.Drawing.Size(185, 162);
+			this.box_fogSettings.Padding = new System.Windows.Forms.Padding(4);
+			this.box_fogSettings.Size = new System.Drawing.Size(164, 162);
 			this.box_fogSettings.TabIndex = 6;
 			this.box_fogSettings.TabStop = false;
 			this.box_fogSettings.Text = "Fog Settings";
@@ -584,7 +584,7 @@ namespace SM64DSe
 			this.box_color.Controls.Add(this.lbl_b);
 			this.box_color.Controls.Add(this.val_g);
 			this.box_color.Location = new System.Drawing.Point(0, 46);
-			this.box_color.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.box_color.Margin = new System.Windows.Forms.Padding(4);
 			this.box_color.Name = "box_color";
 			this.box_color.Size = new System.Drawing.Size(323, 42);
 			this.box_color.TabIndex = 16;
@@ -666,7 +666,7 @@ namespace SM64DSe
 			this.check_displayFog.AutoSize = true;
 			this.check_displayFog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.check_displayFog.Location = new System.Drawing.Point(21, 23);
-			this.check_displayFog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.check_displayFog.Margin = new System.Windows.Forms.Padding(4);
 			this.check_displayFog.Name = "check_displayFog";
 			this.check_displayFog.Size = new System.Drawing.Size(100, 21);
 			this.check_displayFog.TabIndex = 15;
@@ -728,8 +728,8 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseColor.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseColor.Location = new System.Drawing.Point(164, 0);
-			this.btnToogleCollapseColor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnToogleCollapseColor.Location = new System.Drawing.Point(143, 0);
+			this.btnToogleCollapseColor.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseColor.Name = "btnToogleCollapseColor";
 			this.btnToogleCollapseColor.Size = new System.Drawing.Size(21, 20);
 			this.btnToogleCollapseColor.TabIndex = 9;
@@ -750,10 +750,10 @@ namespace SM64DSe
 			this.box_general.Controls.Add(this.lbl_area);
 			this.box_general.Cursor = System.Windows.Forms.Cursors.Default;
 			this.box_general.Location = new System.Drawing.Point(4, -22);
-			this.box_general.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.box_general.Margin = new System.Windows.Forms.Padding(4);
 			this.box_general.Name = "box_general";
-			this.box_general.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.box_general.Size = new System.Drawing.Size(185, 84);
+			this.box_general.Padding = new System.Windows.Forms.Padding(4);
+			this.box_general.Size = new System.Drawing.Size(164, 84);
 			this.box_general.TabIndex = 10;
 			this.box_general.TabStop = false;
 			this.box_general.Text = "General";
@@ -762,7 +762,7 @@ namespace SM64DSe
 			// btnOpenObjectList
 			// 
 			this.btnOpenObjectList.Location = new System.Drawing.Point(187, 55);
-			this.btnOpenObjectList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnOpenObjectList.Margin = new System.Windows.Forms.Padding(4);
 			this.btnOpenObjectList.Name = "btnOpenObjectList";
 			this.btnOpenObjectList.Size = new System.Drawing.Size(100, 28);
 			this.btnOpenObjectList.TabIndex = 11;
@@ -784,7 +784,7 @@ namespace SM64DSe
             "6",
             "7"});
 			this.val_act.Location = new System.Drawing.Point(101, 25);
-			this.val_act.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.val_act.Margin = new System.Windows.Forms.Padding(4);
 			this.val_act.Name = "val_act";
 			this.val_act.Size = new System.Drawing.Size(76, 24);
 			this.val_act.TabIndex = 10;
@@ -794,8 +794,8 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseGeneral.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseGeneral.Location = new System.Drawing.Point(164, 0);
-			this.btnToogleCollapseGeneral.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnToogleCollapseGeneral.Location = new System.Drawing.Point(143, 0);
+			this.btnToogleCollapseGeneral.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseGeneral.Name = "btnToogleCollapseGeneral";
 			this.btnToogleCollapseGeneral.Size = new System.Drawing.Size(21, 20);
 			this.btnToogleCollapseGeneral.TabIndex = 9;
@@ -863,7 +863,7 @@ namespace SM64DSe
 			// btnDuplicate
 			// 
 			this.btnDuplicate.Location = new System.Drawing.Point(299, 0);
-			this.btnDuplicate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnDuplicate.Margin = new System.Windows.Forms.Padding(4);
 			this.btnDuplicate.Name = "btnDuplicate";
 			this.btnDuplicate.Size = new System.Drawing.Size(83, 28);
 			this.btnDuplicate.TabIndex = 3;
@@ -876,7 +876,7 @@ namespace SM64DSe
 			// 
 			this.btnPasteCoordinates.Enabled = false;
 			this.btnPasteCoordinates.Location = new System.Drawing.Point(140, 0);
-			this.btnPasteCoordinates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnPasteCoordinates.Margin = new System.Windows.Forms.Padding(4);
 			this.btnPasteCoordinates.Name = "btnPasteCoordinates";
 			this.btnPasteCoordinates.Size = new System.Drawing.Size(151, 28);
 			this.btnPasteCoordinates.TabIndex = 2;
@@ -888,7 +888,7 @@ namespace SM64DSe
 			// btnCopyCoordinates
 			// 
 			this.btnCopyCoordinates.Location = new System.Drawing.Point(0, 0);
-			this.btnCopyCoordinates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnCopyCoordinates.Margin = new System.Windows.Forms.Padding(4);
 			this.btnCopyCoordinates.Name = "btnCopyCoordinates";
 			this.btnCopyCoordinates.Size = new System.Drawing.Size(132, 28);
 			this.btnCopyCoordinates.TabIndex = 1;
@@ -1153,10 +1153,10 @@ namespace SM64DSe
 			// 
 			this.glLevelView.BackColor = System.Drawing.Color.Black;
 			this.glLevelView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.glLevelView.Location = new System.Drawing.Point(0, 27);
-			this.glLevelView.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.glLevelView.Location = new System.Drawing.Point(0, 31);
+			this.glLevelView.Margin = new System.Windows.Forms.Padding(5);
 			this.glLevelView.Name = "glLevelView";
-			this.glLevelView.Size = new System.Drawing.Size(982, 571);
+			this.glLevelView.Size = new System.Drawing.Size(982, 567);
 			this.glLevelView.TabIndex = 1;
 			this.glLevelView.VSync = false;
 			this.glLevelView.Load += new System.EventHandler(this.glLevelView_Load);
@@ -1187,7 +1187,7 @@ namespace SM64DSe
             this.btnBezierCurve});
 			this.tsViewActions.Location = new System.Drawing.Point(0, 0);
 			this.tsViewActions.Name = "tsViewActions";
-			this.tsViewActions.Size = new System.Drawing.Size(982, 27);
+			this.tsViewActions.Size = new System.Drawing.Size(982, 31);
 			this.tsViewActions.TabIndex = 0;
 			this.tsViewActions.Text = "toolStrip2";
 			// 
@@ -1378,7 +1378,7 @@ namespace SM64DSe
 			this.btnMakeOverlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.btnMakeOverlay.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnMakeOverlay.Name = "btnMakeOverlay";
-			this.btnMakeOverlay.Size = new System.Drawing.Size(141, 28);
+			this.btnMakeOverlay.Size = new System.Drawing.Size(141, 24);
 			this.btnMakeOverlay.Text = "Make Level Overlay";
 			this.btnMakeOverlay.ToolTipText = "Ready to show off your level coding skills?";
 			this.btnMakeOverlay.Visible = false;
@@ -1411,9 +1411,21 @@ namespace SM64DSe
 			this.btnTextureAnims.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.btnTextureAnims.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnTextureAnims.Name = "btnTextureAnims";
-			this.btnTextureAnims.Size = new System.Drawing.Size(140, 24);
+			this.btnTextureAnims.Size = new System.Drawing.Size(140, 28);
 			this.btnTextureAnims.Text = "Texture Animations";
 			this.btnTextureAnims.Click += new System.EventHandler(this.btnTextureAnims_Click);
+			// 
+			// btnBezierCurve
+			// 
+			this.btnBezierCurve.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.btnBezierCurve.CheckOnClick = true;
+			this.btnBezierCurve.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.btnBezierCurve.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnBezierCurve.Name = "btnBezierCurve";
+			this.btnBezierCurve.Size = new System.Drawing.Size(133, 24);
+			this.btnBezierCurve.Text = "Bezier Curve Paths";
+			this.btnBezierCurve.ToolTipText = "Bezier Curve Paths";
+			this.btnBezierCurve.Click += new System.EventHandler(this.btnBezierCurve_Click);
 			// 
 			// tsToolBar
 			// 
@@ -1445,7 +1457,7 @@ namespace SM64DSe
             this.btnStarAll});
 			this.tsToolBar.Location = new System.Drawing.Point(0, 0);
 			this.tsToolBar.Name = "tsToolBar";
-			this.tsToolBar.Size = new System.Drawing.Size(1276, 27);
+			this.tsToolBar.Size = new System.Drawing.Size(1276, 31);
 			this.tsToolBar.TabIndex = 1;
 			this.tsToolBar.TabStop = true;
 			this.tsToolBar.Text = "toolStrip1";
@@ -1456,7 +1468,7 @@ namespace SM64DSe
 			this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
 			this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(44, 24);
+			this.btnSave.Size = new System.Drawing.Size(44, 28);
 			this.btnSave.Text = "Save";
 			this.btnSave.ToolTipText = "Click me regularly if you don\'t\r\nwant to lose your changes.";
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -1464,7 +1476,7 @@ namespace SM64DSe
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
 			// 
 			// btnLevelSettings
 			// 
@@ -1472,7 +1484,7 @@ namespace SM64DSe
 			this.btnLevelSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnLevelSettings.Image")));
 			this.btnLevelSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnLevelSettings.Name = "btnLevelSettings";
-			this.btnLevelSettings.Size = new System.Drawing.Size(102, 24);
+			this.btnLevelSettings.Size = new System.Drawing.Size(102, 28);
 			this.btnLevelSettings.Text = "Level settings";
 			this.btnLevelSettings.ToolTipText = "Change the sky, the object banks and all that.";
 			this.btnLevelSettings.Click += new System.EventHandler(this.btnLevelSettings_Click);
@@ -1483,7 +1495,7 @@ namespace SM64DSe
 			this.btnEditMinimap.Image = ((System.Drawing.Image)(resources.GetObject("btnEditMinimap.Image")));
 			this.btnEditMinimap.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEditMinimap.Name = "btnEditMinimap";
-			this.btnEditMinimap.Size = new System.Drawing.Size(72, 24);
+			this.btnEditMinimap.Size = new System.Drawing.Size(72, 28);
 			this.btnEditMinimap.Text = "Minimap";
 			this.btnEditMinimap.ToolTipText = "Edit those graphics on the bottom screen";
 			this.btnEditMinimap.Click += new System.EventHandler(this.btnEditMinimap_Click);
@@ -1493,7 +1505,7 @@ namespace SM64DSe
 			this.btnEditTexAnim.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.btnEditTexAnim.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEditTexAnim.Name = "btnEditTexAnim";
-			this.btnEditTexAnim.Size = new System.Drawing.Size(132, 24);
+			this.btnEditTexAnim.Size = new System.Drawing.Size(132, 28);
 			this.btnEditTexAnim.Text = "Texture animation";
 			this.btnEditTexAnim.Click += new System.EventHandler(this.btnEditTexAnim_Click);
 			// 
@@ -1502,19 +1514,19 @@ namespace SM64DSe
 			this.btnSPLC.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.btnSPLC.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnSPLC.Name = "btnSPLC";
-			this.btnSPLC.Size = new System.Drawing.Size(44, 24);
+			this.btnSPLC.Size = new System.Drawing.Size(44, 28);
 			this.btnSPLC.Text = "SPLC";
 			this.btnSPLC.Click += new System.EventHandler(this.btnSPLC_Click);
 			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
 			// 
 			// toolStripLabel4
 			// 
 			this.toolStripLabel4.Name = "toolStripLabel4";
-			this.toolStripLabel4.Size = new System.Drawing.Size(38, 24);
+			this.toolStripLabel4.Size = new System.Drawing.Size(38, 28);
 			this.toolStripLabel4.Text = "Edit:";
 			// 
 			// btnEdit3DModel
@@ -1523,7 +1535,7 @@ namespace SM64DSe
 			this.btnEdit3DModel.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit3DModel.Image")));
 			this.btnEdit3DModel.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEdit3DModel.Name = "btnEdit3DModel";
-			this.btnEdit3DModel.Size = new System.Drawing.Size(79, 24);
+			this.btnEdit3DModel.Size = new System.Drawing.Size(79, 28);
 			this.btnEdit3DModel.Tag = "0";
 			this.btnEdit3DModel.Text = "3D Model";
 			this.btnEdit3DModel.ToolTipText = "Let\'s add polygons!";
@@ -1535,7 +1547,7 @@ namespace SM64DSe
 			this.btnEditObjects.Image = ((System.Drawing.Image)(resources.GetObject("btnEditObjects.Image")));
 			this.btnEditObjects.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEditObjects.Name = "btnEditObjects";
-			this.btnEditObjects.Size = new System.Drawing.Size(63, 24);
+			this.btnEditObjects.Size = new System.Drawing.Size(63, 28);
 			this.btnEditObjects.Tag = "1";
 			this.btnEditObjects.Text = "Objects";
 			this.btnEditObjects.ToolTipText = "Add coins, trees, Goombas and whatnot";
@@ -1547,7 +1559,7 @@ namespace SM64DSe
 			this.btnEditWarps.Image = ((System.Drawing.Image)(resources.GetObject("btnEditWarps.Image")));
 			this.btnEditWarps.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEditWarps.Name = "btnEditWarps";
-			this.btnEditWarps.Size = new System.Drawing.Size(54, 24);
+			this.btnEditWarps.Size = new System.Drawing.Size(54, 28);
 			this.btnEditWarps.Tag = "2";
 			this.btnEditWarps.Text = "Warps";
 			this.btnEditWarps.ToolTipText = "Modify the entrances and exits";
@@ -1559,7 +1571,7 @@ namespace SM64DSe
 			this.btnEditPaths.Image = ((System.Drawing.Image)(resources.GetObject("btnEditPaths.Image")));
 			this.btnEditPaths.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEditPaths.Name = "btnEditPaths";
-			this.btnEditPaths.Size = new System.Drawing.Size(47, 24);
+			this.btnEditPaths.Size = new System.Drawing.Size(47, 28);
 			this.btnEditPaths.Tag = "3";
 			this.btnEditPaths.Text = "Paths";
 			this.btnEditPaths.ToolTipText = "Make some objects follow funny paths";
@@ -1571,7 +1583,7 @@ namespace SM64DSe
 			this.btnEditViews.Image = ((System.Drawing.Image)(resources.GetObject("btnEditViews.Image")));
 			this.btnEditViews.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEditViews.Name = "btnEditViews";
-			this.btnEditViews.Size = new System.Drawing.Size(51, 24);
+			this.btnEditViews.Size = new System.Drawing.Size(51, 28);
 			this.btnEditViews.Tag = "4";
 			this.btnEditViews.Text = "Views";
 			this.btnEditViews.ToolTipText = "Change view angles";
@@ -1583,7 +1595,7 @@ namespace SM64DSe
 			this.btnEditMisc.Image = ((System.Drawing.Image)(resources.GetObject("btnEditMisc.Image")));
 			this.btnEditMisc.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnEditMisc.Name = "btnEditMisc";
-			this.btnEditMisc.Size = new System.Drawing.Size(43, 24);
+			this.btnEditMisc.Size = new System.Drawing.Size(43, 28);
 			this.btnEditMisc.Tag = "5";
 			this.btnEditMisc.Text = "Misc";
 			this.btnEditMisc.ToolTipText = "Minimap settings and all...";
@@ -1592,12 +1604,12 @@ namespace SM64DSe
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
 			// 
 			// toolStripLabel1
 			// 
 			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(61, 24);
+			this.toolStripLabel1.Size = new System.Drawing.Size(61, 28);
 			this.toolStripLabel1.Text = "For star:";
 			// 
 			// btnStar1
@@ -1606,7 +1618,7 @@ namespace SM64DSe
 			this.btnStar1.Image = ((System.Drawing.Image)(resources.GetObject("btnStar1.Image")));
 			this.btnStar1.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStar1.Name = "btnStar1";
-			this.btnStar1.Size = new System.Drawing.Size(29, 24);
+			this.btnStar1.Size = new System.Drawing.Size(29, 28);
 			this.btnStar1.Tag = "1";
 			this.btnStar1.Text = "1";
 			this.btnStar1.Click += new System.EventHandler(this.btnStarX_Click);
@@ -1617,7 +1629,7 @@ namespace SM64DSe
 			this.btnStar2.Image = ((System.Drawing.Image)(resources.GetObject("btnStar2.Image")));
 			this.btnStar2.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStar2.Name = "btnStar2";
-			this.btnStar2.Size = new System.Drawing.Size(29, 24);
+			this.btnStar2.Size = new System.Drawing.Size(29, 28);
 			this.btnStar2.Tag = "2";
 			this.btnStar2.Text = "2";
 			this.btnStar2.Click += new System.EventHandler(this.btnStarX_Click);
@@ -1628,7 +1640,7 @@ namespace SM64DSe
 			this.btnStar3.Image = ((System.Drawing.Image)(resources.GetObject("btnStar3.Image")));
 			this.btnStar3.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStar3.Name = "btnStar3";
-			this.btnStar3.Size = new System.Drawing.Size(29, 24);
+			this.btnStar3.Size = new System.Drawing.Size(29, 28);
 			this.btnStar3.Tag = "3";
 			this.btnStar3.Text = "3";
 			this.btnStar3.Click += new System.EventHandler(this.btnStarX_Click);
@@ -1639,7 +1651,7 @@ namespace SM64DSe
 			this.btnStar4.Image = ((System.Drawing.Image)(resources.GetObject("btnStar4.Image")));
 			this.btnStar4.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStar4.Name = "btnStar4";
-			this.btnStar4.Size = new System.Drawing.Size(29, 24);
+			this.btnStar4.Size = new System.Drawing.Size(29, 28);
 			this.btnStar4.Tag = "4";
 			this.btnStar4.Text = "4";
 			this.btnStar4.Click += new System.EventHandler(this.btnStarX_Click);
@@ -1650,7 +1662,7 @@ namespace SM64DSe
 			this.btnStar5.Image = ((System.Drawing.Image)(resources.GetObject("btnStar5.Image")));
 			this.btnStar5.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStar5.Name = "btnStar5";
-			this.btnStar5.Size = new System.Drawing.Size(29, 24);
+			this.btnStar5.Size = new System.Drawing.Size(29, 28);
 			this.btnStar5.Tag = "5";
 			this.btnStar5.Text = "5";
 			this.btnStar5.Click += new System.EventHandler(this.btnStarX_Click);
@@ -1661,7 +1673,7 @@ namespace SM64DSe
 			this.btnStar6.Image = ((System.Drawing.Image)(resources.GetObject("btnStar6.Image")));
 			this.btnStar6.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStar6.Name = "btnStar6";
-			this.btnStar6.Size = new System.Drawing.Size(29, 24);
+			this.btnStar6.Size = new System.Drawing.Size(29, 28);
 			this.btnStar6.Tag = "6";
 			this.btnStar6.Text = "6";
 			this.btnStar6.Click += new System.EventHandler(this.btnStarX_Click);
@@ -1672,7 +1684,7 @@ namespace SM64DSe
 			this.btnStar7.Image = ((System.Drawing.Image)(resources.GetObject("btnStar7.Image")));
 			this.btnStar7.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStar7.Name = "btnStar7";
-			this.btnStar7.Size = new System.Drawing.Size(29, 24);
+			this.btnStar7.Size = new System.Drawing.Size(29, 28);
 			this.btnStar7.Tag = "7";
 			this.btnStar7.Text = "7";
 			this.btnStar7.Click += new System.EventHandler(this.btnStarX_Click);
@@ -1685,7 +1697,7 @@ namespace SM64DSe
 			this.btnStarAll.Image = ((System.Drawing.Image)(resources.GetObject("btnStarAll.Image")));
 			this.btnStarAll.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnStarAll.Name = "btnStarAll";
-			this.btnStarAll.Size = new System.Drawing.Size(65, 24);
+			this.btnStarAll.Size = new System.Drawing.Size(65, 28);
 			this.btnStarAll.Text = "All stars";
 			this.btnStarAll.ToolTipText = "Common objects";
 			this.btnStarAll.Click += new System.EventHandler(this.btnStarAll_Click);
@@ -1713,18 +1725,6 @@ namespace SM64DSe
 			this.slStatusLabel.Paint += new System.Windows.Forms.PaintEventHandler(this.slStatusLabel_Paint);
 			this.slStatusLabel.TextChanged += new System.EventHandler(this.slStatusLabel_TextChanged);
 			// 
-			// btnBezierCurve
-			// 
-			this.btnBezierCurve.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.btnBezierCurve.CheckOnClick = true;
-			this.btnBezierCurve.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.btnBezierCurve.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.btnBezierCurve.Name = "btnBezierCurve";
-			this.btnBezierCurve.Size = new System.Drawing.Size(133, 24);
-			this.btnBezierCurve.Text = "Bezier Curve Paths";
-			this.btnBezierCurve.ToolTipText = "Bezier Curve Paths";
-			this.btnBezierCurve.Click += new System.EventHandler(this.btnBezierCurve_Click);
-			// 
 			// LevelEditorForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1735,7 +1735,7 @@ namespace SM64DSe
 			this.Controls.Add(this.tsToolBar);
 			this.Controls.Add(this.spcMainContainer);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "LevelEditorForm";
 			this.Text = "LevelEditorForm";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelEditorForm_FormClosing);

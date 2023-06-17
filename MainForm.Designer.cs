@@ -161,6 +161,7 @@
             this.particleArchiveSPAEditorToolStripMenuItem,
             this.materialAnimationBMAEditorToolStripMenuItem,
             this.textureAnimationBTAEditorToolStripMenuItem,
+            this.mnitToolsTextEditor,
             this.SDATEditorToolStripMenuItem,
             this.GraphicsEditorToolStripMenuItem,});
             this.btnFileEditors.Enabled = false;
@@ -223,6 +224,13 @@
             this.textureAnimationBTAEditorToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
             this.textureAnimationBTAEditorToolStripMenuItem.Text = "BTA (Texture Animation)";
             this.textureAnimationBTAEditorToolStripMenuItem.Click += new System.EventHandler(this.textureAnimationBTAEditorToolStripMenuItem_Click);
+            // 
+            // mnitToolsTextEditor
+            // 
+            this.mnitToolsTextEditor.Name = "mnitToolsTextEditor";
+            this.mnitToolsTextEditor.Size = new System.Drawing.Size(256, 22);
+            this.mnitToolsTextEditor.Text = "MESG (Text Message)";
+            this.mnitToolsTextEditor.Click += new System.EventHandler(this.mnitToolsTextEditor_Click);
             // 
             // SDATEditorToolStripMenuItem
             // 
@@ -320,7 +328,6 @@
             this.btnTools.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnitToolsTextEditor,
             this.kuppaScriptEditorToolStripMenuItem,
             this.editFileSystemToolStripMenuItem,
             this.editOverlaysToolStripMenuItem,});
@@ -329,13 +336,6 @@
             this.btnTools.Name = "btnTools";
             this.btnTools.Size = new System.Drawing.Size(47, 22);
             this.btnTools.Text = "Tools";
-            // 
-            // mnitToolsTextEditor
-            // 
-            this.mnitToolsTextEditor.Name = "mnitToolsTextEditor";
-            this.mnitToolsTextEditor.Size = new System.Drawing.Size(256, 22);
-            this.mnitToolsTextEditor.Text = "Text Editor";
-            this.mnitToolsTextEditor.Click += new System.EventHandler(this.mnitToolsTextEditor_Click);
             // 
             // kuppaScriptEditorToolStripMenuItem
             // 

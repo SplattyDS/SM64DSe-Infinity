@@ -466,7 +466,11 @@ namespace SM64DSe
             NitroFile msgFile;
             try
             {
-                msgFile = GetFileFromName("data/message/msg_data_eng.bin");
+                if (GetFileIDFromName("data/message/msg_data_eng.mesg") != 0xFFFF)
+                    msgFile = GetFileFromName("data/message/msg_data_eng.mesg");
+                else
+                    msgFile = GetFileFromName("data/message/msg_data_eng.bin");
+
                 // Console.WriteLine(" !European!");
             }
             catch (Exception)
