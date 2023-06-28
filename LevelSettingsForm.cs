@@ -32,6 +32,11 @@ namespace SM64DSe
         private Level m_Level;
         private LevelSettings m_LevelSettings;
 
+        private int m_PrevNumAreas;
+        private List<ushort> m_TexAnimFileIDs;
+
+        private bool m_UpdatingMenu = false;
+
         public LevelSettingsForm(Level level)
         {
             InitializeComponent();
@@ -41,6 +46,8 @@ namespace SM64DSe
 
         private void LevelSettingsForm_Load(object sender, EventArgs e)
         {
+            m_UpdatingMenu = true;
+
             string[][] bankobjs = new string[8][];
             bankobjs[0] = new string[7];
             bankobjs[1] = new string[7];
@@ -88,6 +95,8 @@ namespace SM64DSe
 
             cbxBackground.SelectedIndex = m_LevelSettings.Background;
             nudGeneralMinimumNumberOfAreas.Value = m_Level.m_NumAreas;
+            nudSelectedArea.Maximum = m_Level.m_NumAreas - 1;
+            m_PrevNumAreas = m_Level.m_NumAreas;
 
             txtMusicByte01.Text = m_LevelSettings.MusicBytes[0].ToString();
             txtMusicByte02.Text = m_LevelSettings.MusicBytes[1].ToString();
@@ -100,10 +109,17 @@ namespace SM64DSe
             nudICG.Value = m_LevelSettings.MinimapTsetFileID;
             nudICL.Value = m_LevelSettings.MinimapPalFileID;
 
+            m_TexAnimFileIDs = new List<ushort>(8);
+            m_TexAnimFileIDs.AddRange(m_Level.m_TexAnimFileIDs);
+
+            nudBTA.Value = m_TexAnimFileIDs[0];
+
             Program.m_ROM.BeginRW();
             txtActSelectorID.Text = Program.m_ROM.Read8((uint)(Helper.GetActSelectorIDTableAddress() + 
                 ((LevelEditorForm)Owner).m_LevelID)).ToString();
             Program.m_ROM.EndRW();
+
+            m_UpdatingMenu = false;
         }
 
         private void cbxBankX_MeasureItem(object sender, MeasureItemEventArgs e)
@@ -155,6 +171,7 @@ namespace SM64DSe
         {
             m_LevelSettings.Background = (byte)cbxBackground.SelectedIndex;
             m_Level.m_NumAreas = (byte)(nudGeneralMinimumNumberOfAreas.Value);
+            m_Level.m_TexAnimFileIDs = m_TexAnimFileIDs;
             m_LevelSettings.ObjectBanks[0] = (uint)cbxBank0.SelectedIndex;
             m_LevelSettings.ObjectBanks[1] = (uint)cbxBank1.SelectedIndex;
             m_LevelSettings.ObjectBanks[2] = (uint)cbxBank2.SelectedIndex;
@@ -202,5 +219,56 @@ namespace SM64DSe
         private void groupBox3_Enter(object sender, EventArgs e) {
 
         }
-    }
+
+		private void nudGeneralMinimumNumberOfAreas_ValueChanged(object sender, EventArgs e)
+        {
+            if (m_UpdatingMenu)
+                return;
+
+            nudSelectedArea.Maximum = nudGeneralMinimumNumberOfAreas.Value - 1;
+
+            int numRemoved = m_PrevNumAreas - (int)nudGeneralMinimumNumberOfAreas.Value;
+
+            if (numRemoved > 0)
+			{
+                for (int i = 0; i < numRemoved; i++)
+                    m_TexAnimFileIDs.RemoveAt(m_TexAnimFileIDs.Count - 1);
+            }
+            else
+			{
+                int numAdded = -numRemoved;
+                for (int i = 0; i < numAdded; i++)
+                    m_TexAnimFileIDs.Add(0xffff);
+            }
+
+            m_UpdatingMenu = true;
+
+            if (nudSelectedArea.Value > nudGeneralMinimumNumberOfAreas.Value - 1)
+                nudSelectedArea.Value -= 1;
+
+            m_UpdatingMenu = false;
+
+            m_PrevNumAreas = (int)nudGeneralMinimumNumberOfAreas.Value;
+        }
+
+		private void nudBTA_ValueChanged(object sender, EventArgs e)
+		{
+            if (m_UpdatingMenu)
+                return;
+
+            m_UpdatingMenu = true;
+            m_TexAnimFileIDs[(int)nudSelectedArea.Value] = (ushort)nudBTA.Value;
+            m_UpdatingMenu = false;
+        }
+
+		private void nudSelectedArea_ValueChanged(object sender, EventArgs e)
+		{
+            if (m_UpdatingMenu)
+                return;
+
+            m_UpdatingMenu = true;
+            nudBTA.Value = m_TexAnimFileIDs[(int)nudSelectedArea.Value];
+            m_UpdatingMenu = false;
+        }
+	}
 }

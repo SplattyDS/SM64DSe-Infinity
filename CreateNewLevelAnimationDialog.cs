@@ -24,7 +24,7 @@ namespace SM64DSe.SM64DSFormats
         private void btnCreate_Click(object sender, EventArgs e)
         {
             m_level.m_TexAnims[m_area].m_NumFrames = (uint)numAnimationLength.Value;
-            m_level.m_TexAnims[m_area].m_Defs = new List<LevelTexAnim.Def>();
+            m_level.m_TexAnims[m_area].m_Defs = new List<TexAnim.Def>();
         }
     }
 }

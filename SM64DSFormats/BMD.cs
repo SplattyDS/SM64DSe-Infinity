@@ -831,12 +831,12 @@ namespace SM64DSe
                     matgroup.Release();
             }
 
-            public bool Render(RenderMode mode, float scale, bool[] renderFlags = null, LevelTexAnim texAnim = null, int texAnimFrame = 0)
+            public bool Render(RenderMode mode, float scale, bool[] renderFlags = null, TexAnim texAnim = null, int texAnimFrame = 0)
             {
                 return Render(mode, scale, null, -1, renderFlags, texAnim, texAnimFrame);
             }
 
-            public bool Render(RenderMode mode, float scale, BCA animation, int frame, bool[] renderFlags = null, LevelTexAnim texAnim = null, int texAnimFrame = 0)
+            public bool Render(RenderMode mode, float scale, BCA animation, int frame, bool[] renderFlags = null, TexAnim texAnim = null, int texAnimFrame = 0)
             {
                 PrimitiveType[] primitiveTypes = new PrimitiveType[] { PrimitiveType.Triangles, PrimitiveType.Quads, PrimitiveType.TriangleStrip, PrimitiveType.QuadStrip };
                 bool rendered_something = false;
@@ -1011,20 +1011,23 @@ namespace SM64DSe
                                         Vector2 coord = (Vector2)vtx.m_TexCoord;
                                         if (texAnim != null)
                                         {
-                                            List<LevelTexAnim.Def> entries = texAnim.m_Defs;
-                                            foreach (LevelTexAnim.Def entry in entries)
+                                            List<TexAnim.Def> entries = texAnim.m_Defs;
+                                            foreach (TexAnim.Def entry in entries)
                                             {
                                                 if (entry.m_MaterialName == matgroup.m_Name)
                                                 {
+                                                    float scaleX = TexAnim.AnimationValue(entry.m_ScaleXValues, texAnimFrame, (int)texAnim.m_NumFrames);
+                                                    float scaleY = TexAnim.AnimationValue(entry.m_ScaleYValues, texAnimFrame, (int)texAnim.m_NumFrames);
+                                                    coord.X *= scaleX;
+                                                    coord.Y *= scaleY;
+                                                    
+                                                    // coord = coord * scaleValue;
 
-                                                    float scaleValue = LevelTexAnim.AnimationValue(entry.m_ScaleValues, texAnimFrame, (int)texAnim.m_NumFrames);
-                                                    coord = coord * scaleValue;
-
-                                                    float angle = LevelTexAnim.AnimationValue(entry.m_RotationValues, texAnimFrame, (int)texAnim.m_NumFrames);
+                                                    float angle = TexAnim.AnimationValue(entry.m_RotationValues, texAnimFrame, (int)texAnim.m_NumFrames);
                                                     coord = Vector2.Transform(coord, Quaternion.FromAxisAngle(Vector3.UnitZ, (angle + matgroup.m_TexCoordRot) * 0.0174533f));
 
-                                                    float transX = LevelTexAnim.AnimationValue(entry.m_TranslationXValues, texAnimFrame, (int)texAnim.m_NumFrames);
-                                                    float transY = LevelTexAnim.AnimationValue(entry.m_TranslationYValues, texAnimFrame, (int)texAnim.m_NumFrames);
+                                                    float transX = TexAnim.AnimationValue(entry.m_TranslationXValues, texAnimFrame, (int)texAnim.m_NumFrames);
+                                                    float transY = TexAnim.AnimationValue(entry.m_TranslationYValues, texAnimFrame, (int)texAnim.m_NumFrames);
                                                     coord = Vector2.Add(coord, Vector2.Add(new Vector2(transX, transY), normalizedTranslation));
                                                 }
                                             }

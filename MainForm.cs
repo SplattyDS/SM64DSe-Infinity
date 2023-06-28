@@ -1154,8 +1154,8 @@ namespace SM64DSe
                     new AnimationEditorForm(m_SavedFile, m_SelectedFile).Show();
                 else if (m_SavedFile.EndsWith(".bma"))
                     new TextureEditorForm(m_SavedFile, m_SelectedFile).Show();
-                /*else if (m_SavedFile.EndsWith(".bta"))
-                    new TextureAnimationEditorForm(m_SavedFile, m_SelectedFile).Show();*/
+                else if (m_SavedFile.EndsWith(".bta"))
+                    new SM64DSFormats.BetterTextureAnimationEditor(m_SavedFile, m_SelectedFile).Show();
             }
             else if (m_SelectedFile.EndsWith(".kcl"))
                 new ModelAndCollisionMapEditor(null, m_SelectedFile, 1f, ModelAndCollisionMapEditor.StartMode.CollisionMap).Show();
@@ -1175,7 +1175,7 @@ namespace SM64DSe
             /*else if (m_SelectedFile.EndsWith(".lvl"))
                 new LevelEditorForm().Show();*/
 
-            if (m_SelectedFile.EndsWith(".bca") || m_SelectedFile.EndsWith(".btp") || m_SelectedFile.EndsWith(".bma") /*|| m_SelectedFile.EndsWith(".bta")*/)
+            if (m_SelectedFile.EndsWith(".bca") || m_SelectedFile.EndsWith(".btp") || m_SelectedFile.EndsWith(".bma") || m_SelectedFile.EndsWith(".bta"))
                 m_SavedFile = m_SavedFile != null ? null : m_SelectedFile;
             else
                 m_SavedFile = null;
@@ -1241,7 +1241,7 @@ namespace SM64DSe
             else if (m_SelectedFile.EndsWith(".bta"))
             {
                 btnOpenFile.Text = "Open texture animation";
-                btnOpenFile.Enabled = false;
+                btnOpenFile.Enabled = true;
             }
             else if (m_SelectedFile.EndsWith(".sdat"))
             {
@@ -1337,8 +1337,17 @@ namespace SM64DSe
         private void Test()
 		{
             return;
+            for (int i = 0; i < 52; i++)
+			{
+                Level level = new Level(i);
+                level.SaveChanges();
+            }
+            
+            
 
-            foreach (var fileEntry in Program.m_ROM.GetFileEntries())
+
+
+            /*foreach (var fileEntry in Program.m_ROM.GetFileEntries())
 			{
                 if (!fileEntry.FullName.EndsWith(".btp"))
                     continue;
@@ -1362,7 +1371,7 @@ namespace SM64DSe
                 file.SaveChanges();
             }
 
-            Console.WriteLine("Test done.");
+            Console.WriteLine("Test done.");*/
 		}
     }
 }

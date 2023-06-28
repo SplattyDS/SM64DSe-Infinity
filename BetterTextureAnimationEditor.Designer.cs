@@ -382,7 +382,8 @@
             "Translation X",
             "Translation Y",
             "Rotation",
-            "Scale"});
+            "Scale X",
+            "Scale Y"});
             this.cbSelectProperty.Location = new System.Drawing.Point(2, 32);
             this.cbSelectProperty.Name = "cbSelectProperty";
             this.cbSelectProperty.Size = new System.Drawing.Size(131, 21);
@@ -469,6 +470,7 @@
             // 
             // btnCreateAnimData
             // 
+            this.btnCreateAnimData.Visible = false;
             this.btnCreateAnimData.Enabled = false;
             this.btnCreateAnimData.Location = new System.Drawing.Point(12, 431);
             this.btnCreateAnimData.Name = "btnCreateAnimData";
@@ -480,6 +482,7 @@
             // 
             // btnDeleteAnimData
             // 
+            this.btnDeleteAnimData.Visible = false;
             this.btnDeleteAnimData.Enabled = false;
             this.btnDeleteAnimData.Location = new System.Drawing.Point(12, 459);
             this.btnDeleteAnimData.Name = "btnDeleteAnimData";

@@ -14,20 +14,21 @@ namespace SM64DSe.SM64DSFormats
     {
         private LevelEditorForm m_parent;
         private BMD m_BMD;
-        private Image m_previewTexture;
+        private Image m_previewTexture = new Bitmap(64, 64);
 
-        private Dictionary<string, LevelTexAnim.Def> m_entries;
-        private List<LevelTexAnim> m_animations;
-        private LevelTexAnim.Def m_animEntry;
-        private int m_animId;
+        private Dictionary<string, TexAnim.Def> m_entries;
+        private List<TexAnim> m_animations = new List<TexAnim>();
+        private TexAnim.Def m_animEntry;
+        private int m_animId = 0;
 
-        private Dictionary<string, LevelTexAnim.Def>[] m_unsavedEntries;
+        private Dictionary<string, TexAnim.Def>[] m_unsavedEntries;
 
         private float m_translationX = 0;
         private float m_translationY = 0;
         private float m_rotation = 0;
-        private float m_scale = 1;
-        
+        private float m_scaleX = 1;
+        private float m_scaleY = 1;
+
         private System.Windows.Forms.Timer m_texAnimTimer;
         private int m_texAnimFrame = 0;
 
@@ -47,7 +48,8 @@ namespace SM64DSe.SM64DSFormats
             TRANSLATION_X = 0,
             TRANSLATION_Y = 1,
             ROTATION = 2,
-            SCALE = 3
+            SCALE_X = 3,
+            SCALE_Y = 4,
         }
 
         private float m_zoomFactor = 1;
@@ -105,17 +107,19 @@ namespace SM64DSe.SM64DSFormats
             m_texAnimFrame = 0;
             if (m_animEntry != null)
             {
-                m_translationX = LevelTexAnim.AnimationValue(m_animEntry.m_TranslationXValues, 0, 0);
-                m_translationY = LevelTexAnim.AnimationValue(m_animEntry.m_TranslationYValues, 0, 0);
-                m_rotation = LevelTexAnim.AnimationValue(m_animEntry.m_RotationValues, 0, 0);
-                m_scale = LevelTexAnim.AnimationValue(m_animEntry.m_ScaleValues, 0, 0);
+                m_translationX = TexAnim.AnimationValue(m_animEntry.m_TranslationXValues, 0, 0);
+                m_translationY = TexAnim.AnimationValue(m_animEntry.m_TranslationYValues, 0, 0);
+                m_rotation = TexAnim.AnimationValue(m_animEntry.m_RotationValues, 0, 0);
+                m_scaleX = TexAnim.AnimationValue(m_animEntry.m_ScaleXValues, 0, 0);
+                m_scaleY = TexAnim.AnimationValue(m_animEntry.m_ScaleYValues, 0, 0);
             }
             else
             {
                 m_translationX = 0;
                 m_translationY = 0;
                 m_rotation = 0;
-                m_scale = 1;
+                m_scaleX = 1;
+                m_scaleY = 1;
             }
 
             SetupGUIForPauseMode();
@@ -126,10 +130,11 @@ namespace SM64DSe.SM64DSFormats
         {
             if (m_animEntry != null)
             {
-                m_translationX = LevelTexAnim.AnimationValue(m_animEntry.m_TranslationXValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
-                m_translationY = LevelTexAnim.AnimationValue(m_animEntry.m_TranslationYValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
-                m_rotation = LevelTexAnim.AnimationValue(m_animEntry.m_RotationValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
-                m_scale = LevelTexAnim.AnimationValue(m_animEntry.m_ScaleValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
+                m_translationX = TexAnim.AnimationValue(m_animEntry.m_TranslationXValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
+                m_translationY = TexAnim.AnimationValue(m_animEntry.m_TranslationYValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
+                m_rotation = TexAnim.AnimationValue(m_animEntry.m_RotationValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
+                m_scaleX = TexAnim.AnimationValue(m_animEntry.m_ScaleXValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
+                m_scaleY = TexAnim.AnimationValue(m_animEntry.m_ScaleYValues, m_texAnimFrame, (int)m_animations[m_animId].m_NumFrames);
             }
             if (valueSettingPanel2.Visible)
             {
@@ -139,8 +144,10 @@ namespace SM64DSe.SM64DSFormats
                     m_translationY = InterpolatedValue(m_keyFrames, m_texAnimFrame) * (float)numScaling.Value;
                 else if ((AnimationProperty)cbSelectProperty.SelectedIndex == AnimationProperty.ROTATION)
                     m_rotation = InterpolatedValue(m_keyFrames, m_texAnimFrame) * (float)numScaling.Value;
-                else if ((AnimationProperty)cbSelectProperty.SelectedIndex == AnimationProperty.SCALE)
-                    m_scale = InterpolatedValue(m_keyFrames, m_texAnimFrame) * (float)numScaling.Value;
+                else if ((AnimationProperty)cbSelectProperty.SelectedIndex == AnimationProperty.SCALE_X)
+                    m_scaleX = InterpolatedValue(m_keyFrames, m_texAnimFrame) * (float)numScaling.Value;
+                else if ((AnimationProperty)cbSelectProperty.SelectedIndex == AnimationProperty.SCALE_Y)
+                    m_scaleY = InterpolatedValue(m_keyFrames, m_texAnimFrame) * (float)numScaling.Value;
             }
             m_texAnimFrame %= (int)m_animations[m_animId].m_NumFrames;
             m_timelineFrame = m_texAnimFrame % 120;
@@ -223,62 +230,142 @@ namespace SM64DSe.SM64DSFormats
             UpdateAnimation();
         }
 
-
         //---CONSTRUCTOR---
+        public BetterTextureAnimationEditor(string btaFileName, string bmdFileName)
+        {
+            SetupGUI();
+
+            // load Animation file
+
+            if (btaFileName == null)
+            {
+                ROMFileSelect m_ROMFileSelect = new ROMFileSelect();
+                DialogResult result = m_ROMFileSelect.ShowDialog();
+
+                m_ROMFileSelect.ReInitialize("Select a BTA file to load", new string[] { ".bta" });
+
+                if (result != DialogResult.OK)
+                {
+                    Close();
+                    return;
+                }
+
+                btaFileName = m_ROMFileSelect.m_SelectedFile;
+            }
+
+            // load Model
+
+            if (bmdFileName == null)
+            {
+                ROMFileSelect m_ROMFileSelect = new ROMFileSelect();
+                DialogResult result = m_ROMFileSelect.ShowDialog();
+
+                m_ROMFileSelect.ReInitialize("Select a BMD file to load", new string[] { ".bmd" });
+
+                if (result != DialogResult.OK)
+                {
+                    Close();
+                    return;
+                }
+
+                bmdFileName = m_ROMFileSelect.m_SelectedFile;
+            }
+
+            m_BMD = new BMD(Program.m_ROM.GetFileFromName(bmdFileName));
+
+            // load Animation
+
+            m_animations = new List<TexAnim>(1);
+            m_animations.Add(new TexAnim(Program.m_ROM.GetFileFromName(btaFileName)));
+
+            m_unsavedEntries = new Dictionary<string, TexAnim.Def>[1];
+            m_entries = new Dictionary<string, TexAnim.Def>();
+
+            BMD.ModelChunk chunk = m_BMD.m_ModelChunks[0];
+
+            TreeNode chunkNode = tvMaterials.Nodes.Add(chunk.m_Name, m_animations[0].m_NumFrames + " frames");
+            chunkNode.Tag = 0;
+
+            m_unsavedEntries[0] = new Dictionary<string, TexAnim.Def>();
+            
+            List<TexAnim.Def> newEntries = new List<TexAnim.Def>();
+
+            foreach (TexAnim.Def entry in m_animations[0].m_Defs)
+            {
+                TexAnim.Def newEntry = new TexAnim.Def()
+                {
+                    m_MaterialName = entry.m_MaterialName,
+                    m_TranslationXValues = new List<float>(entry.m_TranslationXValues),
+                    m_TranslationYValues = new List<float>(entry.m_TranslationYValues),
+                    m_RotationValues = new List<float>(entry.m_RotationValues),
+                    m_ScaleXValues = new List<float>(entry.m_ScaleXValues),
+                    m_ScaleYValues = new List<float>(entry.m_ScaleYValues),
+                };
+
+                m_entries.Add(entry.m_MaterialName, newEntry);
+            }
+
+            if (m_animations[0].m_NumFrames > 0)
+            {
+                //populate AnimationNode
+                int i2 = 0;
+                foreach (BMD.MaterialGroup matGroup in chunk.m_MatGroups)
+                {
+                    if (matGroup.m_Texture != null)
+                    {
+                        bool hasAnimation = false;
+                        foreach (TexAnim.Def entry in m_animations[0].m_Defs)
+                        {
+                            if (entry.m_MaterialName == matGroup.m_Name)
+                                hasAnimation = true;
+                        }
+                        TreeNode matGroupNode = chunkNode.Nodes.Add(matGroup.m_Name, matGroup.m_Name + (hasAnimation ? "[ANIMATED]" : ""));
+                        matGroupNode.Tag = i2;
+                    }
+                    i2++;
+                }
+            }
+        }
+
         public BetterTextureAnimationEditor(LevelEditorForm parent)
         {
             //setup GUI
-            InitializeComponent();
-            typeof(Panel).InvokeMember("DoubleBuffered",
-                BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-                null, textureView, new object[] { true });
-            typeof(Panel).InvokeMember("DoubleBuffered",
-                BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-                null, timelinePanel, new object[] { true });
-            InitTimer();
-            textureView.MouseWheel += textureView_MouseWheel;
-            numScaling.Tag = 1;
-            valueSettingPanel2.Location = valueSettingPanel1.Location;
-            valueSettingPanel1.BringToFront();
+            SetupGUI();
 
             //set private values
             m_parent = parent;
             m_BMD = m_parent.m_LevelModel;
-            m_previewTexture = new Bitmap(64,64);
-
-            m_animId = 0;
-            m_animations = new List<LevelTexAnim>();
 
             //load Animations
-            m_unsavedEntries = new Dictionary<string, LevelTexAnim.Def>[m_BMD.m_ModelChunks.Length];
-            m_entries = new Dictionary<string, LevelTexAnim.Def>();
+            m_unsavedEntries = new Dictionary<string, TexAnim.Def>[m_BMD.m_ModelChunks.Length];
+            m_entries = new Dictionary<string, TexAnim.Def>();
             int i = 0;
             foreach (BMD.ModelChunk chunk in m_BMD.m_ModelChunks)
             {
-                LevelTexAnim animForArea = m_parent.m_Level.m_TexAnims[i];
+                TexAnim animForArea = m_parent.m_Level.m_TexAnims[i];
                 TreeNode chunkNode = tvMaterials.Nodes.Add(chunk.m_Name, "Area " + i + " (" + m_parent.m_Level.m_TexAnims[i].m_NumFrames + " frames)");
                 chunkNode.Tag = i;
 
-                m_unsavedEntries[i] = new Dictionary<string, LevelTexAnim.Def>();
+                m_unsavedEntries[i] = new Dictionary<string, TexAnim.Def>();
                 m_animations.Add(animForArea);
-                List<LevelTexAnim.Def> newEntries = new List<LevelTexAnim.Def>();
+                List<TexAnim.Def> newEntries = new List<TexAnim.Def>();
 
-                foreach (LevelTexAnim.Def entry in animForArea.m_Defs)
+                foreach (TexAnim.Def entry in animForArea.m_Defs)
                 {
-                    LevelTexAnim.Def newEntry = new LevelTexAnim.Def()
+                    TexAnim.Def newEntry = new TexAnim.Def()
                     {
-                        m_DefaultScale = entry.m_DefaultScale,
                         m_MaterialName = entry.m_MaterialName,
                         m_TranslationXValues = new List<float>(entry.m_TranslationXValues),
                         m_TranslationYValues = new List<float>(entry.m_TranslationYValues),
                         m_RotationValues = new List<float>(entry.m_RotationValues),
-                        m_ScaleValues = new List<float>(entry.m_ScaleValues),
+                        m_ScaleXValues = new List<float>(entry.m_ScaleXValues),
+                        m_ScaleYValues = new List<float>(entry.m_ScaleYValues),
                     };
 
                     m_entries.Add(entry.m_MaterialName, newEntry);
                 }
 
-                if (animForArea.m_NumFrames>0)
+                if (animForArea.m_NumFrames > 0)
                 {
                     //populate AnimationNode
                     int i2 = 0;
@@ -287,7 +374,7 @@ namespace SM64DSe.SM64DSFormats
                         if (matGroup.m_Texture != null)
                         {
                             bool hasAnimation = false;
-                            foreach (LevelTexAnim.Def entry in m_animations[i].m_Defs)
+                            foreach (TexAnim.Def entry in m_animations[i].m_Defs)
                             {
                                 if (entry.m_MaterialName == matGroup.m_Name)
                                     hasAnimation = true;
@@ -300,6 +387,22 @@ namespace SM64DSe.SM64DSFormats
                 }
                 i++;
             }
+        }
+
+        void SetupGUI()
+		{
+            InitializeComponent();
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                null, textureView, new object[] { true });
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                null, timelinePanel, new object[] { true });
+            InitTimer();
+            textureView.MouseWheel += textureView_MouseWheel;
+            numScaling.Tag = 1;
+            valueSettingPanel2.Location = valueSettingPanel1.Location;
+            valueSettingPanel1.BringToFront();
         }
 
         //Prepare for new animation values
@@ -319,8 +422,11 @@ namespace SM64DSe.SM64DSFormats
                     m_animationValues.Add(Helper.Wrap(value,360f));
                 }
             }
-            else
-                m_animationValues = m_animEntry.m_ScaleValues;
+            else if (property == AnimationProperty.SCALE_X)
+                m_animationValues = m_animEntry.m_ScaleXValues;
+            else if (property == AnimationProperty.SCALE_Y)
+                m_animationValues = m_animEntry.m_ScaleYValues;
+
             foreach (float value in m_animationValues)
             {
                 if (value < m_valueFloor)
@@ -329,7 +435,7 @@ namespace SM64DSe.SM64DSFormats
                     m_valueCeiling = value;
             }
             if (m_animationValues.Count == 0)
-                m_animationValues.Add((property == AnimationProperty.SCALE) ? 1 : 0);
+                m_animationValues.Add((property == AnimationProperty.SCALE_X || property == AnimationProperty.SCALE_Y) ? 1 : 0);
             UpdateAnimation();
         }
 
@@ -352,7 +458,7 @@ namespace SM64DSe.SM64DSFormats
             float texWidth = m_previewTexture.Width;
             float texHeight = m_previewTexture.Height;
             if (texWidth > texHeight)
-                texBrush.ScaleTransform(m_zoomFactor*32/texWidth, m_zoomFactor * 32 / texWidth);
+                texBrush.ScaleTransform(m_zoomFactor * 32 / texWidth, m_zoomFactor * 32 / texWidth);
             else
                 texBrush.ScaleTransform(m_zoomFactor * 32 / texHeight, m_zoomFactor * 32 / texHeight);
             gfx.FillRectangle(texBrush, m_UVwindowRect);
@@ -360,7 +466,7 @@ namespace SM64DSe.SM64DSFormats
             //UV Rectangle
             Pen pen = new Pen(Color.Gold, 2);
             double angle = m_rotation * 0.0174533f;
-            RectangleF rect = new RectangleF(-32 * m_scale, -32 * m_scale, 64 * m_scale, 64 * m_scale);
+            RectangleF rect = new RectangleF(-32 * m_scaleX, -32 * m_scaleY, 64 * m_scaleX, 64 * m_scaleY);
             PointF center = new PointF(m_UVwindowRect.Width / 2f + m_translationX * 64 * m_zoomFactor, m_UVwindowRect.Height / 2f - m_translationY * 64 * m_zoomFactor);
 
             gfx.DrawPolygon(pen, new PointF[] {
@@ -383,9 +489,9 @@ namespace SM64DSe.SM64DSFormats
             //small Texture Preview Window
             texBrush.ResetTransform();
             if (texWidth > texHeight)
-                texBrush.ScaleTransform(32 / texWidth / m_scale, 32 / texWidth / m_scale);
+                texBrush.ScaleTransform(32 / texWidth / m_scaleX, 32 / texWidth / m_scaleY);
             else
-                texBrush.ScaleTransform(32 / texHeight / m_scale, 32 / texHeight / m_scale);
+                texBrush.ScaleTransform(32 / texHeight / m_scaleX, 32 / texHeight / m_scaleY);
             texBrush.TranslateTransform(width - 32 - m_translationX * 64, 32 + m_translationY * 64);
             texBrush.RotateTransform(-m_rotation);
             gfx.FillRectangle(texBrush, width - 64, 0, 64, 64);
@@ -618,7 +724,7 @@ namespace SM64DSe.SM64DSFormats
                 float value;
                 if (m_animationValues.Count > 0)
                     value = m_animationValues.Last();
-                else if ((AnimationProperty)cbSelectProperty.SelectedIndex == AnimationProperty.SCALE)
+                else if ((AnimationProperty)cbSelectProperty.SelectedIndex == AnimationProperty.SCALE_X || (AnimationProperty)cbSelectProperty.SelectedIndex == AnimationProperty.SCALE_Y)
                     value = 1;
                 else
                     value = 0;
@@ -671,8 +777,10 @@ namespace SM64DSe.SM64DSFormats
                         m_animEntry.m_RotationValues.Add(wrappedValue-360);
                 }
             }
-            else
-                m_animEntry.m_ScaleValues = m_animationValues;
+            else if (property == AnimationProperty.SCALE_X)
+                m_animEntry.m_ScaleXValues = m_animationValues;
+            else if (property == AnimationProperty.SCALE_Y)
+                m_animEntry.m_ScaleYValues = m_animationValues;
 
             if (m_unsavedEntries[m_animId].ContainsKey(m_animEntry.m_MaterialName))
                 m_unsavedEntries[m_animId][m_animEntry.m_MaterialName] = m_animEntry;
@@ -682,17 +790,14 @@ namespace SM64DSe.SM64DSFormats
 
         private void SaveAnimation(int area, string materialName)
         {
-            //Console.WriteLine(area);
-            //Console.WriteLine(materialName);
-            List<LevelTexAnim.Def> newEntries = new List<LevelTexAnim.Def>();
+            List<TexAnim.Def> newEntries = new List<TexAnim.Def>();
 
-
-
-            foreach (LevelTexAnim.Def entry in m_parent.m_Level.m_TexAnims[area].m_Defs)
+            foreach (TexAnim.Def entry in m_animations[m_animId].m_Defs)
             {
-                if (entry.m_MaterialName == materialName) {
+                if (entry.m_MaterialName == materialName)
+                {
                     if (m_unsavedEntries[area][materialName] != null)
-                        if(m_unsavedEntries[area][materialName].m_RotationValues.Count>0)
+                        if (m_unsavedEntries[area][materialName].m_RotationValues.Count > 0)
                             newEntries.Add(OptimizeEntry(m_unsavedEntries[area][materialName]));
                     m_unsavedEntries[area].Remove(materialName);
                 }
@@ -701,21 +806,28 @@ namespace SM64DSe.SM64DSFormats
                     newEntries.Add(entry);
                 }
             }
-            if (m_unsavedEntries[area].ContainsKey(materialName)) {
+            if (m_unsavedEntries[area].ContainsKey(materialName))
+            {
                 if (m_unsavedEntries[area][materialName] != null)
                     if (m_unsavedEntries[area][materialName].m_RotationValues.Count > 0)
                         newEntries.Add(OptimizeEntry(m_unsavedEntries[area][materialName]));
                 m_unsavedEntries[area].Remove(materialName);
             }
-            m_parent.m_Level.m_TexAnims[area].m_Defs = newEntries;
+
+            if (m_parent != null)
+                m_parent.m_Level.m_TexAnims[area].m_Defs = newEntries;
+
+            m_animations[m_animId].m_Defs = newEntries;
+            m_animations[m_animId].Save();
         }
 
-        private LevelTexAnim.Def OptimizeEntry(LevelTexAnim.Def animEntry)
+        private TexAnim.Def OptimizeEntry(TexAnim.Def animEntry)
         {
             animEntry.m_TranslationXValues = OptimizeValues(animEntry.m_TranslationXValues);
             animEntry.m_TranslationYValues = OptimizeValues(animEntry.m_TranslationYValues);
             animEntry.m_RotationValues = OptimizeValues(animEntry.m_RotationValues);
-            animEntry.m_ScaleValues = OptimizeValues(animEntry.m_ScaleValues);
+            animEntry.m_ScaleXValues = OptimizeValues(animEntry.m_ScaleXValues);
+            animEntry.m_ScaleYValues = OptimizeValues(animEntry.m_ScaleYValues);
             return animEntry;
         }
 
@@ -769,17 +881,18 @@ namespace SM64DSe.SM64DSFormats
         //Generating
         private void btnCreateNew_Click(object sender, EventArgs e)
         {
-            LevelTexAnim.Def newEntry = new LevelTexAnim.Def()
+            TexAnim.Def newEntry = new TexAnim.Def()
             {
-                m_DefaultScale = 1,
                 m_MaterialName = tvMaterials.SelectedNode.Name,
                 m_TranslationXValues = new List<float>(),
                 m_TranslationYValues = new List<float>(),
                 m_RotationValues = new List<float>(),
-                m_ScaleValues = new List<float>()
+                m_ScaleXValues = new List<float>(),
+                m_ScaleYValues = new List<float>()
             };
             newEntry.m_RotationValues.Add(0);
-            newEntry.m_ScaleValues.Add(1);
+            newEntry.m_ScaleXValues.Add(1);
+            newEntry.m_ScaleYValues.Add(1);
 
             if (m_entries.ContainsKey(tvMaterials.SelectedNode.Name))
                 m_entries[tvMaterials.SelectedNode.Name] = newEntry;
@@ -845,11 +958,17 @@ namespace SM64DSe.SM64DSFormats
                         m_animEntry.m_RotationValues.Add(wrappedValue - 360);
                 }
             }
-            else
+            else if (property == AnimationProperty.SCALE_X)
             {
-                m_animEntry.m_ScaleValues = new List<float>();
+                m_animEntry.m_ScaleXValues = new List<float>();
                 for (int i = 0; i < m_animations[m_animId].m_NumFrames; i++)
-                    m_animEntry.m_ScaleValues.Add(InterpolatedValue(m_keyFrames, i) * (float)numScaling.Value);
+                    m_animEntry.m_ScaleXValues.Add(InterpolatedValue(m_keyFrames, i) * (float)numScaling.Value);
+            }
+            else if (property == AnimationProperty.SCALE_Y)
+            {
+                m_animEntry.m_ScaleYValues = new List<float>();
+                for (int i = 0; i < m_animations[m_animId].m_NumFrames; i++)
+                    m_animEntry.m_ScaleYValues.Add(InterpolatedValue(m_keyFrames, i) * (float)numScaling.Value);
             }
 
             //add to unsaved
@@ -944,7 +1063,7 @@ namespace SM64DSe.SM64DSFormats
         private void BetterTextureAnimationEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             int unsavedAnims = 0;
-            foreach(Dictionary<string, LevelTexAnim.Def> areaEntries in m_unsavedEntries)
+            foreach(Dictionary<string, TexAnim.Def> areaEntries in m_unsavedEntries)
                 unsavedAnims+= areaEntries.Count;
 
             if (unsavedAnims==0) return;
@@ -953,12 +1072,14 @@ namespace SM64DSe.SM64DSFormats
             if (result == DialogResult.Yes) SaveAll();
             else if (result == DialogResult.Cancel) e.Cancel = true;
 
+            if (m_parent == null)
+                return;
+            
             for (int area = 0; area < m_parent.m_Level.m_TexAnims.Count; area++)
             {
-                LevelTexAnim animation = m_parent.m_Level.m_TexAnims[area];
+                TexAnim animation = m_parent.m_Level.m_TexAnims[area];
                 if (animation.m_NumDefs == 0)
                     animation.m_NumFrames = 0;
-
             }
         }
 
@@ -966,9 +1087,9 @@ namespace SM64DSe.SM64DSFormats
         {
             for (int area = 0; area < m_unsavedEntries.Length; area++)
             {
-                List<LevelTexAnim.Def> newEntries = new List<LevelTexAnim.Def>();
+                List<TexAnim.Def> newEntries = new List<TexAnim.Def>();
 
-                foreach (LevelTexAnim.Def entry in m_parent.m_Level.m_TexAnims[area].m_Defs)
+                foreach (TexAnim.Def entry in m_animations[area].m_Defs)
                 {
                     if (m_unsavedEntries[area].ContainsKey(entry.m_MaterialName))
                     {
@@ -983,16 +1104,20 @@ namespace SM64DSe.SM64DSFormats
                         newEntries.Add(entry);
                     }
                 }
-                foreach (KeyValuePair<string, LevelTexAnim.Def> entry in m_unsavedEntries[area])
+                foreach (KeyValuePair<string, TexAnim.Def> entry in m_unsavedEntries[area])
                 {
                     if (m_unsavedEntries[area][entry.Key].m_RotationValues.Count > 0)
                         newEntries.Add(OptimizeEntry(entry.Value));
                 }
-                m_parent.m_Level.m_TexAnims[area].m_Defs = newEntries;
+
+                if (m_parent != null)
+                    m_parent.m_Level.m_TexAnims[area].m_Defs = newEntries;
+                
+                m_animations[area].m_Defs = newEntries;
+                m_animations[area].Save();
 
                 m_unsavedEntries[area].Clear();
             }
-
         }
 
 
@@ -1013,7 +1138,7 @@ namespace SM64DSe.SM64DSFormats
                     if (matGroup.m_Texture != null)
                     {
                         bool hasAnimation = false;
-                        foreach (LevelTexAnim.Def entry in m_animations[i].m_Defs)
+                        foreach (TexAnim.Def entry in m_animations[i].m_Defs)
                         {
                             if (entry.m_MaterialName == matGroup.m_Name)
                                 hasAnimation = true;
@@ -1031,8 +1156,8 @@ namespace SM64DSe.SM64DSFormats
         {
             TreeNode selected = tvMaterials.SelectedNode;
             int area = (int)selected.Tag;
-            LevelTexAnim texAnim = m_parent.m_Level.m_TexAnims[area];
-            texAnim.m_Defs = new List<LevelTexAnim.Def>();
+            TexAnim texAnim = m_parent.m_Level.m_TexAnims[area];
+            texAnim.m_Defs = new List<TexAnim.Def>();
             texAnim.m_NumFrames = 0;
             selected.Nodes.Clear();
             selected.Text = "Area " + area + " (0 frames)";

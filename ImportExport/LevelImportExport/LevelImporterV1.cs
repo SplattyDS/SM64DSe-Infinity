@@ -411,7 +411,7 @@ namespace SM64DSe.ImportExport.LevelImportExport
 
                 if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("TextureAnimationArea"))
                 {
-                    ReadTextureAnimationArea(reader, level);
+
                 }
                 else if (reader.NodeType.Equals(XmlNodeType.EndElement) && reader.LocalName.Equals("TextureAnimationData"))
                 {
@@ -420,56 +420,6 @@ namespace SM64DSe.ImportExport.LevelImportExport
             }
 
             return;
-        }
-
-        protected virtual void ReadTextureAnimationArea(XmlReader reader, Level level)
-        {
-            int area = int.Parse(reader.GetAttribute("area"));
-
-            List<LevelTexAnim> texAnimsForArea = level.m_TexAnims.Where(t => t.m_Area == area).ToList();
-            LevelTexAnim texAnimArea;
-            if (texAnimsForArea.Count < 1)
-            {
-                texAnimArea = new LevelTexAnim(area);
-                level.m_TexAnims.Add(texAnimArea);
-            }
-            else
-            {
-                texAnimArea = texAnimsForArea[0];
-            }
-
-            List<float> scales = new List<float>();
-            List<float> rotations = new List<float>();
-            List<float> translations = new List<float>();
-
-            while (reader.Read())
-            {
-                reader.MoveToContent();
-                if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("NumberOfFrames"))
-                {
-                    texAnimArea.m_NumFrames = (uint)reader.ReadElementContentAsInt();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("ScaleTable"))
-                {
-                    scales = ReadTextureAnimationScaleTable(reader);
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("RotationTable"))
-                {
-                    rotations = ReadTextureAnimationRotationTable(reader);
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("TranslationTable"))
-                {
-                    translations = ReadTextureAnimationTranslationTable(reader);
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("TextureAnimation"))
-                {
-                    texAnimArea.m_Defs.Add(ReadTextureAnimation(reader, scales, rotations, translations));
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.EndElement) && reader.LocalName.Equals("TextureAnimationArea"))
-                {
-                    break;
-                }
-            }
         }
 
         protected virtual List<float> ReadTextureAnimationTranslationTable(XmlReader reader)
@@ -528,62 +478,6 @@ namespace SM64DSe.ImportExport.LevelImportExport
             }
 
             return values;
-        }
-
-        protected virtual LevelTexAnim.Def ReadTextureAnimation(XmlReader reader, 
-            List<float> scales, List<float> rotations, List<float> translations)
-        {
-            LevelTexAnim.Def texAnim = new LevelTexAnim.Def();
-
-            int scaleStart = 0, scaleLength = 0;
-            int rotationStart = 0, rotationLength = 0;
-            int translationStart = 0, translationLength = 0;
-
-            while (reader.Read())
-            {
-                reader.MoveToContent();
-                if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("MaterialName"))
-                {
-                    texAnim.m_MaterialName = reader.ReadElementContentAsString();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("DefaultScaleValue"))
-                {
-                    texAnim.m_DefaultScale = (uint)reader.ReadElementContentAsInt() / 4096f;
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("ScaleStartIndex"))
-                {
-                    scaleStart = reader.ReadElementContentAsInt();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("ScaleLength"))
-                {
-                    scaleLength = reader.ReadElementContentAsInt();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("RotationStartIndex"))
-                {
-                    rotationStart = reader.ReadElementContentAsInt();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("RotationLength"))
-                {
-                    rotationLength = reader.ReadElementContentAsInt();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("TranslationStartIndex"))
-                {
-                    translationStart = reader.ReadElementContentAsInt();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("TranslationLength"))
-                {
-                    translationLength = reader.ReadElementContentAsInt();
-                }
-                else if (reader.NodeType.Equals(XmlNodeType.EndElement) && reader.LocalName.Equals("TextureAnimation"))
-                {
-                    texAnim.m_ScaleValues = scales.GetRange(scaleStart, scaleLength);
-                    texAnim.m_RotationValues = rotations.GetRange(rotationStart, rotationLength);
-                    texAnim.m_TranslationXValues = translations.GetRange(translationStart, translationLength);
-                    return texAnim;
-                }
-            }
-
-            return texAnim;
         }
 
         protected virtual void ReadStandardObject(XmlReader reader, Level level)

@@ -580,6 +580,8 @@ namespace SM64DSe
             // zero. The level is then saved with a level format version of "1". Levels whose level 
             // format version is already "1" will not be modified.
 
+            /*
+            now uses .bta files :)
             Level level;
             for (int i = 0; i < NUM_LEVELS; i++)
             {
@@ -587,7 +589,7 @@ namespace SM64DSe
                 level.SaveChangesOld();
 
                 lazyman.ReportProgress((int)(500 + ((99f / 52f) * i)));
-            }
+            }*/
 
             lazyman.ReportProgress(599);
         }

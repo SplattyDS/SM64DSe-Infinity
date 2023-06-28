@@ -408,6 +408,7 @@
     <Compile Include="Templates\PlatformTemplateForm.Designer.cs">
       <DependentUpon>PlatformTemplateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TexAnim.cs" />
     <Compile Include="TextDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -547,10 +548,6 @@
       <DependentUpon>TextEditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TextureAnimationForm.resx">
-      <DependentUpon>TextureAnimationForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ParticleEditorForm.resx">
       <DependentUpon>ParticleEditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -588,25 +585,49 @@
     <Compile Include="TextEditorForm.Designer.cs">
       <DependentUpon>TextEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TextureAnimationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TextureAnimationForm.Designer.cs">
-      <DependentUpon>TextureAnimationForm.cs</DependentUpon>
-    </Compile>
     <None Include="static_overlay_loader.bin" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj_list.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdditionalPatches.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="app.ico" />
+    <Content Include="basic_eur_us_chars.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Documentation\bca_format.txt" />
     <Content Include="Documentation\bmd_format.txt" />
     <Content Include="Documentation\btp_format.txt" />
     <Content Include="Documentation\kcl_format.txt" />
     <Content Include="Documentation\SM64DS Level Format Doc v2.1x.txt" />
     <Content Include="Documentation\SM64DS Text Editing.txt" />
+    <Content Include="extended_ascii.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="jap_chars.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Levels.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="objectdb.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Enemy.cpp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Enemy.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Platform.cpp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Platform.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\collapseButton.png" />
     <None Include="Resources\stepLeft.png" />
     <None Include="Resources\stepRight.png" />

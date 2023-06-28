@@ -143,8 +143,6 @@ namespace SM64DSe.ImportExport.LevelImportExport
 
             WriteLevelObjectsToXML(writer, exportPath, level);
 
-            WriteTextureAnimationDataToXML(writer, level);
-
             writer.WriteEndElement();
             // End LevelData
         }
@@ -494,75 +492,6 @@ namespace SM64DSe.ImportExport.LevelImportExport
             writer.WriteElementString("Y", Helper.ToString(obj.Position.Y));
             writer.WriteElementString("Z", Helper.ToString(obj.Position.Z));
             writer.WriteEndElement();
-        }
-
-        protected virtual void WriteTextureAnimationDataToXML(XmlWriter writer, Level level)
-        {
-            // Start TextureAnimationData
-            writer.WriteStartElement("TextureAnimationData");
-
-            for (int area = 0; area < level.m_NumAreas; area++)
-            {
-                List<LevelTexAnim> texAnims = level.m_TexAnims.Where(ta => ta.m_Area == area).ToList();
-
-                if (texAnims.Count < 1) continue;
-
-                foreach (LevelTexAnim texAnim in texAnims)
-                {
-                    writer.WriteStartElement("TextureAnimationArea");
-                    writer.WriteAttributeString("area", texAnim.m_Area.ToString());
-
-                    writer.WriteElementString("NumberOfFrames", texAnim.m_NumFrames.ToString());
-                    writer.WriteElementString("NumberOfAnimations", texAnim.m_NumDefs.ToString());
-
-                    List<float> scales = texAnim.m_Defs.SelectMany(y => y.m_ScaleValues).ToList();
-                    List<int> scalesInt = texAnim.m_Defs.SelectMany(y => y.m_ScaleValuesInt).ToList();
-                    List<float> rotations = texAnim.m_Defs.SelectMany(y => y.m_RotationValues).ToList();
-                    List<int> rotationsInt = texAnim.m_Defs.SelectMany(y => y.m_RotationValuesInt).ToList();
-                    List<float> translations = texAnim.m_Defs.SelectMany(y => y.m_TranslationXValues).ToList();
-                    List<int> translationsInt = texAnim.m_Defs.SelectMany(y => y.m_TranslationXValuesInt).ToList();
-
-                    writer.WriteStartElement("ScaleTable");
-                    for (int i = 0; i < scalesInt.Count; i++)
-                    {
-                        writer.WriteElementString("UInt", scalesInt[i].ToString());
-                    }
-                    writer.WriteEndElement();
-                    writer.WriteStartElement("RotationTable");
-                    for (int i = 0; i < rotationsInt.Count; i++)
-                    {
-                        writer.WriteElementString("UShort", rotationsInt[i].ToString());
-                    }
-                    writer.WriteEndElement();
-                    writer.WriteStartElement("TranslationTable");
-                    for (int i = 0; i < translationsInt.Count; i++)
-                    {
-                        writer.WriteElementString("UInt", translationsInt[i].ToString());
-                    }
-                    writer.WriteEndElement();
-
-                    foreach (LevelTexAnim.Def def in texAnim.m_Defs)
-                    {
-                        writer.WriteStartElement("TextureAnimation");
-
-                        writer.WriteElementString("MaterialName", def.m_MaterialName);
-                        writer.WriteElementString("ScaleStartIndex", Helper.FindSubList(scales, def.m_ScaleValues).ToString());
-                        writer.WriteElementString("ScaleLength", def.m_NumScaleValues.ToString());
-                        writer.WriteElementString("RotationStartIndex", Helper.FindSubList(rotations, def.m_RotationValues).ToString());
-                        writer.WriteElementString("RotationLength", def.m_NumRotationValues.ToString());
-                        writer.WriteElementString("TranslationStartIndex", Helper.FindSubList(translations, def.m_TranslationXValues).ToString());
-                        writer.WriteElementString("TranslationLength", def.m_NumTranslationXValues.ToString());
-                        writer.WriteElementString("DefaultScaleValue", def.m_DefaultScale.ToString());
-
-                        writer.WriteEndElement();
-                    }
-
-                    writer.WriteEndElement();
-                }
-            }
-
-            writer.WriteEndElement();
-            // End TextureAnimationData
         }
     }
 }

@@ -1230,8 +1230,10 @@ namespace SM64DSe
                 flags |= (uint)(m_Textures[i].m_Tex.m_Colour0Mode != 0 ? 1 : 0) << 16;
 
                 uint texelArrSize = (uint)m_Textures[i].m_Tex.m_RawTextureData.Length;
+                texelArrSize += texelArrSize % 4;
                 uint palOffset = 0x20 + texelArrSize;
                 uint palSize = (uint)m_Textures[i].m_Tex.m_RawPaletteData.Length;
+                palSize += palSize % 4;
                 uint totalSize = palOffset + palSize;
 
                 m_ParticleArchiveFile.Write32(offset, 0x53505420); // "SPT " in ascii

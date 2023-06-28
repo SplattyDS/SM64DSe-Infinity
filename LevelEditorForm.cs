@@ -275,17 +275,14 @@ namespace SM64DSe
         {
             m_LevelModelDLs = new int[m_LevelModel.m_ModelChunks.Length, 3];
 
-            LevelTexAnim texAnim;
-
             for (int c = 0; c < m_LevelModel.m_ModelChunks.Length; c++)
             {
-
                 if ((area > -1) && (c != area))
                     continue;
 
                 m_LevelModelDLs[c, 0] = GL.GenLists(1);                
                 GL.NewList(m_LevelModelDLs[c, 0], ListMode.Compile);
-                LevelTexAnim[] anims = m_Level.m_TexAnims.Where(obj => obj.m_Area == c).ToArray();
+                TexAnim[] anims = m_Level.m_TexAnims.Where(obj => obj.m_Area == c).ToArray();
                 if (anims.Length > 0)
                     m_LevelModel.m_ModelChunks[c].Render(RenderMode.Opaque, 1.0f, m_levelModelDisplayFlags, anims[0], m_texAnimFrame);
                 else {

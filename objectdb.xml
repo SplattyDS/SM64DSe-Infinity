@@ -1522,86 +1522,86 @@ XXXX Path ID to follow</description>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj02/ct_mecha_obj02.bmd" scale="0.008" />
 	</object>
 	<object id="88">
-		<name>TTC Pendulum</name>
-		<internalname>TTC_PENDULUM</internalname>
+		<name>TTC Mecha 03 (Pendulum)</name>
+		<internalname>CT_MECHA03</internalname>
 		<actorid>110</actorid>
 		<description>A large pendulum found in Tick Tock Clock that swings back and forth.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_pendulum.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj03/ct_mecha_obj03.bmd" scale="0.008" />
 	</object>
 	<object id="89">
-		<name>TTC Conveyor Belt (Large)</name>
-		<internalname>TTC_CONVEYOR_BELT_LARGE</internalname>
+		<name>TTC Mecha 04L(LargeConveyorBelt)</name>
+		<internalname>CT_MECHA04L</internalname>
 		<actorid>111</actorid>
 		<description>TODO: Investigate what the additional requirements are
 
 A large conveyor belt found in Tick Tock Clock.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_conveyor_belt.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj04l/ct_mecha_obj04l.bmd" scale="0.008" />
 	</object>
 	<object id="90">
-		<name>TTC Conveyor Belt (Small)</name>
-		<internalname>TTC_CONVEYOR_BELT_SMALL</internalname>
+		<name>TTC Mecha 04S(SmallConveyorBelt)</name>
+		<internalname>CT_MECHA04S</internalname>
 		<actorid>112</actorid>
 		<description>A smaller version of the Large conveyor belt found in Tick Tock Clock.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_conveyor_belt.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj04s/ct_mecha_obj04s.bmd" scale="0.008" />
 	</object>
 	<object id="91">
-		<name>TTC Moving Bar</name>
-		<internalname>TTC_MOVING_BAR</internalname>
+		<name>TTC Mecha 05</name>
+		<internalname>CT_MECHA05</internalname>
 		<actorid>113</actorid>
 		<description>A rectangular box that shoots out and trys to push the player out of its way found in Tick Tock Clock.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_moving_bar.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj05/ct_mecha_obj05.bmd" scale="0.008" />
 	</object>
 	<object id="92">
-		<name>TTC Rotating Gear</name>
-		<internalname>TTC_ROTATING_GEAR</internalname>
+		<name>TTC Mecha 06</name>
+		<internalname>CT_MECHA06</internalname>
 		<actorid>114</actorid>
 		<description>A rotating gear found in Tick Tock Clock.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_rotating_platform.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj06/ct_mecha_obj06.bmd" scale="0.008" />
 	</object>
 	<object id="93">
-		<name>TTC Rotating Triangle</name>
-		<internalname>TTC_ROTATING_TRIANGLE</internalname>
+		<name>TTC Mecha 07 (Unused)</name>
+		<internalname>CT_MECHA07</internalname>
 		<actorid>115</actorid>
-		<description>Unused rotating triangular platform from Tick Tock clock. Shaped like a segment of a hexagon, rotates about Y (up) axis and has a raised bump at the centre (inner point of triangle). Uses the same shadow as TTC Rotating Gear.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_rotating_platform.dylb</dlreq>
+		<description>Unused rotating triangular platform from Tick Tock clock. Shaped like a segment of a hexagon, rotates about Y (up) axis and has a raised bump at the centre (inner point of triangle). Uses the same shadow as CT_MECHA06.</description>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj07/ct_mecha_obj07.bmd" scale="0.008" />
 	</object>
 	<object id="94">
-		<name>TTC Moving Cube A</name>
-		<internalname>TTC_MOVING_CUBE_A</internalname>
+		<name>TTT Mecha 08A (Unused)</name>
+		<internalname>CT_MECHA08A</internalname>
 		<actorid>116</actorid>
 		<description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. No shadow. Shares same behaviour as CT_MECHA08B.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_moving_cube.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj08a/ct_mecha_obj08a.bmd" scale="0.008" />
 	</object>
 	<object id="95">
-		<name>TTC Moving Cube B</name>
-		<internalname>TTC_MOVING_CUBE_B</internalname>
+		<name>TTC Mecha 08B (Unused)</name>
+		<internalname>CT_MECHA08B</internalname>
 		<actorid>117</actorid>
 		<description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. Shares same behaviour as CT_MECHA08A.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_moving_cube.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj08b/ct_mecha_obj08b.bmd" scale="0.008" />
 	</object>
 	<object id="96">
-		<name>TTC Moving Beam</name>
-		<internalname>TTC_MOVING_BEAM</internalname>
+		<name>TTC Mecha 09</name>
+		<internalname>CT_MECHA09</internalname>
 		<actorid>118</actorid>
 		<description>A yellow, rectangular platform that moves up and down found in Tick Tock Clock.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/ttc_moving_beam.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ct_mecha_obj09/ct_mecha_obj09.bmd" scale="0.008" />
 	</object>
 	<object id="97">
@@ -2208,7 +2208,7 @@ Parameter 1: Star ID</description>
 	</object>
 	<object id="153">
 		<name>Amp</name>
-		<internalname>AMP</internalname>
+		<internalname>BIRIKYU</internalname>
 		<actorid>266</actorid>
 		<description>Black, electric ball that moves around in a circle. When touched, the player will be electricuted and stunned for a second. Metal Wario will not take damage, and Invisible Luigi can walk through them.
 
@@ -2290,7 +2290,7 @@ Param 1: Star ID</description>
 	</object>
 	<object id="161">
 		<name>Flame Chomp</name>
-		<internalname>FLAME_CHOMP</internalname>
+		<internalname>KERONPA</internalname>
 		<actorid>270</actorid>
 		<description>A.K.A:
 * Kuromame
@@ -2302,7 +2302,7 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<renderer type="NormalBMD" file="data/enemy/keronpa/keronpa.bmd" scale="0.008" />
 	</object>
 	<object id="162">
-		<name>Snowman</name>
+		<name>Giant Snowman</name>
 		<internalname>BIG_SNOWMAN</internalname>
 		<actorid>272</actorid>
 		<description />
@@ -2567,7 +2567,7 @@ Does nothing if placed alone. For it to act as an entrance or an exit, the corre
 	</object>
 	<object id="189">
 		<name>Fly Guy</name>
-		<internalname>FLY_GUY</internalname>
+		<internalname>PROPELLER_HEYHO</internalname>
 		<actorid>232</actorid>
 		<description>Flying Shy Guy that swoops down to attack the player.
 
@@ -2970,12 +2970,16 @@ P - Path ID</description>
 		<renderer type="NormalBMD" file="data/special_obj/sm_lift/sm_lift.bmd" scale="0.008" />
 	</object>
 	<object id="230">
-		<name>Bullet</name>
-		<internalname>BULLET</internalname>
+		<name>Fly Guy - Fire</name>
+		<internalname>PROPELLER_HEYHO_FIRE</internalname>
 		<actorid>233</actorid>
-		<description>Bullet shot by Snufits.</description>
+		<description>Fireball shot by Fly Guys with Parameter 1 set to 1.
+
+==Misc. Info==
+===VS Mode Practice Behaviours==
+* On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/snufit.dylb</dlreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="231">
@@ -3195,11 +3199,11 @@ Z - Path ID</description>
 	</object>
 	<object id="247">
 		<name>Snufit</name>
-		<internalname>SNUFIT</internalname>
+		<internalname>YUREI_MUCHO</internalname>
 		<actorid>236</actorid>
 		<description>A type of Shy Guy that shoots bullets out of its mouth.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/snufit.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/yurei_mucho/yurei_mucho.bmd" scale="0.008" />
 	</object>
 	<object id="248">
@@ -3235,12 +3239,12 @@ Z: How it should behave
 		<renderer type="NormalBMD" file="data/enemy/choropu/rock.bmd" scale="0.008" />
 	</object>
 	<object id="250">
-		<name>Swoop</name>
-		<internalname>SWOOP</internalname>
+		<name>Swooper</name>
+		<internalname>BASABASA</internalname>
 		<actorid>237</actorid>
 		<description>Bats in Hazy Maze Cave. They swoop down and try to hurt the player.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/swoop.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/basabasa/basabasa.bmd" scale="0.008" />
 	</object>
 	<object id="251">
@@ -3353,7 +3357,7 @@ Z: Misc?
 	</object>
 	<object id="257">
 		<name>Dorrie</name>
-		<internalname>DORRIE</internalname>
+		<internalname>DOSSY</internalname>
 		<actorid>168</actorid>
 		<description>A dinosaur in the Underground Lake of Hazy Maze Cave. It swims around, and can be "piloted" like a boat.
 
@@ -3364,19 +3368,17 @@ YY:
 00 - Nothing
 01 - Wears big Wario cap (Used)
 Above - Same as 00? (Used as FF)</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/dorrie.dylb</dlreq>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/dossy/dossy.bmd" scale="0.008" />
 	</object>
 	<object id="258">
-		<name>Dorrie Cap</name>
-		<internalname>DORRIE_CAP</internalname>
+		<name>Dorrie's Wario Cap</name>
+		<internalname>DOSSY_CAP</internalname>
 		<actorid>169</actorid>
-		<description>Note: this object has been deleted.
-
-Most likely the Wario Cap that Dorrie wears, considering this object is named DOSSY_CAP, and Dorrie is DOSSY.</description>
-		<bankreq>none</bankreq>
-		<dlreq>OBJ_DELETED</dlreq>
+		<description>Most likely the Wario Cap that Dorrie wears, considering this object is named DOSSY_CAP, and Dorrie is DOSSY.</description>
+		<bankreq>0=4</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="259">
@@ -4185,8 +4187,8 @@ FFXX Seems to always be FF14</description>
 		<renderer type="ColorCube" border="0000ff" fill="000040" />
 	</object>
 	<object id="322">
-		<name>Mirror Luigi</name>
-		<internalname>MIRROR_LUIGI</internalname>
+		<name />
+		<internalname>LUIGI</internalname>
 		<actorid>195</actorid>
 		<description />
 		<bankreq>7=48</bankreq>
@@ -4583,8 +4585,8 @@ F - Same as 3?
 		<renderer type="ColorCube" border="ffffff" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Flame Chomp Fire</name>
-		<internalname>FLAME_CHOMP_FIRE</internalname>
+		<name>Flame Chomp Fireball</name>
+		<internalname>FLAME_CHOMP_FIREBALL</internalname>
 		<actorid>271</actorid>
 		<description>Projectile</description>
 		<bankreq>none</bankreq>
@@ -4619,10 +4621,10 @@ F - Same as 3?
 		<renderer type="ColorCube" border="ffffff" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Fireball</name>
-		<internalname>FIREBALL</internalname>
+		<name>Piranha Plant Fireball</name>
+		<internalname>PIRANHA_PLANT_FIREBALL</internalname>
 		<actorid>254</actorid>
-		<description>Projectile shot by Fire Piranha Plant and Fly Guy.</description>
+		<description>Projectile</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="ffffff" fill="404040" />

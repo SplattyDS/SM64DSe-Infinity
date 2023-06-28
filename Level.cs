@@ -36,7 +36,8 @@ namespace SM64DSe
         public LevelSettings m_LevelSettings;
         public int m_NumAreas;
         public Dictionary<uint, LevelObject> m_LevelObjects;
-        public List<LevelTexAnim> m_TexAnims;
+        public List<TexAnim> m_TexAnims;
+        public List<ushort> m_TexAnimFileIDs;
         public List<ushort> m_DynLibIDs;
         public SPLC m_SPLC;
 
@@ -70,12 +71,28 @@ namespace SM64DSe
             // read object lists
 
             m_NumAreas = m_Overlay.Read8(0x74);
-            uint objlistptr = m_Overlay.ReadPointer(0x70);
+            uint areasPtr = m_Overlay.ReadPointer(0x70);
 
             m_LevelObjects = new Dictionary<uint, LevelObject>();
-            m_TexAnims = new List<LevelTexAnim>(8);
-            for (int i = 0; i < 8; ++i)
-                m_TexAnims.Add(new LevelTexAnim(m_Overlay, i, m_NumAreas, m_LevelSettings.LevelFormatVersion));
+            m_TexAnims = new List<TexAnim>(8);
+            m_TexAnimFileIDs = new List<ushort>(8);
+
+            for (uint i = 0; i < 8; i++)
+            {
+                if (i < m_NumAreas)
+				{
+                    uint fileID = m_Overlay.Read32(areasPtr + 4 + (i * 12));
+                    bool isValid = fileID < 0xffff && fileID != 0;
+
+                    m_TexAnimFileIDs.Add((ushort)(isValid ? fileID : 0xffff));
+                    NitroFile btaFile = isValid ? Program.m_ROM.GetFileFromInternalID((ushort)fileID) : null;
+                    m_TexAnims.Add(new TexAnim(btaFile, (int)i));
+                }
+                else
+				{
+                    m_TexAnims.Add(new TexAnim(null, (int)i));
+                }
+            }
 
             m_DynLibIDs = new List<ushort>();
             if (DoesLevelUseDynamicLibs())
@@ -92,7 +109,7 @@ namespace SM64DSe
             for (byte a = 0; a < m_NumAreas; a++)
             {
                 // read object tables
-                uint addr = (uint)(objlistptr + (a * 12));
+                uint addr = (uint)(areasPtr + (a * 12));
                 if (m_Overlay.Read32(addr) != 0)
                 {
                     ReadObjectTable(m_Overlay, m_Overlay.ReadPointer(addr), a);
@@ -668,7 +685,7 @@ namespace SM64DSe
             SaveSPLC(binWriter);
             SaveMiscObjs(binWriter);
             SaveRegularObjs(binWriter, out areaTableOffset);
-            LevelTexAnim.SaveAll(binWriter, m_TexAnims, areaTableOffset, (uint)m_NumAreas);
+
             if (DoesLevelSupportDynamicLibs())
             {
                 while (stream.Position % 2 != 0) {
@@ -684,6 +701,15 @@ namespace SM64DSe
             Array.Resize(ref m_Overlay.m_Data, (int)stream.Length);
             stream.Position = 0;
             new BinaryReader(stream).Read(m_Overlay.m_Data, 0, (int)stream.Length);
+
+            uint areaPtr = m_Overlay.ReadPointer(0x70);
+
+            for (int i = 0; i < m_NumAreas; i++)
+			{
+                m_Overlay.Write32(areaPtr + 0x4, m_TexAnimFileIDs[i]);
+                areaPtr += 12;
+			}
+
             m_Overlay.SaveChanges();
         }
 
@@ -710,7 +736,7 @@ namespace SM64DSe
             SaveSPLC(binWriter);
             SaveMiscObjs(binWriter);
             SaveRegularObjs(binWriter, out areaTableOffset);
-            LevelTexAnim.SaveAll(binWriter, m_TexAnims, areaTableOffset, (uint)m_NumAreas);
+
             if (DoesLevelSupportDynamicLibs()) {
                 while (stream.Position % 2 != 0) {
                     binWriter.Write((byte)0);
@@ -890,7 +916,6 @@ namespace SM64DSe
         public byte LevelFormatVersion;
         public byte OverlayInitialiserVersion;
         public byte ActSelectorID;// NOT stored in the overlay - not possible
-        public ushort[] DynLibIDs;
     }
 
     public class SPLC : IEnumerable<SPLC.Entry>

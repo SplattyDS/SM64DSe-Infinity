@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--SM64DS Editor Infinity-->
+<Levels>
+	<Level>
+		<Name>General Purpose Test Map</Name>
+		<ShortName>GENERAL_PURPOSE_TEST_MAP</ShortName>
+	</Level>
+	<Level>
+		<Name>Castle Grounds</Name>
+		<ShortName>CASTLE_GROUNDS</ShortName>
+	</Level>
+	<Level>
+		<Name>Castle Floor 1</Name>
+		<ShortName>CASTLE_FLOOR_1</ShortName>
+	</Level>
+	<Level>
+		<Name>Castle Courtyard</Name>
+		<ShortName>CASTLE_COURTYARD</ShortName>
+	</Level>
+	<Level>
+		<Name>Castle Basement</Name>
+		<ShortName>CASTLE_BASEMENT</ShortName>
+	</Level>
+	<Level>
+		<Name>Castle Floor 2</Name>
+		<ShortName>CASTLE_FLOOR_2</ShortName>
+	</Level>
+	<Level>
+		<Name>Bob-omb Battlefield</Name>
+		<ShortName>BOB_OMB_BATTLEFIELD</ShortName>
+	</Level>
+	<Level>
+		<Name>Whomp's Fortress</Name>
+		<ShortName>WHOMPS_FORTRESS</ShortName>
+	</Level>
+	<Level>
+		<Name>Jolly Roger Bay</Name>
+		<ShortName>JOLLY_ROGER_BAY</ShortName>
+	</Level>
+	<Level>
+		<Name>Jolly Roger Bay - Ship</Name>
+		<ShortName>JOLLY_ROGER_BAY_SHIP</ShortName>
+	</Level>
+	<Level>
+		<Name>Cool, Cool Mountain</Name>
+		<ShortName>COOL_COOL_MOUNTAIN</ShortName>
+	</Level>
+	<Level>
+		<Name>Cool, Cool Mountain - Slide</Name>
+		<ShortName>COOL_COOL_MOUNTAIN_SLIDE</ShortName>
+	</Level>
+	<Level>
+		<Name>Big Boo's Haunt</Name>
+		<ShortName>BIG_BOOS_HAUNT</ShortName>
+	</Level>
+	<Level>
+		<Name>Hazy Maze Cave</Name>
+		<ShortName>HAZY_MAZE_CAVE</ShortName>
+	</Level>
+	<Level>
+		<Name>Lethal Lava Land</Name>
+		<ShortName>LETHAL_LAVA_LAND</ShortName>
+	</Level>
+	<Level>
+		<Name>Lethal Lava Land - Volcano</Name>
+		<ShortName>LETHAL_LAVA_LAND_VOLCANO</ShortName>
+	</Level>
+	<Level>
+		<Name>Shifting Sand Land</Name>
+		<ShortName>SHIFTING_SAND_LAND</ShortName>
+	</Level>
+	<Level>
+		<Name>Shifting Sand Land - Pyramid</Name>
+		<ShortName>SHIFTING_SAND_LAND_PYRAMID</ShortName>
+	</Level>
+	<Level>
+		<Name>Dire, Dire Docks</Name>
+		<ShortName>DIRE_DIRE_DOCKS</ShortName>
+	</Level>
+	<Level>
+		<Name>Snowman's Land</Name>
+		<ShortName>SNOWMANS_LAND</ShortName>
+	</Level>
+	<Level>
+		<Name>Snowman's Land - Igloo</Name>
+		<ShortName>SNOWMANS_LAND_IGLOO</ShortName>
+	</Level>
+	<Level>
+		<Name>Wet-Dry World</Name>
+		<ShortName>WET_DRY_WORLD</ShortName>
+	</Level>
+	<Level>
+		<Name>Tall, Tall Mountain</Name>
+		<ShortName>TALL_TALL_MOUNTAIN</ShortName>
+	</Level>
+	<Level>
+		<Name>Tall, Tall Mountain - Slide</Name>
+		<ShortName>TALL_TALL_MOUNTAIN_SLIDE</ShortName>
+	</Level>
+	<Level>
+		<Name>Tiny-Huge Island - Huge</Name>
+		<ShortName>TINY_HUGE_ISLAND_HUGE</ShortName>
+	</Level>
+	<Level>
+		<Name>Tiny-Huge Island - Tiny</Name>
+		<ShortName>TINY_HUGE_ISLAND_TINY</ShortName>
+	</Level>
+	<Level>
+		<Name>Tiny-Huge Island - Cave</Name>
+		<ShortName>TINY_HUGE_ISLAND_CAVE</ShortName>
+	</Level>
+	<Level>
+		<Name>Tick Tock Clock</Name>
+		<ShortName>TICK_TOCK_CLOCK</ShortName>
+	</Level>
+	<Level>
+		<Name>Rainbow Ride</Name>
+		<ShortName>RAINBOW_RIDE</ShortName>
+	</Level>
+	<Level>
+		<Name>The Princess' Secret Slide</Name>
+		<ShortName>THE_PRINCESS_SECRET_SLIDE</ShortName>
+	</Level>
+	<Level>
+		<Name>The Secret Aquarium</Name>
+		<ShortName>THE_SECRET_AQUARIUM</ShortName>
+	</Level>
+	<Level>
+		<Name>? Switch</Name>
+		<ShortName>QUESTION_MARK_SWITCH</ShortName>
+	</Level>
+	<Level>
+		<Name>The Secret Under the Moat</Name>
+		<ShortName>THE_SECRET_UNDER_THE_MOAT</ShortName>
+	</Level>
+	<Level>
+		<Name>Behind the Waterfall</Name>
+		<ShortName>BEHIND_THE_WATERFALL</ShortName>
+	</Level>
+	<Level>
+		<Name>Over the Rainbows</Name>
+		<ShortName>OVER_THE_RAINBOWS</ShortName>
+	</Level>
+	<Level>
+		<Name>Bowser in the Dark World</Name>
+		<ShortName>BOWSER_IN_THE_DARK_WORLD</ShortName>
+	</Level>
+	<Level>
+		<Name>Bowser in the Dark World - Arena</Name>
+		<ShortName>BOWSER_IN_THE_DARK_WORLD_ARENA</ShortName>
+	</Level>
+	<Level>
+		<Name>Bowser in the Fire Sea</Name>
+		<ShortName>BOWSER_IN_THE_FIRE_SEA</ShortName>
+	</Level>
+	<Level>
+		<Name>Bowser in the Fire Sea - Arena</Name>
+		<ShortName>BOWSER_IN_THE_FIRE_SEA_ARENA</ShortName>
+	</Level>
+	<Level>
+		<Name>Bowser in the Sky</Name>
+		<ShortName>BOWSER_IN_THE_SKY</ShortName>
+	</Level>
+	<Level>
+		<Name>Bowser in the Sky - Arena</Name>
+		<ShortName>BOWSER_IN_THE_SKY_ARENA</ShortName>
+	</Level>
+	<Level>
+		<Name>Tox Box Test Map</Name>
+		<ShortName>TOX_BOX_TEST_MAP</ShortName>
+	</Level>
+	<Level>
+		<Name>The Secret of Battle Fort</Name>
+		<ShortName>THE_SECRET_OF_BATTLE_FORT</ShortName>
+	</Level>
+	<Level>
+		<Name>Sunshine Isles</Name>
+		<ShortName>SUNSHINE_ISLES</ShortName>
+	</Level>
+	<Level>
+		<Name>Goomboss Battle</Name>
+		<ShortName>GOOMBOSS_BATTLE</ShortName>
+	</Level>
+	<Level>
+		<Name>Goomboss Battle - Arena</Name>
+		<ShortName>GOOMBOSS_BATTLE_ARENA</ShortName>
+	</Level>
+	<Level>
+		<Name>Big Boo Battle</Name>
+		<ShortName>BIG_BOO_BATTLE</ShortName>
+	</Level>
+	<Level>
+		<Name>Big Boo Battle - Arena</Name>
+		<ShortName>BIG_BOO_BATTLE_ARENA</ShortName>
+	</Level>
+	<Level>
+		<Name>Chief Chilly Challenge</Name>
+		<ShortName>CHIEF_CHILLY_CHALLENGE</ShortName>
+	</Level>
+	<Level>
+		<Name>Chief Chilly Challenge - Arena</Name>
+		<ShortName>CHIEF_CHILLY_CHALLENGE_ARENA</ShortName>
+	</Level>
+	<Level>
+		<Name>Castle Rec Room</Name>
+		<ShortName>CASTLE_REC_ROOM</ShortName>
+	</Level>
+	<Level>
+		<Name>Castle Grounds (Multiplayer)</Name>
+		<ShortName>CASTLE_GROUNDS_MULTIPLAYER</ShortName>
+	</Level>
+</Levels>
