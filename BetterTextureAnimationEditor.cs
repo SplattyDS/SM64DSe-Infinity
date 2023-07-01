@@ -379,7 +379,18 @@ namespace SM64DSe.SM64DSFormats
                                 if (entry.m_MaterialName == matGroup.m_Name)
                                     hasAnimation = true;
                             }
-                            TreeNode matGroupNode = chunkNode.Nodes.Add(matGroup.m_Name, matGroup.m_Name + (hasAnimation ? "[ANIMATED]" : ""));
+
+                            bool alreadyAdded = false;
+                            foreach (TreeNode node in chunkNode.Nodes)
+							{
+                                if (node.Text == matGroup.m_Name || node.Text == matGroup.m_Name + " [ANIMATED]")
+                                    alreadyAdded = true;
+							}
+
+                            if (alreadyAdded)
+                                continue;
+
+                            TreeNode matGroupNode = chunkNode.Nodes.Add(matGroup.m_Name, matGroup.m_Name + (hasAnimation ? " [ANIMATED]" : ""));
                             matGroupNode.Tag = i2;
                         }
                         i2++;
@@ -794,7 +805,7 @@ namespace SM64DSe.SM64DSFormats
 
             foreach (TexAnim.Def entry in m_animations[m_animId].m_Defs)
             {
-                if (entry.m_MaterialName == materialName)
+                if (entry.m_MaterialName == materialName && m_unsavedEntries[area].ContainsKey(materialName))
                 {
                     if (m_unsavedEntries[area][materialName] != null)
                         if (m_unsavedEntries[area][materialName].m_RotationValues.Count > 0)
@@ -805,13 +816,6 @@ namespace SM64DSe.SM64DSFormats
                 {
                     newEntries.Add(entry);
                 }
-            }
-            if (m_unsavedEntries[area].ContainsKey(materialName))
-            {
-                if (m_unsavedEntries[area][materialName] != null)
-                    if (m_unsavedEntries[area][materialName].m_RotationValues.Count > 0)
-                        newEntries.Add(OptimizeEntry(m_unsavedEntries[area][materialName]));
-                m_unsavedEntries[area].Remove(materialName);
             }
 
             if (m_parent != null)
