@@ -2215,9 +2215,9 @@ Parameter 1: Star ID</description>
 Parameter 1:
 
 (Diameter of Amp's path) * 10</description>
-		<bankreq>1=2</bankreq>
-		<dlreq>none</dlreq>
-		<renderer type="DoubleBMD" file1="data/enemy/birikyu/birikyu.bmd" file2="data/enemy/birikyu/birikyu_elec.bmd" scale="0.008" />
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/amp.dylb</dlreq>
+		<renderer type="DoubleBMD" file1="data/enemy/birikyu/birikyu.bmd" file2="data/enemy/birikyu/birikyu_elec.bmd" scale="0.008" offset1="0,0,0" offset2="0,0,0" />
 	</object>
 	<object id="154">
 		<name>Ukiki Cage</name>
@@ -2297,8 +2297,8 @@ Param 1: Star ID</description>
 * Fire Chomp
 
 When it sees a player, it constantly looks at them. Occasionally, it will puff up twice as large, then it will spew a fireball that follows the player.</description>
-		<bankreq>1=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/flame_chomp.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/keronpa/keronpa.bmd" scale="0.008" />
 	</object>
 	<object id="162">
@@ -2490,7 +2490,7 @@ MM - See ! Switch parameter info</description>
 		<description>Pillar of rock that falls over on Player from JRB.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/rock_pillar.dylb</dlreq>
-		<renderer type="DoubleBMD" file1="data/special_obj/ki_hasira/ki_hasira_dai.bmd" file2="data/special_obj/ki_hasira/ki_hasira.bmd" scale="0.008" offset1="-" offset2="0,12.5,0" />
+		<renderer type="DoubleBMD" file1="data/special_obj/ki_hasira/ki_hasira_dai.bmd" file2="data/special_obj/ki_hasira/ki_hasira.bmd" scale="0.008" offset1="0,0,0" offset2="0,12.5,0" />
 	</object>
 	<object id="182">
 		<name>Rock Triangle</name>
@@ -2574,8 +2574,8 @@ Does nothing if placed alone. For it to act as an entrance or an exit, the corre
 Parameter 1:
 0 - Normal
 1 - Spits fire in addition to swooping at you</description>
-		<bankreq>1=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fly_guy.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/propeller_heyho/propeller_heyho.bmd" scale="0.008" />
 	</object>
 	<object id="190">
@@ -2585,7 +2585,7 @@ Parameter 1:
 		<description>When launched from a Bullet Bill Box (KILLER_DAI) home in on a player and follow them. It can be defeated with a well-timed attack.</description>
 		<bankreq>2=3</bankreq>
 		<dlreq>none</dlreq>
-		<renderer type="DoubleBMD" file1="data/enemy/killer/killer_body.bmd" file2="data/enemy/killer/killer_face.bmd" scale="0.008" />
+		<renderer type="DoubleBMD" file1="data/enemy/killer/killer_body.bmd" file2="data/enemy/killer/killer_face.bmd" scale="0.008" offset1="0,0,0" offset2="0,0,0" />
 	</object>
 	<object id="191">
 		<name>Orange Ball Billboard</name>
@@ -3992,7 +3992,7 @@ M - Match this with the M of the Blue Coins you want to trigger. Using the same 
 	</object>
 	<object id="306">
 		<name>Red Coin number</name>
-		<internalname>OBJ_NUMBER</internalname>
+		<internalname>RED_COIN_NUMBER</internalname>
 		<actorid>330</actorid>
 		<description>Shows a number that quickly disappears, just like the numbers that appear when collecting red coins.
 
@@ -4588,7 +4588,7 @@ F - Same as 3?
 		<actorid>271</actorid>
 		<description>Projectile</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/flame_chomp.dylb</dlreq>
 		<renderer type="ColorCube" border="ffffff" fill="404040" />
 	</object>
 	<object id="-1">

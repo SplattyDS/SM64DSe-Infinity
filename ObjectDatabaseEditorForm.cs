@@ -13,13 +13,151 @@ using SM64DSe.ImportExport;
 using SM64DSe.ImportExport.Loaders.InternalLoaders;
 using System.Xml;
 using System.IO;
+using System.Numerics;
+using System.Globalization;
 
 namespace SM64DSe
 {
     public partial class ObjectDatabaseEdtiorForm : Form
     {
-        class ObjectInfo
+        public class ObjectInfo
         {
+            public class Renderer
+			{
+                public string type;
+
+                public Renderer(string type = null)
+                {
+                    this.type = type;
+                }
+            }
+
+            public class NormalBMD_Renderer : Renderer
+            {
+                public string fileName = "data/normal_obj/b_coin_switch/b_coin_switch.bmd";
+                public float scale = 0.008f;
+
+                public NormalBMD_Renderer() { this.type = "NormalBMD"; }
+
+                public NormalBMD_Renderer(string fileName, float scale)
+				{
+                    this.type = "NormalBMD";
+                    this.fileName = fileName;
+                    this.scale = scale;
+				}
+            }
+
+            public class NormalKCL_Renderer : Renderer
+            {
+                public string fileName = "data/normal_obj/b_coin_switch/b_coin_switch.kcl";
+                public float scale = 1.0f;
+
+                public NormalKCL_Renderer() { this.type = "NormalKCL"; }
+
+                public NormalKCL_Renderer(string fileName, float scale)
+                {
+                    this.type = "NormalKCL";
+                    this.fileName = fileName;
+                    this.scale = scale;
+                }
+            }
+
+            public class DoubleBMD_Renderer : Renderer
+            {
+                public string fileName1 = "data/enemy/killer/killer_body.bmd";
+                public string fileName2 = "data/enemy/killer/killer_face.bmd";
+                public float scale = 0.008f;
+                public Vector3 offset1 = new Vector3(0);
+                public Vector3 offset2 = new Vector3(0);
+
+                public DoubleBMD_Renderer() { this.type = "DoubleBMD"; }
+
+                public DoubleBMD_Renderer(string fileName1, string fileName2, float scale, Vector3 offset1, Vector3 offset2)
+                {
+                    this.type = "DoubleBMD";
+                    this.fileName1 = fileName1;
+                    this.fileName2 = fileName2;
+                    this.scale = scale;
+                    this.offset1 = offset1;
+                    this.offset2 = offset2;
+                }
+            }
+
+            public class Kurumajiku_Renderer : Renderer
+            {
+                public string fileName1 = "data/special_obj/km1_kuruma/km1_kuruma.bmd";
+                public string fileName2 = "data/special_obj/km1_kuruma/km1_kurumajiku.bmd";
+                public float scale = 1f;
+
+                public Kurumajiku_Renderer() { this.type = "Kurumajiku"; }
+
+                public Kurumajiku_Renderer(string fileName1, string fileName2, float scale)
+                {
+                    this.type = "Kurumajiku";
+                    this.fileName1 = fileName1;
+                    this.fileName2 = fileName2;
+                    this.scale = scale;
+                }
+            }
+
+            public class Pole_Renderer : Renderer
+            {
+                public Color border = Color.FromArgb(0x00, 0x00, 0xff);
+                public Color fill = Color.FromArgb(0x00, 0x00, 0x40);
+
+                public Pole_Renderer() { this.type = "Pole"; }
+
+                public Pole_Renderer(Color border, Color fill)
+                {
+                    this.type = "Pole";
+                    this.border = border;
+                    this.fill = fill;
+                }
+            }
+
+            public class ColorCube_Renderer : Renderer
+            {
+                public Color border = Color.FromArgb(0x00, 0x00, 0xff);
+                public Color fill = Color.FromArgb(0x00, 0x00, 0x40);
+
+                public ColorCube_Renderer() { this.type = "ColorCube"; }
+
+                public ColorCube_Renderer(Color border, Color fill)
+                {
+                    this.type = "ColorCube";
+                    this.border = border;
+                    this.fill = fill;
+                }
+            }
+
+            public class Player_Renderer : Renderer
+            {
+                public float scale = 0.008f;
+                public string animation = "wait.bca";
+
+                public Player_Renderer() { this.type = "Player"; }
+
+                public Player_Renderer(float scale, string animation)
+                {
+                    this.type = "Player";
+                    this.scale = scale;
+                    this.animation = animation;
+                }
+            }
+
+            public class Luigi_Renderer : Renderer
+            {
+                public float scale = 0.008f;
+
+                public Luigi_Renderer() { this.type = "Luigi"; }
+
+                public Luigi_Renderer(float scale)
+                {
+                    this.type = "Luigi";
+                    this.scale = scale;
+                }
+            }
+
             public int objectID;
             public string name;
             public string internalName;
@@ -27,7 +165,7 @@ namespace SM64DSe
             public string description;
             public string bankReq;
             public string dlReq;
-            public string renderer; // + params
+            public Renderer renderer; // + params
 
             public static bool displayObjectID = true;
             public static bool displayInternalName = false;
@@ -50,6 +188,49 @@ namespace SM64DSe
         private string m_OriginalLabelText;
         private string m_OriginalButtonText;
         private bool m_ImportingMultiple;
+
+        private string m_FileFilter1 = "";
+        private string m_FileFilter2 = "";
+        private string m_StartFolder1 = "";
+        private string m_StartFolder2 = "";
+        private bool m_OnlyPlayerAnimFiles = false;
+
+        private float FloatFromString(string s)
+		{
+            return float.Parse(s, CultureInfo.InvariantCulture);
+		}
+
+        private Vector3 VecFromString(string s)
+        {
+            string[] vals = s.Split(',');
+
+            float x = float.Parse(vals[0], CultureInfo.InvariantCulture);
+            float y = float.Parse(vals[1], CultureInfo.InvariantCulture);
+            float z = float.Parse(vals[2], CultureInfo.InvariantCulture);
+
+            return new Vector3(x, y, z);
+        }
+
+        private Color ColorFromString(string s)
+        {
+            uint rgb = uint.Parse(s, NumberStyles.HexNumber) | 0xff000000;
+            return Color.FromArgb((int)rgb);
+        }
+
+        private string FloatToString(float f)
+        {
+            return f.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private string VecToString(Vector3 v)
+        {
+            return FloatToString(v.X) + "," + FloatToString(v.Y) + "," + FloatToString(v.Z);
+        }
+
+        private string ColorToString(Color c)
+        {
+            return (c.ToArgb() & 0xffffff).ToString("X6");
+        }
 
         private void LoadObjectInfos(string path = null)
         {
@@ -96,33 +277,69 @@ namespace SM64DSe
 
                             reader.ReadToNextSibling("renderer");
                             string type = reader.GetAttribute("type");
-                            string renderer = type + "";
-                            
+
+                            ObjectInfo.Renderer renderer;
+
                             switch (type)
                             {
                                 case "NormalBMD":
+                                    string file = reader.GetAttribute("file");
+                                    float scale = FloatFromString(reader.GetAttribute("scale"));
+
+                                    renderer = new ObjectInfo.NormalBMD_Renderer(file, scale);
+                                    break;
+
                                 case "NormalKCL":
-                                    renderer += ' ' + reader.GetAttribute("file") + ' ' + reader.GetAttribute("scale");
+                                    file = reader.GetAttribute("file");
+                                    scale = FloatFromString(reader.GetAttribute("scale"));
+
+                                    renderer = new ObjectInfo.NormalKCL_Renderer(file, scale);
                                     break;
+
                                 case "DoubleBMD":
-                                    renderer += ' ' + reader.GetAttribute("file1") + ' ' + reader.GetAttribute("file2") + ' ' + reader.GetAttribute("scale");
-                                    string offset1 = reader.GetAttribute("offset1");
-                                    if (!string.IsNullOrEmpty(offset1))
-                                        renderer += ' ' + offset1 + ' ' + reader.GetAttribute("offset2");
+                                    string file1 = reader.GetAttribute("file1");
+                                    string file2 = reader.GetAttribute("file2");
+                                    scale = FloatFromString(reader.GetAttribute("scale"));
+                                    Vector3 offset1 = VecFromString(reader.GetAttribute("offset1"));
+                                    Vector3 offset2 = VecFromString(reader.GetAttribute("offset2"));
+
+                                    renderer = new ObjectInfo.DoubleBMD_Renderer(file1, file2, scale, offset1, offset2);
                                     break;
+
                                 case "Kurumajiku":
-                                    renderer += ' ' + reader.GetAttribute("file1") + ' ' + reader.GetAttribute("file2") + ' ' + reader.GetAttribute("scale");
+                                    file1 = reader.GetAttribute("file1");
+                                    file2 = reader.GetAttribute("file2");
+                                    scale = FloatFromString(reader.GetAttribute("scale"));
+
+                                    renderer = new ObjectInfo.Kurumajiku_Renderer(file1, file2, scale);
                                     break;
+
                                 case "Pole":
+                                    Color border = ColorFromString(reader.GetAttribute("border"));
+                                    Color fill = ColorFromString(reader.GetAttribute("fill"));
+
+                                    renderer = new ObjectInfo.Pole_Renderer(border, fill);
+                                    break;
+
                                 case "ColorCube":
-                                    renderer += ' ' + reader.GetAttribute("border") + ' ' + reader.GetAttribute("fill");
+                                    border = ColorFromString(reader.GetAttribute("border"));
+                                    fill = ColorFromString(reader.GetAttribute("fill"));
+
+                                    renderer = new ObjectInfo.ColorCube_Renderer(border, fill);
                                     break;
+
                                 case "Player":
-                                    renderer += ' ' + reader.GetAttribute("scale") + ' ' + reader.GetAttribute("animation");
+                                    scale = FloatFromString(reader.GetAttribute("scale"));
+                                    string animation = reader.GetAttribute("animation");
+
+                                    renderer = new ObjectInfo.Player_Renderer(scale, animation);
                                     break;
+
                                 case "Luigi":
-                                    renderer += ' ' + reader.GetAttribute("scale");
+                                    scale = FloatFromString(reader.GetAttribute("scale"));
+                                    renderer = new ObjectInfo.Luigi_Renderer(scale);
                                     break;
+
                                 case "ChainedChomp":
                                 case "Goomboss":
                                 case "Tree":
@@ -142,10 +359,11 @@ namespace SM64DSe
                                 case "Koopa":
                                 case "KoopaShell":
                                     // no params
+                                    renderer = new ObjectInfo.Renderer(type);
                                     break;
+
                                 default:
-                                    MessageBox.Show("Unknown renderer for '" + info.name + "' (id = " + info.objectID + ").");
-                                    break;
+                                    throw new Exception("Unknown renderer for '" + info.name + "' (id = " + info.objectID + ").");
                             }
 
                             info.renderer = renderer;
@@ -190,45 +408,77 @@ namespace SM64DSe
                     writer.WriteElementString("bankreq", info.bankReq);
                     writer.WriteElementString("dlreq", info.dlReq);
 
-                    string[] renderer = info.renderer.Split(' ');
                     writer.WriteStartElement("renderer");
-                    writer.WriteAttributeString("type", renderer[0]);
-                    switch (renderer[0])
+                    writer.WriteAttributeString("type", info.renderer.type);
+                    switch (info.renderer.type)
                     {
                         case "NormalBMD":
+                            ObjectInfo.NormalBMD_Renderer BMDRenderer = (ObjectInfo.NormalBMD_Renderer)info.renderer;
+
+                            writer.WriteAttributeString("file", BMDRenderer.fileName);
+                            writer.WriteAttributeString("scale", FloatToString(BMDRenderer.scale));
+                            
+                            break;
+
                         case "NormalKCL":
-                            writer.WriteAttributeString("file", renderer[1]);
-                            writer.WriteAttributeString("scale", renderer[2]);
+                            ObjectInfo.NormalKCL_Renderer KCLRenderer = (ObjectInfo.NormalKCL_Renderer)info.renderer;
+
+                            writer.WriteAttributeString("file", KCLRenderer.fileName);
+                            writer.WriteAttributeString("scale", FloatToString(KCLRenderer.scale));
+
                             break;
+
                         case "DoubleBMD":
-                            writer.WriteAttributeString("file1", renderer[1]);
-                            writer.WriteAttributeString("file2", renderer[2]);
-                            writer.WriteAttributeString("scale", renderer[3]);
+                            ObjectInfo.DoubleBMD_Renderer doubleBMDRenderer = (ObjectInfo.DoubleBMD_Renderer)info.renderer;
 
-                            if (renderer.Length > 4)
-                            {
-                                writer.WriteAttributeString("offset1", renderer[4]);
-                                writer.WriteAttributeString("offset2", renderer[5]);
-                            }
+                            writer.WriteAttributeString("file1", doubleBMDRenderer.fileName1);
+                            writer.WriteAttributeString("file2", doubleBMDRenderer.fileName2);
+                            writer.WriteAttributeString("scale", FloatToString(doubleBMDRenderer.scale));
+                            writer.WriteAttributeString("offset1", VecToString(doubleBMDRenderer.offset1));
+                            writer.WriteAttributeString("offset2", VecToString(doubleBMDRenderer.offset2));
 
                             break;
+
                         case "Kurumajiku":
-                            writer.WriteAttributeString("file1", renderer[1]);
-                            writer.WriteAttributeString("file2", renderer[2]);
-                            writer.WriteAttributeString("scale", renderer[3]);
+                            ObjectInfo.Kurumajiku_Renderer kurumajikuRenderer = (ObjectInfo.Kurumajiku_Renderer)info.renderer;
+
+                            writer.WriteAttributeString("file1", kurumajikuRenderer.fileName1);
+                            writer.WriteAttributeString("file2", kurumajikuRenderer.fileName2);
+                            writer.WriteAttributeString("scale", FloatToString(kurumajikuRenderer.scale));
+                            
                             break;
+
                         case "Pole":
+                            ObjectInfo.Pole_Renderer poleRenderer = (ObjectInfo.Pole_Renderer)info.renderer;
+
+                            writer.WriteAttributeString("border", ColorToString(poleRenderer.border));
+                            writer.WriteAttributeString("fill", ColorToString(poleRenderer.fill));
+
+                            break;
+
                         case "ColorCube":
-                            writer.WriteAttributeString("border", renderer[1]);
-                            writer.WriteAttributeString("fill", renderer[2]);
+                            ObjectInfo.ColorCube_Renderer colorCubeRenderer = (ObjectInfo.ColorCube_Renderer)info.renderer;
+
+                            writer.WriteAttributeString("border", ColorToString(colorCubeRenderer.border));
+                            writer.WriteAttributeString("fill", ColorToString(colorCubeRenderer.fill));
+
                             break;
+
                         case "Player":
-                            writer.WriteAttributeString("scale", renderer[1]);
-                            writer.WriteAttributeString("animation", renderer[2]);
+                            ObjectInfo.Player_Renderer playerRenderer = (ObjectInfo.Player_Renderer)info.renderer;
+
+                            writer.WriteAttributeString("scale", FloatToString(playerRenderer.scale));
+                            writer.WriteAttributeString("animation", playerRenderer.animation);
+                            
                             break;
+
                         case "Luigi":
-                            writer.WriteAttributeString("scale", renderer[1]);
+                            ObjectInfo.Luigi_Renderer luigiRenderer = (ObjectInfo.Luigi_Renderer)info.renderer;
+
+                            writer.WriteAttributeString("scale", FloatToString(luigiRenderer.scale));
+
                             break;
+
                         case "ChainedChomp":
                         case "Goomboss":
                         case "Tree":
@@ -249,9 +499,9 @@ namespace SM64DSe
                         case "KoopaShell":
                             // no params
                             break;
+
                         default:
-                            MessageBox.Show("Unknown renderer for '" + info.name + "' (id = " + info.objectID + ").");
-                            break;
+                            throw new Exception("Unknown renderer for '" + info.name + "' (id = " + info.objectID + ").");
                     }
                     writer.WriteEndElement();
 
@@ -271,7 +521,9 @@ namespace SM64DSe
             ObjectInfo.displayInternalName = false;
 
             m_OriginalLabelText = label3.Text;
-            m_OriginalButtonText = btnImportMultiple.Text;
+            m_OriginalButtonText = btnApplyXML.Text;
+
+            FillCmbRenderer();
 
             try
             {
@@ -280,6 +532,7 @@ namespace SM64DSe
             catch (Exception ex)
             {
                 MessageBox.Show($"Something went wrong:\n{ex}", "Invalid XML", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                Close();
             }
         }
 
@@ -290,6 +543,9 @@ namespace SM64DSe
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            ObjectInfo[] bak = new ObjectInfo[m_ObjectInfos.Count];
+            m_ObjectInfos.CopyTo(bak);
+
             try
             {
                 SaveObjectInfos();
@@ -297,6 +553,7 @@ namespace SM64DSe
             }
             catch (Exception ex)
             {
+                m_ObjectInfos = bak.ToList();
                 MessageBox.Show($"Something went wrong:\n{ex}", "Saving failed", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
             }
         }
@@ -313,14 +570,23 @@ namespace SM64DSe
             DialogResult result = ofd.ShowDialog();
             if (result == DialogResult.Cancel) return;
 
+            ObjectInfo[] bak = new ObjectInfo[m_ObjectInfos.Count];
+            m_ObjectInfos.CopyTo(bak);
+
             try
             {
                 LoadObjectInfos(ofd.FileName);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Something went wrong:\n{ex}", "Invalid XML", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                MessageBox.Show($"Something went wrong:\n{ex}", "Invalid XML", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                m_ObjectInfos = bak.ToList();
             }
+        }
+
+        private void btnbtnApplyXML_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void lstObjects_SelectedIndexChanged(object sender, EventArgs e)
@@ -341,7 +607,9 @@ namespace SM64DSe
             txtBankReq.Text = info.bankReq;
             txtDlReq.Text = info.dlReq;
             txtDescription.Text = info.description;
-            txtRenderer.Text = info.renderer;
+            cmbRenderer.SelectedIndex = cmbRenderer.Items.IndexOf(info.renderer.type);
+
+            UpdateRenderer(info.renderer);
 
             m_UpdatingTextBoxes = false;
         }
@@ -410,18 +678,323 @@ namespace SM64DSe
             m_LastSelectedObjectInfo.description = txtDescription.Text;
         }
 
-        private void txtRenderer_TextChanged(object sender, EventArgs e)
+        private void cmbRenderer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
                 return;
 
-            m_LastSelectedObjectInfo.renderer = txtRenderer.Text;
+            if (cmbRenderer.Text == m_LastSelectedObjectInfo.renderer.type)
+                return;
+
+            ObjectInfo.Renderer renderer;
+
+            switch (cmbRenderer.Text)
+            {
+                case "NormalBMD":
+                    renderer = new ObjectInfo.NormalBMD_Renderer();
+                    break;
+
+                case "NormalKCL":
+                    renderer = new ObjectInfo.NormalKCL_Renderer();
+                    break;
+
+                case "DoubleBMD":
+                    renderer = new ObjectInfo.DoubleBMD_Renderer();
+                    break;
+
+                case "Kurumajiku":
+                    renderer = new ObjectInfo.Kurumajiku_Renderer();
+                    break;
+
+                case "Pole":
+                    renderer = new ObjectInfo.Pole_Renderer();
+                    break;
+
+                case "ColorCube":
+                    renderer = new ObjectInfo.ColorCube_Renderer();
+                    break;
+
+                case "Player":
+                    renderer = new ObjectInfo.Player_Renderer();
+                    break;
+
+                case "Luigi":
+                    renderer = new ObjectInfo.Luigi_Renderer();
+                    break;
+
+                case "ChainedChomp":
+                case "Goomboss":
+                case "Tree":
+                case "Painting":
+                case "UnchainedChomp":
+                case "Fish":
+                case "Butterfly":
+                case "Star":
+                case "BowserSkyPlatform":
+                case "BigSnowman":
+                case "Toxbox":
+                case "Pokey":
+                case "FlPuzzle":
+                case "FlameThrower":
+                case "C1Trap":
+                case "Wiggler":
+                case "Koopa":
+                case "KoopaShell":
+                    // no params
+                    renderer = new ObjectInfo.Renderer(cmbRenderer.Text);
+                    break;
+
+                default:
+                    throw new Exception(cmbRenderer.Text + " is not a valid renderer.");
+            }
+
+            m_LastSelectedObjectInfo.renderer = renderer;
+
+            UpdateRenderer(renderer);
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             FillListBox(txtSearch.Text);
         }
+
+        private void btnBorder_Click(object sender, EventArgs e)
+        {
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
+                return;
+
+            Color? newColor = GetColorDialogueResult(btnBorder);
+
+            if (newColor == null)
+                return;
+
+            if (cmbRenderer.Text == "Pole")
+			{
+                ObjectInfo.Pole_Renderer renderer = (ObjectInfo.Pole_Renderer)m_LastSelectedObjectInfo.renderer;
+                renderer.border = (Color)newColor;
+
+            }
+            else if (cmbRenderer.Text == "ColorCube")
+			{
+                ObjectInfo.ColorCube_Renderer renderer = (ObjectInfo.ColorCube_Renderer)m_LastSelectedObjectInfo.renderer;
+                renderer.border = (Color)newColor;
+            }
+        }
+
+        private void btnFill_Click(object sender, EventArgs e)
+        {
+            if (m_UpdatingTextBoxes || m_LastSelectedObjectInfo == null)
+                return;
+
+            Color? newColor = GetColorDialogueResult(btnFill);
+
+            if (newColor == null)
+                return;
+
+            if (cmbRenderer.Text == "Pole")
+            {
+                ObjectInfo.Pole_Renderer renderer = (ObjectInfo.Pole_Renderer)m_LastSelectedObjectInfo.renderer;
+                renderer.fill = (Color)newColor;
+
+            }
+            else if (cmbRenderer.Text == "ColorCube")
+            {
+                ObjectInfo.ColorCube_Renderer renderer = (ObjectInfo.ColorCube_Renderer)m_LastSelectedObjectInfo.renderer;
+                renderer.fill = (Color)newColor;
+            }
+        }
+
+        private Color? GetColorDialogueResult(Button button)
+        {
+            ColorDialog colourDialogue = new ColorDialog();
+            DialogResult result = colourDialogue.ShowDialog(this);
+
+            if (result != DialogResult.OK)
+                return null;
+            
+            Color color = colourDialogue.Color;
+            SetColorButtonValue(button, color);
+            return color;
+        }
+
+        private void SetColorButtonValue(Button button, Color color)
+        {
+            string hexColourString = Helper.GetHexColourString(color);
+            float luma = 0.2126f * color.R + 0.7152f * color.G + 0.0722f * color.B;
+
+            button.Text = hexColourString;
+            button.BackColor = color;
+            button.ForeColor = luma < 50 ? Color.White : Color.Black;
+        }
+
+        private void UpdateRenderer(ObjectInfo.Renderer renderer)
+        {
+            SetRendererColorControlsVis(false);
+            SetRendererControlsVis(false);
+            m_OnlyPlayerAnimFiles = false;
+
+            switch (renderer.type)
+            {
+                case "NormalBMD":
+                    ObjectInfo.NormalBMD_Renderer normalBMDRenderer = (ObjectInfo.NormalBMD_Renderer)renderer;
+
+                    lblScale.Visible = nudScale.Visible = true;
+                    lblRenderer1.Visible = txtRenderer1.Visible = btnRenderer1.Visible = true;
+
+                    nudScale.Value = (decimal)normalBMDRenderer.scale;
+                    lblRenderer1.Text = "File:";
+                    txtRenderer1.Text = normalBMDRenderer.fileName;
+
+                    m_StartFolder1 = normalBMDRenderer.fileName;
+                    m_FileFilter1 = ".bmd";
+
+                    break;
+
+                case "NormalKCL":
+                    ObjectInfo.NormalKCL_Renderer normalKCLRenderer = (ObjectInfo.NormalKCL_Renderer)renderer;
+
+                    lblScale.Visible = nudScale.Visible = true;
+                    lblRenderer1.Visible = txtRenderer1.Visible = btnRenderer1.Visible = true;
+
+                    nudScale.Value = (decimal)normalKCLRenderer.scale;
+                    lblRenderer1.Text = "File:";
+                    txtRenderer1.Text = normalKCLRenderer.fileName;
+
+                    m_StartFolder1 = normalKCLRenderer.fileName;
+                    m_FileFilter1 = ".kcl";
+
+                    break;
+
+                case "DoubleBMD":
+                    ObjectInfo.DoubleBMD_Renderer doubleBMDRenderer = (ObjectInfo.DoubleBMD_Renderer)renderer;
+
+                    lblScale.Visible = nudScale.Visible = true;
+                    lblRenderer1.Visible = txtRenderer1.Visible = btnRenderer1.Visible = true;
+                    lblRenderer2.Visible = txtRenderer2.Visible = btnRenderer2.Visible = true;
+                    lblOffset1.Visible = nudOffset1X.Visible = nudOffset1Y.Visible = nudOffset1Z.Visible = true;
+                    lblOffset2.Visible = nudOffset2X.Visible = nudOffset2Y.Visible = nudOffset2Z.Visible = true;
+
+                    nudScale.Value = (decimal)doubleBMDRenderer.scale;
+                    lblRenderer1.Text = "File 1:";
+                    txtRenderer1.Text = doubleBMDRenderer.fileName1;
+                    lblRenderer2.Text = "File 2:";
+                    txtRenderer2.Text = doubleBMDRenderer.fileName2;
+                    nudOffset1X.Value = (decimal)doubleBMDRenderer.offset1.X;
+                    nudOffset1Y.Value = (decimal)doubleBMDRenderer.offset1.Y;
+                    nudOffset1Z.Value = (decimal)doubleBMDRenderer.offset1.Z;
+                    nudOffset2X.Value = (decimal)doubleBMDRenderer.offset2.X;
+                    nudOffset2Y.Value = (decimal)doubleBMDRenderer.offset2.Y;
+                    nudOffset2Z.Value = (decimal)doubleBMDRenderer.offset2.Z;
+
+                    m_StartFolder1 = doubleBMDRenderer.fileName1;
+                    m_StartFolder2 = doubleBMDRenderer.fileName2;
+                    m_FileFilter1 = ".bmd";
+                    m_FileFilter2 = ".bmd";
+
+                    break;
+
+                case "Kurumajiku":
+                    ObjectInfo.Kurumajiku_Renderer kurumajikuRenderer = (ObjectInfo.Kurumajiku_Renderer)renderer;
+
+                    lblScale.Visible = nudScale.Visible = true;
+                    lblRenderer1.Visible = txtRenderer1.Visible = btnRenderer1.Visible = true;
+                    lblRenderer2.Visible = txtRenderer2.Visible = btnRenderer2.Visible = true;
+
+                    nudScale.Value = (decimal)kurumajikuRenderer.scale;
+                    lblRenderer1.Text = "File 1:";
+                    txtRenderer1.Text = kurumajikuRenderer.fileName1;
+                    lblRenderer2.Text = "File 2:";
+                    txtRenderer2.Text = kurumajikuRenderer.fileName2;
+
+                    m_StartFolder1 = kurumajikuRenderer.fileName1;
+                    m_StartFolder2 = kurumajikuRenderer.fileName2;
+                    m_FileFilter1 = ".bmd";
+                    m_FileFilter2 = ".bmd";
+
+                    break;
+
+                case "Pole":
+                    ObjectInfo.Pole_Renderer poleRenderer = (ObjectInfo.Pole_Renderer)renderer;
+
+                    SetRendererColorControlsVis(true);
+                    SetColorButtonValue(btnBorder, poleRenderer.border);
+                    SetColorButtonValue(btnFill, poleRenderer.fill);
+
+                    break;
+
+                case "ColorCube":
+                    ObjectInfo.ColorCube_Renderer colorCubeRenderer = (ObjectInfo.ColorCube_Renderer)renderer;
+                    
+                    SetRendererColorControlsVis(true);
+                    SetColorButtonValue(btnBorder, colorCubeRenderer.border);
+                    SetColorButtonValue(btnFill, colorCubeRenderer.fill);
+
+                    break;
+
+                case "Player":
+                    ObjectInfo.Player_Renderer playerRenderer = (ObjectInfo.Player_Renderer)renderer;
+
+                    lblScale.Visible = nudScale.Visible = true;
+                    lblRenderer1.Visible = txtRenderer1.Visible = btnRenderer1.Visible = true;
+
+                    nudScale.Value = (decimal)playerRenderer.scale;
+                    lblRenderer1.Text = "Animation:";
+                    txtRenderer1.Text = playerRenderer.animation;
+
+                    m_StartFolder1 = "data/player/";
+                    m_FileFilter1 = ".bca";
+                    m_OnlyPlayerAnimFiles = true;
+
+                    break;
+
+                case "Luigi":
+                    ObjectInfo.Luigi_Renderer luigiRenderer = (ObjectInfo.Luigi_Renderer)renderer;
+
+                    lblScale.Visible = nudScale.Visible = true;
+
+                    nudScale.Value = (decimal)luigiRenderer.scale;
+
+                    break;
+
+                case "ChainedChomp":
+                case "Goomboss":
+                case "Tree":
+                case "Painting":
+                case "UnchainedChomp":
+                case "Fish":
+                case "Butterfly":
+                case "Star":
+                case "BowserSkyPlatform":
+                case "BigSnowman":
+                case "Toxbox":
+                case "Pokey":
+                case "FlPuzzle":
+                case "FlameThrower":
+                case "C1Trap":
+                case "Wiggler":
+                case "Koopa":
+                case "KoopaShell":
+                    // no params
+                    break;
+
+                default:
+                    throw new Exception(cmbRenderer.Text + " is not a valid renderer.");
+            }
+        }
+
+        private void SetRendererControlsVis(bool vis)
+        {
+            lblScale.Visible = nudScale.Visible = vis;
+            lblRenderer1.Visible = txtRenderer1.Visible = btnRenderer1.Visible = vis;
+            lblRenderer2.Visible = txtRenderer2.Visible = btnRenderer2.Visible = vis;
+            lblOffset1.Visible = nudOffset1X.Visible = nudOffset1Y.Visible = nudOffset1Z.Visible = vis;
+            lblOffset2.Visible = nudOffset2X.Visible = nudOffset2Y.Visible = nudOffset2Z.Visible = vis;
+        }
+
+        private void SetRendererColorControlsVis(bool vis)
+		{
+            lblBorder.Visible = lblFill.Visible = btnBorder.Visible = btnFill.Visible = vis;
+		}
 
         private int CompareIDs(int a, int b)
         {
@@ -461,6 +1034,37 @@ namespace SM64DSe
                 lstObjects.Items[i] = lstObjects.Items[i];
         }
 
+        private void FillCmbRenderer()
+		{
+            cmbRenderer.Items.Clear();
+            cmbRenderer.Items.Add("NormalBMD");
+            cmbRenderer.Items.Add("NormalKCL");
+            cmbRenderer.Items.Add("DoubleBMD");
+            cmbRenderer.Items.Add("Kurumajiku");
+            cmbRenderer.Items.Add("Pole");
+            cmbRenderer.Items.Add("ColorCube");
+            cmbRenderer.Items.Add("Player");
+            cmbRenderer.Items.Add("Luigi");
+            cmbRenderer.Items.Add("ChainedChomp");
+            cmbRenderer.Items.Add("Goomboss");
+            cmbRenderer.Items.Add("Tree");
+            cmbRenderer.Items.Add("Painting");
+            cmbRenderer.Items.Add("UnchainedChomp");
+            cmbRenderer.Items.Add("Fish");
+            cmbRenderer.Items.Add("Butterfly");
+            cmbRenderer.Items.Add("Star");
+            cmbRenderer.Items.Add("BowserSkyPlatform");
+            cmbRenderer.Items.Add("BigSnowman");
+            cmbRenderer.Items.Add("Toxbox");
+            cmbRenderer.Items.Add("Pokey");
+            cmbRenderer.Items.Add("FlPuzzle");
+            cmbRenderer.Items.Add("FlameThrower");
+            cmbRenderer.Items.Add("C1Trap");
+            cmbRenderer.Items.Add("Wiggler");
+            cmbRenderer.Items.Add("Koopa");
+            cmbRenderer.Items.Add("KoopaShell");
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             int newID = m_ObjectInfos.OrderBy(o => o.objectID).Last().objectID + 1;
@@ -497,29 +1101,6 @@ namespace SM64DSe
                 btnSort.Text = "Sort by: Actor ID";
 
             FillListBox(txtSearch.Text);
-
-            /*if (ObjectInfo.displayObjectID)
-            {
-                m_ObjectInfos.Sort((a, b) => CompareIDs(a.actorID, b.actorID));
-                m_ObjectInfos.Sort((a, b) => CompareIDs(a.objectID, b.objectID));
-
-                for (int i = 0; i < m_ObjectInfos.Count() - 1; i++)
-                {
-                    if (m_ObjectInfos[i].objectID != m_ObjectInfos[i + 1].objectID - 1)
-                        Console.WriteLine("Gap found between objects " + m_ObjectInfos[i].objectID + " and " + m_ObjectInfos[i + 1].objectID);
-                }
-            }
-            else
-            {
-                m_ObjectInfos.Sort((a, b) => CompareIDs(a.objectID, b.objectID));
-                m_ObjectInfos.Sort((a, b) => CompareIDs(a.actorID, b.actorID));
-
-                for (int i = 0; i < m_ObjectInfos.Count() - 1; i++)
-                {
-                    if (m_ObjectInfos[i].actorID != m_ObjectInfos[i + 1].actorID - 1)
-                        Console.WriteLine("Gap found between actors " + m_ObjectInfos[i].actorID + " and " + m_ObjectInfos[i + 1].actorID);
-                }
-            }*/
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)
@@ -534,50 +1115,57 @@ namespace SM64DSe
             RefreshListBoxLabels();
         }
 
-        private void btnImportMultiple_Click(object sender, EventArgs e)
+		private void btnRenderer1_Click(object sender, EventArgs e)
         {
-            m_ImportingMultiple = !m_ImportingMultiple;
-
-            if (m_ImportingMultiple)
+            if (Program.m_ROM == null)
             {
-                m_LastSelectedObjectInfo = null;
-                label3.Text = "Enter the import data:";
-                btnImportMultiple.Text = "Import!";
-                txtDescription.Text = "Enter import data here!";
-                lstObjects.Items.Clear();
-                txtBankReq.Text = txtDlReq.Text = txtInternalName.Text = txtObjectName.Text = txtRenderer.Text = "";
-                nudActorID.Value = nudObjectID.Value = 0;
+                MessageBox.Show("This button can only be used when a ROM has been loaded.", "No ROM loaded!");
+                return;
+            }
+
+            ROMFileSelect romFileSelect = new ROMFileSelect();
+            romFileSelect.ReInitialize("Select a file", new string[] { m_FileFilter1 }, m_StartFolder1);
+            
+            DialogResult result = romFileSelect.ShowDialog();
+            
+            if (result != DialogResult.OK)
+                return;
+
+            if (m_OnlyPlayerAnimFiles)
+			{
+                if (!romFileSelect.m_SelectedFile.StartsWith("data/player/") || !romFileSelect.m_SelectedFile.EndsWith(".bca"))
+				{
+                    MessageBox.Show("Invalid player animation selected.", "Invalid player animation selected.");
+                    return;
+				}
+
+                txtRenderer1.Text = romFileSelect.m_SelectedFile.Replace("data/player/", "");
             }
             else
-            {
-                label3.Text = m_OriginalLabelText;
-                btnImportMultiple.Text = m_OriginalButtonText;
-
-                string[] lines = Regex.Split(txtDescription.Text, "\r\n|\r|\n");
-
-                foreach (string line in lines)
-                {
-                    string[] data = line.Split('\t');
-
-                    ObjectInfo info = new ObjectInfo
-                    {
-                        actorID = Convert.ToInt32(data[0]),
-                        objectID = Convert.ToInt32(data[1]),
-                        name = data[2],
-                        internalName = data[3],
-                        bankReq = data[4],
-                        dlReq = data[5],
-                        renderer = data[6],
-                        description = data[7],
-                    };
-
-                    m_ObjectInfos.Add(info);
-                }
-
-                FillListBox(txtSearch.Text);
-
-                lstObjects.SelectedIndex = 0;
+			{
+                m_StartFolder1 = romFileSelect.m_SelectedFile;
+                txtRenderer1.Text = romFileSelect.m_SelectedFile;
             }
         }
-    }
+
+		private void btnRenderer2_Click(object sender, EventArgs e)
+        {
+            if (Program.m_ROM == null)
+			{
+                MessageBox.Show("This button can only be used when a ROM has been loaded.", "No ROM loaded!");
+                return;
+			}
+
+            ROMFileSelect romFileSelect = new ROMFileSelect();
+            romFileSelect.ReInitialize("Select a file", new string[] { m_FileFilter2 }, m_StartFolder2);
+
+            DialogResult result = romFileSelect.ShowDialog();
+
+            if (result != DialogResult.OK)
+                return;
+
+            m_StartFolder2 = romFileSelect.m_SelectedFile;
+            txtRenderer2.Text = romFileSelect.m_SelectedFile;
+        }
+	}
 }
