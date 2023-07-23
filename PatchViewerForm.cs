@@ -14,13 +14,6 @@ namespace SM64DSe
 {
     public partial class PatchViewerForm : Form
     {
-        class SeqArcListItem
-        {
-            public string Name;
-            public ushort ID;
-            public ushort SeqArcID;
-        }
-
         class CommandInfo
         {
             public enum State
@@ -28,7 +21,7 @@ namespace SM64DSe
                 WAITING,
                 SUCCESS,
                 FAILED,
-                FAILED_FS,
+                WARNING,
             }
 
             public CommandInfo(string command)
@@ -49,7 +42,7 @@ namespace SM64DSe
                         return new SolidBrush(Color.Green);
                     case State.FAILED:
                         return new SolidBrush(Color.Red);
-                    case State.FAILED_FS:
+                    case State.WARNING:
                         return new SolidBrush(Color.Orange);
                     case State.WAITING:
                     default:
@@ -62,9 +55,9 @@ namespace SM64DSe
                 switch (state)
                 {
                     case State.SUCCESS:
+                    case State.WARNING:
                         return "V";
                     case State.FAILED:
-                    case State.FAILED_FS:
                         return "X";
                     case State.WAITING:
                     default:
@@ -77,134 +70,6 @@ namespace SM64DSe
             public State state = State.WAITING;
         }
 
-        private static readonly string[] fileHeaderStart =
-        {
-            "#pragma once",
-            "",
-            "consteval u16 GetFileIdFromName(const char* name, bool ov0 = true)",
-            "{",
-            "\tstruct FileInfo",
-            "\t{",
-            "\t\tu16 fileID;",
-            "\t\tu16 ov0ID;",
-            "\t\tconst char* name;",
-            "\t};",
-            "\t",
-            "\tconstexpr FileInfo files[] =",
-            "\t{",
-        };
-
-        private static readonly string[] fileHeaderEnd =
-        {
-            "\t};",
-            "\t",
-            "\tconst FileInfo* begin = std::begin(files);",
-            "\tconst FileInfo* end = std::end(files);",
-            "\tconst FileInfo* prevMid = nullptr;",
-            "\t",
-            "\twhile (true)",
-            "\t{",
-            "\t\tconst FileInfo* mid = begin + (end - begin >> 1);",
-            "\t\tif (void FileNotFound(); mid == prevMid) FileNotFound();",
-            "\t\tprevMid = mid;",
-            "\t\t",
-            "\t\tconst char* c0 = name;",
-            "\t\tconst char* c1 = mid->name;",
-            "\t\t",
-            "\t\tfor(; *c0 == *c1; ++c0, ++c1)",
-            "\t\t\tif (*c0 == '\\0') return ov0 ? mid->ov0ID : mid-> fileID;",
-            "\t\t",
-            "\t\tif (*c0 < *c1) end = mid; else begin = mid;",
-            "\t}",
-            "}",
-            "",
-            "consteval u16 operator\"\"fid(const char* name, std::size_t)",
-            "{",
-            "\treturn GetFileIdFromName(name, false);",
-            "}",
-            "",
-            "consteval u16 operator\"\"ov0(const char* name, std::size_t)",
-            "{",
-            "\treturn GetFileIdFromName(name, true);",
-            "}",
-        };
-
-        private static readonly string[] soundHeaderStart =
-        {
-            "#pragma once",
-            "",
-            "#include \"SM64DS_Common.h\"",
-            "#include \"Sound.h\"",
-            "",
-            "struct SoundIDs",
-            "{",
-            "\tu16 seqArcID;",
-            "\tu16 seqID;",
-            "};",
-            "",
-            "consteval SoundIDs GetSoundInfo(const char* name)",
-            "{",
-            "\tstruct SoundInfo",
-            "\t{",
-            "\t\tSoundIDs ids;",
-            "\t\tconst char* name;",
-            "\t};",
-            "\t",
-            "\tconstexpr SoundInfo files[] =",
-            "\t{",
-        };
-
-        private static readonly string[] soundHeaderEnd =
-        {
-            "\t};",
-            "\t",
-            "\tconst SoundInfo* begin = std::begin(files);",
-            "\tconst SoundInfo* end = std::end(files);",
-            "\tconst SoundInfo* prevMid = nullptr;",
-            "\t",
-            "\twhile (true)",
-            "\t{",
-            "\t\tconst SoundInfo* mid = begin + (end - begin >> 1);",
-            "\t\tif (void SoundNotFound(); mid == prevMid) SoundNotFound();",
-            "\t\tprevMid = mid;",
-            "\t\t",
-            "\t\tconst char* c0 = name;",
-            "\t\tconst char* c1 = mid->name;",
-            "\t\t",
-            "\t\tfor(; *c0 == *c1; ++c0, ++c1)",
-            "\t\t\tif (*c0 == '\\0') return mid->ids;",
-            "\t\t",
-            "\t\tif (*c0 < *c1) end = mid; else begin = mid;",
-            "\t}",
-            "}",
-            "",
-            "namespace Sound",
-            "{",
-            "\t[[gnu::always_inline]]",
-            "\tinline void Play(SoundIDs ids, Vector3 camSpacePos)",
-            "\t{",
-            "\t\tPlay(ids.seqArcID, ids.seqID, camSpacePos);",
-            "\t}",
-            "\t",
-            "\t[[gnu::always_inline]]",
-            "\tinline void Play2D(SoundIDs ids)",
-            "\t{",
-            "\t\tPlay2D(ids.seqArcID, ids.seqID);",
-            "\t}",
-            "\t",
-            "\t[[gnu::always_inline]]",
-            "\tinline void PlayLong(u32& soundID, SoundIDs ids, Vector3 camSpacePos, u32 arg4)",
-            "\t{",
-            "\t\tsoundID = PlayLong(soundID, ids.seqArcID, ids.seqID, camSpacePos, arg4);",
-            "\t}",
-            "}",
-            "",
-            "consteval SoundIDs operator\"\"sfx(const char* name, std::size_t)",
-            "{",
-            "\treturn GetSoundInfo(name);",
-            "}",
-        };
-
         private CommandInfo[] commandInfos;
         private string basePath;
         private string patchPath;
@@ -213,11 +78,6 @@ namespace SM64DSe
 
         private System.Timers.Timer patchTimer = new System.Timers.Timer(1000);
         private int secondCounter;
-
-        private string ToHex(ushort num)
-        {
-            return "0x" + Convert.ToString(num, 16).PadLeft(4, '0').ToLower();
-        }
 
         public PatchViewerForm(string patchPath)
         {
@@ -300,12 +160,17 @@ namespace SM64DSe
 
         private void UpdateForm(int refreshIndex)
         {
-            pbProgress.Invoke(new MethodInvoker(delegate { pbProgress.Value = commandInfos.Where(c => c.state == CommandInfo.State.SUCCESS || c.state == CommandInfo.State.FAILED_FS).Count(); }));
+            pbProgress.Invoke(new MethodInvoker(delegate { pbProgress.Value = commandInfos.Where(c => c.state == CommandInfo.State.SUCCESS || c.state == CommandInfo.State.WARNING).Count(); }));
             lblProgress.Invoke(new MethodInvoker(delegate { lblProgress.Text = $"Progress: {pbProgress.Value * 100 / pbProgress.Maximum}%"; }));
             lstCommands.Invoke(new MethodInvoker(delegate { lstCommands.Items[refreshIndex] = lstCommands.Items[refreshIndex]; }));
             txtCommandInfo.Invoke(new MethodInvoker(delegate { txtCommandInfo.Text = lstCommands.SelectedIndex < 0 ? "" : commandInfos[lstCommands.SelectedIndex].description; }));
-            bool enableRetryButton = commandInfos.Select(c => c.state == CommandInfo.State.FAILED).Contains(true);
-            btnRetry.GetCurrentParent().Invoke(new MethodInvoker(delegate { btnRetry.Enabled = enableRetryButton; }));
+
+            IEnumerable<CommandInfo.State> states = commandInfos.Select(c => c.state);
+            bool enableRetryButton = !states.Contains(CommandInfo.State.WAITING) || states.Contains(CommandInfo.State.FAILED);
+
+            btnRetry.GetCurrentParent().Invoke(new MethodInvoker(delegate { btnRetry.Enabled = states.Contains(CommandInfo.State.FAILED); }));
+            btnReloadScript.GetCurrentParent().Invoke(new MethodInvoker(delegate { btnReloadScript.Enabled = enableRetryButton; }));
+            btnImportScript.GetCurrentParent().Invoke(new MethodInvoker(delegate { btnImportScript.Enabled = enableRetryButton; }));
         }
 
         private void LoadPatch(string patchPath)
@@ -364,8 +229,11 @@ namespace SM64DSe
             {
                 CommandInfo info = commandInfos[i];
 
-                if (info.state == CommandInfo.State.SUCCESS || info.state == CommandInfo.State.FAILED_FS)
+                if (info.state == CommandInfo.State.SUCCESS || info.state == CommandInfo.State.WARNING)
                     continue;
+
+                if (info.state == CommandInfo.State.FAILED)
+                    info.state = CommandInfo.State.WAITING;
 
                 //Get parameters.
                 string t = info.command;
@@ -376,20 +244,28 @@ namespace SM64DSe
 
                 try
                 {
-                    ProcessCommand(p, info, dummyNode);
-                    if (info.state != CommandInfo.State.FAILED_FS)
-                        info.state = CommandInfo.State.SUCCESS;
                     UpdateForm(i);
+                    ProcessCommand(p, info, dummyNode);
+
+                    if (info.state != CommandInfo.State.WARNING)
+                        info.state = CommandInfo.State.SUCCESS;
+                    
+                    UpdateForm(i);
+
                     hideConsoleWindow = true;
                 }
                 catch (Exception ex)
                 {
                     info.description = ex.Message;
                     info.state = CommandInfo.State.FAILED;
+
                     UpdateForm(i);
+
                     System.Media.SystemSounds.Hand.Play();
                     patchTimer.Stop();
+
                     StopFilesystemEditIfNecessary();
+
                     break;
                 }
             }
@@ -463,7 +339,7 @@ namespace SM64DSe
 
                     if (unprocessedSymbols.Count != 0)
                     {
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         info.description += "\nThe following symbols were not found:";
 
                         foreach (string symbol in unprocessedSymbols)
@@ -479,20 +355,8 @@ namespace SM64DSe
 
                     RemoveFirstAndLastChars(ref p[1]);
 
-                    List<NitroROM.FileEntry> sortedFiles = Program.m_ROM.m_FileEntries.ToList();
-                    sortedFiles.Sort((a, b) => string.CompareOrdinal(a.FullName, b.FullName));
-
-                    List<string> lines = new List<string>();
-                    lines.Capacity = fileHeaderStart.Length + fileHeaderEnd.Length + Program.m_ROM.m_FileEntries.Length;
-                    lines.AddRange(fileHeaderStart);
-
-                    foreach (NitroROM.FileEntry file in sortedFiles) if (file.InternalID != 0xffff)
-                            lines.Add("\t\t{ " + ToHex(file.ID) + ", " + ToHex(file.InternalID) + ", " + '"' + file.FullName + '"' + " },");
-
-                    lines.AddRange(fileHeaderEnd);
-
                     string fileListHeaderLoc = basePath + p[1];
-                    File.WriteAllLines(fileListHeaderLoc, lines);
+                    FileHeaderGenerator.Generate(fileListHeaderLoc);
 
                     info.description = "File list generated at:\n" + fileListHeaderLoc;
 
@@ -505,36 +369,8 @@ namespace SM64DSe
 
                     RemoveFirstAndLastChars(ref p[1]);
 
-                    SM64DSFormats.SDAT soundData = new SM64DSFormats.SDAT(Program.m_ROM.GetFileFromName("data/sound_data.sdat"));
-                    List<SeqArcListItem> sequences = new List<SeqArcListItem>();
-                    ushort seqArcID = 0;
-                    ushort seqID = 0;
-
-                    foreach (SM64DSFormats.SDAT.SequenceArchive seqArc in soundData.m_SeqArcs)
-                    {
-                        foreach (SM64DSFormats.SDAT.SequenceArchive.Sequence seq in seqArc.m_Sequences)
-                        {
-                            sequences.Add(new SeqArcListItem { Name = seq.m_Filename, ID = seqID, SeqArcID = seqArcID });
-                            seqID++;
-                        }
-
-                        seqID = 0;
-                        seqArcID++;
-                    }
-
-                    sequences.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-
-                    lines = new List<string>();
-                    lines.Capacity = soundHeaderStart.Length + soundHeaderEnd.Length + sequences.Count;
-                    lines.AddRange(soundHeaderStart);
-
-                    foreach (SeqArcListItem sequence in sequences) if (sequence.Name != "SYMB²")
-                            lines.Add("\t\t{ " + ToHex(sequence.SeqArcID) + ", " + ToHex(sequence.ID) + ", " + '"' + sequence.Name + '"' + " },");
-
-                    lines.AddRange(soundHeaderEnd);
-
                     string soundListHeaderLoc = basePath + p[1];
-                    File.WriteAllLines(soundListHeaderLoc, lines);
+                    SoundHeaderGenerator.Generate(soundListHeaderLoc);
 
                     info.description = "Sound list generated at:\n" + soundListHeaderLoc;
 
@@ -575,7 +411,7 @@ namespace SM64DSe
                     if (arm9Size == 0x9f038)
                     {
                         info.description = "The arm9.bin ITCM has already been extended.";
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
 
@@ -636,7 +472,7 @@ namespace SM64DSe
                     catch (Exception ex)
                     {
                         info.description = "File couldn't be added / replaced:\n" + ex.Message;
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
 
@@ -665,7 +501,7 @@ namespace SM64DSe
                     catch (Exception ex)
                     {
                         info.description = "File couldn't be replaced:\n" + ex.Message;
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
                     
@@ -687,7 +523,7 @@ namespace SM64DSe
                     catch (Exception ex)
                     {
                         info.description = "File couldn't be renamed:\n" + ex.Message;
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
                     
@@ -708,7 +544,7 @@ namespace SM64DSe
                     catch (Exception ex)
                     {
                         info.description = "File couldn't be removed:\n" + ex.Message;
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
 
@@ -733,7 +569,7 @@ namespace SM64DSe
                     catch (Exception ex)
                     {
                         info.description = "Directory couldn't be added:\n" + ex.Message;
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
 
@@ -755,7 +591,7 @@ namespace SM64DSe
                     catch (Exception ex)
                     {
                         info.description = "Directory couldn't be renamed:\n" + ex.Message;
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
 
@@ -776,7 +612,7 @@ namespace SM64DSe
                     catch (Exception ex)
                     {
                         info.description = "Directory couldn't be removed:\n" + ex.Message;
-                        info.state = CommandInfo.State.FAILED_FS;
+                        info.state = CommandInfo.State.WARNING;
                         break;
                     }
 
