@@ -158,14 +158,14 @@ namespace SM64DSe
                 }
             }
 
-            public int objectID;
-            public string name;
-            public string internalName;
-            public int actorID;
-            public string description;
-            public string bankReq;
-            public string dlReq;
-            public Renderer renderer; // + params
+            public int objectID = -2;
+            public string name = "";
+            public string internalName = "";
+            public int actorID = -2;
+            public string description = "";
+            public string bankReq = "";
+            public string dlReq = "";
+            public Renderer renderer = null; // + params
 
             public static bool displayObjectID = true;
             public static bool displayInternalName = false;
@@ -177,17 +177,12 @@ namespace SM64DSe
             }
         }
 
-
         private List<ObjectInfo> m_ObjectInfos;
 
         private bool m_UpdatingTextBoxes = false;
         private bool m_UpdatingListBox = false;
 
         private ObjectInfo m_LastSelectedObjectInfo = null;
-
-        private string m_OriginalLabelText;
-        private string m_OriginalButtonText;
-        private bool m_ImportingMultiple;
 
         private string m_FileFilter1 = "";
         private string m_FileFilter2 = "";
@@ -377,6 +372,240 @@ namespace SM64DSe
             FillListBox();
         }
 
+
+        private void ModifyObjectInfos(string path = null)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                path = Path.Combine(Application.StartupPath, "objectdb.xml");
+
+            using (XmlReader reader = XmlReader.Create(path))
+            {
+                reader.MoveToContent();
+                // reader.ReadStartElement("database");
+                int i = 0;
+
+                ObjectInfo info = null;
+                ObjectInfo tempInfo = null;
+
+                while (reader.Read())
+                {
+                    if (!reader.NodeType.Equals(XmlNodeType.Element))
+                        continue;
+
+                    switch (reader.LocalName)
+					{
+                        case "object":
+						    {
+                                if (info != null)
+                                    ApplyTempToRes(tempInfo, info);
+
+                                info = null;
+                                tempInfo = new ObjectInfo();
+
+                                int objectID = Convert.ToInt32(reader.GetAttribute("id"));
+                                tempInfo.objectID = objectID;
+
+                                if (objectID != -1)
+                                    info = m_ObjectInfos.Where(o => o.objectID == objectID).Single();
+
+                                break;
+                            }
+                        case "name":
+                            {
+                                tempInfo.name = reader.ReadElementContentAsString();
+                                break;
+                            }
+                        case "internalname":
+                            {
+                                tempInfo.internalName = reader.ReadElementContentAsString();
+                                break;
+                            }
+                        case "actorid":
+                            {
+                                int actorID = reader.ReadElementContentAsInt();
+
+                                if (info == null)
+                                    info = m_ObjectInfos.Where(o => o.actorID == actorID).Single();
+
+                                break;
+                            }
+                        case "description":
+                            {
+                                tempInfo.description = reader.ReadElementContentAsString();
+                                break;
+                            }
+                        case "bankreq":
+                            {
+                                tempInfo.bankReq = reader.ReadElementContentAsString();
+                                break;
+                            }
+                        case "dlreq":
+                            {
+                                tempInfo.dlReq = reader.ReadElementContentAsString();
+                                break;
+                            }
+                        case "renderer":
+                            {
+                                string type = reader.GetAttribute("type");
+                                ObjectInfo.Renderer renderer;
+
+                                switch (type)
+                                {
+                                    case "NormalBMD":
+                                        string file = reader.GetAttribute("file");
+                                        float scale = FloatFromString(reader.GetAttribute("scale"));
+
+                                        renderer = new ObjectInfo.NormalBMD_Renderer(file, scale);
+                                        break;
+
+                                    case "NormalKCL":
+                                        file = reader.GetAttribute("file");
+                                        scale = FloatFromString(reader.GetAttribute("scale"));
+
+                                        renderer = new ObjectInfo.NormalKCL_Renderer(file, scale);
+                                        break;
+
+                                    case "DoubleBMD":
+                                        string file1 = reader.GetAttribute("file1");
+                                        string file2 = reader.GetAttribute("file2");
+                                        scale = FloatFromString(reader.GetAttribute("scale"));
+                                        Vector3 offset1 = VecFromString(reader.GetAttribute("offset1"));
+                                        Vector3 offset2 = VecFromString(reader.GetAttribute("offset2"));
+
+                                        renderer = new ObjectInfo.DoubleBMD_Renderer(file1, file2, scale, offset1, offset2);
+                                        break;
+
+                                    case "Kurumajiku":
+                                        file1 = reader.GetAttribute("file1");
+                                        file2 = reader.GetAttribute("file2");
+                                        scale = FloatFromString(reader.GetAttribute("scale"));
+
+                                        renderer = new ObjectInfo.Kurumajiku_Renderer(file1, file2, scale);
+                                        break;
+
+                                    case "Pole":
+                                        Color border = ColorFromString(reader.GetAttribute("border"));
+                                        Color fill = ColorFromString(reader.GetAttribute("fill"));
+
+                                        renderer = new ObjectInfo.Pole_Renderer(border, fill);
+                                        break;
+
+                                    case "ColorCube":
+                                        border = ColorFromString(reader.GetAttribute("border"));
+                                        fill = ColorFromString(reader.GetAttribute("fill"));
+
+                                        renderer = new ObjectInfo.ColorCube_Renderer(border, fill);
+                                        break;
+
+                                    case "Player":
+                                        scale = FloatFromString(reader.GetAttribute("scale"));
+                                        string animation = reader.GetAttribute("animation");
+
+                                        renderer = new ObjectInfo.Player_Renderer(scale, animation);
+                                        break;
+
+                                    case "Luigi":
+                                        scale = FloatFromString(reader.GetAttribute("scale"));
+                                        renderer = new ObjectInfo.Luigi_Renderer(scale);
+                                        break;
+
+                                    case "ChainedChomp":
+                                    case "Goomboss":
+                                    case "Tree":
+                                    case "Painting":
+                                    case "UnchainedChomp":
+                                    case "Fish":
+                                    case "Butterfly":
+                                    case "Star":
+                                    case "BowserSkyPlatform":
+                                    case "BigSnowman":
+                                    case "Toxbox":
+                                    case "Pokey":
+                                    case "FlPuzzle":
+                                    case "FlameThrower":
+                                    case "C1Trap":
+                                    case "Wiggler":
+                                    case "Koopa":
+                                    case "KoopaShell":
+                                        // no params
+                                        renderer = new ObjectInfo.Renderer(type);
+                                        break;
+
+                                    default:
+                                        throw new Exception("Unknown renderer for '" + info.name + "' (id = " + info.objectID + ").");
+                                }
+
+                                tempInfo.renderer = renderer;
+
+                                break;
+                            }
+                    }
+                }
+
+                if (info != null)
+                    ApplyTempToRes(tempInfo, info);
+            }
+
+            FillListBox();
+
+            /*else
+            {
+                info = m_ObjectInfos.Where(o => o.objectID == objectID).Single();
+            }
+
+            reader.ReadToDescendant("name");
+            info.name = reader.ReadElementContentAsString();
+
+            reader.ReadToNextSibling("internalname");
+            info.internalName = reader.ReadElementContentAsString();
+
+            reader.ReadToNextSibling("actorid");
+            info.actorID = reader.ReadElementContentAsInt();
+
+            reader.ReadToNextSibling("description");
+            info.description = reader.ReadElementContentAsString();
+
+            reader.ReadToNextSibling("bankreq");
+            info.bankReq = reader.ReadElementContentAsString();
+
+            reader.ReadToNextSibling("dlreq");
+            info.dlReq = reader.ReadElementContentAsString();
+
+            reader.ReadToNextSibling("renderer");
+            string type = reader.GetAttribute("type");
+
+            ObjectInfo.Renderer renderer;
+
+
+            info.renderer = renderer;
+
+            m_ObjectInfos.Add(info);*/
+        }
+
+        private void ApplyTempToRes(ObjectInfo temp, ObjectInfo res)
+		{
+            if (!string.IsNullOrWhiteSpace(temp.name))
+                res.name = temp.name;
+
+            if (!string.IsNullOrWhiteSpace(temp.internalName))
+                res.internalName = temp.internalName;
+
+            if (temp.actorID != -2)
+                res.actorID = temp.actorID;
+
+            if (!string.IsNullOrWhiteSpace(temp.description))
+                res.description = temp.description;
+
+            if (!string.IsNullOrWhiteSpace(temp.bankReq))
+                res.bankReq = temp.bankReq;
+
+            if (!string.IsNullOrWhiteSpace(temp.dlReq))
+                res.dlReq = temp.dlReq;
+
+            if (temp.renderer != null)
+                res.renderer = temp.renderer;
+        }
+
         private void SaveObjectInfos()
         {
             // order objects
@@ -520,9 +749,6 @@ namespace SM64DSe
             ObjectInfo.displayObjectID = true;
             ObjectInfo.displayInternalName = false;
 
-            m_OriginalLabelText = label3.Text;
-            m_OriginalButtonText = btnApplyXML.Text;
-
             FillCmbRenderer();
 
             try
@@ -586,7 +812,23 @@ namespace SM64DSe
 
         private void btnbtnApplyXML_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Select a XML to apply";
+            DialogResult result = ofd.ShowDialog();
+            if (result == DialogResult.Cancel) return;
 
+            ObjectInfo[] bak = new ObjectInfo[m_ObjectInfos.Count];
+            m_ObjectInfos.CopyTo(bak);
+
+            try
+            {
+                ModifyObjectInfos(ofd.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong:\n{ex}", "Invalid XML", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                m_ObjectInfos = bak.ToList();
+            }
         }
 
         private void lstObjects_SelectedIndexChanged(object sender, EventArgs e)
