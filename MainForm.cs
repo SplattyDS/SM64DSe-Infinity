@@ -1373,5 +1373,10 @@ namespace SM64DSe
 
             Console.WriteLine("Test done.");*/
 		}
-    }
+
+		private void checkForFileOverlapsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+            Program.m_ROM.CheckForOverlaps();
+		}
+	}
 }

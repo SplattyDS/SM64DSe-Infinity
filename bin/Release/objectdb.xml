@@ -2131,8 +2131,8 @@ XXXT where
 T: Type
 0 - Normal
 1 - Spawner; a bug springs out a from XYZ placement when you get near. If you defeat it, a replacement will spawn. Only the first one will release coins when defeated.</description>
-		<bankreq>1=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/scuttlebug.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/spider/spider.bmd" scale="0.008" />
 	</object>
 	<object id="147">
@@ -2182,8 +2182,8 @@ XXXX:
 		<internalname>MR_I</internalname>
 		<actorid>262</actorid>
 		<description>Stays in one place, constantly looking at the player. Every 5 seconds or so, it fires a plasma ball at the player. It can be defeated by running circles around it. Releases a blue coin when killed.</description>
-		<bankreq>1=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/mr_i.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/eyekun/eyekun.bmd" scale="0.008" />
 	</object>
 	<object id="151">
@@ -2193,8 +2193,8 @@ XXXX:
 		<description>Huge version of Mr. I seen in the attic in Big Boo's Haunt. It acts the same way as its smaller counterpart, but releases a Power Star when defeated, as opposed to a blue coin.
 
 Parameter 1: Star ID</description>
-		<bankreq>1=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/mr_i.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/eyekun/eyekun.bmd" scale="0.016" />
 	</object>
 	<object id="152">
@@ -2255,8 +2255,8 @@ Parameter 1:
 Param 1:
 0 - Real
 1 - Fake</description>
-		<bankreq>1=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/baby_penguin.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/penguin/penguin_child.bmd" scale="0.002" />
 	</object>
 	<object id="158">
@@ -4597,7 +4597,7 @@ F - Same as 3?
 		<actorid>264</actorid>
 		<description>Projectile</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/mr_i.dylb</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">

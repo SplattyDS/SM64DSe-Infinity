@@ -238,7 +238,7 @@ namespace SM64DSe
 			// 
 			this.spcLeftPanel.Panel2.Controls.Add(this.spcPropertyInterface);
 			this.spcLeftPanel.Size = new System.Drawing.Size(289, 409);
-			this.spcLeftPanel.SplitterDistance = 135;
+			this.spcLeftPanel.SplitterDistance = 134;
 			this.spcLeftPanel.SplitterWidth = 5;
 			this.spcLeftPanel.TabIndex = 1;
 			// 
@@ -250,7 +250,7 @@ namespace SM64DSe
 			this.tvObjectList.Location = new System.Drawing.Point(0, 0);
 			this.tvObjectList.Margin = new System.Windows.Forms.Padding(4);
 			this.tvObjectList.Name = "tvObjectList";
-			this.tvObjectList.Size = new System.Drawing.Size(289, 135);
+			this.tvObjectList.Size = new System.Drawing.Size(289, 134);
 			this.tvObjectList.TabIndex = 0;
 			this.tvObjectList.TabStop = false;
 			this.tvObjectList.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.tvObjectList_DrawNode);
@@ -279,7 +279,7 @@ namespace SM64DSe
 			this.spcPropertyInterface.Panel2.Controls.Add(this.btnDuplicate);
 			this.spcPropertyInterface.Panel2.Controls.Add(this.btnPasteCoordinates);
 			this.spcPropertyInterface.Panel2.Controls.Add(this.btnCopyCoordinates);
-			this.spcPropertyInterface.Size = new System.Drawing.Size(289, 269);
+			this.spcPropertyInterface.Size = new System.Drawing.Size(289, 270);
 			this.spcPropertyInterface.SplitterDistance = 238;
 			this.spcPropertyInterface.SplitterWidth = 5;
 			this.spcPropertyInterface.TabIndex = 1;
@@ -300,7 +300,7 @@ namespace SM64DSe
 			this.box_position.Margin = new System.Windows.Forms.Padding(4);
 			this.box_position.Name = "box_position";
 			this.box_position.Padding = new System.Windows.Forms.Padding(4);
-			this.box_position.Size = new System.Drawing.Size(166, 48);
+			this.box_position.Size = new System.Drawing.Size(145, 48);
 			this.box_position.TabIndex = 2;
 			this.box_position.TabStop = false;
 			this.box_position.Text = "Position";
@@ -310,7 +310,7 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapsePosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapsePosition.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapsePosition.Location = new System.Drawing.Point(144, 0);
+			this.btnToogleCollapsePosition.Location = new System.Drawing.Point(123, 0);
 			this.btnToogleCollapsePosition.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapsePosition.Name = "btnToogleCollapsePosition";
 			this.btnToogleCollapsePosition.Size = new System.Drawing.Size(21, 20);
@@ -437,7 +437,7 @@ namespace SM64DSe
 			this.box_rotation.Margin = new System.Windows.Forms.Padding(4);
 			this.box_rotation.Name = "box_rotation";
 			this.box_rotation.Padding = new System.Windows.Forms.Padding(4);
-			this.box_rotation.Size = new System.Drawing.Size(164, 48);
+			this.box_rotation.Size = new System.Drawing.Size(143, 48);
 			this.box_rotation.TabIndex = 6;
 			this.box_rotation.TabStop = false;
 			this.box_rotation.Text = "Rotation";
@@ -447,7 +447,7 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseRotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseRotation.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseRotation.Location = new System.Drawing.Point(143, -1);
+			this.btnToogleCollapseRotation.Location = new System.Drawing.Point(122, -1);
 			this.btnToogleCollapseRotation.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseRotation.Name = "btnToogleCollapseRotation";
 			this.btnToogleCollapseRotation.Size = new System.Drawing.Size(21, 20);
@@ -535,7 +535,7 @@ namespace SM64DSe
 			this.box_parameters.Margin = new System.Windows.Forms.Padding(4);
 			this.box_parameters.Name = "box_parameters";
 			this.box_parameters.Padding = new System.Windows.Forms.Padding(4);
-			this.box_parameters.Size = new System.Drawing.Size(164, 142);
+			this.box_parameters.Size = new System.Drawing.Size(143, 142);
 			this.box_parameters.TabIndex = 9;
 			this.box_parameters.TabStop = false;
 			this.box_parameters.Text = "Parameters";
@@ -545,7 +545,7 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseParameters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseParameters.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseParameters.Location = new System.Drawing.Point(143, 0);
+			this.btnToogleCollapseParameters.Location = new System.Drawing.Point(122, 0);
 			this.btnToogleCollapseParameters.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseParameters.Name = "btnToogleCollapseParameters";
 			this.btnToogleCollapseParameters.Size = new System.Drawing.Size(21, 20);
@@ -569,7 +569,7 @@ namespace SM64DSe
 			this.box_fogSettings.Margin = new System.Windows.Forms.Padding(4);
 			this.box_fogSettings.Name = "box_fogSettings";
 			this.box_fogSettings.Padding = new System.Windows.Forms.Padding(4);
-			this.box_fogSettings.Size = new System.Drawing.Size(164, 162);
+			this.box_fogSettings.Size = new System.Drawing.Size(143, 162);
 			this.box_fogSettings.TabIndex = 6;
 			this.box_fogSettings.TabStop = false;
 			this.box_fogSettings.Text = "Fog Settings";
@@ -728,7 +728,7 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseColor.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseColor.Location = new System.Drawing.Point(143, 0);
+			this.btnToogleCollapseColor.Location = new System.Drawing.Point(122, 0);
 			this.btnToogleCollapseColor.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseColor.Name = "btnToogleCollapseColor";
 			this.btnToogleCollapseColor.Size = new System.Drawing.Size(21, 20);
@@ -753,7 +753,7 @@ namespace SM64DSe
 			this.box_general.Margin = new System.Windows.Forms.Padding(4);
 			this.box_general.Name = "box_general";
 			this.box_general.Padding = new System.Windows.Forms.Padding(4);
-			this.box_general.Size = new System.Drawing.Size(164, 84);
+			this.box_general.Size = new System.Drawing.Size(143, 84);
 			this.box_general.TabIndex = 10;
 			this.box_general.TabStop = false;
 			this.box_general.Text = "General";
@@ -794,7 +794,7 @@ namespace SM64DSe
 			// 
 			this.btnToogleCollapseGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnToogleCollapseGeneral.Image = global::SM64DSe.Properties.Resources.collapseButton;
-			this.btnToogleCollapseGeneral.Location = new System.Drawing.Point(143, 0);
+			this.btnToogleCollapseGeneral.Location = new System.Drawing.Point(122, 0);
 			this.btnToogleCollapseGeneral.Margin = new System.Windows.Forms.Padding(4);
 			this.btnToogleCollapseGeneral.Name = "btnToogleCollapseGeneral";
 			this.btnToogleCollapseGeneral.Size = new System.Drawing.Size(21, 20);

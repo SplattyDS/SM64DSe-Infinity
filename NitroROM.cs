@@ -104,8 +104,12 @@ namespace SM64DSe
                     throw new Exception("Unknown ROM version. Tell Mega-Mario about it.");
             }
 
-            m_FileStream.Position = 0x28;
+
+            m_FileStream.Position = 0x20;
+            ARM9Offset = m_BinReader.ReadUInt32();
+            m_FileStream.Position += 0x04;
             ARM9RAMAddress = m_BinReader.ReadUInt32();
+            ARM9Size = m_BinReader.ReadUInt32();
 
             m_FileStream.Position = 0x30;
             ARM7Offset = m_BinReader.ReadUInt32();
@@ -121,6 +125,9 @@ namespace SM64DSe
             OVTOffset = m_BinReader.ReadUInt32();
             OVTSize = m_BinReader.ReadUInt32();
             // no need to bother about ARM7 overlays... there's none in SM64DS
+
+            m_FileStream.Position = 0x68;
+            BannerOffset = m_BinReader.ReadUInt32();
 
             m_FileStream.Position = 0x80;
             m_UsedSize = m_BinReader.ReadUInt32();
@@ -867,6 +874,107 @@ namespace SM64DSe
             return id;
         }
 
+        public void CheckForOverlaps()
+		{
+            List<(FileEntry, FileEntry)> overlappingFiles = new List<(FileEntry, FileEntry)>();
+
+            uint arm9Start = ARM9Offset;
+            uint arm9End = arm9Start + ARM9Size;
+            uint arm7Start = ARM7Offset;
+            uint arm7End = arm7Start + ARM7Size;
+            uint bannerStart = BannerOffset;
+            uint bannerEnd = bannerStart + 0xa00;
+
+            FileEntry arm9 = new FileEntry();
+            arm9.FullName = "arm9.bin";
+            arm9.ID = 0xffff;
+
+            FileEntry arm7 = new FileEntry();
+            arm7.FullName = "arm7.bin";
+            arm7.ID = 0xffff;
+
+            FileEntry banner = new FileEntry();
+            banner.FullName = "banner.bin";
+            banner.ID = 0xffff;
+
+            for (int i = 0; i < m_FileEntries.Length; i++)
+			{
+                uint start1 = m_FileEntries[i].Offset;
+                uint end1 = m_FileEntries[i].Offset + m_FileEntries[i].Size;
+
+                for (int j = 0; j < m_FileEntries.Length; j++)
+				{
+                    // have they already been added?
+                    if (overlappingFiles.Select(f => f.Item1.ID).Contains(m_FileEntries[j].ID) && overlappingFiles.Select(f => f.Item2.ID).Contains(m_FileEntries[i].ID))
+                        continue;
+
+                    uint start2 = m_FileEntries[j].Offset;
+                    uint end2 = m_FileEntries[j].Offset + m_FileEntries[j].Size;
+
+                    if ((start1 < start2 && start2 < end1) || (start1 < end2 && end2 < end1))
+                        overlappingFiles.Add((m_FileEntries[i], m_FileEntries[j]));
+                }
+
+                if ((start1 < arm9Start && arm9Start < end1) || (start1 < arm9End && arm9End < end1))
+                    overlappingFiles.Add((m_FileEntries[i], arm9));
+
+                if ((start1 < arm7Start && arm7Start < end1) || (start1 < arm7End && arm7End < end1))
+                    overlappingFiles.Add((m_FileEntries[i], arm7));
+
+                if ((start1 < bannerStart && bannerStart < end1) || (start1 < bannerEnd && bannerEnd < end1))
+                    overlappingFiles.Add((m_FileEntries[i], banner));
+            }
+
+            if ((arm9Start < arm7Start && arm7Start < arm9End) || (arm9Start < arm7End && arm7End < arm9End))
+                overlappingFiles.Add((arm9, arm7));
+
+            if ((arm9Start < bannerStart && bannerStart < arm9End) || (arm9Start < bannerEnd && bannerEnd < arm9End))
+                overlappingFiles.Add((arm9, banner));
+
+            if ((arm7Start < bannerStart && bannerStart < arm7End) || (arm7Start < bannerEnd && bannerEnd < arm7End))
+                overlappingFiles.Add((arm7, banner));
+
+            if (!overlappingFiles.Any())
+			{
+                MessageBox.Show("No overlapping files found", "No overlapping files found");
+                return;
+            }
+
+            string message = overlappingFiles.Count + " x2 overlapping files found:\r\n";
+
+            foreach ((FileEntry, FileEntry) files in overlappingFiles)
+            {
+                bool isOverlay1 = m_OverlayEntries.Select(o => o.FileID).Contains(files.Item1.ID);
+                bool isOverlay2 = m_OverlayEntries.Select(o => o.FileID).Contains(files.Item2.ID);
+
+                string name1 = !isOverlay1 ? files.Item1.FullName : $"overlay_{m_OverlayEntries.Where(o => o.FileID == files.Item1.ID).First().ID}.bin";
+                string name2 = !isOverlay2 ? files.Item2.FullName : $"overlay_{m_OverlayEntries.Where(o => o.FileID == files.Item2.ID).First().ID}.bin";
+
+                message += $"0x{Convert.ToString(files.Item1.ID, 16)} & 0x{Convert.ToString(files.Item2.ID, 16)}\r\n"
+                    + $"\t{name1}\r\n"
+                    + $"\t{name2}\r\n";
+			}
+
+            MessageBox.Show(message, overlappingFiles.Count + " x2 overlapping files found");
+		}
+
+        /*
+        static FreeSection[] OverlappingSections()
+        {
+            for (int i = 0; i < sections.Count() - 1; i++)
+            {
+                uint start1 = sections[i].Address;
+                uint end1 = sections[i].GetEndOffset();
+                uint start2 = sections[i + 1].Address;
+                uint end2 = sections[i + 1].GetEndOffset();
+
+                if ((start1 < start2 && start2 < end1) || (start1 < end2 && end2 < end1))
+                    return new FreeSection[] { sections[i], sections[i + 1] };
+            }
+
+            return null;
+        }
+        */
 
         public enum Version
 	    {
@@ -894,10 +1002,14 @@ namespace SM64DSe
 
         private uint m_UsedSize;
 
+        public uint ARM9Offset { get; private set; }
         public uint ARM9RAMAddress { get; private set; }
+        public uint ARM9Size { get; private set; }
         public uint ARM7Offset { get; private set; }
         public uint ARM7RAMAddress{ get; private set; }
         public uint ARM7Size { get; private set; }
+
+        public uint BannerOffset { get; private set; }
 
         private uint FNTOffset, FNTSize;
         internal uint FATOffset, FATSize;
