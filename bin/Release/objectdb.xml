@@ -27,8 +27,8 @@ Parameters 2 and 3 do nothing.</description>
 ===Files===
 * /data/ARCHIVE/arc1.narc/data/normal_obj/obj_pathlift
 ** obj_pathlift.bmd</description>
-		<bankreq>1=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/chief_chilly.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ewb_ice/ewb_ice_a.bmd" scale="0.008" />
 	</object>
 	<object id="2">
@@ -36,8 +36,8 @@ Parameters 2 and 3 do nothing.</description>
 		<internalname>CCC_BIG_ICE</internalname>
 		<actorid>171</actorid>
 		<description>A layer of ice platforms that Chief Chilly destroys after 2nd hit.</description>
-		<bankreq>1=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/chief_chilly.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ewb_ice/ewb_ice_b.bmd" scale="0.008" />
 	</object>
 	<object id="3">
@@ -50,8 +50,8 @@ Parameters 2 and 3 do nothing.</description>
 ** /data/special_obj/ewb_ice/
 *** ewb_ice_c.bmd
 *** ewb_ice_c.kcl</description>
-		<bankreq>1=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/chief_chilly.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ewb_ice/ewb_ice_c.bmd" scale="0.008" />
 	</object>
 	<object id="4">
@@ -2306,8 +2306,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>SNOWMAN</internalname>
 		<actorid>272</actorid>
 		<description />
-		<bankreq>1=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/snowman.dylb</dlreq>
 		<renderer type="BigSnowman" />
 	</object>
 	<object id="163">
@@ -2315,8 +2315,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>SNOWMAN_HEAD</internalname>
 		<actorid>273</actorid>
 		<description />
-		<bankreq>1=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/snowman.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/big_snowman/big_snowman_head.bmd" scale="0.008" />
 	</object>
 	<object id="164">
@@ -2324,8 +2324,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>SNOWMAN_BODY</internalname>
 		<actorid>274</actorid>
 		<description />
-		<bankreq>1=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/snowman.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/big_snowman/big_snowman_body.bmd" scale="0.008" />
 	</object>
 	<object id="165">
@@ -3145,7 +3145,7 @@ YY: (Height of the pole * 100) (in hex)</description>
 		<renderer type="Pole" border="0000FF" fill="000040" />
 	</object>
 	<object id="244">
-		<name>Lakitu Bro</name>
+		<name>Lakitu Bro.</name>
 		<internalname>LAKITU_BRO</internalname>
 		<actorid>235</actorid>
 		<description>A Lakitu that holds a camera on a fishing line. It can be seen in the mirror room.
@@ -4538,8 +4538,8 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Multi Boot Scene</name>
-		<internalname>MULTI_BOOT_SCENE</internalname>
+		<name>MultiBoot Scene</name>
+		<internalname>MULTIBOOT_SCENE</internalname>
 		<actorid>360</actorid>
 		<description>Scene</description>
 		<bankreq>none</bankreq>
@@ -4601,7 +4601,7 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>1 Up Logo</name>
+		<name>1-Up Logo</name>
 		<internalname>ONE_UP_LOGO</internalname>
 		<actorid>331</actorid>
 		<description>The logo spawned when collecting a 1 Up Mushroom</description>
@@ -4736,7 +4736,7 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Unknown (VS entry)</name>
+		<name>Unknown (VS Menu related)</name>
 		<internalname>UNKNOWN_VS_ENTRY</internalname>
 		<actorid>346</actorid>
 		<description>Not documented.</description>
