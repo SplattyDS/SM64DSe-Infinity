@@ -1003,7 +1003,7 @@ namespace SM64DSe.Patcher
                 }
                 catch
 				{
-                    demangledSymbol = "FUN_" + symbolAddress;
+                    demangledSymbol = mangledSymbol;
                     ret.Add(mangledSymbol);
                 }
 
@@ -1107,6 +1107,10 @@ namespace SM64DSe.Patcher
                     int num = int.Parse(args.Substring(i, numLength));
                     i += numLength + num - 1;
                 }
+
+                // skip the E{x}_{y}_FUN after Ulv in lambdas
+                if (args[i] == 'U' && args[i + 1] == 'l' && args[i + 2] == 'v')
+                    i += 10;
             }
 
             return 0;
@@ -1175,6 +1179,12 @@ namespace SM64DSe.Patcher
                     args = args.Substring(1);
                 }
 
+                if (args[0] == 'V')
+                {
+                    typePrefix = "volatile ";
+                    args = args.Substring(1);
+                }
+
                 if (args[0] == 'N')
                 {
                     namespaceMode = true;
@@ -1194,6 +1204,7 @@ namespace SM64DSe.Patcher
                     }
                     else
 					{*/
+
                     // more complex types like structs
                     bool firstS = true;
                     string curType = "";
@@ -1338,10 +1349,16 @@ namespace SM64DSe.Patcher
                         savedTypes.Add(typePrefix + type);
                     for (int i = 0; i < typeSuffix.Length; i++)
                         savedTypes.Add(savedTypes[savedTypes.Count - 1] + typeSuffix[i]);
-
                 }
 
                 ret += typePrefix + type + typeSuffix;
+
+                if (namespaceMode && args.StartsWith("Ulv"))
+                {
+                    savedTypes.Add("lambda"); // the function name gets removed before reading parameters
+                    return ret + "::lambda";
+                }
+
                 first = false;
             }
 
@@ -1356,6 +1373,9 @@ namespace SM64DSe.Patcher
 
             // The symbol is mangled, demangle it
             symbol = symbol.Substring(2);
+
+            if (symbol.StartsWith("N12_GLOBAL__N_1L"))
+                symbol = symbol.Substring(16);
 
             string demangledSymbol;
             List<string> savedTypes = new List<string>();
@@ -1379,6 +1399,9 @@ namespace SM64DSe.Patcher
             }
 
             if (symbol.Length == 0)
+                return demangledSymbol;
+
+            if (symbol == "E")
                 return demangledSymbol;
             
             // function parameters
