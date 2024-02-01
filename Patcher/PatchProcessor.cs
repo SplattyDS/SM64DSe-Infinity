@@ -644,6 +644,8 @@ namespace SM64DSe.Patcher
             symbols.Add("");
             symbols.Add("/* " + title + ": */");
 
+            List<string> newSymbols = new List<string>();
+
             foreach (string symbol in unformattedSymbols)
             {
                 string[] data = symbol.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -654,10 +656,12 @@ namespace SM64DSe.Patcher
                     {
                         uint addr = uint.Parse(data[0], System.Globalization.NumberStyles.HexNumber);
                         string spaces = symbolName.Length >= 82 ? " " : new string(' ', 82 - symbolName.Length);
-                        symbols.Add(symbolName + spaces + "= " + "0x" + Convert.ToString(addr, 16).PadLeft(8, '0').ToLower() + ";");
+                        newSymbols.Add(symbolName + spaces + "= " + "0x" + Convert.ToString(addr, 16).PadLeft(8, '0').ToLower() + ";");
                     }
                 }
             }
+
+            symbols.AddRange(newSymbols.OrderBy(s => parseUHex(s.Substring(s.Length - 9, 8))));
 
             File.WriteAllLines(codeDir.FullName + "symbols.x", symbols);
         }
