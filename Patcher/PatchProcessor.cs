@@ -1179,13 +1179,13 @@ namespace SM64DSe.Patcher
 
                 if (args[0] == 'K')
                 {
-                    typePrefix = "const ";
+                    typePrefix = "const_";
                     args = args.Substring(1);
                 }
 
                 if (args[0] == 'V')
                 {
-                    typePrefix = "volatile ";
+                    typePrefix = "volatile_";
                     args = args.Substring(1);
                 }
 
