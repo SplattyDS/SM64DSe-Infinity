@@ -643,8 +643,8 @@ This object is unused in the game, but is present in the general purpose test ma
 		<internalname>STUMP</internalname>
 		<actorid>27</actorid>
 		<description>Small wooden pole that can be groundpounded to obtain coins.</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/stump.dylb</dlreq>
+		<bankreq>4=3</bankreq>
+		<dlreq>none</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_pile/pile.bmd" scale="0.008" />
 	</object>
 	<object id="37">
