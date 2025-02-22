@@ -75,6 +75,7 @@ namespace SM64DSe
         private string patchPath;
         private bool filesystemEditStarted;
         private bool hideConsoleWindow;
+        private bool patchStarted = false;
 
         private System.Timers.Timer patchTimer = new System.Timers.Timer(1000);
         private int secondCounter;
@@ -83,7 +84,9 @@ namespace SM64DSe
         {
             InitializeComponent();
             patchTimer.Elapsed += Timer_Tick;
+
             LoadPatch(patchPath);
+            btnReloadScript.Text = "Start Script";
         }
 
         private void lstCommands_DrawItem(object sender, DrawItemEventArgs e)
@@ -133,6 +136,8 @@ namespace SM64DSe
             }
 
             LoadPatch(patchPath);
+            StartPatch();
+            btnReloadScript.Text = "Reload Script";
         }
 
         private void btnImportScript_Click(object sender, EventArgs e)
@@ -150,12 +155,13 @@ namespace SM64DSe
                 return;
 
             LoadPatch(o.FileName);
+            btnReloadScript.Text = "Start Script";
         }
 
         private bool CanCloseWindow()
 		{
             IEnumerable<CommandInfo.State> states = commandInfos.Select(c => c.state);
-            return !states.Contains(CommandInfo.State.WAITING) || states.Contains(CommandInfo.State.FAILED);
+            return !patchStarted ||!states.Contains(CommandInfo.State.WAITING) || states.Contains(CommandInfo.State.FAILED);
         }
 
         private void UpdateForm(int refreshIndex)
@@ -175,6 +181,8 @@ namespace SM64DSe
 
         private void LoadPatch(string patchPath)
 		{
+            patchStarted = false;
+
             this.patchPath = patchPath;
             basePath = Path.GetDirectoryName(patchPath) + "\\";
 
@@ -187,6 +195,43 @@ namespace SM64DSe
 
                 if (string.IsNullOrWhiteSpace(infosList[i]))
                     infosList.Remove(infosList[i]);
+            }
+
+            for (int i = infosList.Count - 1; i >= 0; i--)
+            {
+                string[] p = infosList[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (p == null || p.Length < 5 || p[1] != "levels" || p[0] != "compile")
+                    continue;
+                
+                try
+                {
+                    string temp = string.Join(" ", p).Replace("compile levels ", "");
+                    IEnumerable<int> levelIDs = temp.Remove(temp.IndexOf(" \"")).Split(' ').Select(s => int.Parse(s));
+                    List<ushort> allDLs = new List<ushort>();
+
+                    foreach (int levelID in levelIDs)
+                    {
+                        Level level = new Level(levelID);
+                        level.DetermineAvailableObjects();
+                        allDLs.AddRange(level.m_DynLibIDs);
+                    }
+
+                    string[] uniqueDLs = allDLs.Distinct().Select(d => Program.m_ROM.GetFileFromInternalID(d).m_Name).ToArray();
+
+                    string allInfosFile = string.Join(" ", p).Split('\"').Where(s => !string.IsNullOrWhiteSpace(s)).Last();
+                    string[] allInfosLines = File.ReadAllLines(basePath + allInfosFile);
+
+                    // turn them into the lines that will replace the "compile levels" command
+                    for (int j = 0; j < uniqueDLs.Count(); j++)
+                        uniqueDLs[j] = allInfosLines.Where(l => l.Contains("\"" + uniqueDLs[j] + "\"")).First();
+
+                    infosList.RemoveAt(i);
+                    infosList.InsertRange(i, uniqueDLs);
+                }
+                catch (Exception e)
+				{
+                    continue;
+				}
             }
 
             commandInfos = infosList.Select(l => new CommandInfo(l)).ToArray();
@@ -202,6 +247,11 @@ namespace SM64DSe
 
             secondCounter = 0;
             lblTimeElapsed.Text = "Time elapsed: 0s";
+        }
+
+        private void StartPatch()
+        {
+            patchStarted = true;
 
             Thread thread = new Thread(ApplyPatch);
             thread.IsBackground = true;
