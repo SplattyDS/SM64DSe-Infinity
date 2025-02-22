@@ -35,6 +35,7 @@ namespace SM64DSe.Patcher
             
 
             codeDir = new DirectoryInfo(codeDir.FullName + codeSubDir + "\\");
+            string buildDir;
 
             switch (p[1])
             {
@@ -44,11 +45,12 @@ namespace SM64DSe.Patcher
                 case "overlay":
                     uint ovID = Convert.ToUInt32(p[2]);
                     uint addr = new NitroOverlay(Program.m_ROM, ovID).GetRAMAddr();
-                    UpdateMakefileSources(codeDir, sourceDir);
+                    buildDir = GetBuildDir(codeDir.FullName + '\\', sourceDir);
+                    UpdateMakefile(codeDir, sourceDir, buildDir);
                     PatchCompiler.compilePatch(addr, codeDir);
                     MakeOverlay(ovID, codeDir);
                     UpdateSymbols(codeDir, "Symbols from overlay " + ovID);
-                    PatchCompiler.cleanPatch(codeDir);
+                    // PatchCompiler.cleanPatch(codeDir);
                     return "Successfully compiled overlay " + ovID + ".\n" + sourceDir;
 
                 case "dl":
@@ -64,7 +66,7 @@ namespace SM64DSe.Patcher
                     file.m_Data = dl;
                     file.SaveChanges();
 
-                    PatchCompiler.cleanPatch(codeDir);
+                    // PatchCompiler.cleanPatch(codeDir);
                     return "Successfully compiled \n" + fileName + "\n" + sourceDir;
 
                 case "hooks":
@@ -72,17 +74,19 @@ namespace SM64DSe.Patcher
                     return "Successfully run hook script\n" + sourceDir;
 
                 case "test":
-                    UpdateMakefileSources(codeDir, sourceDir);
+                    buildDir = GetBuildDir(codeDir.FullName + '\\', sourceDir);
+                    UpdateMakefile(codeDir, sourceDir, buildDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
-                    if (!File.Exists(codeDir.FullName + "\\newcode.bin")) throw new Exception("Code didn't compile successfully.\nRetry for more details.");
-                    PatchCompiler.cleanPatch(codeDir);
+                    if (!File.Exists(codeDir.FullName + "\\" + buildDir + "\\newcode.bin")) throw new Exception("Code didn't compile successfully.\nRetry for more details.");
+                    // PatchCompiler.cleanPatch(codeDir);
                     return "Successfully compiled test\n" + sourceDir;
 
                 case "symbols":
-                    UpdateMakefileSources(codeDir, sourceDir);
+                    buildDir = GetBuildDir(codeDir.FullName + '\\', sourceDir);
+                    UpdateMakefile(codeDir, sourceDir, buildDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
                     string symbols = string.Join("\n", GetSymbols(codeDir));
-                    PatchCompiler.cleanPatch(codeDir);
+                    // PatchCompiler.cleanPatch(codeDir);
                     return "Successfully compiled symbols in " + sourceDir + ":\n" + symbols;
 
                 default:
@@ -335,13 +339,15 @@ namespace SM64DSe.Patcher
             }
         }
 
-        public static void BackupBuildFiles(string codeDir, string dirName, bool isDL = false)
+        // only 2 seconds faster? investigate
+        /*public static void BackupBuildFiles(string codeDir, string dirName, bool isDL = false)
         {
-            /*dirName = dirName.Replace('\\', '-').Replace('/', '-');
+            // dirName = dirName.Replace('\\', '-').Replace('/', '-');
+            dirName = dirName.GetHashCode().ToString("X");
 
             string buildDir = codeDir + "build/";
-            string savedBuildDir = codeDir + "build_saved/";
-            string savedBuildBuildDir = savedBuildDir + dirName + "-build/";
+            string savedBuildDir = codeDir + "build_saved/" + dirName + "/";
+            string savedBuildBuildDir = savedBuildDir + "build/";
 
             if (!Directory.Exists(buildDir))
                 return;
@@ -368,7 +374,7 @@ namespace SM64DSe.Patcher
 
             foreach (string file in newcodeFiles)
             {
-                string newFileName = Path.Combine(savedBuildDir, dirName + "-" + file);
+                string newFileName = Path.Combine(savedBuildDir, file);
                 string sourceFileName = codeDir + file;
 
                 if (File.Exists(newFileName))
@@ -378,16 +384,17 @@ namespace SM64DSe.Patcher
                     continue;
 
                 File.Copy(sourceFileName, newFileName);
-            }*/
+            }
         }
 
         public static void RestoreBuildFiles(string codeDir, string dirName, bool isDL = false)
         {
-            /*dirName = dirName.Replace('\\', '-').Replace('/', '-');
+            // dirName = dirName.Replace('\\', '-').Replace('/', '-');
+            dirName = dirName.GetHashCode().ToString("X");
 
             string buildDir = codeDir + "build/";
-            string savedBuildDir = codeDir + "build_saved/";
-            string savedBuildBuildDir = savedBuildDir + dirName + "-build/";
+            string savedBuildDir = codeDir + "build_saved/" + dirName + "/";
+            string savedBuildBuildDir = savedBuildDir + "build/";
 
             if (!Directory.Exists(savedBuildDir) || !Directory.Exists(savedBuildBuildDir))
                 return;
@@ -421,7 +428,24 @@ namespace SM64DSe.Patcher
                     continue;
 
                 File.Copy(sourceFileName, newFileName);
-            }*/
+            }
+        }*/
+
+        public static string GetBuildDir(string codeDir, string dirName)
+        {
+            // dirName = dirName.Replace('\\', '-').Replace('/', '-');
+            dirName = dirName.GetHashCode().ToString("X");
+
+            string buildDir = codeDir + "build/" + dirName + "/";
+            // string buildBuildDir = buildDir + "build/";
+
+            if (!Directory.Exists(buildDir))
+                Directory.CreateDirectory(buildDir);
+
+            // if (!Directory.Exists(buildBuildDir))
+            // return null;
+
+            return "build/" + dirName;
         }
         #endregion
 
@@ -482,7 +506,7 @@ namespace SM64DSe.Patcher
         #endregion
 
         #region Compile DL
-        private static (uint, uint)? GetInitAndCleanup(DirectoryInfo codeDir)
+        private static (uint, uint)? GetInitAndCleanup(DirectoryInfo codeDir, string buildDir)
         {
             StreamReader symbolFile = null;
             uint initFuncOffset = 0;
@@ -490,7 +514,7 @@ namespace SM64DSe.Patcher
 
             try
             {
-                symbolFile = new StreamReader(new FileStream(codeDir + "/newcode.sym", FileMode.Open));
+                symbolFile = new StreamReader(new FileStream(codeDir + "/" + buildDir + "/newcode.sym", FileMode.Open));
 
                 while (!symbolFile.EndOfStream)
                 {
@@ -546,19 +570,17 @@ namespace SM64DSe.Patcher
             {
                 const uint baseAddress = 0x02400000;
 
-                UpdateMakefileSources(codeDir, sourceDir);
-                RestoreBuildFiles(codeDir.FullName + '\\', sourceDir, true);
+                string buildDir = GetBuildDir(codeDir.FullName + '\\', sourceDir);
+                UpdateMakefile(codeDir, sourceDir, buildDir);
 
                 string make = "(make CODEADDR=0x" + baseAddress.ToString("X8")
                      + " && make CODEADDR=0x" + (baseAddress + 4).ToString("X8")
-                     + " TARGET=newcode1)";
+                     + " TARGET=" + buildDir + "/newcode1)";
                 if (PatchCompiler.runProcess(make, codeDir.FullName) != 0)
                     return null;
 
-                BackupBuildFiles(codeDir.FullName + '\\', sourceDir, true);
-
-                byte[] code0 = File.ReadAllBytes(codeDir.FullName + "/newcode.bin");
-                byte[] code1 = File.ReadAllBytes(codeDir.FullName + "/newcode1.bin");
+                byte[] code0 = File.ReadAllBytes(codeDir.FullName + "/" + buildDir + "/newcode.bin");
+                byte[] code1 = File.ReadAllBytes(codeDir.FullName + "/" + buildDir + "/newcode1.bin");
 
                 if (code0.Length != code1.Length)
                     throw new Exception("Generating DL failed: code lengths don't match");
@@ -608,7 +630,7 @@ namespace SM64DSe.Patcher
                 alignStream(output.BaseStream, 4);
 
                 var relocationOffset = output.BaseStream.Position;
-                var addresses = GetInitAndCleanup(codeDir);
+                var addresses = GetInitAndCleanup(codeDir, buildDir);
                 if (addresses == null) return null;
 
                 uint initFuncOffset = (((uint, uint))addresses).Item1 - baseAddress + 0x10;
@@ -693,13 +715,20 @@ namespace SM64DSe.Patcher
         }
         #endregion
 
-        #region Update Makefile Sources Path
-        public static void UpdateMakefileSources(DirectoryInfo codeDir, string sourceDir)
+        #region Update Makefile Sources, Build and Target
+        public static void UpdateMakefile(DirectoryInfo codeDir, string sourceDir, string buildDir)
         {
             string[] lines = File.ReadAllLines(codeDir.FullName + "Makefile");
 
-            for (int i = 0; i < lines.Length; i++) if (lines[i].StartsWith("SOURCES  := "))
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].StartsWith("BUILD    := "))
+                    lines[i] = "BUILD    := " + buildDir;
+                else if (lines[i].StartsWith("TARGET   := "))
+                    lines[i] = "TARGET   := " + buildDir + "/newcode";
+                else if (lines[i].StartsWith("SOURCES  := "))
                     lines[i] = "SOURCES  := " + sourceDir;
+            }
 
             File.WriteAllLines(codeDir.FullName + "Makefile", lines);
         }
@@ -884,17 +913,16 @@ namespace SM64DSe.Patcher
                 {
                     curSourceDir = subDir;
 
-                    UpdateMakefileSources(codeDir, curSourceDir);
-                    RestoreBuildFiles(codeDir.FullName + '\\', curSourceDir);
+                    string buildDir = GetBuildDir(codeDir.FullName + '\\', curSourceDir);
+                    UpdateMakefile(codeDir, curSourceDir, buildDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
 
-                    uint size = (uint)File.ReadAllBytes(codeDir.FullName + "\\newcode.bin").Length;
+                    uint size = (uint)File.ReadAllBytes(codeDir.FullName + "\\" + buildDir + "\\newcode.bin").Length;
                     size += size % 4;
                     size += 0x10; // because the size is sometimes incorrect, this is not that expensive and doesn't require changing the entire build system
 
                     UpdateSymbols(codeDir, "Temporary Symbols from arm9 patch (" + curSourceDir + ")");
-                    BackupBuildFiles(codeDir.FullName + '\\', curSourceDir);
-                    PatchCompiler.cleanPatch(codeDir);
+                    // PatchCompiler.cleanPatch(codeDir);
 
                     // ret += "Precompiled arm9 section '" + curSourceDir + "'.\n";
 
@@ -924,11 +952,11 @@ namespace SM64DSe.Patcher
                     CodeBlock codeBlock = codeBlocks.Where(c => c.Directory == subDir).First();
                     curSourceDir = subDir;
 
-                    UpdateMakefileSources(codeDir, curSourceDir);
-                    RestoreBuildFiles(codeDir.FullName + '\\', curSourceDir);
+                    string buildDir = GetBuildDir(codeDir.FullName + '\\', curSourceDir);
+                    UpdateMakefile(codeDir, curSourceDir, buildDir);
                     PatchCompiler.compilePatch(codeBlock.Address, codeDir);
 
-                    byte[] data = File.ReadAllBytes(codeDir.FullName + "\\newcode.bin");
+                    byte[] data = File.ReadAllBytes(codeDir.FullName + "\\" + buildDir + "\\newcode.bin");
 
                     if (data.Length > codeBlock.Size)
                         throw new Exception($"{subDir} size was {data.Length}, expected {codeBlock.Size} at most");
@@ -941,8 +969,7 @@ namespace SM64DSe.Patcher
                     if (!autorw) Program.m_ROM.EndRW();
 
                     UpdateSymbols(codeDir, "Symbols from arm9 patch (" + codeBlock.Directory + ")");
-                    BackupBuildFiles(codeDir.FullName + '\\', curSourceDir);
-                    PatchCompiler.cleanPatch(codeDir);
+                    // PatchCompiler.cleanPatch(codeDir);
 
                     // ret += "Compiled and inserted arm9 section '" + codeBlock.Directory + "' at 0x" + Convert.ToString(codeBlock.Address, 16).ToLower() + " with size 0x" + Convert.ToString(codeBlock.Size, 16).ToLower() + ".\n";
                 }
