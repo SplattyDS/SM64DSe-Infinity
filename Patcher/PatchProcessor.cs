@@ -24,7 +24,7 @@ namespace SM64DSe.Patcher
             if (p.Length < 2)
                 throw new IndexOutOfRangeException("Not enough arguments supplied.");
 
-            int minLength = p[1] == "dl" || p[1] == "overlay" || p[1] == "levels" ? 5 : 4;
+            int minLength = p[1] == "ov_info" || p[1] == "make_decomp" ? 3 : p[1] == "dl" || p[1] == "overlay" || p[1] == "levels" ? 5 : 4;
 
             if (p.Length < minLength)
                 throw new IndexOutOfRangeException("Not enough arguments supplied.");
@@ -87,6 +87,14 @@ namespace SM64DSe.Patcher
                     string symbols = string.Join("\n", GetSymbols(codeDir));
                     PatchCompiler.cleanPatch(codeDir);
                     return "Successfully compiled symbols in " + sourceDir + ":\n" + symbols;
+
+                case "ov_info":
+                    OvInfoMaker.Run(sourceDir);
+                    return "Successfully written overlay infos.";
+
+                case "make_decomp":
+                    ObjectDecompMaker.Run(sourceDir);
+                    return "Successfully initialized decomp.";
 
                 default:
                     throw new Exception("Unknown command type '" + p[1] + "'.");

@@ -65,6 +65,7 @@ namespace SM64DSe
         }
 
         public static ObjectInfo[] m_ObjectInfo = null;
+        public static ObjectInfo[] m_OtherActorInfo = null;
         public static uint m_Timestamp;
         public static WebClient m_WebClient;
 
@@ -74,6 +75,10 @@ namespace SM64DSe
             m_ObjectInfo = new ObjectInfo[65536];
             for (int i = 0; i < 65536; i++)
                 m_ObjectInfo[i] = new ObjectInfo();
+
+            m_OtherActorInfo = new ObjectInfo[65536];
+            for (int i = 0; i < 65536; i++)
+                m_OtherActorInfo[i] = new ObjectInfo();
 
             m_WebClient = new WebClient();
         }
@@ -97,16 +102,29 @@ namespace SM64DSe
                 throw new Exception("Failed to open objectdb.xml");
             }
 
+            int i = 0;
+
             while (xr.ReadToFollowing("object"))
             {
                 string temp;
 
                 xr.MoveToAttribute("id");
                 int id = 0; int.TryParse(xr.Value, out id);
-                if ((id < 0) || (id > m_ObjectInfo.Length))
-                    continue;
 
-                ObjectInfo oinfo = m_ObjectInfo[id];
+                ObjectInfo oinfo;
+
+                if (id == -1)
+                {
+                    oinfo = m_OtherActorInfo[i++];
+                }
+                else
+				{
+                    if ((id < 0) || (id > m_ObjectInfo.Length))
+                        continue;
+
+                    oinfo = m_ObjectInfo[id];
+                }
+
                 oinfo.m_ID = (ushort)id;
 
                 xr.ReadToFollowing("name");

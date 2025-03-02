@@ -134,7 +134,9 @@
     </Compile>
     <Compile Include="BasicBigFloat.cs" />
     <Compile Include="BiDictionaryOneToOne.cs" />
+    <Compile Include="Patcher\ObjectDecompMaker.cs" />
     <Compile Include="Patcher\FileHeaderGenerator.cs" />
+    <Compile Include="Patcher\OvInfoMaker.cs" />
     <Compile Include="Patcher\SoundHeaderGenerator.cs" />
     <Compile Include="PatchViewerForm.cs">
       <SubType>Form</SubType>
