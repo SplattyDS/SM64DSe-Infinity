@@ -134,6 +134,11 @@
     </Compile>
     <Compile Include="BasicBigFloat.cs" />
     <Compile Include="BiDictionaryOneToOne.cs" />
+    <Compile Include="KuppaScriptDecompilerForm.cs" />
+    <Compile Include="KuppaScriptDecompilerForm.Designer.cs">
+      <DependentUpon>KuppaScriptDecompilerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patcher\KuppaScriptFixer.cs" />
     <Compile Include="Patcher\ObjectDecompMaker.cs" />
     <Compile Include="Patcher\FileHeaderGenerator.cs" />
     <Compile Include="Patcher\OvInfoMaker.cs" />
@@ -443,6 +448,9 @@
     <EmbeddedResource Include="AnimationEditorForm.resx">
       <DependentUpon>AnimationEditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KuppaScriptDecompilerForm.resx">
+      <DependentUpon>KuppaScriptDecompilerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectDatabaseEditorForm.resx">
       <DependentUpon>ObjectDatabaseEditorForm.cs</DependentUpon>

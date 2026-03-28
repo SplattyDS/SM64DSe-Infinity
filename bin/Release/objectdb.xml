@@ -817,8 +817,8 @@ W - Width
 Parameter 2:
 Z
 Z - Z rotation. Details unsure</description>
-		<bankreq>2=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/painting.dylb</dlreq>
 		<renderer type="Painting" />
 	</object>
 	<object id="43">
@@ -1189,8 +1189,8 @@ S - [S]tar ID</description>
 		<internalname>WHOMP</internalname>
 		<actorid>164</actorid>
 		<description>Walks in a straight path, then turns around and walks the other way. When it finds a player, it moves faster.</description>
-		<bankreq>2=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/whomp.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/battan/battan.bmd" scale="0.008" />
 	</object>
 	<object id="65">
@@ -1203,8 +1203,8 @@ Parameter 1:
 FF followed by Star ID eg. FF01 for Star 1. 
 
 There should be a corresponding Star Marker with Parameters 2 followed by Star ID, eg. 21 for Star 1.</description>
-		<bankreq>2=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/whomp.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/battan_king/battan_king.bmd" scale="0.008" />
 	</object>
 	<object id="66">
@@ -2144,8 +2144,8 @@ T: Type
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>2=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/spiny.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/togezo/togezo.bmd" scale="0.008" />
 	</object>
 	<object id="148">
@@ -2164,8 +2164,8 @@ XXXX:
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>2=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/lakitu.dylb data/dynamic/spiny.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/jugem/jugem.bmd" scale="0.008" />
 	</object>
 	<object id="149">
@@ -2202,8 +2202,8 @@ Parameter 1: Star ID</description>
 		<internalname>CRAZED_CRATE</internalname>
 		<actorid>193</actorid>
 		<description>When grabbed or eaten, makes the player do a triple jump while diving. If watched closely while idle, the block will hop up and down. If grabbed underwater, the player can carry it like a Koopa Shell.</description>
-		<bankreq>2=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/crazed_crate.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/batta_block/batta_block.bmd" scale="0.008" />
 	</object>
 	<object id="153">
@@ -2583,8 +2583,8 @@ Parameter 1:
 		<internalname>BULLET_BILL</internalname>
 		<actorid>222</actorid>
 		<description>When launched from a Bullet Bill Box (KILLER_DAI) home in on a player and follow them. It can be defeated with a well-timed attack.</description>
-		<bankreq>2=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bullet_bill.dylb</dlreq>
 		<renderer type="DoubleBMD" file1="data/enemy/killer/killer_body.bmd" file2="data/enemy/killer/killer_face.bmd" scale="0.008" offset1="0,0,0" offset2="0,0,0" />
 	</object>
 	<object id="191">
@@ -2646,8 +2646,8 @@ Parameter 1:
 		<internalname>BILL_BLASTER</internalname>
 		<actorid>43</actorid>
 		<description>Fires Bullet Bills if the player is in range and in plain sight.</description>
-		<bankreq>2=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/bullet_bill.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_killer_dai/bk_killer_dai.bmd" scale="0.008" />
 	</object>
 	<object id="198">
@@ -2684,8 +2684,8 @@ Parameter 1:
 		<description>Non-breakable version of BK_KABE00 wall from Whomp's Fortress from "Blast Away The Wall".
 
 Note: The collision map for this object should be scaled by 8 - reason unknown.</description>
-		<bankreq>2=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fortress_wall.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_kabe01/bk_kabe01.bmd" scale="0.008" />
 	</object>
 	<object id="202">
@@ -2699,8 +2699,8 @@ FF followed by ID of Star, eg. FF01 for Star 1
 A Star marker should exist with Parameter of 2 followed by Star ID. eg. 21 for Star 1.
 
 Note: The collision map for this object should be scaled by 10.</description>
-		<bankreq>2=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fortress_wall.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_kabe00/bk_kabe00.bmd" scale="0.008" />
 	</object>
 	<object id="203">
@@ -3221,8 +3221,8 @@ Z: How it should behave
 0 - Normal
 1 - Unknown (Seems to freeze the Monty Mole)
 2 - Requires another Monty Mole with X set to 1, comes out when other Monty Mole is underground?</description>
-		<bankreq>2=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/monty_mole.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/choropu/choropu.bmd" scale="0.008" />
 	</object>
 	<object id="249">
@@ -3230,8 +3230,8 @@ Z: How it should behave
 		<internalname>MONTY_MOLE_ROCK</internalname>
 		<actorid>311</actorid>
 		<description>A rock which Monty Mole throws at the player.</description>
-		<bankreq>2=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/monty_mole.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/choropu/rock.bmd" scale="0.008" />
 	</object>
 	<object id="250">
@@ -3252,8 +3252,8 @@ Z: How it should behave
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>2=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/heave_ho.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/popoi/popoi.bmd" scale="0.008" />
 	</object>
 	<object id="252">
@@ -3722,8 +3722,8 @@ XXXX: Extra sound when broken?
 		<actorid>18</actorid>
 		<description>Meltable by Yoshi's fire breath and smashable by giant players.
 If you put a Power Star inside it (by literally placing it inside it), the "Power Star appear" cutscene will play when the block is melted. No parameters are needed for this.</description>
-		<bankreq>2=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/ice_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_block/ice_block_ll.bmd" scale="0.008" />
 	</object>
 	<object id="286">

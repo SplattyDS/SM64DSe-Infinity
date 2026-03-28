@@ -311,8 +311,8 @@ namespace SM64DSe.Patcher
 
 				lines.Add("#include \"SM64DS_2.h\"");
 				if (!ALWAYS_LOADED_STRUCTS.Contains(structName))
-					// lines.Add("#include \"Actors/" + structName + ".h\"");
-					lines.Add("#include \"" + structName + ".h\"");
+					lines.Add("#include \"Actors/" + structName + ".h\"");
+					// lines.Add("#include \"" + structName + ".h\"");
 				lines.Add("");
 
 				foreach (int overwrittenVfunc in overwrittenVfuncs)
@@ -398,8 +398,8 @@ namespace SM64DSe.Patcher
 
 				lines.Add("#include \"SM64DS_2.h\"");
 				if (!ALWAYS_LOADED_STRUCTS.Contains(structName))
-					// lines.Add("#include \"Actors/" + structName + ".h\"");
-					lines.Add("#include \"" + structName + ".h\"");
+					lines.Add("#include \"Actors/" + structName + ".h\"");
+					// lines.Add("#include \"" + structName + ".h\"");
 				lines.Add("");
 				lines.Add("void init()");
 				lines.Add("{");

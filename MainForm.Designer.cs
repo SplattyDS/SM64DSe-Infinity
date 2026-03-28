@@ -49,8 +49,10 @@
 			this.checkLevelReqToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnASMHacking = new System.Windows.Forms.ToolStripDropDownButton();
 			this.mnitCodeCompiler = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnitGhidra = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnitASMHackingGeneration = new System.Windows.Forms.ToolStripMenuItem();
 			this.platformEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.kuppaScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tssASMHacking001 = new System.Windows.Forms.ToolStripSeparator();
 			this.extendItcmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnTools = new System.Windows.Forms.ToolStripDropDownButton();
@@ -282,6 +284,7 @@
 			this.btnASMHacking.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.btnASMHacking.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnitCodeCompiler,
+            this.mnitGhidra,
             this.mnitASMHackingGeneration,
             this.tssASMHacking001,
             this.extendItcmToolStripMenuItem});
@@ -298,10 +301,18 @@
 			this.mnitCodeCompiler.Text = "Code Compiler";
 			this.mnitCodeCompiler.Click += new System.EventHandler(this.mnitCodeCompiler_Click);
 			// 
+			// mnitGhidra
+			// 
+			this.mnitGhidra.Name = "mnitGhidra";
+			this.mnitGhidra.Size = new System.Drawing.Size(154, 22);
+			this.mnitGhidra.Text = "Open Ghidra";
+			this.mnitGhidra.Click += new System.EventHandler(this.mnitGhidra_Click);
+			// 
 			// mnitASMHackingGeneration
 			// 
 			this.mnitASMHackingGeneration.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.platformEditorToolStripMenuItem});
+            this.platformEditorToolStripMenuItem,
+            this.kuppaScriptToolStripMenuItem});
 			this.mnitASMHackingGeneration.Name = "mnitASMHackingGeneration";
 			this.mnitASMHackingGeneration.Size = new System.Drawing.Size(154, 22);
 			this.mnitASMHackingGeneration.Text = "Generation";
@@ -312,6 +323,13 @@
 			this.platformEditorToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
 			this.platformEditorToolStripMenuItem.Text = "Platform Editor";
 			this.platformEditorToolStripMenuItem.Click += new System.EventHandler(this.platformEditorToolStripMenuItem_Click);
+			// 
+			// kuppaScriptToolStripMenuItem
+			// 
+			this.kuppaScriptToolStripMenuItem.Name = "kuppaScriptToolStripMenuItem";
+			this.kuppaScriptToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+			this.kuppaScriptToolStripMenuItem.Text = "Kuppa Script";
+			this.kuppaScriptToolStripMenuItem.Click += new System.EventHandler(this.kuppaScriptToolStripMenuItem_Click);
 			// 
 			// tssASMHacking001
 			// 
@@ -822,8 +840,10 @@
         private System.Windows.Forms.ToolStripMenuItem mnitToolsBTPEditor;
         private System.Windows.Forms.ToolStripDropDownButton btnASMHacking;
         private System.Windows.Forms.ToolStripMenuItem mnitCodeCompiler;
-        private System.Windows.Forms.ToolStripMenuItem mnitASMHackingGeneration;
+		private System.Windows.Forms.ToolStripMenuItem mnitGhidra;
+		private System.Windows.Forms.ToolStripMenuItem mnitASMHackingGeneration;
         private System.Windows.Forms.ToolStripMenuItem platformEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kuppaScriptToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator tssASMHacking001;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ComboBox cbLevelListDisplay;

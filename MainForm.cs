@@ -33,6 +33,7 @@ namespace SM64DSe
     {
         private System.Diagnostics.Process nitroStudio = null;
         private System.Diagnostics.Process nitroPaint = null;
+        private System.Diagnostics.Process ghidra = null;
 
         private void LoadROM(string filename)
         {
@@ -525,6 +526,11 @@ namespace SM64DSe
         private void platformEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Templates.PlatformTemplateForm().Show();
+        }
+
+        private void kuppaScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new KuppaScriptDecompilerForm().ShowDialog();
         }
 
         private void cbLevelListDisplay_SelectedIndexChanged(object sender, EventArgs e)
@@ -1082,6 +1088,7 @@ namespace SM64DSe
                     else if (objinfo.m_dlRequirements != null && objinfo.m_dlRequirements.Length > 0)
                     {
                         List<string> unavailableDLs = objinfo.m_dlRequirements.ToList();
+                        List<string> checkedDLs = new List<string>();
 
                         IEnumerable<string> levelDLs;
                         if (level.m_DynLibIDs == null)
@@ -1092,8 +1099,11 @@ namespace SM64DSe
                         foreach (string unavailableDL in unavailableDLs)
                         {
                             if (levelDLs.Contains(unavailableDL))
-                                unavailableDLs.Remove(unavailableDL);
+                                checkedDLs.Add(unavailableDL);
                         }
+
+                        foreach (string checkedDL in checkedDLs)
+                            unavailableDLs.Remove(checkedDL);
 
                         message += "Add the following DLs (creates a file if it doesn't exist):\n";
                         foreach (string unavailableDL in unavailableDLs)
@@ -1378,5 +1388,15 @@ namespace SM64DSe
 		{
             Program.m_ROM.CheckForOverlaps();
 		}
-	}
+
+        private void OpenGhidra()
+		{
+            System.Diagnostics.Process.Start(Program.m_ROMPath.Remove(Program.m_ROMPath.LastIndexOf('\\')) + "/tools/ghidraRun.lnk");
+        }
+
+        private void mnitGhidra_Click(object sender, EventArgs e)
+        {
+            OpenGhidra();
+        }
+    }
 }

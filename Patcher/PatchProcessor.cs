@@ -32,23 +32,23 @@ namespace SM64DSe.Patcher
             string sourceDir = string.Join(" ", p).Split('\"').Where(s => !string.IsNullOrWhiteSpace(s)).Last();
             // string sourceDir = RemoveFirstAndLastChars(p[minLength - 1]);
             string codeSubDir = RemoveFirstAndLastChars(p[minLength - 2]);
-            
 
-            codeDir = new DirectoryInfo(codeDir.FullName + codeSubDir + "\\");
+
+            DirectoryInfo newCodeDir = new DirectoryInfo(codeDir.FullName + codeSubDir + "\\");
 
             switch (p[1])
             {
                 case "arm9":
-                    return CompileArm9(codeDir, sourceDir);
+                    return CompileArm9(newCodeDir, sourceDir);
 
                 case "overlay":
                     uint ovID = Convert.ToUInt32(p[2]);
                     uint addr = new NitroOverlay(Program.m_ROM, ovID).GetRAMAddr();
-                    UpdateMakefileSources(codeDir, sourceDir);
-                    PatchCompiler.compilePatch(addr, codeDir);
-                    MakeOverlay(ovID, codeDir);
-                    UpdateSymbols(codeDir, "Symbols from overlay " + ovID);
-                    PatchCompiler.cleanPatch(codeDir);
+                    UpdateMakefileSources(newCodeDir, sourceDir);
+                    PatchCompiler.compilePatch(addr, newCodeDir);
+                    MakeOverlay(ovID, newCodeDir);
+                    UpdateSymbols(newCodeDir, "Symbols from overlay " + ovID);
+                    PatchCompiler.cleanPatch(newCodeDir);
                     return "Successfully compiled overlay " + ovID + ".\n" + sourceDir;
 
                 case "dl":
@@ -56,7 +56,7 @@ namespace SM64DSe.Patcher
                     if (!Program.m_ROM.FileExists(fileName))
                         throw new Exception("Couldn't find file '" + fileName + "' in ROM.");
 
-                    byte[] dl = MakeDynamicLibrary(codeDir, sourceDir);
+                    byte[] dl = MakeDynamicLibrary(newCodeDir, sourceDir);
                     if (dl == null)
                         throw new Exception("DL generation failed.");
 
@@ -64,28 +64,28 @@ namespace SM64DSe.Patcher
                     file.m_Data = dl;
                     file.SaveChanges();
 
-                    PatchCompiler.cleanPatch(codeDir);
+                    PatchCompiler.cleanPatch(newCodeDir);
                     return "Successfully compiled \n" + fileName + "\n" + sourceDir;
 
                 case "levels":
                     throw new Exception("Should be handled by the form.");
 
                 case "hooks":
-                    InsertHooks(codeDir, sourceDir);
+                    InsertHooks(newCodeDir, sourceDir);
                     return "Successfully run hook script\n" + sourceDir;
 
                 case "test":
-                    UpdateMakefileSources(codeDir, sourceDir);
-                    PatchCompiler.compilePatch(0x02400000, codeDir);
-                    if (!File.Exists(codeDir.FullName + "\\newcode.bin")) throw new Exception("Code didn't compile successfully.\nRetry for more details.");
-                    PatchCompiler.cleanPatch(codeDir);
+                    UpdateMakefileSources(newCodeDir, sourceDir);
+                    PatchCompiler.compilePatch(0x02400000, newCodeDir);
+                    if (!File.Exists(newCodeDir.FullName + "\\newcode.bin")) throw new Exception("Code didn't compile successfully.\nRetry for more details.");
+                    // PatchCompiler.cleanPatch(newCodeDir);
                     return "Successfully compiled test\n" + sourceDir;
 
                 case "symbols":
-                    UpdateMakefileSources(codeDir, sourceDir);
-                    PatchCompiler.compilePatch(0x02400000, codeDir);
-                    string symbols = string.Join("\n", GetSymbols(codeDir));
-                    PatchCompiler.cleanPatch(codeDir);
+                    UpdateMakefileSources(newCodeDir, sourceDir);
+                    PatchCompiler.compilePatch(0x02400000, newCodeDir);
+                    string symbols = string.Join("\n", GetSymbols(newCodeDir));
+                    PatchCompiler.cleanPatch(newCodeDir);
                     return "Successfully compiled symbols in " + sourceDir + ":\n" + symbols;
 
                 case "ov_info":
@@ -95,6 +95,11 @@ namespace SM64DSe.Patcher
                 case "make_decomp":
                     ObjectDecompMaker.Run(sourceDir);
                     return "Successfully initialized decomp.";
+
+                case "kuppa_script_ptr_fixer":
+                    DirectoryInfo newCodeDir2 = new DirectoryInfo(codeDir.FullName + p[2] + "\\");
+                    KuppaScriptFixer.Run(newCodeDir2.FullName, newCodeDir.FullName, sourceDir.Split(' '));
+                    return "Successfully fixed kuppa script pointers.";
 
                 default:
                     throw new Exception("Unknown command type '" + p[1] + "'.");
@@ -187,7 +192,9 @@ namespace SM64DSe.Patcher
                 {
                     uint data;
 
-                    if (splitLine[2].StartsWith("0x") && splitLine[2].Length == 10)
+                    bool isRawNumber = splitLine[2].StartsWith("0x");
+
+                    if (isRawNumber && (splitLine[2].Length == 10 || splitLine[2].Length == 6 || splitLine[2].Length == 4))
                         data = Convert.ToUInt32(splitLine[2], 16);
                     else if (splitLine[2].Equals("nop"))
                         data = 0xe1a00000;
@@ -198,12 +205,24 @@ namespace SM64DSe.Patcher
                     {
                         autorw = Program.m_ROM.CanRW();
                         if (!autorw) Program.m_ROM.BeginRW();
-                        Program.m_ROM.Write32(hookAddr - 0x02000000, data);
+
+                        if (isRawNumber && splitLine[2].Length == 4)
+                            Program.m_ROM.Write8(hookAddr - 0x02000000, (byte)data);
+                        else if (isRawNumber && splitLine[2].Length == 6)
+                            Program.m_ROM.Write16(hookAddr - 0x02000000, (ushort)data);
+                        else
+                            Program.m_ROM.Write32(hookAddr - 0x02000000, data);
+
                         if (!autorw) Program.m_ROM.EndRW();
                     }
                     else
-					{
-                        overlay.Write32(hookAddr - overlay.GetRAMAddr(), data);
+                    {
+                        if (isRawNumber && splitLine[2].Length == 4)
+                            overlay.Write8(hookAddr - overlay.GetRAMAddr(), (byte)data);
+                        else if (isRawNumber && splitLine[2].Length == 6)
+                            overlay.Write16(hookAddr - overlay.GetRAMAddr(), (ushort)data);
+                        else
+                            overlay.Write32(hookAddr - overlay.GetRAMAddr(), data);
 					}
 
                     continue;
@@ -886,6 +905,8 @@ namespace SM64DSe.Patcher
             // combine the free sections
             CombineFreeArm9Sections();
 
+            File.WriteAllLines(directoryPath + "/combined_sections.txt", combinedSections.Select(s => "0x" + Convert.ToString(s.Address, 16).ToLower().PadLeft(8, '0') + ", 0x" + Convert.ToString(s.Size, 16).ToLower().PadLeft(8, '0') + ", \"" + s.Description + "\""));
+
             string curSourceDir = "";
 
             try
@@ -893,14 +914,25 @@ namespace SM64DSe.Patcher
                 // precompile all directories to get the size of the code blocks
                 foreach (string subDir in subDirs)
                 {
-                    curSourceDir = subDir;
+                    string dir = subDir;
+                    uint padding = 0x10;
+
+                    string[] dirs = dir.Split(' ');
+                    if (dirs.Last().StartsWith("0x"))
+                    {
+                        Convert.ToUInt32(dirs.Last().Remove(0, 2), 16);
+                        dirs = dirs.Take(dirs.Count() - 1).ToArray();
+                        dir = string.Join(" ", dirs);
+                    }
+
+                    curSourceDir = dir;
 
                     UpdateMakefileSources(codeDir, curSourceDir);
                     RestoreBuildFiles(codeDir.FullName + '\\', curSourceDir);
                     PatchCompiler.compilePatch(0x02400000, codeDir);
 
                     uint size = (uint)File.ReadAllBytes(codeDir.FullName + "\\newcode.bin").Length;
-                    size += size % 4;
+                    size += 4 - (size % 4);
                     size += 0x10; // because the size is sometimes incorrect, this is not that expensive and doesn't require changing the entire build system
 
                     UpdateSymbols(codeDir, "Temporary Symbols from arm9 patch (" + curSourceDir + ")");
@@ -909,7 +941,7 @@ namespace SM64DSe.Patcher
 
                     // ret += "Precompiled arm9 section '" + curSourceDir + "'.\n";
 
-                    codeBlocks.Add(new CodeBlock { Directory = subDir, Address = 0x02400000, Size = size });
+                    codeBlocks.Add(new CodeBlock { Directory = dir, Address = 0x02400000, Size = size });
                 }
             }
             catch (Exception ex)
