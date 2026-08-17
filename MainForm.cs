@@ -26,6 +26,7 @@ using System.Web;
 using SM64DSe.ImportExport.LevelImportExport;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 namespace SM64DSe
 {
@@ -1387,16 +1388,26 @@ namespace SM64DSe
 		private void checkForFileOverlapsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
             Program.m_ROM.CheckForOverlaps();
-		}
+        }
 
         private void OpenGhidra()
-		{
+        {
             System.Diagnostics.Process.Start(Program.m_ROMPath.Remove(Program.m_ROMPath.LastIndexOf('\\')) + "/tools/ghidraRun.lnk");
         }
 
         private void mnitGhidra_Click(object sender, EventArgs e)
         {
             OpenGhidra();
+        }
+
+        private void checkForDuplicateTexturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.m_ROM.CheckForDuplicateTextures();
+        }
+
+        private void checkForUnkModelThingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.m_ROM.CheckForUnknownModelThing();
         }
     }
 }

@@ -26,6 +26,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace SM64DSe
 {
@@ -957,6 +958,226 @@ namespace SM64DSe
 
             MessageBox.Show(message, overlappingFiles.Count + " x2 overlapping files found");
 		}
+
+
+        class DupTex_ModelFileInfo
+        {
+            public string filePath;
+            public string name;
+        }
+
+        class DupTex_ModelDataInfo
+        {
+            public byte[] checksum;
+            public bool isTexture;
+        }
+
+        class DupTex_SingleInfo
+        {
+            public DupTex_ModelDataInfo data = new DupTex_ModelDataInfo();
+            public DupTex_ModelFileInfo file = new DupTex_ModelFileInfo();
+        }
+
+        class DupTex_MultiInfo
+        {
+            public DupTex_ModelDataInfo data = new DupTex_ModelDataInfo();
+            public List<DupTex_ModelFileInfo> files = new List<DupTex_ModelFileInfo>();
+        }
+
+        public void CheckForDuplicateTextures()
+        {
+            FileEntry[] fileEntries = GetFileEntries();
+            List<DupTex_SingleInfo> singleInfos = new List<DupTex_SingleInfo>();
+
+            AddModelFileDataToArr(fileEntries, singleInfos);
+
+            string[] narcs = new string[] { "ar1", "arc0", "c2d", "cee", "cef", "ceg", "cei", "ces", "en1", "vs1", "vs2", "vs3", "vs4" };
+            foreach (string narc in narcs)
+            {
+                NARC theNarc = new NARC(this, GetFileIDFromName("ARCHIVE/" + narc + ".narc"));
+                AddModelFileDataToArr(theNarc.GetFileEntries().Select(e => new FileEntry {
+                    ID = e.ID,
+                    InternalID = 0xffff,
+                    ParentID = e.ParentID,
+                    Name = e.Name,
+                    FullName = e.FullName,
+                    Offset = e.Offset,
+                    Size = e.Size,
+                    Data = null,
+                }), singleInfos, narc);
+
+                    // return new NARCFile(thenarc, id);
+            }
+
+            List<DupTex_MultiInfo> multiInfos = new List<DupTex_MultiInfo>();
+
+            foreach (DupTex_SingleInfo singleInfo in singleInfos)
+            {
+                DupTex_MultiInfo multiInfo = multiInfos.Where(i => i.data.isTexture == singleInfo.data.isTexture && i.data.checksum.SequenceEqual(singleInfo.data.checksum)).FirstOrDefault();
+
+                bool isNew = multiInfo == null;
+
+                if (isNew)
+                {
+                    multiInfo = new DupTex_MultiInfo();
+                    multiInfo.data.checksum = singleInfo.data.checksum;
+                    multiInfo.data.isTexture = singleInfo.data.isTexture;
+                }
+
+                DupTex_ModelFileInfo file = new DupTex_ModelFileInfo();
+                file.filePath = singleInfo.file.filePath;
+                file.name = singleInfo.file.name;
+
+                multiInfo.files.Add(file);
+
+                if (isNew)
+                    multiInfos.Add(multiInfo);
+            }
+
+            int num = 1;
+
+            foreach (DupTex_MultiInfo multiInfo in multiInfos)
+            {
+                if (multiInfo.files.Count <= 1)
+                    continue;
+
+
+                string type = multiInfo.data.isTexture ? "texture" : "palette";
+                Console.WriteLine($"{num.ToString().PadLeft(3)}. Duplicate {type} in:");
+                // Console.WriteLine($"{num.ToString().PadLeft(3)}. Duplicate {type} found ({multiInfo.files.Count})");
+
+                foreach (DupTex_ModelFileInfo file in multiInfo.files)
+                {
+                    Console.WriteLine($"\t{file.name} in {file.filePath}");
+                }
+
+                Console.WriteLine();
+                num++;
+            }
+
+            Console.WriteLine();
+
+            // loop through the list
+            // add every new {checksum and isTexture} with a new list of {filepath and name}
+            // if {checksum and isTexture} already exists, add {filepath and name} to its list
+
+            // sha256.ComputeHash(new byte[1], 1, 1);
+        }
+
+        private void AddModelFileDataToArr(IEnumerable<FileEntry> fileEntries, List<DupTex_SingleInfo> singleInfos, string narc = null)
+        {
+            SHA256 sha256 = SHA256.Create();
+
+            foreach (FileEntry fileEntry in fileEntries)
+            {
+                if (!fileEntry.Name.EndsWith(".bmd"))
+                    continue;
+
+                NitroFile file = GetFileFromName(fileEntry.FullName);
+                string fileName = narc == null ? fileEntry.FullName : "ARCHIVE/" + narc + ".narc/" + fileEntry.FullName;
+
+                uint numTexs = file.Read32(0x14);
+                uint texOffset = file.Read32(0x18);
+                uint numPals = file.Read32(0x1c);
+                uint palOffset = file.Read32(0x20);
+
+                for (uint i = 0; i < numTexs; i++)
+                {
+                    uint texNameOffset = file.Read32(texOffset + (0x14 * i) + 0x0);
+                    uint texDataOffset = file.Read32(texOffset + (0x14 * i) + 0x4);
+                    uint texSize = file.Read32(texOffset + (0x14 * i) + 0x8);
+
+                    DupTex_SingleInfo info = new DupTex_SingleInfo();
+                    info.file.filePath = fileName;
+                    info.file.name = file.ReadString(texNameOffset, 0);
+                    info.data.checksum = sha256.ComputeHash(file.m_Data, (int)texDataOffset, (int)texSize);
+                    info.data.isTexture = true;
+
+                    singleInfos.Add(info);
+                }
+
+                for (uint i = 0; i < numPals; i++)
+                {
+                    uint palNameOffset = file.Read32(palOffset + (0x10 * i) + 0x0);
+                    uint palDataOffset = file.Read32(palOffset + (0x10 * i) + 0x4);
+                    uint palSize = file.Read32(palOffset + (0x10 * i) + 0x8);
+
+                    DupTex_SingleInfo info = new DupTex_SingleInfo();
+                    info.file.filePath = fileName;
+                    info.file.name = file.ReadString(palNameOffset, 0);
+                    info.data.checksum = sha256.ComputeHash(file.m_Data, (int)palDataOffset, (int)palSize);
+                    info.data.isTexture = false;
+
+                    singleInfos.Add(info);
+                }
+            }
+        }
+
+        public void CheckForUnknownModelThing()
+        {
+            FileEntry[] fileEntries = GetFileEntries();
+            List<string> files = new List<string>();
+
+            CheckModelFilesForUnknownThing(fileEntries, files);
+
+            string[] narcs = new string[] { "ar1", "arc0", "c2d", "cee", "cef", "ceg", "cei", "ces", "en1", "vs1", "vs2", "vs3", "vs4" };
+            foreach (string narc in narcs)
+            {
+                NARC theNarc = new NARC(this, GetFileIDFromName("ARCHIVE/" + narc + ".narc"));
+                CheckModelFilesForUnknownThing(theNarc.GetFileEntries().Select(e => new FileEntry
+                {
+                    ID = e.ID,
+                    InternalID = 0xffff,
+                    ParentID = e.ParentID,
+                    Name = e.Name,
+                    FullName = e.FullName,
+                    Offset = e.Offset,
+                    Size = e.Size,
+                    Data = null,
+                }), files, narc);
+
+                // return new NARCFile(thenarc, id);
+            }
+
+            Console.WriteLine("Unknown things found in:");
+            foreach (string file in files)
+                Console.WriteLine("\t" + file);
+        }
+
+        private void CheckModelFilesForUnknownThing(IEnumerable<FileEntry> fileEntries, List<string> files, string narc = null)
+        {
+            SHA256 sha256 = SHA256.Create();
+
+            foreach (FileEntry fileEntry in fileEntries)
+            {
+                if (!fileEntry.Name.EndsWith(".bmd"))
+                    continue;
+
+                NitroFile file = GetFileFromName(fileEntry.FullName);
+                string fileName = narc == null ? fileEntry.FullName : "ARCHIVE/" + narc + ".narc/" + fileEntry.FullName;
+
+                uint hasUnk = file.Read32(0x30);
+                uint unkOffset = file.Read32(0x34);
+
+                if (unkOffset != 0)
+                    files.Add(fileName);
+
+                /*for (uint i = 0; i < numTexs; i++)
+                {
+                    uint texNameOffset = file.Read32(texOffset + (0x14 * i) + 0x0);
+                    uint texDataOffset = file.Read32(texOffset + (0x14 * i) + 0x4);
+                    uint texSize = file.Read32(texOffset + (0x14 * i) + 0x8);
+
+                    DupTex_SingleInfo info = new DupTex_SingleInfo();
+                    info.file.filePath = fileName;
+                    info.file.name = file.ReadString(texNameOffset, 0);
+                    info.data.checksum = sha256.ComputeHash(file.m_Data, (int)texDataOffset, (int)texSize);
+                    info.data.isTexture = true;
+
+                    singleInfos.Add(info);
+                }*/
+            }
+        }
 
         /*
         static FreeSection[] OverlappingSections()

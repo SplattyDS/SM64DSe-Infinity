@@ -92,6 +92,8 @@
 			this.btnExtractOverlay = new System.Windows.Forms.Button();
 			this.btnDecompressOverlay = new System.Windows.Forms.Button();
 			this.checkForFileOverlapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.checkForDuplicateTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.checkForUnkModelThingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsToolBar.SuspendLayout();
 			this.ssStatusBar.SuspendLayout();
 			this.tbcMainFormTabControl.SuspendLayout();
@@ -256,7 +258,9 @@
 			this.btnMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importPatchToolStripMenuItem,
             this.checkLevelReqToolStripMenuItem,
-            this.checkForFileOverlapsToolStripMenuItem});
+            this.checkForFileOverlapsToolStripMenuItem,
+            this.checkForDuplicateTexturesToolStripMenuItem,
+            this.checkForUnkModelThingToolStripMenuItem});
 			this.btnMore.Enabled = false;
 			this.btnMore.Image = ((System.Drawing.Image)(resources.GetObject("btnMore.Image")));
 			this.btnMore.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -758,6 +762,20 @@
 			this.checkForFileOverlapsToolStripMenuItem.Text = "Check for file overlaps";
 			this.checkForFileOverlapsToolStripMenuItem.Click += new System.EventHandler(this.checkForFileOverlapsToolStripMenuItem_Click);
 			// 
+			// checkForDuplicateTexturesToolStripMenuItem
+			// 
+			this.checkForDuplicateTexturesToolStripMenuItem.Name = "checkForDuplicateTexturesToolStripMenuItem";
+			this.checkForDuplicateTexturesToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+			this.checkForDuplicateTexturesToolStripMenuItem.Text = "Check for duplicate textures";
+			this.checkForDuplicateTexturesToolStripMenuItem.Click += new System.EventHandler(this.checkForDuplicateTexturesToolStripMenuItem_Click);
+			// 
+			// checkForUnkModelThingToolStripMenuItem
+			// 
+			this.checkForUnkModelThingToolStripMenuItem.Name = "checkForUnkModelThingToolStripMenuItem";
+			this.checkForUnkModelThingToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+			this.checkForUnkModelThingToolStripMenuItem.Text = "Check for unknown model thing";
+			this.checkForUnkModelThingToolStripMenuItem.Click += new System.EventHandler(this.checkForUnkModelThingToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -862,5 +880,7 @@
         private System.Windows.Forms.ToolStripMenuItem GraphicsEditorToolStripMenuItem;
         private System.Windows.Forms.Button btnEditObjectDB;
 		private System.Windows.Forms.ToolStripMenuItem checkForFileOverlapsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem checkForDuplicateTexturesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem checkForUnkModelThingToolStripMenuItem;
 	}
 }

@@ -105,8 +105,8 @@ P - Path ID</description>
 1: start position (2 = ?, 7 = ?)
 2: X rotation for the platform
 3: Z rotation for the platform</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_up_down_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_updnlift/obj_updnlift.bmd" scale="0.008" />
 	</object>
 	<object id="8">
@@ -117,8 +117,8 @@ P - Path ID</description>
 
 Parameter 1:
 XXXX The higher the value the earlier it starts?</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rotating_up_down_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/hs_updown_lift/hs_updown_lift.bmd" scale="0.008" />
 	</object>
 	<object id="9">
@@ -147,8 +147,8 @@ P - Path ID
 ===Files===
 /data/ARCHIVE/arc1.narc/data/normal_obj/obj_pathlift
 * obj_pathlift.bmd</description>
-		<bankreq>6=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/path_lift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_pathlift/obj_pathlift.bmd" scale="0.008" />
 	</object>
 	<object id="10">
@@ -174,13 +174,13 @@ P - Path ID
 		<internalname>SEESAW_UTM</internalname>
 		<actorid>28</actorid>
 		<description>A large, wooden seesaw platform found in The Secret Under The Moat.</description>
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_seesaw/obj_seesaw.bmd" scale="0.008" />
 	</object>
 	<object id="13">
-		<name>Rolling Iron Ball</name>
-		<internalname>ROLLING_IRON_BALL</internalname>
+		<name>Iron Ball</name>
+		<internalname>IRON_BALL</internalname>
 		<actorid>220</actorid>
 		<description>Iron boulder. Can roll along a set path, but respects gravity no matter what. Explodes when hitting an obstacle such as a wall. They appear to be hard-coded to be small in "Tiny Huge Island - tiny" (ID 25).
 
@@ -192,8 +192,8 @@ FF01 - Single ball, doesn't follow path
 FF02 - Single ball, doesn't move
 FF03 - Doesn't spawn?
 FF04 - Same as FF03?</description>
-		<bankreq>6=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/iron_ball.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/iron_ball/iron_ball.bmd" scale="0.008" />
 	</object>
 	<object id="14">
@@ -328,7 +328,7 @@ F - None
 * 4=1 (contains Key)
 * 7=46</description>
 		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/goomboss.dylb data/dynamic/goomba.dylb</dlreq>
+		<dlreq>data/dynamic/goomboss.dylb data/dynamic/goomba.dylb data/dynamic/key.dylb</dlreq>
 		<renderer type="Goomboss" />
 	</object>
 	<object id="19">
@@ -518,7 +518,7 @@ FFFF - Still. Only appears when the player is Luigi, but collecting a Luigi cap 
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/crate.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_block/broken_block_s.bmd" scale="0.008" />
 	</object>
 	<object id="29">
@@ -562,7 +562,7 @@ CC: Contents
 0D - Same as 09?
 (source: Hiccup)</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/item_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/hatena_box.bmd" scale="0.008" />
 	</object>
 	<object id="31">
@@ -593,7 +593,7 @@ CC: Contents
 0D - Same as 09?
 (source: Hiccup)</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/item_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_hatena_y_box.bmd" scale="0.008" />
 	</object>
 	<object id="32">
@@ -602,7 +602,7 @@ CC: Contents
 		<actorid>22</actorid>
 		<description>Yellow ! Box used in multiplayer mode. Spawns a feather any player can use to fly.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/item_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_hatena_y_box.bmd" scale="0.008" />
 	</object>
 	<object id="33">
@@ -613,7 +613,7 @@ CC: Contents
 
 This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/item_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_cap_box_m.bmd" scale="0.008" />
 	</object>
 	<object id="34">
@@ -624,7 +624,7 @@ This object is unused in the game, but is present in the general purpose test ma
 
 This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/item_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_cap_box_w.bmd" scale="0.008" />
 	</object>
 	<object id="35">
@@ -635,7 +635,7 @@ This object is unused in the game, but is present in the general purpose test ma
 
 This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/item_block.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_cap_box_l.bmd" scale="0.008" />
 	</object>
 	<object id="36">
@@ -643,8 +643,8 @@ This object is unused in the game, but is present in the general purpose test ma
 		<internalname>STUMP</internalname>
 		<actorid>27</actorid>
 		<description>Small wooden pole that can be groundpounded to obtain coins.</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/stump.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_pile/pile.bmd" scale="0.008" />
 	</object>
 	<object id="37">
@@ -733,7 +733,7 @@ Parameter 1:
 1 - Fire Sea Behaviour Patterns
 2 - Sky Behaviour Patterns (Can only be used in Sky - Fight)</description>
 		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/bowser.dylb</dlreq>
+		<dlreq>data/dynamic/bowser.dylb data/dynamic/key.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/koopa/koopa_model.bmd" scale="0.008" />
 	</object>
 	<object id="41">
@@ -903,8 +903,8 @@ XSPP where
 
 S - Star ID for VS Mode. Set to F in normal mode levels in it appears in (i.e. Bob-omb Battlefield).
 PP - Path ID</description>
-		<bankreq>6=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/unchained_chomp.dylb</dlreq>
 		<renderer type="UnchainedChomp" />
 	</object>
 	<object id="49">
@@ -955,7 +955,7 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 
 (Source: Sparsite)</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/cannon.dylb data/dynamic/water_bomb.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_cannon/houdai.bmd" scale="0.008" />
 	</object>
 	<object id="51">
@@ -978,7 +978,7 @@ XXXX Default Y rotation (cannon limitations are 90 degrees left and right of thi
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/water_bomb.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/water_bomb/water_bomb.bmd" scale="0.008" />
 	</object>
 	<object id="53">
@@ -1009,8 +1009,8 @@ XXXY
 X: Unknown
 
 Y: How many fish to spawn</description>
-		<bankreq>6=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fish.dylb</dlreq>
 		<renderer type="Fish" />
 	</object>
 	<object id="55">
@@ -1025,8 +1025,8 @@ Parameter 1:
 75 - Spawn 5
 1F - Spawn 3, one turns into 1UP
 2F - Turns into cannonball</description>
-		<bankreq>6=1</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/butterfly.dylb</dlreq>
 		<renderer type="Butterfly" />
 	</object>
 	<object id="56">
@@ -1061,8 +1061,8 @@ XXXX where
 0003 - Bounce along Path 3
 01FF - Stay in one place, hidden in the ground (used in Cool, Cool Mountain, Snowman's Land and Chief Chilly Challenge)
 02FF - Same as 01FF? (used in Snowman's Land)</description>
-		<bankreq>2=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/mr_blizzard.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/snowman/snowman_model.bmd" scale="0.008" />
 	</object>
 	<object id="58">
@@ -1354,8 +1354,8 @@ Always Uses FFFF?
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/wall_sign.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_kanban/obj_kanban.bmd" scale="0.008" />
 	</object>
 	<object id="76">
@@ -1425,8 +1425,8 @@ SS - Star ID to spawn. Use FF for no star.
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/toad.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/kinopio/kinopio.bmd" scale="0.008" />
 	</object>
 	<object id="81">
@@ -1442,8 +1442,8 @@ This might be because she was never intended to talk, but was given this behavio
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/princess_peach.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/peach/peach_high.bmd" scale="0.008" />
 	</object>
 	<object id="82">
@@ -1499,8 +1499,8 @@ Z: Color
 
 Parameter 1:
 XXXX Path ID to follow</description>
-		<bankreq>4=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/shark.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/hojiro/hojiro.bmd" scale="0.008" />
 	</object>
 	<object id="86">
@@ -1725,8 +1725,8 @@ FF00 to be actiated by a ! switch</description>
 		<internalname>SLIDING_PLATFORM_RR</internalname>
 		<actorid>124</actorid>
 		<description />
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/rc_rift01/rc_rift01.bmd" scale="0.008" />
 	</object>
 	<object id="110">
@@ -1761,8 +1761,8 @@ FF00 to be actiated by a ! switch</description>
 		<internalname>SEESAW_RR</internalname>
 		<actorid>128</actorid>
 		<description>Seesaw platform from Rainbow Ride.</description>
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/rc_shiso/rc_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="114">
@@ -2115,8 +2115,8 @@ X: Star ID
 (ex. 700)
 
 Y: Path ID to follow</description>
-		<bankreq>4=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/manta_ray.dylb data/dynamic/water_ring.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/manta/manta.bmd" scale="0.008" />
 	</object>
 	<object id="146">
@@ -2173,8 +2173,8 @@ XXXX:
 		<internalname>MONEYBAG</internalname>
 		<actorid>261</actorid>
 		<description>Disguised as a coin, this enemy appears to be harmless. When approached, it turns into a purse, then hops away. When hit, it releases many coins.</description>
-		<bankreq>2=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/moneybag.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/gamaguchi/gamaguchi.bmd" scale="0.008" />
 	</object>
 	<object id="150">
@@ -2342,8 +2342,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>CHEEP_CHEEP</internalname>
 		<actorid>227</actorid>
 		<description>Fish that appears in Dire, Dire Docks. It swims around and deals 1 piece of health when touched.</description>
-		<bankreq>4=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/cheep_cheep.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/pukupuku/pukupuku.bmd" scale="0.008" />
 	</object>
 	<object id="167">
@@ -2378,8 +2378,8 @@ When it sees a player, it constantly looks at them. Occasionally, it will puff u
 		<internalname>SKEETER</internalname>
 		<actorid>230</actorid>
 		<description>Enemies that slide on top of the water in Wet Dry World. If a Skeeter is stuck between the water and a floating platform, it dies.</description>
-		<bankreq>4=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/skeeter.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/menbo/menbo.bmd" scale="0.008" />
 	</object>
 	<object id="171">
@@ -2403,8 +2403,8 @@ R:
 		<internalname>FWOOSH</internalname>
 		<actorid>231</actorid>
 		<description>An enemy that resembles a cloud with a face. It floats in one spot, trying to blow the player's hat away, and even the player itself.</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/fwoosh.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/hyuhyu/hyuhyu.bmd" scale="0.008" />
 	</object>
 	<object id="173">
@@ -2412,8 +2412,8 @@ R:
 		<internalname>SEESAW_BOB</internalname>
 		<actorid>39</actorid>
 		<description />
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/b_si_so/b_si_so.bmd" scale="0.008" />
 	</object>
 	<object id="174">
@@ -2421,8 +2421,8 @@ R:
 		<internalname>SEESAW_BDW</internalname>
 		<actorid>133</actorid>
 		<description />
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km1_shiso/km1_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="175">
@@ -2461,8 +2461,8 @@ MM - See ! Switch parameter info</description>
 		<internalname>SLIDING_PLATFORM_BDW</internalname>
 		<actorid>138</actorid>
 		<description />
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km1_deru/km1_deru.bmd" scale="0.008" />
 	</object>
 	<object id="179">
@@ -2498,7 +2498,7 @@ MM - See ! Switch parameter info</description>
 		<actorid>59</actorid>
 		<description>A rock triangle only solid on top.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/simple_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ki_hasira/ki_hasira_dai.bmd" scale="0.008" />
 	</object>
 	<object id="183">
@@ -2516,7 +2516,7 @@ MM - See ! Switch parameter info</description>
 		<actorid>61</actorid>
 		<description>A piece of rock used as decoration in Jolly Rodger Bay. Lit.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/simple_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/ki_iwa/ki_iwa.bmd" scale="0.008" />
 	</object>
 	<object id="185">
@@ -2536,7 +2536,7 @@ MM - See ! Switch parameter info</description>
 
 Does nothing if placed alone. For it to act as an entrance or an exit, the corresponding objects must be placed inside it.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/simple_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_dokan/obj_dokan.bmd" scale="0.008" />
 	</object>
 	<object id="187">
@@ -2549,7 +2549,7 @@ Does nothing if placed alone. For it to act as an entrance or an exit, the corre
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/arrow_sign.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_yajirusi_l/yajirusi_l.bmd" scale="0.008" />
 	</object>
 	<object id="188">
@@ -2562,7 +2562,7 @@ Does nothing if placed alone. For it to act as an entrance or an exit, the corre
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/arrow_sign.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/normal_obj/obj_yajirusi_r/yajirusi_r.bmd" scale="0.008" />
 	</object>
 	<object id="189">
@@ -2709,7 +2709,7 @@ Note: The collision map for this object should be scaled by 10.</description>
 		<actorid>49</actorid>
 		<description>Large tower from Whomp's Fortress.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/simple_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_tower/bk_tower.bmd" scale="0.008" />
 	</object>
 	<object id="204">
@@ -2770,8 +2770,8 @@ FF - No movement
 		<internalname>SLIDING_PLATFORM_WF</internalname>
 		<actorid>55</actorid>
 		<description>Platforms that move in and out from Whomp's Fortress. Can be rotated.</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/bk_transbar/bk_transbar.bmd" scale="0.008" />
 	</object>
 	<object id="210">
@@ -2824,8 +2824,8 @@ FF - No movement
 		<internalname>SEESAW_BFS</internalname>
 		<actorid>143</actorid>
 		<description />
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_yokoshiso/km2_yokoshiso.bmd" scale="0.008" />
 	</object>
 	<object id="216">
@@ -2842,8 +2842,8 @@ X:
 PP - Path ID?
 
 (Source: skawo)</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/path_lift_2.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_susumu/km2_susumu.bmd" scale="0.008" />
 	</object>
 	<object id="217">
@@ -2860,8 +2860,8 @@ PP - Path ID?
 		<internalname>SLIDING_PLATFORM_BFS_RECTANGLE</internalname>
 		<actorid>146</actorid>
 		<description>Rectangular platform that moves along its longer side.</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_rift02/km2_rift02.bmd" scale="0.008" />
 	</object>
 	<object id="219">
@@ -2869,8 +2869,8 @@ PP - Path ID?
 		<internalname>SLIDING_PLATFORM_BFS_SQUARE</internalname>
 		<actorid>147</actorid>
 		<description />
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km2_rift01/km2_rift01.bmd" scale="0.008" />
 	</object>
 	<object id="220">
@@ -2887,8 +2887,8 @@ PP - Path ID?
 		<internalname>SEESAW_BS_PLANK</internalname>
 		<actorid>149</actorid>
 		<description />
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km3_shiso/km3_shiso.bmd" scale="0.008" />
 	</object>
 	<object id="222">
@@ -2896,8 +2896,8 @@ PP - Path ID?
 		<internalname>SEESAW_BS_ZIG_ZAG</internalname>
 		<actorid>150</actorid>
 		<description />
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/seesaw.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km3_yokoshiso/km3_yokoshiso.bmd" scale="0.008" />
 	</object>
 	<object id="223">
@@ -2923,8 +2923,8 @@ PP - Path ID?
 		<internalname>SLIDING_PLATFORM_BS_WIDE</internalname>
 		<actorid>154</actorid>
 		<description />
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km3_deru01/km3_deru01.bmd" scale="0.008" />
 	</object>
 	<object id="226">
@@ -2935,8 +2935,8 @@ PP - Path ID?
 * Only works in BitS map.
 
 TODO: Work out parameters</description>
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/sliding_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km3_deru02/km3_deru02.bmd" scale="0.008" />
 	</object>
 	<object id="227">
@@ -2983,8 +2983,8 @@ P - Path ID</description>
 		<internalname>UP_DOWN_LIFT_BBH</internalname>
 		<actorid>32</actorid>
 		<description>A wire lift that moves down when stood on.</description>
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/up_down_lift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/th_lift/th_lift.bmd" scale="0.008" />
 	</object>
 	<object id="232">
@@ -2992,8 +2992,8 @@ P - Path ID</description>
 		<internalname>UP_DOWN_LIFT_HMC</internalname>
 		<actorid>33</actorid>
 		<description />
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/up_down_lift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/cv_ud_lift/cv_ud_lift.bmd" scale="0.008" />
 	</object>
 	<object id="233">
@@ -3001,8 +3001,8 @@ P - Path ID</description>
 		<internalname>UP_DOWN_LIFT_RR</internalname>
 		<actorid>131</actorid>
 		<description />
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/up_down_lift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/rc_rift02/rc_rift02.bmd" scale="0.008" />
 	</object>
 	<object id="234">
@@ -3019,8 +3019,8 @@ P - Path ID</description>
 		<internalname>ARROW_PATH_LIFT</internalname>
 		<actorid>157</actorid>
 		<description />
-		<bankreq>4=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/path_lift_2.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/km3_rift/km3_rift.bmd" scale="0.008" />
 	</object>
 	<object id="236">
@@ -3055,8 +3055,8 @@ PP - Path ID. Appears to start on the last node of the path.
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rabbit.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/mip/mip.bmd" scale="0.008" />
 	</object>
 	<object id="238">
@@ -3066,8 +3066,8 @@ PP - Path ID. Appears to start on the last node of the path.
 		<description>==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/rabbit.dylb</dlreq>
 		<renderer type="ColorCube" border="0000FF" fill="000040" />
 	</object>
 	<object id="239">
@@ -3122,8 +3122,8 @@ Z: Movement path
 1 - Second Tox Box movement path (SSL)
 2 - Third Tox Box movement path (SSL)
 3 - Unused movement path? Seems to be used with Tox Boxes that follow paths</description>
-		<bankreq>4=4</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/tox_box.dylb</dlreq>
 		<renderer type="Toxbox" />
 	</object>
 	<object id="243">
@@ -3156,8 +3156,8 @@ Figure out parameters.
 ==Misc. Info==
 ===VS Mode Practice Behaviours==
 * On load: Freezes/Crashes</description>
-		<bankreq>3=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/lakitu_bro.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/c_jugem/c_jugem.bmd" scale="0.008" />
 	</object>
 	<object id="245">
@@ -3290,8 +3290,8 @@ Z: Relates to what he does after he grabs the players hat
 		<internalname>POKEY</internalname>
 		<actorid>240</actorid>
 		<description>A cactus-like enemy that tries to slide into the player.</description>
-		<bankreq>5=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/pokey.dylb</dlreq>
 		<renderer type="Pokey" />
 	</object>
 	<object id="254">
@@ -3384,8 +3384,8 @@ Most likely the Wario Cap that Dorrie wears, considering this object is named DO
 		<internalname>SPINDRIFT</internalname>
 		<actorid>312</actorid>
 		<description>A flower-like enemy in Snowman's Land and Cool Cool Mountain. It tries to float into the player, and it can also float on water.</description>
-		<bankreq>2=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/spindrift.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/huwahuwa/huwahuwa_model.bmd" scale="0.008" />
 	</object>
 	<object id="260">
@@ -3469,8 +3469,8 @@ Parameter 2:
 ZZZZ where
 
 ZZZZ - Z rotation. Unsure of details.</description>
-		<bankreq>5=2</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/flamethrower.dylb</dlreq>
 		<renderer type="FlameThrower" />
 	</object>
 	<object id="267">
@@ -3593,7 +3593,7 @@ Parameter1:
 4 - Wario Key
 5 - Big Star Key (Unused? - might be used internally, or be a side effect of how the keys work)</description>
 		<bankreq>4=1</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/key.dylb</dlreq>
 		<renderer type="ColorCube" border="0000FF" fill="000040" />
 	</object>
 	<object id="278">
@@ -3783,8 +3783,8 @@ YY - Star ID</description>
 		<internalname>CHIEF_CHILLY</internalname>
 		<actorid>218</actorid>
 		<description />
-		<bankreq>1=5</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/chief_chilly.dylb data/dynamic/key.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/king_ice_donketu/king_ice_donketu_model.bmd" scale="0.008" />
 	</object>
 	<object id="292">
@@ -3840,7 +3840,7 @@ YY - The order of the current chest.
 		<actorid>340</actorid>
 		<description>Little stairs.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/simple_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/mc_dodai/mc_dodai.bmd" scale="0.008" />
 	</object>
 	<object id="297">
@@ -3849,7 +3849,7 @@ YY - The order of the current chest.
 		<actorid>341</actorid>
 		<description>Rope barrier.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/simple_platform.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/special_obj/mc_hazad/mc_hazad.bmd" scale="0.008" />
 	</object>
 	<object id="298">
@@ -4138,7 +4138,7 @@ Y - Event ID of corresponding ENEMY_SWITCH</description>
 		<actorid>245</actorid>
 		<description />
 		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/jet_stream.dylb</dlreq>
+		<dlreq>data/dynamic/jet_stream.dylb data/dynamic/water_ring.dylb</dlreq>
 		<renderer type="ColorCube" border="0000FF" fill="000040" />
 	</object>
 	<object id="318">
@@ -4169,8 +4169,8 @@ TODO: Work out parameters
 
 Parameter 1:
 FFXX Seems to always be FF14</description>
-		<bankreq>5=3</bankreq>
-		<dlreq>none</dlreq>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/tornado.dylb</dlreq>
 		<renderer type="NormalBMD" file="data/enemy/sand_tornado/sand_tornado.bmd" scale="0.008" />
 	</object>
 	<object id="321">
@@ -4258,6 +4258,24 @@ F - Same as 3?
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="0000FF" fill="000040" />
 	</object>
+	<object id="326">
+		<name>Transform Tester</name>
+		<internalname>TRANSFORM_TESTER</internalname>
+		<actorid>391</actorid>
+		<description />
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/transform_tester.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/normal_obj/obj_hatena_box/obj_hatena_y_box.bmd" scale="0.008" />
+	</object>
+	<object id="327">
+		<name>Clsn Renderer Tester</name>
+		<internalname>CLSN_RENDERER_TESTER</internalname>
+		<actorid>392</actorid>
+		<description />
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/clsn_renderer_tester.dylb</dlreq>
+		<renderer type="NormalBMD" file="data/special_obj/wl_submarine/wl_submarine.bmd" scale="0.008" />
+	</object>
 	<object id="511">
 		<name>Minimap Change</name>
 		<internalname>MINIMAP_CHANGE</internalname>
@@ -4274,24 +4292,6 @@ F - Same as 3?
 		<description>The fire Bowser spits out.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bowser.dylb</dlreq>
-		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
-	</object>
-	<object id="-1">
-		<name>Tox Box Shuffle</name>
-		<internalname>MG_TOX_BOX_SHUFFLE</internalname>
-		<actorid>361</actorid>
-		<description>Minigame</description>
-		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
-		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
-	</object>
-	<object id="-1">
-		<name>Memory Match</name>
-		<internalname>MG_MEMORY_MATCH</internalname>
-		<actorid>362</actorid>
-		<description>Minigame</description>
-		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
@@ -4538,10 +4538,28 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>MultiBoot Scene</name>
-		<internalname>MULTIBOOT_SCENE</internalname>
-		<actorid>360</actorid>
+		<name>Loves Me</name>
+		<internalname>MG_LOVES_ME</internalname>
+		<actorid>390</actorid>
+		<description>Minigame</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Title Screen</name>
+		<internalname>TITLE_SCREEN</internalname>
+		<actorid>1</actorid>
 		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Memory Match</name>
+		<internalname>MG_MEMORY_MATCH</internalname>
+		<actorid>362</actorid>
+		<description>Minigame</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
@@ -4556,18 +4574,18 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Title Screen</name>
-		<internalname>TITLE_SCREEN</internalname>
-		<actorid>1</actorid>
-		<description>Scene</description>
+		<name>Tox Box Shuffle</name>
+		<internalname>MG_TOX_BOX_SHUFFLE</internalname>
+		<actorid>361</actorid>
+		<description>Minigame</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Stage</name>
-		<internalname>STAGE</internalname>
-		<actorid>3</actorid>
+		<name>Debug Level Select</name>
+		<internalname>DEBUG_LEVEL_SELECT</internalname>
+		<actorid>2</actorid>
 		<description>Scene</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
@@ -4580,24 +4598,6 @@ F - Same as 3?
 		<description>Bowser's tail.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/bowser.dylb</dlreq>
-		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
-	</object>
-	<object id="-1">
-		<name>Flame Chomp Fire</name>
-		<internalname>FLAME_CHOMP_FIRE</internalname>
-		<actorid>271</actorid>
-		<description>Projectile</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/flame_chomp.dylb</dlreq>
-		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
-	</object>
-	<object id="-1">
-		<name>Mr. I Projectile</name>
-		<internalname>MR_I_PROJECTILE</internalname>
-		<actorid>264</actorid>
-		<description>Projectile</description>
-		<bankreq>none</bankreq>
-		<dlreq>data/dynamic/mr_i.dylb</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
@@ -4619,12 +4619,12 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Fireball</name>
-		<internalname>FIREBALL</internalname>
-		<actorid>254</actorid>
-		<description>Projectile shot by Fire Piranha Plant and Fly Guy.</description>
+		<name>Flame Chomp Fire</name>
+		<internalname>FLAME_CHOMP_FIRE</internalname>
+		<actorid>271</actorid>
+		<description>Projectile</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/flame_chomp.dylb</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
@@ -4646,12 +4646,30 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
+		<name>Mr. I Projectile</name>
+		<internalname>MR_I_PROJECTILE</internalname>
+		<actorid>264</actorid>
+		<description>Projectile</description>
+		<bankreq>none</bankreq>
+		<dlreq>data/dynamic/mr_i.dylb</dlreq>
+		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>Fireball</name>
+		<internalname>FIREBALL</internalname>
+		<actorid>254</actorid>
+		<description>Projectile shot by Fire Piranha Plant and Fly Guy.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
+	</object>
+	<object id="-1">
 		<name>Pokey Segment</name>
 		<internalname>POKEY_SEGMENT</internalname>
 		<actorid>241</actorid>
 		<description>A Pokey piece.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/pokey.dylb</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
@@ -4660,7 +4678,7 @@ F - Same as 3?
 		<actorid>224</actorid>
 		<description>Projectile</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/mr_blizzard.dylb</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
@@ -4670,15 +4688,6 @@ F - Same as 3?
 		<description>The dummy Goombas spawned by Goomboss after he explodes.</description>
 		<bankreq>none</bankreq>
 		<dlreq>data/dynamic/goomboss.dylb data/dynamic/goomba.dylb</dlreq>
-		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
-	</object>
-	<object id="-1">
-		<name>Loves Me</name>
-		<internalname>MG_LOVES_ME</internalname>
-		<actorid>390</actorid>
-		<description>Minigame</description>
-		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
@@ -4718,15 +4727,6 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Game Over Screen</name>
-		<internalname>GAME_OVER_SCREEN</internalname>
-		<actorid>8</actorid>
-		<description>Scene</description>
-		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
-		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
-	</object>
-	<object id="-1">
 		<name>Wing Feather</name>
 		<internalname>WING_FEATHER</internalname>
 		<actorid>345</actorid>
@@ -4736,8 +4736,8 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Unknown (VS Menu related)</name>
-		<internalname>UNKNOWN_VS_ENTRY</internalname>
+		<name>VS Entry World</name>
+		<internalname>VS_ENTRY_WORLD</internalname>
 		<actorid>346</actorid>
 		<description>Not documented.</description>
 		<bankreq>none</bankreq>
@@ -4772,19 +4772,20 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Unknown (VS Menu related)</name>
-		<internalname>UNKNOWN_VS_MENU_RELATED</internalname>
-		<actorid>7</actorid>
-		<description>Not documented.</description>
+		<name>Game Over Screen</name>
+		<internalname>GAME_OVER_SCREEN</internalname>
+		<actorid>8</actorid>
+		<description>Scene</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>VS Menu</name>
-		<internalname>VS_MENU</internalname>
-		<actorid>6</actorid>
-		<description>Scene</description>
+		<name>VS Entry Screen 2</name>
+		<internalname>VS_ENTRY_SCREEN_2</internalname>
+		<actorid>7</actorid>
+		<description>Scene
+Not documented.</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
@@ -4802,9 +4803,11 @@ F - Same as 3?
 		<name>Door</name>
 		<internalname>DOOR</internalname>
 		<actorid>353</actorid>
-		<description>Has its own object type.</description>
+		<description>Has its own object type.
+
+Key doors need to have the Key loaded.</description>
 		<bankreq>none</bankreq>
-		<dlreq>none</dlreq>
+		<dlreq>data/dynamic/key.dylb</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
@@ -4812,6 +4815,15 @@ F - Same as 3?
 		<internalname>STAR_DOOR</internalname>
 		<actorid>354</actorid>
 		<description>Has its own object type.</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>VS Entry Screen</name>
+		<internalname>VS_ENTRY_SCREEN</internalname>
+		<actorid>6</actorid>
+		<description>Scene</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
@@ -4835,9 +4847,18 @@ F - Same as 3?
 		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
 	</object>
 	<object id="-1">
-		<name>Debug Level Select</name>
-		<internalname>DEBUG_LEVEL_SELECT</internalname>
-		<actorid>2</actorid>
+		<name>Stage</name>
+		<internalname>STAGE</internalname>
+		<actorid>3</actorid>
+		<description>Scene</description>
+		<bankreq>none</bankreq>
+		<dlreq>none</dlreq>
+		<renderer type="ColorCube" border="FFFFFF" fill="404040" />
+	</object>
+	<object id="-1">
+		<name>MultiBoot Scene</name>
+		<internalname>MULTIBOOT_SCENE</internalname>
+		<actorid>360</actorid>
 		<description>Scene</description>
 		<bankreq>none</bankreq>
 		<dlreq>none</dlreq>

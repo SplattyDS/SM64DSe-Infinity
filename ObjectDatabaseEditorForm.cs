@@ -1311,7 +1311,7 @@ namespace SM64DSe
         {
             int newID = m_ObjectInfos.OrderBy(o => o.objectID).Last().objectID + 1;
 
-            ObjectInfo newObj = new ObjectInfo { objectID = newID, actorID = newID, name = txtSearch.Text, internalName = txtSearch.Text.ToUpper().Replace(' ', '_').Replace("(", "").Replace(")", "").Replace("-", "").Replace("__", "_"), description = "", bankReq = "none", dlReq = "none" };
+            ObjectInfo newObj = new ObjectInfo { objectID = newID, actorID = newID, name = txtSearch.Text, internalName = txtSearch.Text.ToUpper().Replace(' ', '_').Replace("(", "").Replace(")", "").Replace("-", "").Replace("__", "_"), description = "", bankReq = "none", dlReq = "none", renderer = new ObjectInfo.ColorCube_Renderer(ColorFromString("FF"), ColorFromString("40")) };
             m_ObjectInfos.Add(newObj);
 
             FillListBox(txtSearch.Text);
@@ -1388,6 +1388,58 @@ namespace SM64DSe
                 m_StartFolder1 = romFileSelect.m_SelectedFile;
                 txtRenderer1.Text = romFileSelect.m_SelectedFile;
             }
+
+            ObjectInfo.Renderer renderer = m_LastSelectedObjectInfo.renderer;
+
+            switch (renderer.type)
+            {
+                case "NormalBMD":
+                    ((ObjectInfo.NormalBMD_Renderer)renderer).fileName = txtRenderer1.Text;
+                    break;
+
+                case "NormalKCL":
+                    ((ObjectInfo.NormalKCL_Renderer)renderer).fileName = txtRenderer1.Text;
+                    break;
+
+                case "DoubleBMD":
+                    ((ObjectInfo.DoubleBMD_Renderer)renderer).fileName1 = txtRenderer1.Text;
+                    break;
+
+                case "Kurumajiku":
+                    ((ObjectInfo.Kurumajiku_Renderer)renderer).fileName1 = txtRenderer1.Text;
+                    break;
+
+                case "Player":
+                    ((ObjectInfo.Player_Renderer)renderer).animation = txtRenderer1.Text;
+                    break;
+
+                case "Pole":
+                case "ColorCube":
+                case "Luigi":
+                case "ChainedChomp":
+                case "Goomboss":
+                case "Tree":
+                case "Painting":
+                case "UnchainedChomp":
+                case "Fish":
+                case "Butterfly":
+                case "Star":
+                case "BowserSkyPlatform":
+                case "BigSnowman":
+                case "Toxbox":
+                case "Pokey":
+                case "FlPuzzle":
+                case "FlameThrower":
+                case "C1Trap":
+                case "Wiggler":
+                case "Koopa":
+                case "KoopaShell":
+                    // no file
+                    break;
+
+                default:
+                    throw new Exception("Unknown renderer for '" + m_LastSelectedObjectInfo.name + "' (id = " + m_LastSelectedObjectInfo.objectID + ").");
+            }
         }
 
 		private void btnRenderer2_Click(object sender, EventArgs e)
@@ -1408,6 +1460,48 @@ namespace SM64DSe
 
             m_StartFolder2 = romFileSelect.m_SelectedFile;
             txtRenderer2.Text = romFileSelect.m_SelectedFile;
+
+            ObjectInfo.Renderer renderer = m_LastSelectedObjectInfo.renderer;
+
+            switch (renderer.type)
+            {
+                case "DoubleBMD":
+                    ((ObjectInfo.DoubleBMD_Renderer)renderer).fileName2 = txtRenderer2.Text;
+                    break;
+
+                case "Kurumajiku":
+                    ((ObjectInfo.Kurumajiku_Renderer)renderer).fileName2 = txtRenderer2.Text;
+                    break;
+
+                case "NormalBMD":
+                case "NormalKCL":
+                case "Pole":
+                case "ColorCube":
+                case "Luigi":
+                case "ChainedChomp":
+                case "Goomboss":
+                case "Tree":
+                case "Painting":
+                case "UnchainedChomp":
+                case "Fish":
+                case "Butterfly":
+                case "Star":
+                case "BowserSkyPlatform":
+                case "BigSnowman":
+                case "Toxbox":
+                case "Pokey":
+                case "FlPuzzle":
+                case "FlameThrower":
+                case "C1Trap":
+                case "Wiggler":
+                case "Koopa":
+                case "KoopaShell":
+                    // no file2
+                    break;
+
+                default:
+                    throw new Exception("Unknown renderer for '" + m_LastSelectedObjectInfo.name + "' (id = " + m_LastSelectedObjectInfo.objectID + ").");
+            }
         }
 	}
 }

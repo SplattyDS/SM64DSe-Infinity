@@ -1444,7 +1444,7 @@ This might be because she was never intended to talk, but was given this behavio
 * On load: Freezes/Crashes</description>
 		<bankreq>3=2</bankreq>
 		<dlreq>none</dlreq>
-		<renderer type="NormalBMD" file="data/enemy/peach/peach_high.bmd" scale="0.008" />
+		<renderer type="NormalBMD" file="data/enemy/peach/peach_low.bmd" scale="0.008" />
 	</object>
 	<object id="82">
 		<name>Bowser Fire Sea Arena</name>
